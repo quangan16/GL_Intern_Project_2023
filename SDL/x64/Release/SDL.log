@@ -1,0 +1,48 @@
+﻿  Game.cpp
+e:\trainer\sdl2\sdl2project\trainingframework\sdl\src\game.cpp(103): warning C4244: 'argument': conversion from 'double' to 'Uint32', possible loss of data
+  ResourceManagers.cpp
+  Camera.cpp
+e:\trainer\sdl2\sdl2project\trainingframework\sdl\src\gameobject\camera.cpp(23): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+e:\trainer\sdl2\sdl2project\trainingframework\sdl\src\gameobject\camera.cpp(24): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+e:\trainer\sdl2\sdl2project\trainingframework\sdl\src\gameobject\camera.cpp(43): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  CMath.cpp
+  Dot.cpp
+  MouseButton.cpp
+e:\trainer\sdl2\sdl2project\trainingframework\sdl\src\gameobject\mousebutton.cpp(45): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  Renderer.cpp
+  Sound.cpp
+  Sprite2D.cpp
+e:\trainer\sdl2\sdl2project\trainingframework\sdl\src\gameobject\sprite2d.cpp(26): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  SpriteAnimation.cpp
+e:\trainer\sdl2\sdl2project\trainingframework\sdl\src\gameobject\spriteanimation.cpp(30): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  Text.cpp
+e:\trainer\sdl2\sdl2project\trainingframework\sdl\src\gameobject\text.cpp(34): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  TextureManager.cpp
+e:\trainer\sdl2\sdl2project\trainingframework\sdl\src\gameobject\texturemanager.cpp(89): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+e:\trainer\sdl2\sdl2project\trainingframework\sdl\src\gameobject\texturemanager.cpp(89): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+e:\trainer\sdl2\sdl2project\trainingframework\sdl\src\gameobject\texturemanager.cpp(95): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+e:\trainer\sdl2\sdl2project\trainingframework\sdl\src\gameobject\texturemanager.cpp(96): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+e:\trainer\sdl2\sdl2project\trainingframework\sdl\src\gameobject\texturemanager.cpp(97): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+e:\trainer\sdl2\sdl2project\trainingframework\sdl\src\gameobject\texturemanager.cpp(97): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+e:\trainer\sdl2\sdl2project\trainingframework\sdl\src\gameobject\texturemanager.cpp(98): warning C4838: conversion from 'float' to 'int' requires a narrowing conversion
+e:\trainer\sdl2\sdl2project\trainingframework\sdl\src\gameobject\texturemanager.cpp(98): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+  Timer.cpp
+  GameStateBase.cpp
+  GameStateMachine.cpp
+  GSIntro.cpp
+  GSMenu.cpp
+e:\trainer\sdl2\sdl2project\trainingframework\sdl\src\gamestates\gsmenu.cpp(31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+e:\trainer\sdl2\sdl2project\trainingframework\sdl\src\gamestates\gsmenu.cpp(42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+e:\trainer\sdl2\sdl2project\trainingframework\sdl\src\gamestates\gsmenu.cpp(52): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+e:\trainer\sdl2\sdl2project\trainingframework\sdl\src\gamestates\gsmenu.cpp(61): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+e:\trainer\sdl2\sdl2project\trainingframework\sdl\src\gamestates\gsmenu.cpp(73): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  GSPlay.cpp
+e:\trainer\sdl2\sdl2project\trainingframework\sdl\src\gamestates\gsplay.cpp(144): warning C4065: switch statement contains 'default' but no 'case' labels
+  main.cpp
+  Generating code
+  1202 of 1206 functions (99.7%) were compiled, the rest were copied from previous compilation.
+    126 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  SDL.vcxproj -> E:\TRainer\SDL2\SDL2Project\TrainingFramework\x64\Release\SDL.exe
+  0 File(s) copied
