@@ -42,6 +42,7 @@ private:
 	float time = 0.0f;
 	float m_Velocity = 10.0f;
 	float m_fBackground_speed = 10.f;
+	Vector2 m_readyPos = Vector2(300, 700);
 
 	std::shared_ptr<Player> m_player;
 	std::shared_ptr<Sprite2D> m_playerSprite;

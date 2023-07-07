@@ -42,20 +42,20 @@ void GSPlay::Init()
 	m_listButton.push_back(button);
 
    // Animation 
-	texture = ResourceManagers::GetInstance()->GetTexture("player.tga");
-	obj = std::make_shared<SpriteAnimation>( texture, 1, 1, 1, 0.2f);
-	obj->SetFlip(SDL_FLIP_HORIZONTAL);
-	obj->SetSize(145/2, 120/2);
-	obj->Set2DPosition(0, 700);
-	
-	Camera::GetInstance()->SetTarget(obj);
-	m_listAnimation.push_back(obj);
+	//texture = ResourceManagers::GetInstance()->GetTexture("player.tga");
+	//obj = std::make_shared<SpriteAnimation>( texture, 1, 1, 1, 0.2f);
+	//obj->SetFlip(SDL_FLIP_HORIZONTAL);
+	//obj->SetSize(145/2, 120/2);
+	//obj->Set2DPosition(0, 700);
+	//
+	//Camera::GetInstance()->SetTarget(obj);
+	//m_listAnimation.push_back(obj);
 
 	//Init Player
 
 	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_1.tga");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
-	m_player = std::make_shared<Cube>(240, 400, 10, texture);
+	m_player = std::make_shared<Cube>(-200.0f, 700.0f, 10, texture);
 	m_player->SetPlayerSprite(50, 50, m_playerSprite);
 
 }
@@ -147,8 +147,9 @@ void GSPlay::HandleMouseMoveEvents(int x, int y)
 
 void GSPlay::Update(float deltaTime)
 {
-
+	m_player->RunIntoScene(m_readyPos, deltaTime);
 	m_player->UpdatePlayerSpritePos(m_playerSprite);
+	
 	switch (m_KeyPress)//Handle Key event
 	{
 	default:
@@ -169,15 +170,7 @@ void GSPlay::Update(float deltaTime)
 		it->Update(deltaTime);
 	}
 
-	//Player move when state started
-	float x = 200 * deltaTime;
-	if (obj->Get2DPosition().x <= 500.0f) {
-		obj->Set2DPosition((float)obj->Get2DPosition().x + x, (float)obj->Get2DPosition().y);
-	}
-	else
-	{
-		obj->Set2DPosition((float)obj->Get2DPosition().x, (float)obj->Get2DPosition().y);
-	}
+	
 
 	//Moving background
 	m_background = std::get<0>(m_background->MovingBackGround(m_background, m_background_2));
@@ -185,8 +178,8 @@ void GSPlay::Update(float deltaTime)
 
 	//Update position of camera
 	//Camera::GetInstance()->Update(deltaTime);
-	obj->Update(deltaTime);
-	printf("%f, \n", obj->GetPosition().x);
+	//obj->Update(deltaTime);
+	//printf("%f, \n", obj->GetPosition().x);
 }
 
 void GSPlay::Draw(SDL_Renderer* renderer)
@@ -198,7 +191,7 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 	{
 		it->Draw(renderer);
 	}
-	obj->Draw(renderer);
+	//obj->Draw(renderer);
 	for (auto it : m_listAnimation)
 	{
 		it->Draw(renderer);

@@ -51,7 +51,11 @@ void Player::SetPlayerVelocity(float _velocity) {
  void Player::UpdatePlayerSpriteRotation(const std::shared_ptr<Sprite2D>& _playerSprite) {
  };
 
- void Player::RunIntoScene() {
+ void Player::RunIntoScene (const Vector2 &_readyPos, float _deltaTime) {
+	 if (m_playerPosition.x >= _readyPos.x)  return;
+	 else {
+		 m_playerPosition.x += 300 * _deltaTime;
+	 }
 
  }
 

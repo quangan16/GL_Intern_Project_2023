@@ -43,7 +43,7 @@ public:
 
 	void UpdatePlayerSpriteRotation(const std::shared_ptr<Sprite2D>& _playerSprite);
 
-	void RunIntoScene();
+	void RunIntoScene(const Vector2 &endPos, float _deltaTime);
 
 	//void Update(float deltaTime);
 	
