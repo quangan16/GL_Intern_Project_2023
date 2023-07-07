@@ -19,7 +19,7 @@ GSPlay::~GSPlay()
 void GSPlay::Init()
 {
 	//auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
-	auto texture = ResourceManagers::GetInstance()->GetTexture("bg_01.tga");
+	auto texture = ResourceManagers::GetInstance()->GetTexture("back1.tga");
 
 	// background_1
 	m_background = std::make_shared<Background>(texture, 10.0f, SDL_FLIP_NONE);
@@ -83,7 +83,8 @@ void GSPlay::HandleEvents()
 void GSPlay::HandleKeyEvents(SDL_Event& e)
 {
 	//If a key was pressed
-	if (e.type == SDL_KEYDOWN && e.key.repeat == 0) //For e.key.repeat it's because key repeat is enabled by default and if you press and hold a key it will report multiple key presses. That means we have to check if the key press is the first one because we only care when the key was first pressed.
+	if (e.type == SDL_KEYDOWN && e.key.repeat == 0) 
+	//For e.key.repeat it's because key repeat is enabled by default and if you press and hold a key it will report multiple key presses. That means we have to check if the key press is the first one because we only care when the key was first pressed.
 	{
 		//Adjust the velocity
 		switch (e.key.keysym.sym)
