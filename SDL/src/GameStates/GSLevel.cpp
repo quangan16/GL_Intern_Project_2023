@@ -57,14 +57,39 @@ void GSLevel::Init()
 
 	//GUIDE game
 	texture = ResourceManagers::GetInstance()->GetTexture("btn_help.tga");
-	//btnGuide = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
-	std::shared_ptr<MouseButton> btnGuide = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
-	btnGuide->Set2DPosition((SCREEN_WIDTH - btnGuide->GetWidth()) / 2, SCREEN_HEIGHT / 2 + 280);
-	btnGuide->SetSize(100, 100);
-	btnGuide->SetOnClick([]() {
+	m_btnGuide = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
+	m_btnGuide->Set2DPosition((SCREEN_WIDTH - m_btnGuide->GetWidth()) / 2, SCREEN_HEIGHT / 2 + 280);
+	m_btnGuide->SetSize(100, 100);
+	m_btnGuide->SetOnClick([]() {
 		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_GUIDE);
 		});
-	m_listButton.push_back(btnGuide);
+	m_listButton.push_back(m_btnGuide);
+
+	//Show level
+	texture = ResourceManagers::GetInstance()->GetTexture("background.tga");
+	m_imglv = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
+	m_imglv->SetSize(SCREEN_WIDTH / 10, SCREEN_HEIGHT / 10);
+	m_imglv->Set2DPosition(0, 0);
+
+	//Btn prev
+	texture = ResourceManagers::GetInstance()->GetTexture("btn_prev.tga");
+	m_btnPrev = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
+	m_btnPrev->SetSize(100, 100);
+	m_btnPrev->Set2DPosition(((SCREEN_WIDTH - m_btnPrev->GetWidth()) / 2) + 200, SCREEN_HEIGHT / 2 + 280);
+	m_btnPrev->SetOnClick([]() {
+
+		});
+	m_listButton.push_back(m_btnPrev);
+
+	//Btn next
+	texture = ResourceManagers::GetInstance()->GetTexture("btn_next.tga");
+	m_btnNext = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
+	m_btnNext->SetSize(100, 100);
+	m_btnNext->Set2DPosition(((SCREEN_WIDTH - m_btnNext->GetWidth()) / 2) + 800, SCREEN_HEIGHT / 2 + 280);
+	m_btnNext->SetOnClick([]() {
+
+		});
+	m_listButton.push_back(m_btnNext);
 
 	// game title
 	///Set Font
