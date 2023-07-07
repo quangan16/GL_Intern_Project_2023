@@ -164,6 +164,10 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GSGuide.cpp" />
+    <ClCompile Include="GSLevel.cpp" />
+    <ClCompile Include="GSOption.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GameManager\ResourceManagers.cpp" />
     <ClCompile Include="src\GameObject\Camera.cpp" />
@@ -185,6 +189,10 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GSGuide.h" />
+    <ClInclude Include="GSLevel.h" />
+    <ClInclude Include="GSOption.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\GameManager\ResourceManagers.h" />
     <ClInclude Include="src\GameManager\Singleton.h" />

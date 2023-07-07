@@ -10,7 +10,7 @@ GSMenu::~GSMenu()
 {
 }
 
-
+bool ResourceManagers::isMuted = false;
 
 void GSMenu::Init()
 {
@@ -30,7 +30,7 @@ void GSMenu::Init()
 	btnPlay->SetSize(150, 150);
 	btnPlay->Set2DPosition((SCREEN_WIDTH - btnPlay->GetWidth())/2, (SCREEN_HEIDHT - btnPlay->GetHeight()) / 2);
 	btnPlay->SetOnClick([]() {
-		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_PLAY);
+		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_LEVEL);
 		});
 	m_listButton.push_back(btnPlay);
 
@@ -55,15 +55,16 @@ void GSMenu::Init()
 		});
 	m_listButton.push_back(btnOption);
 
-	//CREDIT game
+	//GUIDE game
 	texture = ResourceManagers::GetInstance()->GetTexture("btn_help.tga");
-	btnCredit = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
-	btnCredit->Set2DPosition((SCREEN_WIDTH - btnCredit->GetWidth()) / 2, SCREEN_HEIDHT / 2 + 280);
-	btnCredit->SetSize(100, 100);
-	btnCredit->SetOnClick([]() {
-		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_CREDIT);
+	//btnGuide = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
+	std::shared_ptr<MouseButton> btnGuide = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
+	btnGuide->Set2DPosition((SCREEN_WIDTH - btnGuide->GetWidth()) / 2, SCREEN_HEIDHT / 2 + 280);
+	btnGuide->SetSize(100, 100);
+	btnGuide->SetOnClick([]() {
+		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_GUIDE);
 		});
-	m_listButton.push_back(btnCredit);
+	m_listButton.push_back(btnGuide);
 
 	// game title
 	///Set Font

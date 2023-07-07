@@ -19,7 +19,7 @@ GSPlay::~GSPlay()
 void GSPlay::Init()
 {
 	//auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
-	auto texture = ResourceManagers::GetInstance()->GetTexture("bg_play1.tga");
+	auto texture = ResourceManagers::GetInstance()->GetTexture("back1.tga");
 
 	// background
 	

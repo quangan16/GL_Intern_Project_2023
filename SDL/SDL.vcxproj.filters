@@ -81,6 +81,18 @@
     <ClCompile Include="src\GameStates\GSPlay.cpp">
       <Filter>Source Files\GameState</Filter>
     </ClCompile>
+    <ClCompile Include="GSOption.cpp">
+      <Filter>Source Files\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="GSGuide.cpp">
+      <Filter>Source Files\GameState</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GSLevel.cpp">
+      <Filter>Source Files\GameState</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameObject\BaseObject.h">
@@ -144,6 +156,18 @@
       <Filter>Source Files\GameState</Filter>
     </ClInclude>
     <ClInclude Include="src\GameStates\GSPlay.h">
+      <Filter>Source Files\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="GSOption.h">
+      <Filter>Source Files\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="GSGuide.h">
+      <Filter>Source Files\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="GSLevel.h">
       <Filter>Source Files\GameState</Filter>
     </ClInclude>
   </ItemGroup>
