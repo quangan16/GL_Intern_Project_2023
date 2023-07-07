@@ -7,7 +7,7 @@
 class Camera : public CSingleton<Camera>
 {
 public:
-	Camera() { m_ViewBox = { 0, 0, SCREEN_WIDTH, SCREEN_HEIDHT }; }
+	Camera() { m_ViewBox = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT }; }
 	SDL_Rect GetViewBox();
 	Vector2 GetPosition();
 	void SetTarget(std::shared_ptr<SpriteAnimation> target);

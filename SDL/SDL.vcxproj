@@ -164,6 +164,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameObject\Background.cpp" />
     <ClCompile Include="src\GameObject\Player.cpp" />
     <ClCompile Include="src\GameStates\GSGuide.cpp" />
     <ClCompile Include="src\GameStates\GSLevel.cpp" />
@@ -190,6 +191,7 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameObject\Background.h" />
     <ClInclude Include="src\GameObject\Player.h" />
     <ClInclude Include="src\GameStates\GSGuide.h" />
     <ClInclude Include="src\GameStates\GSLevel.h" />

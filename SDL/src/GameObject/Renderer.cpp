@@ -10,7 +10,7 @@ Renderer::Renderer()
 	{
 		gSpriteClips[i] = new SDL_Rect[4];
 	}
-	}
+}
 	
 Renderer::~Renderer()
 {
@@ -25,13 +25,13 @@ bool Renderer::Init()
 	//Initialization flag
 	bool success = true;
 
-	////Initializeo SDL
-	//if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) //SDL_INIT_AUDIO for Init SDL audio
-	//{
-	//	printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
-	//	success = false;
-	//}
-	//else
+	//Initializeo SDL
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0) //SDL_INIT_AUDIO for Init SDL audio
+	{
+		printf("SDL could not initialize! SDL Error: %s\n", SDL_GetError());
+		success = false;
+	}
+	else
 	{
 		//Set texture filtering to linear
 		if (!SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "1"))
@@ -40,7 +40,7 @@ bool Renderer::Init()
 		}
 
 		//Create window
-		gWindow = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIDHT, SDL_WINDOW_SHOWN);
+		gWindow = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 		//Renderer::GetInstance()->SetWindow(gWindow);
 		if (gWindow == NULL)
 		{

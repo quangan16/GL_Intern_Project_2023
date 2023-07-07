@@ -20,7 +20,7 @@ void GSLevel::Init()
 	// background
 	//auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
 	m_background = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
-	m_background->SetSize(SCREEN_WIDTH, SCREEN_HEIDHT);
+	m_background->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 	m_background->Set2DPosition(0, 0);
 
 	// play button
@@ -28,7 +28,7 @@ void GSLevel::Init()
 	std::shared_ptr<MouseButton> btnPlay = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
 
 	btnPlay->SetSize(150, 150);
-	btnPlay->Set2DPosition((SCREEN_WIDTH - btnPlay->GetWidth()) / 2, (SCREEN_HEIDHT - btnPlay->GetHeight()) / 2);
+	btnPlay->Set2DPosition((SCREEN_WIDTH - btnPlay->GetWidth()) / 2, (float)(SCREEN_HEIGHT - btnPlay->GetHeight()) / 2);
 	btnPlay->SetOnClick([]() {
 		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_PLAY);
 		});
@@ -48,36 +48,21 @@ void GSLevel::Init()
 	//Setting game
 	texture = ResourceManagers::GetInstance()->GetTexture("btn_settings.tga");
 	std::shared_ptr<MouseButton> btnOption = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
-	btnOption->SetSize(50, 50);
-	btnOption->Set2DPosition(SCREEN_WIDTH - btnClose->GetWidth() - 60, 10);
+	btnOption->SetSize(100, 100);
+	btnOption->Set2DPosition((SCREEN_WIDTH - btnOption->GetWidth()) / 2, SCREEN_HEIGHT / 2 + 170);
 	btnOption->SetOnClick([]() {
 		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_OPTION);
 		});
 	m_listButton.push_back(btnOption);
 
-	//Show level
-	texture = ResourceManagers::GetInstance()->GetTexture("background.tga");
-	m_imglv = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
-	m_imglv->SetSize(SCREEN_WIDTH/10, SCREEN_HEIDHT/10);
-	m_imglv->Set2DPosition(0, 0);
-
-	//Btn prev
-	texture = ResourceManagers::GetInstance()->GetTexture("btn_prev.tga");
-	m_btnPrev = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
-	m_btnPrev->SetSize(100, 100);
-	m_btnPrev->Set2DPosition(((SCREEN_WIDTH - m_btnPrev->GetWidth()) / 2) + 200, SCREEN_HEIDHT / 2 + 280);
-	m_btnPrev->SetOnClick([]() {
-		
-		});
-	m_listButton.push_back(m_btnPrev);
-
-	//Btn next
-	texture = ResourceManagers::GetInstance()->GetTexture("btn_next.tga");
-	m_btnNext = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
-	m_btnNext->SetSize(100, 100);
-	m_btnNext->Set2DPosition(((SCREEN_WIDTH - m_btnNext->GetWidth()) / 2) + 800 , SCREEN_HEIDHT / 2 + 280);
-	m_btnNext->SetOnClick([]() {
-
+	//GUIDE game
+	texture = ResourceManagers::GetInstance()->GetTexture("btn_help.tga");
+	//btnGuide = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
+	std::shared_ptr<MouseButton> btnGuide = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
+	btnGuide->Set2DPosition((SCREEN_WIDTH - btnGuide->GetWidth()) / 2, SCREEN_HEIGHT / 2 + 280);
+	btnGuide->SetSize(100, 100);
+	btnGuide->SetOnClick([]() {
+		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_GUIDE);
 		});
 	m_listButton.push_back(m_btnNext);
 
@@ -86,7 +71,7 @@ void GSLevel::Init()
 	m_textColor = { 255, 255, 0 };
 	m_textGameName = std::make_shared<Text>("Data/lazy.ttf", m_textColor);
 	m_textGameName->SetSize(300, 50);
-	m_textGameName->Set2DPosition((SCREEN_WIDTH - m_textGameName->GetWidth()) / 2, SCREEN_HEIDHT / 2 - 300);
+	m_textGameName->Set2DPosition((SCREEN_WIDTH - m_textGameName->GetWidth()) / 2, SCREEN_HEIGHT / 2 - 300);
 	m_textGameName->LoadFromRenderText("Your Game");
 	m_Sound = std::make_shared<Sound>("Data/Sounds/Alarm01.wav");
 	m_Sound->PlaySound();

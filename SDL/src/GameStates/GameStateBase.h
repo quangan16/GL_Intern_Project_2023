@@ -11,7 +11,6 @@ public:
 
 	virtual void Init() = 0;
 	virtual void Exit() = 0;
-
 	virtual void Pause() = 0;
 	virtual void Resume() = 0;
 
