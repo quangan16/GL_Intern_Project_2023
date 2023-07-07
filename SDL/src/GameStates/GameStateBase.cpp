@@ -2,9 +2,9 @@
 #include "GameStates/GSIntro.h"
 #include "GSMenu.h"
 #include "GSPlay.h"
-#include "../../GSOption.h"
-#include "../../GSGuide.h"
-#include "../../GSLevel.h"
+#include "GSOption.h"
+#include "GSGuide.h"
+#include "GSLevel.h"
 GameStateBase::GameStateBase(StateType stateType) : m_stateType(stateType)
 {}
 
