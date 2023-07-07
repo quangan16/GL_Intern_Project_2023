@@ -6,25 +6,32 @@ Cube::~Cube() {
 	std::cout << "Cube object deleted";
 }
 
-void Cube::MoveUp() {
 
-}
-void Cube::MoveUp(const float &_jumpForce, bool &_isJumping, bool &_isFalling, const float &_jumpBoundY,const float &_deltaTime) {
+void Cube::MoveUp(const float &_jumpForce, const float &_gravity, bool &_isJumping, bool &_isFalling, const float &_jumpBoundY, float _deltaTime) {
 	
-	_isJumping == true;
 	
 	if (_isJumping == true) {
 		if (this->GetPlayerPosition().y >= _jumpBoundY) {
 			this->SetDirectionY(-1);
 			this->SetPlayerVelocity(_jumpForce);
+			m_playerPosition.y += m_direction * m_velocity;
+			std::cout << "Yes";
 		}
-		
 
-		else {
+
+		else if (this->GetPlayerPosition().y < _jumpBoundY) {
 			this->SetDirectionY(1);
-			this->SetPlayerVelocity(_jumpForce);
-			
+			this->SetPlayerVelocity(_gravity);
+			m_playerPosition.y += m_direction * m_velocity;
+			std::cout << "No";
+
 		}
+		else if (this->GetPlayerPosition().y <= 700.0f) {
+			_isJumping == false;
+		}
+	}
+	else {
+
 	}
 	
 	
@@ -37,7 +44,8 @@ void Cube::SetPlayerSprite(const int& _width, const int& _height, const std::sha
 }
 
 float Cube::GetPlayerJumpBoundY(float _jumpHeight) {
-	return m_playerPosition.y + _jumpHeight;
+	std::cout << m_playerPosition.y - _jumpHeight;
+	return m_playerPosition.y - _jumpHeight;
 }
 
 

@@ -9,8 +9,8 @@ class Player
 
 protected:
 	Vector2 m_playerPosition;
-	int direction;
-	float velocity;
+	int m_direction;
+	float m_velocity;
 	std::shared_ptr<TextureManager> m_playerTexture;
 	std::shared_ptr<Sprite2D> playerSprite;
 
@@ -23,7 +23,7 @@ public:
 
 	virtual ~Player();
 
-	virtual void MoveUp() = 0;
+	virtual void MoveUp(const float& _jumpForce,const float &_gravity, bool& _isJumping, bool& _isFalling, const float& _jumpBoundY,float _deltaTime) = 0;
 
 	Vector2 GetPlayerPosition();
 
@@ -44,6 +44,8 @@ public:
 	void UpdatePlayerSpriteRotation(const std::shared_ptr<Sprite2D>& _playerSprite);
 
 	void RunIntoScene(const Vector2 &endPos, float _deltaTime);
+
+	virtual float GetPlayerJumpBoundY(float _jumpHeight);
 
 	//void Update(float deltaTime);
 	

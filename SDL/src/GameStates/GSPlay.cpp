@@ -56,7 +56,7 @@ void GSPlay::Init()
 	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_1.tga");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
 	m_player = std::make_shared<Cube>(-200.0f, 700.0f, 10, texture);
-	m_player->SetPlayerSprite(50, 50, m_playerSprite);
+	m_player->SetPlayerSprite(80, 80, m_playerSprite);
 
 }
 
@@ -100,6 +100,16 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 		case SDLK_RIGHT:
 			m_KeyPress |= 1 << 2;
 			break;
+		case SDLK_SPACE:
+			m_KeyPress != 1 << 4;
+			if (!isJumping) // Only jump if the player is not already jumping
+			{
+				isJumping = true;
+				jumpBoundY = m_player->GetPlayerJumpBoundY(50.0f);
+				
+			}
+			
+			break;
 		default:
 			break;
 		}
@@ -139,6 +149,8 @@ void GSPlay::HandleTouchEvents(SDL_Event& e, bool bIsPressed)
 			break;
 		}
 	}
+
+
 }
 
 void GSPlay::HandleMouseMoveEvents(int x, int y)
@@ -149,7 +161,9 @@ void GSPlay::Update(float deltaTime)
 {
 	m_player->RunIntoScene(m_readyPos, deltaTime);
 	m_player->UpdatePlayerSpritePos(m_playerSprite);
-	
+	if (isJumping == true) {
+		m_player->MoveUp(jumpForce,m_gravity, isJumping, isFalling, jumpBoundY, deltaTime);
+	}
 	switch (m_KeyPress)//Handle Key event
 	{
 	default:
