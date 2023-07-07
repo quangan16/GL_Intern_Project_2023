@@ -144,6 +144,7 @@ void GSPlay::HandleMouseMoveEvents(int x, int y)
 
 void GSPlay::Update(float deltaTime)
 {
+
 	m_player->UpdatePlayerSpritePos(m_playerSprite);
 	switch (m_KeyPress)//Handle Key event
 	{
