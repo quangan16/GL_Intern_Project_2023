@@ -81,6 +81,9 @@
     <ClCompile Include="src\GameStates\GSPlay.cpp">
       <Filter>Source Files\GameState</Filter>
     </ClCompile>
+    <ClCompile Include="src\GameObject\Background.cpp">
+      <Filter>Source Files\GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameObject\BaseObject.h">
@@ -145,6 +148,9 @@
     </ClInclude>
     <ClInclude Include="src\GameStates\GSPlay.h">
       <Filter>Source Files\GameState</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameObject\Background.h">
+      <Filter>Source Files\GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

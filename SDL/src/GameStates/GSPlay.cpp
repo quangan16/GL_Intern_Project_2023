@@ -4,7 +4,7 @@
 #include "GameObject/MouseButton.h"
 #include "GameObject/SpriteAnimation.h"
 #include "GameObject/Camera.h"
-
+#include "GameObject/Background.h"
 
 GSPlay::GSPlay()
 {
@@ -19,13 +19,17 @@ GSPlay::~GSPlay()
 void GSPlay::Init()
 {
 	//auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
-	auto texture = ResourceManagers::GetInstance()->GetTexture("bg_play1.tga");
+	auto texture = ResourceManagers::GetInstance()->GetTexture("bg_01.tga");
 
-	// background
-	
-	m_background = std::make_shared<Sprite2D>( texture, SDL_FLIP_NONE);
-	m_background->SetSize(SCREEN_WIDTH, SCREEN_HEIDHT);
+	// background_1
+	m_background = std::make_shared<Background>(texture, 10.0f, SDL_FLIP_NONE);
+	m_background->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 	m_background->Set2DPosition(0, 0);
+
+	//background_2
+	m_background_2 = std::make_shared<Background>(texture, 10.0f,SDL_FLIP_NONE);
+	m_background_2->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+	m_background_2->Set2DPosition(m_background->Get2DPosition().x + (float)SCREEN_WIDTH, 0);
 
 	// button close
 	texture = ResourceManagers::GetInstance()->GetTexture("btn_close.tga");
@@ -38,13 +42,13 @@ void GSPlay::Init()
 	m_listButton.push_back(button);
 
    // Animation 
-	texture = ResourceManagers::GetInstance()->GetTexture("Actor1_2.tga");
-	obj = std::make_shared<SpriteAnimation>( texture, 2, 9, 6, 0.2f);
+	texture = ResourceManagers::GetInstance()->GetTexture("player.tga");
+	obj = std::make_shared<SpriteAnimation>( texture, 1, 1, 1, 0.2f);
 	obj->SetFlip(SDL_FLIP_HORIZONTAL);
-	obj->SetSize(40, 50);
-	obj->Set2DPosition(240, 400);
+	obj->SetSize(145/2, 120/2);
+	obj->Set2DPosition(0, 700);
 	
-	//Camera::GetInstance()->SetTarget(obj);
+	Camera::GetInstance()->SetTarget(obj);
 	m_listAnimation.push_back(obj);
 
 	m_KeyPress = 0;
@@ -157,20 +161,36 @@ void GSPlay::Update(float deltaTime)
 		it->Update(deltaTime);
 	}
 
+	//Player move when state started
+	float x = 200 * deltaTime;
+	if (obj->Get2DPosition().x <= 500.0f) {
+		obj->Set2DPosition((float)obj->Get2DPosition().x + x, (float)obj->Get2DPosition().y);
+	}
+	else
+	{
+		obj->Set2DPosition((float)obj->Get2DPosition().x, (float)obj->Get2DPosition().y);
+	}
+
+	//Moving background
+	m_background = std::get<0>(m_background->MovingBackGround(m_background, m_background_2));
+	m_background_2 = std::get<1>(m_background_2->MovingBackGround(m_background, m_background_2));
+
 	//Update position of camera
 	//Camera::GetInstance()->Update(deltaTime);
-	//obj->Update(deltaTime);
+	obj->Update(deltaTime);
+	printf("%f, \n", obj->GetPosition().x);
 }
 
 void GSPlay::Draw(SDL_Renderer* renderer)
 {
 	m_background->Draw(renderer);
-	//m_score->Draw();
+	m_background_2->Draw(renderer);
+	//m_score->Draw(renderer);
 	for (auto it : m_listButton)
 	{
 		it->Draw(renderer);
 	}
-//	obj->Draw(renderer);
+	obj->Draw(renderer);
 	for (auto it : m_listAnimation)
 	{
 		it->Draw(renderer);

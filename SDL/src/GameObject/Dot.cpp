@@ -76,7 +76,7 @@ void Dot::Move()
 	//Move the dot up or Down
 	mPosY += mVelY;
 	//If the dot went too far to the up or down
-	if (mPosY< 0 || mPosY + DOT_HEIGHT > SCREEN_HEIDHT)
+	if (mPosY< 0 || mPosY + DOT_HEIGHT > SCREEN_HEIGHT)
 	{
 		mPosY -= mVelY;
 	}
