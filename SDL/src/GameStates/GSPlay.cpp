@@ -51,6 +51,13 @@ void GSPlay::Init()
 	Camera::GetInstance()->SetTarget(obj);
 	m_listAnimation.push_back(obj);
 
+	//Init Player
+
+	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_1.tga");
+	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
+	m_player = std::make_shared<Cube>(240, 400, 10, texture);
+	m_player->SetPlayerSprite(50, 50, m_playerSprite);
+
 }
 
 void GSPlay::Exit()

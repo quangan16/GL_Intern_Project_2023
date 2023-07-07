@@ -51,5 +51,9 @@ void Player::SetPlayerVelocity(float _velocity) {
  void Player::UpdatePlayerSpriteRotation(const std::shared_ptr<Sprite2D>& _playerSprite) {
  };
 
+ void Player::RunIntoScene() {
+
+ }
+
 
 
