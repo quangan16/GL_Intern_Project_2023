@@ -6,6 +6,8 @@ class Sprite2D;
 class SpriteAnimation;
 class Background;
 
+
+
 class GSPlay :
 	public GameStateBase
 {

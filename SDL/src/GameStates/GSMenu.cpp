@@ -10,7 +10,7 @@ GSMenu::~GSMenu()
 {
 }
 
-
+bool ResourceManagers::isMuted = false;
 
 void GSMenu::Init()
 {
@@ -30,7 +30,7 @@ void GSMenu::Init()
 	btnPlay->SetSize(150, 150);
 	btnPlay->Set2DPosition((SCREEN_WIDTH - btnPlay->GetWidth())/2, (SCREEN_HEIGHT - btnPlay->GetHeight()) / 2);
 	btnPlay->SetOnClick([]() {
-		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_PLAY);
+		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_LEVEL);
 		});
 	m_listButton.push_back(btnPlay);
 
@@ -55,7 +55,7 @@ void GSMenu::Init()
 		});
 	m_listButton.push_back(btnOption);
 
-	//CREDIT game
+	//GUIDE game
 	texture = ResourceManagers::GetInstance()->GetTexture("btn_help.tga");
 	btnCredit = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
 	btnCredit->Set2DPosition((SCREEN_WIDTH - btnCredit->GetWidth()) / 2, SCREEN_HEIGHT / 2 + 280);
@@ -63,7 +63,7 @@ void GSMenu::Init()
 	btnCredit->SetOnClick([]() {
 		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_CREDIT);
 		});
-	m_listButton.push_back(btnCredit);
+	m_listButton.push_back(btnGuide);
 
 	// game title
 	///Set Font

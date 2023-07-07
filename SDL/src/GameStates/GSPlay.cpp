@@ -51,7 +51,6 @@ void GSPlay::Init()
 	Camera::GetInstance()->SetTarget(obj);
 	m_listAnimation.push_back(obj);
 
-	m_KeyPress = 0;
 }
 
 void GSPlay::Exit()
@@ -141,6 +140,8 @@ void GSPlay::HandleMouseMoveEvents(int x, int y)
 
 void GSPlay::Update(float deltaTime)
 {
+
+	m_player->UpdatePlayerSpritePos(m_playerSprite);
 	switch (m_KeyPress)//Handle Key event
 	{
 	default:
@@ -195,4 +196,5 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 	{
 		it->Draw(renderer);
 	}
+	m_playerSprite->Draw(renderer);
 }

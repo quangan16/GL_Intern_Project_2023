@@ -164,11 +164,15 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\GameObject\Background.cpp" />
+    <ClCompile Include="src\GameObject\Player.cpp" />
+    <ClCompile Include="src\GameStates\GSGuide.cpp" />
+    <ClCompile Include="src\GameStates\GSLevel.cpp" />
+    <ClCompile Include="src\GameStates\GSOption.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GameManager\ResourceManagers.cpp" />
     <ClCompile Include="src\GameObject\Camera.cpp" />
     <ClCompile Include="src\GameObject\CMath.cpp" />
+    <ClCompile Include="src\GameObject\Cube.cpp" />
     <ClCompile Include="src\GameObject\Dot.cpp" />
     <ClCompile Include="src\GameObject\MouseButton.cpp" />
     <ClCompile Include="src\GameObject\Renderer.cpp" />
@@ -186,13 +190,17 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\GameObject\Background.h" />
+    <ClInclude Include="src\GameObject\Player.h" />
+    <ClInclude Include="src\GameStates\GSGuide.h" />
+    <ClInclude Include="src\GameStates\GSLevel.h" />
+    <ClInclude Include="src\GameStates\GSOption.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\GameManager\ResourceManagers.h" />
     <ClInclude Include="src\GameManager\Singleton.h" />
     <ClInclude Include="src\GameObject\BaseObject.h" />
     <ClInclude Include="src\GameObject\Camera.h" />
     <ClInclude Include="src\GameObject\CMath.h" />
+    <ClInclude Include="src\GameObject\Cube.h" />
     <ClInclude Include="src\GameObject\Define.h" />
     <ClInclude Include="src\GameObject\Dot.h" />
     <ClInclude Include="src\GameObject\MouseButton.h" />

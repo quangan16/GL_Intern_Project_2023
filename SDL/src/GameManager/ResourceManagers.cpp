@@ -4,7 +4,7 @@ ResourceManagers::ResourceManagers()
 {
 	std::string dataPath = "Data/";
 	m_TexturePath = dataPath + "Textures/";
-	
+
 }
 
 ResourceManagers::~ResourceManagers()

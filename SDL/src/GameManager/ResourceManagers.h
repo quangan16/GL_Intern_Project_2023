@@ -20,6 +20,8 @@ public:
 	void RemoveFont(const std::string& name);
 
 	std::shared_ptr<TextureManager> GetTexture(const std::string& name);
+
+	static bool isMuted;
 private:
 	std::map<std::string, std::shared_ptr<TextureManager>> m_MapTexture;
 	std::string m_ShaderPath;
@@ -31,3 +33,4 @@ private:
 	std::string m_SoundPath;
 
 };
+
