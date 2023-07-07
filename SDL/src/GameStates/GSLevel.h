@@ -38,5 +38,6 @@ private:
 	std::shared_ptr<SpriteAnimation> obj;
 	std::shared_ptr<MouseButton> m_btnPrev;
 	std::shared_ptr<MouseButton> m_btnNext;
+	std::shared_ptr<MouseButton> m_btnGuide;
 	std::shared_ptr<Sprite2D>				m_imglv;
 };
