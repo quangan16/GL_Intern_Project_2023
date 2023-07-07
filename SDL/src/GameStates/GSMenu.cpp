@@ -57,14 +57,13 @@ void GSMenu::Init()
 
 	//GUIDE game
 	texture = ResourceManagers::GetInstance()->GetTexture("btn_help.tga");
-	//btnGuide = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
-	std::shared_ptr<MouseButton> btnGuide = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
-	btnGuide->Set2DPosition((SCREEN_WIDTH - btnGuide->GetWidth()) / 2, SCREEN_HEIDHT / 2 + 280);
-	btnGuide->SetSize(100, 100);
-	btnGuide->SetOnClick([]() {
+	m_btnGuide = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
+	m_btnGuide->Set2DPosition((SCREEN_WIDTH - m_btnGuide->GetWidth()) / 2, SCREEN_HEIDHT / 2 + 280);
+	m_btnGuide->SetSize(100, 100);
+	m_btnGuide->SetOnClick([]() {
 		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_GUIDE);
 		});
-	m_listButton.push_back(btnGuide);
+	m_listButton.push_back(m_btnGuide);
 
 	// game title
 	///Set Font

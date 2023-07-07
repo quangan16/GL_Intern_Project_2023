@@ -48,23 +48,38 @@ void GSLevel::Init()
 	//Setting game
 	texture = ResourceManagers::GetInstance()->GetTexture("btn_settings.tga");
 	std::shared_ptr<MouseButton> btnOption = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
-	btnOption->SetSize(100, 100);
-	btnOption->Set2DPosition((SCREEN_WIDTH - btnOption->GetWidth()) / 2, SCREEN_HEIDHT / 2 + 170);
+	btnOption->SetSize(50, 50);
+	btnOption->Set2DPosition(SCREEN_WIDTH - btnClose->GetWidth() - 60, 10);
 	btnOption->SetOnClick([]() {
 		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_OPTION);
 		});
 	m_listButton.push_back(btnOption);
 
-	//GUIDE game
-	texture = ResourceManagers::GetInstance()->GetTexture("btn_help.tga");
-	//btnGuide = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
-	std::shared_ptr<MouseButton> btnGuide = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
-	btnGuide->Set2DPosition((SCREEN_WIDTH - btnGuide->GetWidth()) / 2, SCREEN_HEIDHT / 2 + 280);
-	btnGuide->SetSize(100, 100);
-	btnGuide->SetOnClick([]() {
-		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_GUIDE);
+	//Show level
+	texture = ResourceManagers::GetInstance()->GetTexture("background.tga");
+	m_imglv = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
+	m_imglv->SetSize(SCREEN_WIDTH/10, SCREEN_HEIDHT/10);
+	m_imglv->Set2DPosition(0, 0);
+
+	//Btn prev
+	texture = ResourceManagers::GetInstance()->GetTexture("btn_prev.tga");
+	m_btnPrev = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
+	m_btnPrev->SetSize(100, 100);
+	m_btnPrev->Set2DPosition(((SCREEN_WIDTH - m_btnPrev->GetWidth()) / 2) + 200, SCREEN_HEIDHT / 2 + 280);
+	m_btnPrev->SetOnClick([]() {
+		
 		});
-	m_listButton.push_back(btnGuide);
+	m_listButton.push_back(m_btnPrev);
+
+	//Btn next
+	texture = ResourceManagers::GetInstance()->GetTexture("btn_next.tga");
+	m_btnNext = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
+	m_btnNext->SetSize(100, 100);
+	m_btnNext->Set2DPosition(((SCREEN_WIDTH - m_btnNext->GetWidth()) / 2) + 800 , SCREEN_HEIDHT / 2 + 280);
+	m_btnNext->SetOnClick([]() {
+
+		});
+	m_listButton.push_back(m_btnNext);
 
 	// game title
 	///Set Font
