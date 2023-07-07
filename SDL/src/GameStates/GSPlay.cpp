@@ -38,16 +38,23 @@ void GSPlay::Init()
 	m_listButton.push_back(button);
 
    // Animation 
-	texture = ResourceManagers::GetInstance()->GetTexture("Actor1_2.tga");
-	obj = std::make_shared<SpriteAnimation>( texture, 2, 9, 6, 0.2f);
-	obj->SetFlip(SDL_FLIP_HORIZONTAL);
-	obj->SetSize(40, 50);
-	obj->Set2DPosition(240, 400);
-	
-	//Camera::GetInstance()->SetTarget(obj);
-	m_listAnimation.push_back(obj);
+	//texture = ResourceManagers::GetInstance()->GetTexture("Actor1_2.tga");
+	//obj = std::make_shared<SpriteAnimation>( texture, 2, 9, 6, 0.2f);
+	//obj->SetFlip(SDL_FLIP_HORIZONTAL);
+	//obj->SetSize(40, 50);
+	//obj->Set2DPosition(240, 400);
+	//
+	////Camera::GetInstance()->SetTarget(obj);
+	//m_listAnimation.push_back(obj);
 
-	m_KeyPress = 0;
+	//m_KeyPress = 0;
+
+	//Initialize player
+	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_1.tga");
+	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
+	m_player = std::make_shared<Cube>(240, 400, 10, texture);
+	m_player->SetPlayerSprite(50, 50, m_playerSprite);
+
 }
 
 void GSPlay::Exit()
@@ -137,6 +144,7 @@ void GSPlay::HandleMouseMoveEvents(int x, int y)
 
 void GSPlay::Update(float deltaTime)
 {
+	m_player->UpdatePlayerSpritePos(m_playerSprite);
 	switch (m_KeyPress)//Handle Key event
 	{
 	default:
@@ -175,4 +183,5 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 	{
 		it->Draw(renderer);
 	}
+	m_playerSprite->Draw(renderer);
 }

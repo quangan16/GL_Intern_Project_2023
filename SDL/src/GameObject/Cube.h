@@ -8,8 +8,8 @@ public:
 	~Cube();
 	void MoveUp() override;
 	void MoveUp(const float &_velocity, bool &_isJumping, bool &_isFalling,const float &_jumpBoundY, const float &_deltaTime);
-	void SetPlayerSprite(int _width,int _height) override;
-	float GetPlayerJumpBoundY(const PlayerPosition &_currentPosition);
+	void SetPlayerSprite(const int& _width, const int& _height, const std::shared_ptr<Sprite2D>& _playerSprite) override;
+	float GetPlayerJumpBoundY(float _jumpHeight);
 	
 
 private:

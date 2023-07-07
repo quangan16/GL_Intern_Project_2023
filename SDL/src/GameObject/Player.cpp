@@ -11,8 +11,7 @@ Player::~Player() {
 }
 
 
-
-Player::PlayerPosition Player::GetPlayerPosition() {
+Vector2 Player::GetPlayerPosition() {
 	return m_playerPosition;
 }
 
@@ -29,8 +28,8 @@ void Player::SetPlayerVelocity(float _velocity) {
 	this->velocity = _velocity;
 }
 
- void Player::SetPlayerSprite(int _width, int _height) {
-	this->playerSprite = std::make_shared<Sprite2D>(m_playerTexture, SDL_FLIP_NONE);
+ void Player::SetPlayerSprite(const int &_width,const int &_height,const std::shared_ptr<Sprite2D> &_playerSprite) {
+	this->playerSprite = _playerSprite; 
 	playerSprite->Set2DPosition(m_playerPosition.x, m_playerPosition.y);
 	playerSprite->SetSize(_width, _height);
 }
@@ -42,3 +41,15 @@ void Player::SetPlayerVelocity(float _velocity) {
  int Player :: GetDirectionY() {
 	 return this->direction;
  }
+
+ void Player::UpdatePlayerSpritePos(const std::shared_ptr<Sprite2D>& _playerSprite) {
+	
+	 _playerSprite->Set2DPosition(m_playerPosition.x, m_playerPosition.y);
+
+ }
+
+ void Player::UpdatePlayerSpriteRotation(const std::shared_ptr<Sprite2D>& _playerSprite) {
+ };
+
+
+

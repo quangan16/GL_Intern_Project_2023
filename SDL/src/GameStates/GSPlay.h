@@ -1,8 +1,14 @@
 #pragma once
 #include "GameStateBase.h"
 #include "GameObject/MouseButton.h"
+#include "GameObject/Player.h"
+#include "GameObject/Cube.h"
+
+
 class Sprite2D;
 class SpriteAnimation;
+
+
 
 class GSPlay :
 	public GameStateBase
@@ -34,5 +40,8 @@ private:
 	std::shared_ptr<MouseButton> button;
 	float time = 0.0f;
 	float m_Velocity = 10.0f;
+
+	std::shared_ptr<Player> m_player;
+	std::shared_ptr<Sprite2D> m_playerSprite;
 };
 
