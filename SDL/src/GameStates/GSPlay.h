@@ -40,7 +40,7 @@ private:
 	std::shared_ptr<SpriteAnimation> obj;
 	std::shared_ptr<MouseButton> button;
 	float time = 0.0f;
-	float m_gravity = 10.0f;
+	float m_gravity = 800.0f;
 
 	float m_fBackground_speed = 10.f;
 	Vector2 m_readyPos = Vector2(300, 700);
@@ -52,7 +52,8 @@ private:
 	bool isJumping = false;
 	bool isFalling = false;
 	float jumpBoundY;
-	float jumpForce = 20.0f;
+	float jumpForce = 800.0f;
+	bool jumpBuffer = false;
 
 
 };

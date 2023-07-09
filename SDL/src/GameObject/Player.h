@@ -9,6 +9,7 @@ class Player
 
 protected:
 	Vector2 m_playerPosition;
+	double m_playerRotation;
 	int m_direction;
 	float m_velocity;
 	std::shared_ptr<TextureManager> m_playerTexture;
@@ -19,11 +20,11 @@ public:
 
 	Player();
 
-	Player(float _posX, float _posY, float _velocity, std::shared_ptr<TextureManager> _playerTexture);
+	Player(float _posX, float _posY,double _rotation, float _velocity, std::shared_ptr<TextureManager> _playerTexture);
 
 	virtual ~Player();
 
-	virtual void MoveUp(const float& _jumpForce,const float &_gravity, bool& _isJumping, bool& _isFalling, const float& _jumpBoundY,float _deltaTime) = 0;
+	virtual void MoveUp(const float& _jumpForce,const float &_gravity, bool& _isJumping, bool& _isFalling, const float& _jumpBoundY, bool &_jumpBuffer, float _deltaTime) = 0;
 
 	Vector2 GetPlayerPosition();
 
