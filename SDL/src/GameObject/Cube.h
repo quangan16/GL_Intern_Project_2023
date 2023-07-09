@@ -10,7 +10,7 @@ public:
 	
 	void SetPlayerSprite(const int& _width, const int& _height, const std::shared_ptr<Sprite2D>& _playerSprite) override;
 	float GetPlayerJumpBoundY(float _jumpHeight) override;
-	
+	void Rotate(double _angle, float deltaTime) override;
 
 private:
 

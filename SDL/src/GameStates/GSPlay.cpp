@@ -55,7 +55,7 @@ void GSPlay::Init()
 
 	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_1.tga");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
-	m_player = std::make_shared<Cube>(-200.0f, 700.0f,0.0, 10, texture);
+	m_player = std::make_shared<Cube>(200.0f, 700.0f, 1.1, 10, texture);
 	m_player->SetPlayerSprite(80, 80, m_playerSprite);
 
 }
@@ -167,7 +167,7 @@ void GSPlay::Update(float deltaTime)
 {
 	//std::cout << m_player->GetPlayerPosition().y<<std::endl;
 	m_player->RunIntoScene(m_readyPos, deltaTime);
-	m_player->UpdatePlayerSpritePos(m_playerSprite);
+	m_player->UpdatePlayerSprite(m_playerSprite);
 	if (isJumping == true) {
 		m_player->MoveUp(jumpForce,m_gravity, isJumping, isFalling, jumpBoundY,jumpBuffer, deltaTime);
 	}

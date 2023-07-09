@@ -26,6 +26,8 @@ public:
 
 	virtual void MoveUp(const float& _jumpForce,const float &_gravity, bool& _isJumping, bool& _isFalling, const float& _jumpBoundY, bool &_jumpBuffer, float _deltaTime) = 0;
 
+	virtual void Rotate(double _angle, float _deltaTime) = 0;
+
 	Vector2 GetPlayerPosition();
 
 	void SetPlayerPosition(float _x, float _y);
@@ -40,13 +42,15 @@ public:
 
 	int GetDirectionY();
 
-	void UpdatePlayerSpritePos(const std::shared_ptr<Sprite2D>& _playerSprite);
+	void UpdatePlayerSprite(const std::shared_ptr<Sprite2D>& _playerSprite);
 
 	void UpdatePlayerSpriteRotation(const std::shared_ptr<Sprite2D>& _playerSprite);
 
 	void RunIntoScene(const Vector2 &endPos, float _deltaTime);
 
 	virtual float GetPlayerJumpBoundY(float _jumpHeight);
+
+	
 
 	//void Update(float deltaTime);
 	

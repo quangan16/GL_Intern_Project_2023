@@ -6,11 +6,17 @@ Cube::~Cube() {
 	std::cout << "Cube object deleted";
 }
 
+void Cube::Rotate(double _angle, float _deltaTime) {
+	std::cout << m_playerRotation << std::endl;
+	m_playerRotation += _angle * _deltaTime;
+}
+
 
 void Cube::MoveUp(const float &_jumpForce, const float &_gravity, bool &_isJumping, bool &_isFalling, const float &_jumpBoundY, bool& _jumpBuffer, float _deltaTime) {
 	
 	
 	if (_isJumping == true) {
+		Rotate(180.0, _deltaTime);
 		if (this->GetPlayerPosition().y >= 701.0f) {
 			_isJumping = false;
 			_isFalling = false;
@@ -49,12 +55,15 @@ void Cube::SetPlayerSprite(const int& _width, const int& _height, const std::sha
 	this->playerSprite = _playerSprite;
 	playerSprite->Set2DPosition(m_playerPosition.x, m_playerPosition.y);
 	playerSprite->SetSize(_width, _height);
+	playerSprite->SetRotation(m_playerRotation);
+
 }
 
 float Cube::GetPlayerJumpBoundY(float _jumpHeight) {
 	std::cout << m_playerPosition.y - _jumpHeight<<std::endl;
 	return m_playerPosition.y - _jumpHeight;
 }
+
 
 
 
