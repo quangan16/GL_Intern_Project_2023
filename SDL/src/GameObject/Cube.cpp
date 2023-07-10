@@ -35,16 +35,26 @@ void Cube::MoveUp(const float &_jumpForce, const float &_gravity, bool &_isJumpi
 
 		}
 		
-		
+		if (this->GetPlayerPosition().y > 700.0f && _isFalling == true) {
+			;
+			if (_isOnGround == false) {
+				m_velocity = 0.0f;
+			}
+			_isJumping = false;
+			_isFalling = false;
+			_isOnGround = true;
+
+		}
 		
 		
 	}
-	if (_isJumping == false && _jumpBuffer == 1) {
+	if (_isOnGround == true && _jumpBuffer == 1) {
 		_isJumping = true;
 		m_velocity = 1000.0f;
 		m_velocity -= _gravity * _deltaTime;
 		_jumpBuffer = 0;
 	}
+	
 	
 	
 	
@@ -60,17 +70,6 @@ void Cube::ApplyGravity(const float& _gravity, bool& _isJumping, bool& _isFallin
 	
 	
 	
-	
-	if (this->GetPlayerPosition().y > 700.0f && _isFalling == true) {
-			;
-		if (_isOnGround == false) {
-			m_velocity = 0.0f;
-		}
-		_isJumping = false;
-		_isFalling = false;
-		_isOnGround = true;
-
-	}
 	
 	
 	

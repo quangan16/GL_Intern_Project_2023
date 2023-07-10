@@ -107,7 +107,7 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 			m_KeyPress |= 1 << 2;
 			break;
 		case SDLK_SPACE:
-			m_KeyPress != 1 << 4;
+			m_KeyPress |= 1 << 4;
 			if (!isJumping) // Only jump if the player is not already jumping
 			{
 				m_player->SetPlayerVelocity(jumpForce);
@@ -176,16 +176,19 @@ void GSPlay::Update(float deltaTime)
 	m_player->RunIntoScene(m_readyPos, deltaTime);
 	
 	
-	m_player->ApplyGravity( m_gravity, isJumping, isFalling, isOnGround, deltaTime);
+	
+
 	if (isJumping == true) {
 		m_player->MoveUp(jumpForce, m_gravity, isJumping, isFalling, isOnGround, jumpBoundY, jumpBuffer, deltaTime);
 	}
+	m_player->ApplyGravity(m_gravity, isJumping, isFalling, isOnGround, deltaTime);
 	m_player->UpdatePlayerPos(deltaTime);
 	m_player->UpdatePlayerSprite(m_playerSprite);
 	
 	
 	switch (m_KeyPress)//Handle Key event
 	{
+
 	default:
 		break;
 	}
@@ -207,7 +210,7 @@ void GSPlay::Update(float deltaTime)
 	
 
 	//Moving background
-	m_background = std::get<0>(m_background->MovingBackGround(m_background, m_background_2));
+	//m_background = std::get<0>(m_background->MovingBackGround(m_background, m_background_2));
 	//m_background_2 = std::get<1>(m_background_2->MovingBackGround(m_background, m_background_2));
 
 	//Update position of camera
