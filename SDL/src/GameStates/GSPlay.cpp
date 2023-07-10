@@ -19,11 +19,11 @@ GSPlay::~GSPlay()
 void GSPlay::Init()
 {
 	//auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
-	auto texture = ResourceManagers::GetInstance()->GetTexture("map.png");
+	auto texture = ResourceManagers::GetInstance()->GetTexture("back1.tga");
 
 	// background_1
 	m_background = std::make_shared<Background>(texture, 10.0f, SDL_FLIP_NONE);
-	m_background->SetSize(SCREEN_WIDTH*2, SCREEN_HEIGHT);
+	m_background->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 	m_background->Set2DPosition(0, 0);
 
 	//background_2
