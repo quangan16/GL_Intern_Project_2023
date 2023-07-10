@@ -4,8 +4,8 @@ Player::Player() : m_playerPosition{ 0.0f, 0.0f }, m_velocity{ 10.0f } {};
 
 
 
-Player::Player(float _posX, float _posY, double _rotation, float _velocity, std::shared_ptr<TextureManager> _playerTexture)
-: m_playerPosition{ _posX, _posY }, m_velocity{ _velocity }, m_playerRotation{ _rotation }, m_playerTexture { _playerTexture } {};
+Player::Player(float _posX, float _posY, double _rotation, int _direction, float _velocity, std::shared_ptr<TextureManager> _playerTexture)
+: m_playerPosition{ _posX, _posY }, m_playerRotation{ _rotation }, m_direction{_direction}, m_velocity{_velocity}, m_playerTexture{_playerTexture} {};
 
 Player::~Player() {
 	std::cout << "Player deleted";
@@ -30,9 +30,9 @@ void Player::SetPlayerVelocity(float _velocity) {
 }
 
  void Player::SetPlayerSprite(const int &_width,const int &_height,const std::shared_ptr<Sprite2D> &_playerSprite) {
-	this->playerSprite = _playerSprite; 
-	playerSprite->Set2DPosition(m_playerPosition.x, m_playerPosition.y);
-	playerSprite->SetSize(_width, _height);
+	this->m_playerSprite = _playerSprite; 
+	_playerSprite->Set2DPosition(m_playerPosition.x, m_playerPosition.y);
+	_playerSprite->SetSize(_width, _height);
 	
 	
 }
@@ -60,7 +60,9 @@ void Player::SetPlayerVelocity(float _velocity) {
  void Player::RunIntoScene (const Vector2 &_readyPos, float _deltaTime) {
 	 if (m_playerPosition.x >= _readyPos.x)  return;
 	 else {
-		 m_playerPosition.y = m_playerPosition.y;
+		 m_playerPosition.y = 700.0f;
+		 m_playerRotation = 0.0;
+		 m_velocity = 0.0f;
 		 m_playerPosition.x += 400 * _deltaTime;
 	 }
 
@@ -71,6 +73,9 @@ void Player::SetPlayerVelocity(float _velocity) {
 	 return jumpYBound;
  }
 
+ void Player::UpdatePlayerPos(float& _deltaTime) {
+	 m_playerPosition.y += m_direction * m_velocity * _deltaTime;
+ }
 
 
 

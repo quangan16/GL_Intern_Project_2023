@@ -19,11 +19,11 @@ GSPlay::~GSPlay()
 void GSPlay::Init()
 {
 	//auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
-	auto texture = ResourceManagers::GetInstance()->GetTexture("back1.tga");
+	auto texture = ResourceManagers::GetInstance()->GetTexture("map.png");
 
 	// background_1
 	m_background = std::make_shared<Background>(texture, 10.0f, SDL_FLIP_NONE);
-	m_background->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+	m_background->SetSize(SCREEN_WIDTH*2, SCREEN_HEIGHT);
 	m_background->Set2DPosition(0, 0);
 
 	//background_2
@@ -55,7 +55,7 @@ void GSPlay::Init()
 
 	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_1.tga");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
-	m_player = std::make_shared<Cube>(200.0f, 700.0f, 1.1, 10, texture);
+	m_player = std::make_shared<Cube>(-200.0f, 700.0f, 0.0, 1, m_gravity, texture);
 	m_player->SetPlayerSprite(80, 80, m_playerSprite);
 
 }
@@ -105,8 +105,10 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 			m_KeyPress != 1 << 4;
 			if (!isJumping) // Only jump if the player is not already jumping
 			{
-				float jumpHeight = 200.0f;
+				m_player->SetPlayerVelocity(jumpForce);
+				float jumpHeight = 300.0f;
 				isJumping = true;
+				std::cout << isJumping;
 				std::cout << m_player->GetPlayerPosition().y<<std::endl;
 				jumpBoundY = m_player->GetPlayerJumpBoundY(jumpHeight);
 				
@@ -165,12 +167,18 @@ void GSPlay::HandleMouseMoveEvents(int x, int y)
 
 void GSPlay::Update(float deltaTime)
 {
-	//std::cout << m_player->GetPlayerPosition().y<<std::endl;
+	std::cout << m_player->GetPlayerPosition().y<<std::endl;
 	m_player->RunIntoScene(m_readyPos, deltaTime);
-	m_player->UpdatePlayerSprite(m_playerSprite);
+	
+	
+	m_player->ApplyGravity( m_gravity, isJumping, isFalling, isOnGround, deltaTime);
 	if (isJumping == true) {
-		m_player->MoveUp(jumpForce,m_gravity, isJumping, isFalling, jumpBoundY,jumpBuffer, deltaTime);
+		m_player->MoveUp(jumpForce, m_gravity, isJumping, isFalling, isOnGround, jumpBoundY, jumpBuffer, deltaTime);
 	}
+	m_player->UpdatePlayerPos(deltaTime);
+	m_player->UpdatePlayerSprite(m_playerSprite);
+	
+	
 	switch (m_KeyPress)//Handle Key event
 	{
 	default:
@@ -195,7 +203,7 @@ void GSPlay::Update(float deltaTime)
 
 	//Moving background
 	m_background = std::get<0>(m_background->MovingBackGround(m_background, m_background_2));
-	m_background_2 = std::get<1>(m_background_2->MovingBackGround(m_background, m_background_2));
+	//m_background_2 = std::get<1>(m_background_2->MovingBackGround(m_background, m_background_2));
 
 	//Update position of camera
 	//Camera::GetInstance()->Update(deltaTime);
