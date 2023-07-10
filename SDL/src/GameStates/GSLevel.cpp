@@ -16,6 +16,9 @@ void GSLevel::Init()
 {
 	m_iMapTexture_index = 1;
 	m_iMaptexturesCount = 2;
+
+	m_iCharacterTexture_index = 1;
+	m_iCharactertexturesCount = 2;
 	//auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
 	auto texture = ResourceManagers::GetInstance()->GetTexture("back1.tga");
 
@@ -50,8 +53,8 @@ void GSLevel::Init()
 	//Setting game
 	texture = ResourceManagers::GetInstance()->GetTexture("btn_settings.tga");
 	std::shared_ptr<MouseButton> btnOption = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
-	btnOption->SetSize(100, 100);
-	btnOption->Set2DPosition((SCREEN_WIDTH - btnOption->GetWidth()) / 2, SCREEN_HEIGHT / 2 + 170);
+	btnOption->SetSize(50, 50);
+	btnOption->Set2DPosition((SCREEN_WIDTH - btnOption->GetWidth()) - 60, 10);
 	btnOption->SetOnClick([]() {
 		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_OPTION);
 		});
@@ -60,8 +63,8 @@ void GSLevel::Init()
 	//GUIDE game
 	texture = ResourceManagers::GetInstance()->GetTexture("btn_help.tga");
 	m_btnGuide = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
-	m_btnGuide->Set2DPosition((SCREEN_WIDTH - m_btnGuide->GetWidth()) / 2, SCREEN_HEIGHT / 2 + 280);
-	m_btnGuide->SetSize(100, 100);
+	m_btnGuide->Set2DPosition((SCREEN_WIDTH - m_btnGuide->GetWidth()) - 70, 10);
+	m_btnGuide->SetSize(50, 50);
 	m_btnGuide->SetOnClick([]() {
 		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_GUIDE);
 		});
@@ -70,12 +73,9 @@ void GSLevel::Init()
 	//Show level
 	texture = ResourceManagers::GetInstance()->GetTexture("bg_play1.tga");
 	m_imglv = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
-	m_imglv->SetSize(SCREEN_WIDTH / 10, SCREEN_HEIGHT / 10);
-	m_imglv->Set2DPosition(SCREEN_WIDTH/2, SCREEN_HEIGHT / 2);
+	m_imglv->SetSize(190, 110);
+	m_imglv->Set2DPosition(SCREEN_WIDTH / 2 + 420, SCREEN_HEIGHT / 2 + 280);
 	
-	//maptexturesCount = maptextures.size();*/
-
-
 	//Btn prev
 	texture = ResourceManagers::GetInstance()->GetTexture("btn_prev.tga");
 	m_btnPrev = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
@@ -114,13 +114,52 @@ void GSLevel::Init()
 		});
 	m_listButton.push_back(m_btnNext);
 
+	//Show character
+	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_1.tga");
+	m_imgchar = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
+	m_imgchar->SetSize(100, 100);
+	m_imgchar->Set2DPosition(SCREEN_WIDTH / 2 - 550, SCREEN_HEIGHT / 2 + 280);
+
+	//Btn prev
+	texture = ResourceManagers::GetInstance()->GetTexture("btn_prev.tga");
+	m_btnPrev = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
+	m_btnPrev->SetSize(100, 100);
+	m_btnPrev->Set2DPosition(((SCREEN_WIDTH - m_btnPrev->GetWidth()) / 2) - 800, SCREEN_HEIGHT / 2 + 280);
+	m_btnPrev->SetOnClick([this, texture]() {
+		if (m_iCharacterTexture_index > 1)
+		{
+			m_iCharacterTexture_index--;
+		}
+		else
+		{
+			m_iCharacterTexture_index = m_iCharactertexturesCount;
+		}
+		std::string texture_path = "player_cube_" + std::to_string(m_iCharacterTexture_index) + ".tga";
+		m_imgchar->SetTexture(ResourceManagers::GetInstance()->GetTexture(texture_path));
+		});
+	m_listButton.push_back(m_btnPrev);
+
+	//Btn next
+	texture = ResourceManagers::GetInstance()->GetTexture("btn_next.tga");
+	m_btnNext = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
+	m_btnNext->SetSize(100, 100);
+	m_btnNext->Set2DPosition(((SCREEN_WIDTH - m_btnNext->GetWidth()) / 2) - 200, SCREEN_HEIGHT / 2 + 280);
+	m_btnNext->SetOnClick([this, texture]() {
+		if (m_iCharacterTexture_index < m_iCharactertexturesCount)
+		{
+			m_iCharacterTexture_index++;
+		}
+		else
+		{
+			m_iCharacterTexture_index = 1;
+		}
+		std::string texture_path = "player_cube_" + std::to_string(m_iCharacterTexture_index) + ".tga";
+		m_imgchar->SetTexture(ResourceManagers::GetInstance()->GetTexture(texture_path));
+		});
+	m_listButton.push_back(m_btnNext);
+
 	// game title
 	///Set Font
-	m_textColor = { 255, 255, 0 };
-	m_textGameName = std::make_shared<Text>("Data/lazy.ttf", m_textColor);
-	m_textGameName->SetSize(300, 50);
-	m_textGameName->Set2DPosition((SCREEN_WIDTH - m_textGameName->GetWidth()) / 2, SCREEN_HEIGHT / 2 - 300);
-	m_textGameName->LoadFromRenderText("Your Game");
 	m_Sound = std::make_shared<Sound>("Data/Sounds/Alarm01.wav");
 	m_Sound->PlaySound();
 }
@@ -188,6 +227,6 @@ void GSLevel::Draw(SDL_Renderer* renderer)
 	{
 		it->Draw(renderer);
 	}
-	m_textGameName->Draw(renderer);
 	m_imglv->Draw(renderer);
+	m_imgchar->Draw(renderer);
 }

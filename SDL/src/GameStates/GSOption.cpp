@@ -72,6 +72,13 @@ void GSOption::Init()
 	});
 	m_listButton.push_back(button);
 
+	//slider volume
+	const int SLIDER_WIDTH = 200;
+	const int SLIDER_HEIGHT = 20;
+	int sliderPosition = 0;
+	int volume = 0;
+
+
 	m_KeyPress = 0;
 }
 

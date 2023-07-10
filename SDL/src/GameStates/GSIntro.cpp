@@ -14,10 +14,10 @@ GSIntro::~GSIntro()
 void GSIntro::Init()
 {
 
-	auto texture = ResourceManagers::GetInstance()->GetTexture("logo1.tga");
+	auto texture = ResourceManagers::GetInstance()->GetTexture("logo2.tga");
 
 	m_logo = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
-	m_logo->SetSize(150, 150);
+	m_logo->SetSize(1000, 623);
 	m_logo->Set2DPosition((float)(SCREEN_WIDTH - m_logo->GetWidth())/2 , (float)(SCREEN_HEIGHT - m_logo->GetHeight())/2); 
 }
 

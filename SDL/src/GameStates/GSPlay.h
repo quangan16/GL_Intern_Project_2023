@@ -4,6 +4,7 @@
 #include "GameObject/Text.h"
 #include "GameObject/Player.h"
 #include "GameObject/Cube.h"
+#include "GameObject/GameMap.h"
 class Sprite2D;
 class SpriteAnimation;
 class Background;
@@ -32,11 +33,13 @@ public:
 	int m_KeyPress;
 
 private:
+	std::shared_ptr<GameMap> m_gameMap;
 	std::shared_ptr<Background>	m_background;
 	std::shared_ptr<Background>	m_background_2;
 	std::shared_ptr<Text>		m_score;
 	std::list<std::shared_ptr<MouseButton>>	m_listButton;
 	std::list<std::shared_ptr<SpriteAnimation>>	m_listAnimation;
+	std::list<std::shared_ptr<Background>> m_listBackground;
 	std::shared_ptr<SpriteAnimation> obj;
 	std::shared_ptr<MouseButton> button;
 	float time = 0.0f;
