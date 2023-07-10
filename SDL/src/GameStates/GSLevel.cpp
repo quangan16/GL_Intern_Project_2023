@@ -14,6 +14,8 @@ GSLevel::~GSLevel()
 
 void GSLevel::Init()
 {
+	m_iMapTexture_index = 1;
+	m_iMaptexturesCount = 2;
 	//auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
 	auto texture = ResourceManagers::GetInstance()->GetTexture("back1.tga");
 
@@ -66,18 +68,30 @@ void GSLevel::Init()
 	m_listButton.push_back(m_btnGuide);
 
 	//Show level
-	texture = ResourceManagers::GetInstance()->GetTexture("background.tga");
+	texture = ResourceManagers::GetInstance()->GetTexture("bg_play1.tga");
 	m_imglv = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
 	m_imglv->SetSize(SCREEN_WIDTH / 10, SCREEN_HEIGHT / 10);
-	m_imglv->Set2DPosition(0, 0);
+	m_imglv->Set2DPosition(SCREEN_WIDTH/2, SCREEN_HEIGHT / 2);
+	
+	//maptexturesCount = maptextures.size();*/
+
 
 	//Btn prev
 	texture = ResourceManagers::GetInstance()->GetTexture("btn_prev.tga");
 	m_btnPrev = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
 	m_btnPrev->SetSize(100, 100);
 	m_btnPrev->Set2DPosition(((SCREEN_WIDTH - m_btnPrev->GetWidth()) / 2) + 200, SCREEN_HEIGHT / 2 + 280);
-	m_btnPrev->SetOnClick([]() {
-
+	m_btnPrev->SetOnClick([this, texture]() {
+		if (m_iMapTexture_index > 1)
+		{
+			m_iMapTexture_index--;
+		}
+		else
+		{
+			m_iMapTexture_index = m_iMaptexturesCount;
+		}
+		std::string texture_path = "bg_play" + std::to_string(m_iMapTexture_index) + ".tga";
+		m_imglv->SetTexture(ResourceManagers::GetInstance()->GetTexture(texture_path));
 		});
 	m_listButton.push_back(m_btnPrev);
 
@@ -86,8 +100,17 @@ void GSLevel::Init()
 	m_btnNext = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
 	m_btnNext->SetSize(100, 100);
 	m_btnNext->Set2DPosition(((SCREEN_WIDTH - m_btnNext->GetWidth()) / 2) + 800, SCREEN_HEIGHT / 2 + 280);
-	m_btnNext->SetOnClick([]() {
-
+	m_btnNext->SetOnClick([this, texture]() {
+		if (m_iMapTexture_index < m_iMaptexturesCount)
+		{
+			m_iMapTexture_index++;
+		}
+		else
+		{
+			m_iMapTexture_index = 1;
+		}
+		std::string texture_path = "bg_play" + std::to_string(m_iMapTexture_index) + ".tga";
+		m_imglv->SetTexture(ResourceManagers::GetInstance()->GetTexture(texture_path));
 		});
 	m_listButton.push_back(m_btnNext);
 
@@ -166,4 +189,5 @@ void GSLevel::Draw(SDL_Renderer* renderer)
 		it->Draw(renderer);
 	}
 	m_textGameName->Draw(renderer);
+	m_imglv->Draw(renderer);
 }

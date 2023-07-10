@@ -4,13 +4,13 @@ class Cube : public Player
 {
 public:
 	Cube();
-	Cube(float _posX, float _posY, float _velocity, std::shared_ptr<TextureManager> _playerTexture);
+	Cube(float _posX, float _posY,double _rotation, float _velocity, std::shared_ptr<TextureManager> _playerTexture);
 	~Cube();
-	void MoveUp() override;
-	void MoveUp(const float &_velocity, bool &_isJumping, bool &_isFalling,const float &_jumpBoundY, const float &_deltaTime);
-	void SetPlayerSprite(const int& _width, const int& _height, const std::shared_ptr<Sprite2D>& _playerSprite) override;
-	float GetPlayerJumpBoundY(float _jumpHeight);
+	void MoveUp(const float& _jumpForce, const float &_gravity, bool &_isJumping,bool& _isFalling, const float& _jumpBoundY, bool &_jumpBuffer,  float _deltaTime) override;
 	
+	void SetPlayerSprite(const int& _width, const int& _height, const std::shared_ptr<Sprite2D>& _playerSprite) override;
+	float GetPlayerJumpBoundY(float _jumpHeight) override;
+	void Rotate(double _angle, float deltaTime) override;
 
 private:
 

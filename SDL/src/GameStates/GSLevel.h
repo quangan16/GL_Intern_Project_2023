@@ -34,10 +34,15 @@ private:
 	std::shared_ptr<MouseButton> btnCredit;
 	int score = 0;
 	float time = 0.0f;
+
+	int m_iMapTexture_index;
+	int m_iMaptexturesCount;
+
 	std::list<std::shared_ptr<SpriteAnimation>>	m_listAnimation;
 	std::shared_ptr<SpriteAnimation> obj;
 	std::shared_ptr<MouseButton> m_btnPrev;
 	std::shared_ptr<MouseButton> m_btnNext;
 	std::shared_ptr<MouseButton> m_btnGuide;
 	std::shared_ptr<Sprite2D>				m_imglv;
+	//std::list<std::shared_ptr<TextureManager>> m_listMap;
 };
