@@ -54,6 +54,8 @@ public:
 
 	void UpdatePlayerPos(float& _deltaTime);
 
+	virtual void FixRotationOnGround(const bool& _isOnGround, const float& deltaTime) = 0;
+
 	//void Update(float deltaTime);
 	
 };
