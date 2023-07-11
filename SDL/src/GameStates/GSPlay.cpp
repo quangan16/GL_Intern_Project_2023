@@ -5,6 +5,7 @@
 #include "GameObject/SpriteAnimation.h"
 #include "GameObject/Camera.h"
 #include "GameObject/Background.h"
+#include "GameObject/GameMap.h"
 
 GSPlay::GSPlay()
 {
@@ -22,20 +23,24 @@ void GSPlay::Init()
 	auto texture = ResourceManagers::GetInstance()->GetTexture("back1.tga");
 
 	// background_1
-	m_background = std::make_shared<Background>(texture, 10.0f, SDL_FLIP_NONE);
-	m_background->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-	m_background->Set2DPosition(0, 0);
+	for (int i = 0; i < MAX_MAP_X * TILE_SIZE; i += SCREEN_WIDTH)
+	{
+		auto bg = std::make_shared<Background>(texture, 10.0f, SDL_FLIP_NONE);
+		bg->SetSize(SCREEN_WIDTH,SCREEN_HEIGHT);
+		bg->Set2DPosition(i, 0);
+		m_listBackground.push_back(bg);
+	}
 
-	//background_2
-	m_background_2 = std::make_shared<Background>(texture, 10.0f,SDL_FLIP_NONE);
-	m_background_2->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-	m_background_2->Set2DPosition(m_background->Get2DPosition().x + (float)SCREEN_WIDTH, 0);
+	
+	//Map
+	m_gameMap = std::make_shared<GameMap>();
+	m_gameMap->LoadMap("Data/map01.dat");
 
 	// button close
 	texture = ResourceManagers::GetInstance()->GetTexture("btn_close.tga");
 	button = std::make_shared<MouseButton>( texture, SDL_FLIP_NONE);
 	button->SetSize(50, 50);
-	button->Set2DPosition(SCREEN_WIDTH - 50, 10);
+	button->Set2DPosition(Camera::GetInstance()->GetViewBox().x + SCREEN_WIDTH , 10);
 	button->SetOnClick([this]() {
 		GameStateMachine::GetInstance()->PopState();
 		});
@@ -48,16 +53,16 @@ void GSPlay::Init()
 	//obj->SetSize(145/2, 120/2);
 	//obj->Set2DPosition(0, 700);
 	//
-	//Camera::GetInstance()->SetTarget(obj);
+	
 	//m_listAnimation.push_back(obj);
 
 	//Init Player
 
 	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_1.tga");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
-	m_player = std::make_shared<Cube>(200.0f, 700.0f, 1.1, 10, texture);
+	m_player = std::make_shared<Cube>(-200.0f, 700.0f, 0.0, 1, m_gravity, texture);
 	m_player->SetPlayerSprite(80, 80, m_playerSprite);
-
+	Camera::GetInstance()->SetTarget(m_playerSprite);
 }
 
 void GSPlay::Exit()
@@ -102,11 +107,13 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 			m_KeyPress |= 1 << 2;
 			break;
 		case SDLK_SPACE:
-			m_KeyPress != 1 << 4;
+			m_KeyPress |= 1 << 4;
 			if (!isJumping) // Only jump if the player is not already jumping
 			{
-				float jumpHeight = 200.0f;
+				m_player->SetPlayerVelocity(jumpForce);
+				float jumpHeight = 300.0f;
 				isJumping = true;
+				std::cout << isJumping;
 				std::cout << m_player->GetPlayerPosition().y<<std::endl;
 				jumpBoundY = m_player->GetPlayerJumpBoundY(jumpHeight);
 				
@@ -165,14 +172,22 @@ void GSPlay::HandleMouseMoveEvents(int x, int y)
 
 void GSPlay::Update(float deltaTime)
 {
-	//std::cout << m_player->GetPlayerPosition().y<<std::endl;
+	std::cout << m_player->GetPlayerPosition().y<<std::endl;
 	m_player->RunIntoScene(m_readyPos, deltaTime);
-	m_player->UpdatePlayerSprite(m_playerSprite);
+	float speed = 1000.0f;
+	m_player->SetPlayerPosition(m_player->GetPlayerPosition().x + speed * deltaTime, m_player->GetPlayerPosition().y);
+
 	if (isJumping == true) {
-		m_player->MoveUp(jumpForce,m_gravity, isJumping, isFalling, jumpBoundY,jumpBuffer, deltaTime);
+		m_player->MoveUp(jumpForce, m_gravity, isJumping, isFalling, isOnGround, jumpBoundY, jumpBuffer, deltaTime);
 	}
+	m_player->ApplyGravity(m_gravity, isJumping, isFalling, isOnGround, deltaTime);
+	m_player->UpdatePlayerPos(deltaTime);
+	m_player->UpdatePlayerSprite(m_playerSprite);
+	
+	
 	switch (m_KeyPress)//Handle Key event
 	{
+
 	default:
 		break;
 	}
@@ -194,19 +209,22 @@ void GSPlay::Update(float deltaTime)
 	
 
 	//Moving background
-	m_background = std::get<0>(m_background->MovingBackGround(m_background, m_background_2));
-	m_background_2 = std::get<1>(m_background_2->MovingBackGround(m_background, m_background_2));
+	//m_background = std::get<0>(m_background->MovingBackGround(m_background, m_background_2));
+	//m_background_2 = std::get<1>(m_background_2->MovingBackGround(m_background, m_background_2));
 
 	//Update position of camera
-	//Camera::GetInstance()->Update(deltaTime);
-	//obj->Update(deltaTime);
+	Camera::GetInstance()->Update(deltaTime);
+	/*obj->update(deltatime);*/
 	//printf("%f, \n", obj->GetPosition().x);
 }
 
 void GSPlay::Draw(SDL_Renderer* renderer)
 {
-	m_background->Draw(renderer);
-	m_background_2->Draw(renderer);
+	for (auto it : m_listBackground)
+	{
+		it->Draw(renderer);
+	}
+	m_gameMap->DrawMap(renderer);
 	//m_score->Draw(renderer);
 	for (auto it : m_listButton)
 	{
@@ -217,5 +235,9 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 	{
 		it->Draw(renderer);
 	}
+
+	
 	m_playerSprite->Draw(renderer);
+
+
 }

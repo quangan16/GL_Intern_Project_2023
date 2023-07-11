@@ -13,18 +13,18 @@ protected:
 	int m_direction;
 	float m_velocity;
 	std::shared_ptr<TextureManager> m_playerTexture;
-	std::shared_ptr<Sprite2D> playerSprite;
+	std::shared_ptr<Sprite2D> m_playerSprite;
 
 
 public:
 
 	Player();
 
-	Player(float _posX, float _posY,double _rotation, float _velocity, std::shared_ptr<TextureManager> _playerTexture);
+	Player(float _posX, float _posY,double _rotation, int _direction, float _velocity, std::shared_ptr<TextureManager> _playerTexture);
 
 	virtual ~Player();
 
-	virtual void MoveUp(const float& _jumpForce,const float &_gravity, bool& _isJumping, bool& _isFalling, const float& _jumpBoundY, bool &_jumpBuffer, float _deltaTime) = 0;
+	virtual void MoveUp(const float& _jumpForce,const float &_gravity, bool& _isJumping, bool& _isFalling, bool &_isOnGround, const float& _jumpBoundY, bool &_jumpBuffer, float _deltaTime) = 0;
 
 	virtual void Rotate(double _angle, float _deltaTime) = 0;
 
@@ -50,7 +50,9 @@ public:
 
 	virtual float GetPlayerJumpBoundY(float _jumpHeight);
 
-	
+	virtual void ApplyGravity(const float& _gravity, bool& _isFalling, bool& _isJumping, bool& _isOnGround, float _deltaTime) = 0;
+
+	void UpdatePlayerPos(float& _deltaTime);
 
 	//void Update(float deltaTime);
 	
