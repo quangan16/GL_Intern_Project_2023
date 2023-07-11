@@ -56,7 +56,7 @@ private:
 	bool isFalling = false;
 	bool isOnGround = true;
 	float jumpBoundY;
-	float jumpForce = 1000.0f;
+	float jumpForce = 1500.0f;
 	bool jumpBuffer = false;
 
 
