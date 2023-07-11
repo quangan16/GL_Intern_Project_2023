@@ -158,10 +158,6 @@ void GSLevel::Init()
 		});
 	m_listButton.push_back(m_btnNext);
 
-	// game title
-	///Set Font
-	m_Sound = std::make_shared<Sound>("Data/Sounds/Alarm01.wav");
-	m_Sound->PlaySound();
 }
 
 void GSLevel::Exit()
