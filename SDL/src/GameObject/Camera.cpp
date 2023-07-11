@@ -10,18 +10,19 @@ Vector2 Camera::GetPosition()
 	return m_Position;
 }
 
-void Camera::SetTarget(std::shared_ptr<SpriteAnimation> target) // Settarget for player (-> Set origin position)
+void Camera::SetTarget(std::shared_ptr<Sprite2D> target) // Settarget for player (-> Set origin position)
 {
 	m_Target = target;
 }
 
 void Camera::Update(float deltaTime)
 {
+
 	if (m_Target != nullptr)
 	{
 		//Center the camera over the dot
-		m_ViewBox.x = (m_Target->Get2DPosition().x - 200) ;
-		m_ViewBox.y = (m_Target->Get2DPosition().y  - SCREEN_HEIGHT) ;
+		m_ViewBox.x = (m_Target->Get2DPosition().x - SCREEN_WIDTH/2);
+		m_ViewBox.y = (m_Target->Get2DPosition().y  - SCREEN_HEIGHT/2) ;
 		
 		//Keep the camera in bounds
 		if (m_ViewBox.x < 0)

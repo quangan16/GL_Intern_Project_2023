@@ -164,7 +164,11 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameObject\Collider2D.cpp" />
+    <ClCompile Include="src\GameObject\BoxCollider2D.cpp" />
+    <ClCompile Include="src\GameObject\CircleCollider2D.cpp" />
     <ClCompile Include="src\GameObject\Background.cpp" />
+    <ClCompile Include="src\GameObject\GameMap.cpp" />
     <ClCompile Include="src\GameObject\Player.cpp" />
     <ClCompile Include="src\GameStates\GSGuide.cpp" />
     <ClCompile Include="src\GameStates\GSLevel.cpp" />
@@ -191,7 +195,11 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameObject\Collider2D.h" />
+    <ClInclude Include="src\GameObject\BoxCollider2D.h" />
+    <ClInclude Include="src\GameObject\CircleCollider2D.h" />
     <ClInclude Include="src\GameObject\Background.h" />
+    <ClInclude Include="src\GameObject\GameMap.h" />
     <ClInclude Include="src\GameObject\Player.h" />
     <ClInclude Include="src\GameStates\GSGuide.h" />
     <ClInclude Include="src\GameStates\GSLevel.h" />
@@ -218,6 +226,9 @@
     <ClInclude Include="src\GameStates\GSIntro.h" />
     <ClInclude Include="src\GameStates\GSMenu.h" />
     <ClInclude Include="src\GameStates\GSPlay.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\map.dat" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
