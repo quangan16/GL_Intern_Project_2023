@@ -24,7 +24,7 @@ void GSMenu::Init()
 	m_background->Set2DPosition(0, 0);
 
 	// play button
-	texture = ResourceManagers::GetInstance()->GetTexture("btn_play.tga");
+	texture = ResourceManagers::GetInstance()->GetTexture("button_play.tga");
 	std::shared_ptr<MouseButton> btnPlay = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
 	btnPlay->SetSize(150, 150);
 	btnPlay->Set2DPosition((SCREEN_WIDTH - btnPlay->GetWidth())/2, (SCREEN_HEIGHT - btnPlay->GetHeight()) / 2);
@@ -34,7 +34,7 @@ void GSMenu::Init()
 	m_listButton.push_back(btnPlay);
 
 	// exit button
-	texture = ResourceManagers::GetInstance()->GetTexture("btn_close.tga");
+	texture = ResourceManagers::GetInstance()->GetTexture("button_close.tga");
 	std::shared_ptr<MouseButton> btnClose = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
 	//btnClose = std::make_shared<MouseButton>(texture);
 	btnClose->SetSize(50, 50);
@@ -45,7 +45,7 @@ void GSMenu::Init()
 	m_listButton.push_back(btnClose);
 
 	//Setting game
-	texture = ResourceManagers::GetInstance()->GetTexture("btn_settings.tga");
+	texture = ResourceManagers::GetInstance()->GetTexture("button_setting.tga");
 	std::shared_ptr<MouseButton> btnOption = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
 	btnOption->SetSize(100, 100);
 	btnOption->Set2DPosition((SCREEN_WIDTH - btnOption->GetWidth()) / 2, SCREEN_HEIGHT / 2 + 170);
@@ -55,7 +55,7 @@ void GSMenu::Init()
 	m_listButton.push_back(btnOption);
 
 	//GUIDE game
-	texture = ResourceManagers::GetInstance()->GetTexture("btn_help.tga");
+	texture = ResourceManagers::GetInstance()->GetTexture("button_help.tga");
 	m_btnGuide = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
 	m_btnGuide->Set2DPosition((SCREEN_WIDTH - m_btnGuide->GetWidth()) / 2, SCREEN_HEIGHT / 2 + 280);
 	m_btnGuide->SetSize(100, 100);
@@ -63,6 +63,16 @@ void GSMenu::Init()
 		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_GUIDE);
 		});
 	m_listButton.push_back(m_btnGuide);
+
+	//Change size window
+	texture = ResourceManagers::GetInstance()->GetTexture("button_windowsetting.tga");
+	m_btnWindow = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
+	m_btnWindow->Set2DPosition(SCREEN_WIDTH - m_btnWindow->GetWidth() - 10, 10);
+	m_btnWindow->SetSize(50, 50);
+	m_btnWindow->SetOnClick([]() {
+
+		});
+	m_listButton.push_back(m_btnWindow);
 
 	// game title
 	///Set Font
@@ -140,3 +150,5 @@ void GSMenu::Draw(SDL_Renderer* renderer)
 	}
 	m_textGameName->Draw(renderer);
 }
+
+

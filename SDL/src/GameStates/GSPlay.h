@@ -46,6 +46,13 @@ private:
 	float time = 0.0f;
 	double m_gravity = 3500.0;
 
+	const int PROCESS_WIDTH = 500;
+	const int PROCESS_HEIGHT = 20;
+	const int PROCESS_PADDING = 10;
+	int maxProcess = 100;
+	int currentProcess = 50;
+	int processBarWidth;
+
 	float m_fBackground_speed = 10.f;
 	Vector2 m_readyPos = Vector2(500, 700);
 

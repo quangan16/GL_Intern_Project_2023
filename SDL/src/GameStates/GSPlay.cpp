@@ -35,7 +35,7 @@ void GSPlay::Init()
 
 	//Map
 	m_gameMap = std::make_shared<GameMap>();
-	m_gameMap->LoadMap("Data/map01.dat");
+	m_gameMap->LoadMap("Data/map03.dat");
 
 	// button close
 	texture = ResourceManagers::GetInstance()->GetTexture("btn_close.tga");
@@ -61,8 +61,8 @@ void GSPlay::Init()
 
 	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_1.tga");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
-	m_player = std::make_shared<Cube>(-200.0f, 700.0f, 0.0, 1, m_gravity, texture);
-	m_player->SetPlayerSprite(80, 80, m_playerSprite);
+	m_player = std::make_shared<Cube>(-200.0f, 500.0f, 0.0, 1, m_gravity, texture);
+	m_player->SetPlayerSprite(128, 128, m_playerSprite);
 	Camera::GetInstance()->SetTarget(m_playerSprite);
 	
 	//Test Colliders
@@ -193,6 +193,7 @@ void GSPlay::Update(float deltaTime)
 	m_player->FixRotationOnGround(isOnGround, deltaTime);
 	m_player->UpdatePlayerPos(deltaTime);
 	m_player->UpdatePlayerSprite(m_playerSprite);
+
 	
 	
 	switch (m_KeyPress)//Handle Key event
@@ -215,7 +216,8 @@ void GSPlay::Update(float deltaTime)
 		}
 		it->Update(deltaTime);
 	}
-
+	
+	processBarWidth = (currentProcess * PROCESS_WIDTH) / maxProcess;
 	
 
 	//Moving background
@@ -246,6 +248,8 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 	{
 		it->Draw(renderer);
 	}
+	m_playerSprite->Draw(renderer);
+	m_collider1->DrawBoundingBox(renderer, m_color);
 
 	
 	m_playerSprite->Draw(renderer);
