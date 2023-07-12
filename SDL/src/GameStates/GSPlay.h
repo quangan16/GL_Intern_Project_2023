@@ -5,6 +5,7 @@
 #include "GameObject/Player.h"
 #include "GameObject/Cube.h"
 #include "GameObject/GameMap.h"
+#include "GameObject/BoxCollider2D.h"
 class Sprite2D;
 class SpriteAnimation;
 class Background;
@@ -59,6 +60,13 @@ private:
 	float jumpForce = 1500.0f;
 	bool jumpBuffer = false;
 
+
+	//Collider
+	std::shared_ptr<BoxCollider2D> m_collider1;
+
+	std::shared_ptr<SDL_Color> m_color;
+
+	std::shared_ptr<Player> m_ground;
 
 };
 
