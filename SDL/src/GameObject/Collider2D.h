@@ -23,6 +23,6 @@ public:
 		this->m_colliderPosition = position;
 	}
 
-	virtual bool CheckCollision(Vector2 pos, float width, float height) = 0;
+	virtual bool CheckCollision(const BoxCollider2D& otherCollider) = 0;
 };
 

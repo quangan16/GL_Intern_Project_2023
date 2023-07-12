@@ -2,6 +2,8 @@
 #include <cmath>
 #include <Define.h>
 #include "Collider2D.h"
+#include <memory>
+#include <SDL.h>
 
 class BoxCollider2D : public Collider2D {
 public:
@@ -11,7 +13,8 @@ public:
 
 
     // Check collision with another box collider
-    bool CheckCollision(Vector2 pos, float width, float height) override;
+    bool CheckCollision(const BoxCollider2D& otherCollider) override;
+    void DrawBoundingBox(SDL_Renderer* renderer, std::shared_ptr<SDL_Color> color) const ;
 
 
 protected:
