@@ -185,6 +185,7 @@ void GSPlay::Update(float deltaTime)
 	//std::cout << m_player->GetPlayerPosition().y<<std::endl;
 	//std::cout << m_collider1->GetColliderPosition().y;
 	m_player->RunIntoScene(m_readyPos, deltaTime);
+	m_player->SetPlayerPosition(m_player->GetPlayerPosition().x + 1000.0f * deltaTime, m_player->GetPlayerPosition().y);
 	m_player->ApplyGravity(m_gravity, isJumping, isFalling, isOnGround, deltaTime);
 	if (isJumping == true) {
 		m_player->MoveUp(jumpForce, m_gravity, isJumping, isFalling, isOnGround, jumpBoundY, jumpBuffer, deltaTime);
@@ -249,11 +250,15 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 		it->Draw(renderer);
 	}
 	m_playerSprite->Draw(renderer);
-	m_collider1->DrawBoundingBox(renderer, m_color);
-
-	
-	m_playerSprite->Draw(renderer);
-	m_collider1->Draw(renderer);
 	//m_collider1->DrawBoundingBox(renderer, m_color);
+	m_collider1->Draw(renderer);
+
+	SDL_Rect backgroundRect = { PROCESS_PADDING, PROCESS_PADDING, PROCESS_WIDTH, PROCESS_HEIGHT };
+	SDL_Rect foregroundRect = { PROCESS_PADDING, PROCESS_PADDING, processBarWidth, PROCESS_HEIGHT };
+	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // Red color
+	SDL_RenderFillRect(renderer, &backgroundRect);
+	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // Green color
+	SDL_RenderFillRect(renderer, &foregroundRect);
+	
 
 }
