@@ -35,4 +35,5 @@ private:
 	std::list<std::shared_ptr<SpriteAnimation>>	m_listAnimation;
 	std::shared_ptr<SpriteAnimation> obj;
 	std::shared_ptr<MouseButton> m_btnGuide;
+	std::shared_ptr<MouseButton> m_btnWindow;
 };

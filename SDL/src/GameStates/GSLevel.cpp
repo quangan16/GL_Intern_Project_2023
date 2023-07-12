@@ -29,7 +29,7 @@ void GSLevel::Init()
 	m_background->Set2DPosition(0, 0);
 
 	// play button
-	texture = ResourceManagers::GetInstance()->GetTexture("btn_play.tga");
+	texture = ResourceManagers::GetInstance()->GetTexture("button_play.tga");
 	std::shared_ptr<MouseButton> btnPlay = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
 
 	btnPlay->SetSize(150, 150);
@@ -40,7 +40,7 @@ void GSLevel::Init()
 	m_listButton.push_back(btnPlay);
 
 	// exit button
-	texture = ResourceManagers::GetInstance()->GetTexture("btn_close.tga");
+	texture = ResourceManagers::GetInstance()->GetTexture("button_close.tga");
 	std::shared_ptr<MouseButton> btnClose = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
 	//btnClose = std::make_shared<MouseButton>(texture);
 	btnClose->SetSize(50, 50);
@@ -51,7 +51,7 @@ void GSLevel::Init()
 	m_listButton.push_back(btnClose);
 
 	//Setting game
-	texture = ResourceManagers::GetInstance()->GetTexture("btn_settings.tga");
+	texture = ResourceManagers::GetInstance()->GetTexture("button_setting.tga");
 	std::shared_ptr<MouseButton> btnOption = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
 	btnOption->SetSize(50, 50);
 	btnOption->Set2DPosition((SCREEN_WIDTH - btnOption->GetWidth()) - 60, 10);
@@ -61,7 +61,7 @@ void GSLevel::Init()
 	m_listButton.push_back(btnOption);
 
 	//GUIDE game
-	texture = ResourceManagers::GetInstance()->GetTexture("btn_help.tga");
+	texture = ResourceManagers::GetInstance()->GetTexture("button_help.tga");
 	m_btnGuide = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
 	m_btnGuide->Set2DPosition((SCREEN_WIDTH - m_btnGuide->GetWidth()) - 70, 10);
 	m_btnGuide->SetSize(50, 50);
@@ -77,7 +77,7 @@ void GSLevel::Init()
 	m_imglv->Set2DPosition(SCREEN_WIDTH / 2 + 420, SCREEN_HEIGHT / 2 + 280);
 	
 	//Btn prev
-	texture = ResourceManagers::GetInstance()->GetTexture("btn_prev.tga");
+	texture = ResourceManagers::GetInstance()->GetTexture("button_leftarrow.tga");
 	m_btnPrev = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
 	m_btnPrev->SetSize(100, 100);
 	m_btnPrev->Set2DPosition(((SCREEN_WIDTH - m_btnPrev->GetWidth()) / 2) + 200, SCREEN_HEIGHT / 2 + 280);
@@ -96,7 +96,7 @@ void GSLevel::Init()
 	m_listButton.push_back(m_btnPrev);
 
 	//Btn next
-	texture = ResourceManagers::GetInstance()->GetTexture("btn_next.tga");
+	texture = ResourceManagers::GetInstance()->GetTexture("button_rightarrow.tga");
 	m_btnNext = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
 	m_btnNext->SetSize(100, 100);
 	m_btnNext->Set2DPosition(((SCREEN_WIDTH - m_btnNext->GetWidth()) / 2) + 800, SCREEN_HEIGHT / 2 + 280);
@@ -121,7 +121,7 @@ void GSLevel::Init()
 	m_imgchar->Set2DPosition(SCREEN_WIDTH / 2 - 550, SCREEN_HEIGHT / 2 + 280);
 
 	//Btn prev
-	texture = ResourceManagers::GetInstance()->GetTexture("btn_prev.tga");
+	texture = ResourceManagers::GetInstance()->GetTexture("button_leftarrow.tga");
 	m_btnPrev = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
 	m_btnPrev->SetSize(100, 100);
 	m_btnPrev->Set2DPosition(((SCREEN_WIDTH - m_btnPrev->GetWidth()) / 2) - 800, SCREEN_HEIGHT / 2 + 280);
@@ -140,7 +140,7 @@ void GSLevel::Init()
 	m_listButton.push_back(m_btnPrev);
 
 	//Btn next
-	texture = ResourceManagers::GetInstance()->GetTexture("btn_next.tga");
+	texture = ResourceManagers::GetInstance()->GetTexture("button_rightarrow.tga");
 	m_btnNext = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
 	m_btnNext->SetSize(100, 100);
 	m_btnNext->Set2DPosition(((SCREEN_WIDTH - m_btnNext->GetWidth()) / 2) - 200, SCREEN_HEIGHT / 2 + 280);

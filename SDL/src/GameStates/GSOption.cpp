@@ -16,7 +16,6 @@ GSOption::~GSOption()
 {
 }
 
-
 void GSOption::Init()
 {
 	//auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
@@ -28,7 +27,7 @@ void GSOption::Init()
 	m_background->Set2DPosition(0, 0);
 
 	// button close
-	texture = ResourceManagers::GetInstance()->GetTexture("btn_close.tga");
+	texture = ResourceManagers::GetInstance()->GetTexture("button_close.tga");
 	button = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
 	button->SetSize(50, 50);
 	button->Set2DPosition(SCREEN_WIDTH - 50, 10);
@@ -48,39 +47,36 @@ void GSOption::Init()
 	//texture = ResourceManagers::GetInstance()->GetTexture("btn_music.tga");
 	if (ResourceManagers::GetInstance()->isMuted)
 	{
-		texture = ResourceManagers::GetInstance()->GetTexture("btn_music_off.tga");
+		texture = ResourceManagers::GetInstance()->GetTexture("button_musicoff.tga");
 	}
 	else
 	{
-		texture = ResourceManagers::GetInstance()->GetTexture("btn_music.tga");
+		texture = ResourceManagers::GetInstance()->GetTexture("button_musicon.tga");
 
 	}
 	button = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
-	button->SetSize(50, 50);
+	button->SetSize(100, 100);
 	button->Set2DPosition(900,540);
 	button->SetOnClick([this, texture]() {
 		if (!ResourceManagers::GetInstance()->isMuted)
 		{
-			button->SetTexture(ResourceManagers::GetInstance()->GetTexture("btn_music_off.tga"));
+			button->SetTexture(ResourceManagers::GetInstance()->GetTexture("button_musicoff.tga"));
 			ResourceManagers::GetInstance()->isMuted = true;
 		}
 		else
 		{
-			button->SetTexture(ResourceManagers::GetInstance()->GetTexture("btn_music.tga"));
+			button->SetTexture(ResourceManagers::GetInstance()->GetTexture("button_musicon.tga"));
 			ResourceManagers::GetInstance()->isMuted = false;
 		}
 	});
 	m_listButton.push_back(button);
 
 	//slider volume
-	const int SLIDER_WIDTH = 200;
-	const int SLIDER_HEIGHT = 20;
-	int sliderPosition = 0;
-	int volume = 0;
-
+	volumeBarWidth = (currentVolume * VOLUME_WIDTH) / maxVolume;
 
 	m_KeyPress = 0;
 }
+
 
 void GSOption::Exit()
 {
@@ -207,4 +203,13 @@ void GSOption::Draw(SDL_Renderer* renderer)
 	{
 		it->Draw(renderer);
 	}
+	// Create the background rectangle for the health bar
+	SDL_Rect backgroundRect = { VOLUME_PADDING, VOLUME_PADDING, VOLUME_WIDTH, VOLUME_HEIGHT };
+	// Create the foreground rectangle representing the current health
+	SDL_Rect foregroundRect = { VOLUME_PADDING, VOLUME_PADDING, volumeBarWidth, VOLUME_HEIGHT };
+	// Set the drawing color to represent the health bar
+	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // Red color
+	SDL_RenderFillRect(renderer, &backgroundRect);
+	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // Green color
+	SDL_RenderFillRect(renderer, &foregroundRect);
 }
