@@ -14,6 +14,14 @@ Sprite2D::Sprite2D(std::shared_ptr<TextureManager> texture, SDL_RendererFlip fli
 	
 }
 
+Sprite2D::Sprite2D(std::shared_ptr<TextureManager> texture, SDL_RendererFlip flip, int _width, int _height)
+	:BaseObject(texture), m_iWidth(_width), m_iHeight(_height)
+{
+	m_flip = flip;
+	Init();
+
+}
+
 void Sprite2D::Init()
 {
 	// Init Camera

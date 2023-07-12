@@ -64,9 +64,11 @@ void GSPlay::Init()
 	m_player = std::make_shared<Cube>(-200.0f, 700.0f, 0.0, 1, m_gravity, texture);
 	m_player->SetPlayerSprite(80, 80, m_playerSprite);
 	Camera::GetInstance()->SetTarget(m_playerSprite);
-
+	
 	//Test Colliders
-	m_collider1 = std::make_shared<BoxCollider2D>(Vector2(0.0f, 400.0f), 480.0f, 210.0f);
+	texture = ResourceManagers::GetInstance()->GetTexture("collider_border.tga");
+	m_collider1 = std::make_shared<BoxCollider2D
+	>(Vector2(0.0f, 400.0f), 480.0f, 210.0f,texture, SDL_FLIP_NONE);
 
 	//Dummy ground
 	//m_ground = std::make_shared<Player>(Vector2(0.0f, 400.0f), 480.0f, 210.0f);
@@ -181,12 +183,13 @@ void GSPlay::HandleMouseMoveEvents(int x, int y)
 void GSPlay::Update(float deltaTime)
 {
 	//std::cout << m_player->GetPlayerPosition().y<<std::endl;
-	std::cout << m_collider1->GetColliderPosition().y;
+	//std::cout << m_collider1->GetColliderPosition().y;
 	m_player->RunIntoScene(m_readyPos, deltaTime);
+	m_player->ApplyGravity(m_gravity, isJumping, isFalling, isOnGround, deltaTime);
 	if (isJumping == true) {
 		m_player->MoveUp(jumpForce, m_gravity, isJumping, isFalling, isOnGround, jumpBoundY, jumpBuffer, deltaTime);
 	}
-	m_player->ApplyGravity(m_gravity, isJumping, isFalling, isOnGround, deltaTime);
+	
 	m_player->FixRotationOnGround(isOnGround, deltaTime);
 	m_player->UpdatePlayerPos(deltaTime);
 	m_player->UpdatePlayerSprite(m_playerSprite);
@@ -246,6 +249,7 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 
 	
 	m_playerSprite->Draw(renderer);
-	m_collider1->DrawBoundingBox(renderer, m_color);
+	m_collider1->Draw(renderer);
+	//m_collider1->DrawBoundingBox(renderer, m_color);
 
 }

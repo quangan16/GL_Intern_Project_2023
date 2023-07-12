@@ -44,7 +44,7 @@ private:
 	std::shared_ptr<SpriteAnimation> obj;
 	std::shared_ptr<MouseButton> button;
 	float time = 0.0f;
-	float m_gravity = 3500.0f;
+	double m_gravity = 3500.0;
 
 	float m_fBackground_speed = 10.f;
 	Vector2 m_readyPos = Vector2(500, 700);
@@ -57,11 +57,12 @@ private:
 	bool isFalling = false;
 	bool isOnGround = true;
 	float jumpBoundY;
-	float jumpForce = 1000.0f;
+	double jumpForce = 1300.0;
 	bool jumpBuffer = false;
 
 
 	//Collider
+	std::shared_ptr<BoxCollider2D> m_playerCollider;
 	std::shared_ptr<BoxCollider2D> m_collider1;
 
 	std::shared_ptr<SDL_Color> m_color;

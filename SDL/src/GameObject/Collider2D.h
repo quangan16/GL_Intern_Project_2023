@@ -13,15 +13,11 @@ public:
 	Collider2D(Vector2 position) {}
 	virtual ~Collider2D() {}
 
-	Vector2 GetColliderPosition()
-	{
-		return this->m_colliderPosition;
-	}
+	Vector2 GetColliderPosition();
+	
 
-	void SetColliderPosition(Vector2 position)
-	{
-		this->m_colliderPosition = position;
-	}
+	void SetColliderPosition(Vector2 position);
+	
 
 	virtual bool CheckCollision(const BoxCollider2D& otherCollider) = 0;
 };
