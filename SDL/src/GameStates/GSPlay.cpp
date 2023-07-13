@@ -31,10 +31,11 @@ void GSPlay::Init()
 		m_listBackground.push_back(bg);
 	}
 
-	
+	m_color = std::make_shared<SDL_Color>();
+
 	//Map
 	m_gameMap = std::make_shared<GameMap>();
-	m_gameMap->LoadMap("Data/map01.dat");
+	m_gameMap->LoadMap("Data/map03.dat");
 
 	// button close
 	texture = ResourceManagers::GetInstance()->GetTexture("btn_close.tga");
@@ -60,9 +61,18 @@ void GSPlay::Init()
 
 	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_1.tga");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
-	m_player = std::make_shared<Cube>(-200.0f, 700.0f, 0.0, 1, m_gravity, texture);
-	m_player->SetPlayerSprite(80, 80, m_playerSprite);
+	m_player = std::make_shared<Cube>(-200.0f, 500.0f, 0.0, 1, m_gravity, texture);
+	m_player->SetPlayerSprite(128, 128, m_playerSprite);
 	Camera::GetInstance()->SetTarget(m_playerSprite);
+	
+	//Test Colliders
+	texture = ResourceManagers::GetInstance()->GetTexture("collider_border.tga");
+	m_collider1 = std::make_shared<BoxCollider2D
+	>(Vector2(0.0f, 400.0f), 480.0f, 210.0f,texture, SDL_FLIP_NONE);
+
+	//Dummy ground
+	//m_ground = std::make_shared<Player>(Vector2(0.0f, 400.0f), 480.0f, 210.0f);
+	
 }
 
 void GSPlay::Exit()
@@ -113,8 +123,8 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 				m_player->SetPlayerVelocity(jumpForce);
 				float jumpHeight = 300.0f;
 				isJumping = true;
-				std::cout << isJumping;
-				std::cout << m_player->GetPlayerPosition().y<<std::endl;
+				/*std::cout << isJumping;
+				std::cout << m_player->GetPlayerPosition().y<<std::endl;*/
 				jumpBoundY = m_player->GetPlayerJumpBoundY(jumpHeight);
 				
 			}
@@ -172,17 +182,19 @@ void GSPlay::HandleMouseMoveEvents(int x, int y)
 
 void GSPlay::Update(float deltaTime)
 {
-	std::cout << m_player->GetPlayerPosition().y<<std::endl;
+	//std::cout << m_player->GetPlayerPosition().y<<std::endl;
+	//std::cout << m_collider1->GetColliderPosition().y;
 	m_player->RunIntoScene(m_readyPos, deltaTime);
-	float speed = 1000.0f;
-	m_player->SetPlayerPosition(m_player->GetPlayerPosition().x + speed * deltaTime, m_player->GetPlayerPosition().y);
-
+	m_player->SetPlayerPosition(m_player->GetPlayerPosition().x + 1000.0f * deltaTime, m_player->GetPlayerPosition().y);
+	m_player->ApplyGravity(m_gravity, isJumping, isFalling, isOnGround, deltaTime);
 	if (isJumping == true) {
 		m_player->MoveUp(jumpForce, m_gravity, isJumping, isFalling, isOnGround, jumpBoundY, jumpBuffer, deltaTime);
 	}
-	m_player->ApplyGravity(m_gravity, isJumping, isFalling, isOnGround, deltaTime);
+	
+	m_player->FixRotationOnGround(isOnGround, deltaTime);
 	m_player->UpdatePlayerPos(deltaTime);
 	m_player->UpdatePlayerSprite(m_playerSprite);
+
 	
 	
 	switch (m_KeyPress)//Handle Key event
@@ -205,7 +217,8 @@ void GSPlay::Update(float deltaTime)
 		}
 		it->Update(deltaTime);
 	}
-
+	
+	processBarWidth = (currentProcess * PROCESS_WIDTH) / maxProcess;
 	
 
 	//Moving background
@@ -224,6 +237,7 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 	{
 		it->Draw(renderer);
 	}
+	
 	m_gameMap->DrawMap(renderer);
 	//m_score->Draw(renderer);
 	for (auto it : m_listButton)
@@ -235,9 +249,16 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 	{
 		it->Draw(renderer);
 	}
-
-	
 	m_playerSprite->Draw(renderer);
+	//m_collider1->DrawBoundingBox(renderer, m_color);
+	m_collider1->Draw(renderer);
 
+	SDL_Rect backgroundRect = { PROCESS_PADDING, PROCESS_PADDING, PROCESS_WIDTH, PROCESS_HEIGHT };
+	SDL_Rect foregroundRect = { PROCESS_PADDING, PROCESS_PADDING, processBarWidth, PROCESS_HEIGHT };
+	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // Red color
+	SDL_RenderFillRect(renderer, &backgroundRect);
+	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // Green color
+	SDL_RenderFillRect(renderer, &foregroundRect);
+	
 
 }

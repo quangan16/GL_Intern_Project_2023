@@ -20,7 +20,7 @@ public:
 	virtual void Init() = 0;
 	virtual void Draw(SDL_Renderer* renderer) = 0;
 	virtual void Update(float deltatime) = 0;
-	void SetPosition(Vector3 position) { m_position = position; }
+	void SetPosition(Vector3 position) { m_position = position; } 
 	Vector3 GetPosition() { return m_position; }
 	void SetTexture(std::shared_ptr<TextureManager> texture) { m_pTexture = texture; }
 	 

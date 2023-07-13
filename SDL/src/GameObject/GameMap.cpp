@@ -103,7 +103,7 @@ void GameMap::DrawMap(SDL_Renderer* renderer)
 			{
 				auto texture = ResourceManagers::GetInstance()->GetTexture(std::to_string(val) + ".tga");
 				auto tile = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
-				tile->Set2DPosition(j, i);
+				tile->Set2DPosition(j, i - 64.0f);
 				tile->SetSize(TILE_SIZE, TILE_SIZE);
 				tile->Draw(renderer);
 			}

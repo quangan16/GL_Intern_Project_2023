@@ -11,7 +11,7 @@ protected:
 	Vector2 m_playerPosition;
 	double m_playerRotation;
 	int m_direction;
-	float m_velocity;
+	double m_velocity;
 	std::shared_ptr<TextureManager> m_playerTexture;
 	std::shared_ptr<Sprite2D> m_playerSprite;
 
@@ -20,11 +20,11 @@ public:
 
 	Player();
 
-	Player(float _posX, float _posY,double _rotation, int _direction, float _velocity, std::shared_ptr<TextureManager> _playerTexture);
+	Player(float _posX, float _posY,double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _playerTexture);
 
 	virtual ~Player();
 
-	virtual void MoveUp(const float& _jumpForce,const float &_gravity, bool& _isJumping, bool& _isFalling, bool &_isOnGround, const float& _jumpBoundY, bool &_jumpBuffer, float _deltaTime) = 0;
+	virtual void MoveUp(const double& _jumpForce,const double&_gravity, bool& _isJumping, bool& _isFalling, bool &_isOnGround, const float& _jumpBoundY, bool &_jumpBuffer, float _deltaTime) = 0;
 
 	virtual void Rotate(double _angle, float _deltaTime) = 0;
 
@@ -50,9 +50,11 @@ public:
 
 	virtual float GetPlayerJumpBoundY(float _jumpHeight);
 
-	virtual void ApplyGravity(const float& _gravity, bool& _isFalling, bool& _isJumping, bool& _isOnGround, float _deltaTime) = 0;
+	virtual void ApplyGravity(const double& _gravity, bool& _isFalling, bool& _isJumping, bool& _isOnGround, float _deltaTime) = 0;
 
 	void UpdatePlayerPos(float& _deltaTime);
+
+	virtual void FixRotationOnGround(const bool& _isOnGround, const float& deltaTime) = 0;
 
 	//void Update(float deltaTime);
 	

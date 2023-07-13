@@ -4,7 +4,7 @@ Player::Player() : m_playerPosition{ 0.0f, 0.0f }, m_velocity{ 10.0f } {};
 
 
 
-Player::Player(float _posX, float _posY, double _rotation, int _direction, float _velocity, std::shared_ptr<TextureManager> _playerTexture)
+Player::Player(float _posX, float _posY, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _playerTexture)
 : m_playerPosition{ _posX, _posY }, m_playerRotation{ _rotation }, m_direction{_direction}, m_velocity{_velocity}, m_playerTexture{_playerTexture} {};
 
 Player::~Player() {

@@ -10,7 +10,8 @@ protected:
 
 public:
 	Sprite2D() : BaseObject(), m_iWidth(0), m_iHeight(0) {}
-	Sprite2D( std::shared_ptr<TextureManager> texture, SDL_RendererFlip flip);
+	Sprite2D(std::shared_ptr<TextureManager> texture, SDL_RendererFlip flip);
+	Sprite2D( std::shared_ptr<TextureManager> texture, SDL_RendererFlip flip, int _width, int _height);
 	void Init() override;
 	void Draw(SDL_Renderer * renderer) override;
 
