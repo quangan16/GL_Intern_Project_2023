@@ -73,6 +73,7 @@ void GSPlay::Init()
 	//Dummy ground
 	//m_ground = std::make_shared<Player>(Vector2(0.0f, 400.0f), 480.0f, 210.0f);
 	
+
 }
 
 void GSPlay::Exit()
@@ -217,9 +218,7 @@ void GSPlay::Update(float deltaTime)
 		}
 		it->Update(deltaTime);
 	}
-	
 	processBarWidth = (currentProcess * PROCESS_WIDTH) / maxProcess;
-	
 
 	//Moving background
 	//m_background = std::get<0>(m_background->MovingBackGround(m_background, m_background_2));

@@ -72,11 +72,25 @@ void GSOption::Init()
 	m_listButton.push_back(button);
 
 	//slider volume
-	volumeBarWidth = (currentVolume * VOLUME_WIDTH) / maxVolume;
+	//volumeBarWidth = (currentVolume * VOLUME_WIDTH) / maxVolume;
 
 	m_KeyPress = 0;
 }
 
+void GSOption::updateVolume(int x)
+{
+	// Calculate the new volume based on the slider position
+	volume = (x - SLIDER_PADDING) * 100 / (SCREEN_WIDTH - SLIDER_WIDTH - 2 * SLIDER_PADDING);
+
+	// Clamp the volume between 0 and 100
+	if (volume < 0)
+		volume = 0;
+	else if (volume > 100)
+		volume = 100;
+
+	// Set the volume (you can use your own audio API to set the actual volume)
+	// SetVolume(volume);
+}
 
 void GSOption::Exit()
 {
@@ -161,6 +175,22 @@ void GSOption::HandleTouchEvents(SDL_Event& e, bool bIsPressed)
 
 void GSOption::HandleMouseMoveEvents(int x, int y)
 {
+		SDL_Event event;
+		while (SDL_PollEvent(&event) != 0)
+		{
+			if (event.type == SDL_MOUSEBUTTONDOWN)
+			{
+				// Check if the mouse click is within the slider bar
+				int mouseX, mouseY;
+				SDL_GetMouseState(&mouseX, &mouseY);
+				if (mouseY >= SCREEN_HEIGHT / 2 - SLIDER_HEIGHT / 2 && mouseY <= SCREEN_HEIGHT / 2 + SLIDER_HEIGHT / 2 &&
+					mouseX >= SLIDER_PADDING && mouseX <= SCREEN_WIDTH - SLIDER_WIDTH - SLIDER_PADDING)
+				{
+					// Update the volume based on the mouse position
+					updateVolume(mouseX);
+				}
+			}
+		}
 }
 
 void GSOption::Update(float deltaTime)
@@ -204,12 +234,27 @@ void GSOption::Draw(SDL_Renderer* renderer)
 		it->Draw(renderer);
 	}
 	// Create the background rectangle for the health bar
-	SDL_Rect backgroundRect = { VOLUME_PADDING, VOLUME_PADDING, VOLUME_WIDTH, VOLUME_HEIGHT };
+	//SDL_Rect backgroundRect = { VOLUME_PADDING, VOLUME_PADDING, VOLUME_WIDTH, VOLUME_HEIGHT };
 	// Create the foreground rectangle representing the current health
-	SDL_Rect foregroundRect = { VOLUME_PADDING, VOLUME_PADDING, volumeBarWidth, VOLUME_HEIGHT };
+	//SDL_Rect foregroundRect = { VOLUME_PADDING, VOLUME_PADDING, volumeBarWidth, VOLUME_HEIGHT };
 	// Set the drawing color to represent the health bar
-	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // Red color
-	SDL_RenderFillRect(renderer, &backgroundRect);
-	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // Green color
-	SDL_RenderFillRect(renderer, &foregroundRect);
+	//SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // Red color
+	//SDL_RenderFillRect(renderer, &backgroundRect);
+	//SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // Green color
+	//SDL_RenderFillRect(renderer, &foregroundRect);
+
+	//test
+	 // Draw the slider bar background
+	SDL_Rect sliderBackgroundRect = { SLIDER_PADDING, SCREEN_HEIGHT / 2 - SLIDER_HEIGHT / 2, SCREEN_WIDTH - 2 * SLIDER_PADDING, SLIDER_HEIGHT };
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_RenderFillRect(renderer, &sliderBackgroundRect);
+
+	// Draw the slider bar
+	int sliderPosition = SLIDER_PADDING + (volume * (SCREEN_WIDTH - SLIDER_WIDTH - 2 * SLIDER_PADDING)) / 100;
+	SDL_Rect sliderRect = { sliderPosition, SCREEN_HEIGHT / 2 - SLIDER_HEIGHT / 2, SLIDER_WIDTH, SLIDER_HEIGHT };
+	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+	SDL_RenderFillRect(renderer, &sliderRect);
+
+	// Update the screen
+	SDL_RenderPresent(renderer);
 }

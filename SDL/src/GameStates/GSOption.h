@@ -23,7 +23,7 @@ public:
 	void	HandleMouseMoveEvents(int x, int y) override;
 	void	Update(float deltaTime) override;
 	void	Draw(SDL_Renderer* renderer) override;
-	void	renderHealthBar(int currentHealth, int maxHealth);
+	void	updateVolume(int x);
 	int m_KeyPress;
 private:
 	std::shared_ptr<Sprite2D>	m_background;
@@ -32,12 +32,18 @@ private:
 	std::shared_ptr<SpriteAnimation> obj;
 	std::shared_ptr<MouseButton> button;
 	float time = 0.0f;
-	const int VOLUME_WIDTH = 200;
-	const int VOLUME_HEIGHT = 20;
-	const int VOLUME_PADDING = 10;
-	int maxVolume = 100;
-	int currentVolume = 50;
-	int volumeBarWidth;
+	//const int VOLUME_WIDTH = 200;
+	//const int VOLUME_HEIGHT = 20;
+	//const int VOLUME_PADDING = 10;
+	//int maxVolume = 100;
+	//int currentVolume = 50;
+	//int volumeBarWidth;
 	//float m_Velocity = 10.0f;
+
+	const int SLIDER_WIDTH = 200;
+	const int SLIDER_HEIGHT = 20;
+	const int SLIDER_PADDING = 10;
+	const int INITIAL_VOLUME = 50;
+	int volume = INITIAL_VOLUME;
 };
 
