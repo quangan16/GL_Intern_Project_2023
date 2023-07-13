@@ -4,12 +4,12 @@
 #include"GameObject/Text.h"
 #include "GameObject/Sound.h"
 #include "GameObject/SpriteAnimation.h"
-class GSLevel :
+class GSCharacter :
 	public GameStateBase
 {
 public:
-	GSLevel();
-	~GSLevel();
+	GSCharacter();
+	~GSCharacter();
 
 	void	Init() override;
 	void	Exit() override;
@@ -27,7 +27,8 @@ public:
 private:
 	std::shared_ptr<Sprite2D>				m_background;
 	std::list<std::shared_ptr<MouseButton>>	m_listButton;
-	std::shared_ptr<Text>					m_textGameName;
+	std::shared_ptr<Text>					m_textNext;
+	std::shared_ptr<Text>					m_textBack;
 	SDL_Color m_textColor;
 	TTF_Font* m_Font;
 	std::shared_ptr<Sound>					m_Sound;
@@ -38,6 +39,9 @@ private:
 	int m_iMapTexture_index;
 	int m_iMaptexturesCount;
 
+	int m_iCharacterTexture_index;
+	int m_iCharactertexturesCount;
+
 	std::list<std::shared_ptr<SpriteAnimation>>	m_listAnimation;
 	std::shared_ptr<SpriteAnimation> obj;
 	std::shared_ptr<MouseButton> m_btnPrev;
@@ -46,6 +50,5 @@ private:
 	std::shared_ptr<MouseButton> m_btnBack;
 	std::shared_ptr<MouseButton> m_btnPlay;
 	std::shared_ptr<Sprite2D>				m_imglv;
-	std::shared_ptr<Text>					m_textNext;
-	std::shared_ptr<Text>					m_textBack;
+	std::shared_ptr<Sprite2D>				m_imgchar;
 };
