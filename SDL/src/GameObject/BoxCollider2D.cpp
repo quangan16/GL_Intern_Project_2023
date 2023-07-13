@@ -3,13 +3,14 @@
 
 
 
-BoxCollider2D::BoxCollider2D(Vector2 objectPos, float width, float height) {
+BoxCollider2D::BoxCollider2D(Vector2 objectPos,bool _isActive, float width, float height) {
     this->m_colliderPosition = objectPos;
+    this->m_isActive = _isActive;
     m_width = width;
     m_height = height;
 }
 
-BoxCollider2D::BoxCollider2D(Vector2 _objectPos, float _width, float _height, std::shared_ptr<TextureManager> _texture, SDL_RendererFlip _flip) : Sprite2D(_texture, _flip, _width, _height), Collider2D{ _objectPos }{}
+BoxCollider2D::BoxCollider2D(Vector2 _objectPos, bool _isActive, float _width, float _height, std::shared_ptr<TextureManager> _texture, SDL_RendererFlip _flip) :Collider2D(_objectPos, _isActive), Sprite2D(_texture, _flip, _width, _height), m_width{ _width }, m_height { _height } {}
 
 void BoxCollider2D::Init()
 {
@@ -21,7 +22,7 @@ void BoxCollider2D::Draw(SDL_Renderer* renderer)
     //Get2DPosition();
     if (m_pTexture != nullptr)
     {
-        m_pTexture->Render(m_position.x, m_position.y, m_iWidth, m_iHeight, m_angle, m_flip);
+        m_pTexture->Render(m_colliderPosition.x, m_colliderPosition.y, m_iWidth, m_iHeight, m_angle, m_flip);
     }
 
 }
@@ -49,7 +50,7 @@ void BoxCollider2D::SetSize(int width, int height)
 
 int BoxCollider2D::GetWidth()
 {
-    return m_iWidth;
+    return m_width;
 }
 
 int BoxCollider2D::GetHeight()
@@ -67,18 +68,18 @@ void BoxCollider2D::SetFlip(SDL_RendererFlip flip)
     m_flip = flip;
 }
 
-bool BoxCollider2D::CheckCollision(const BoxCollider2D& otherCollider) {
-    if (this->m_colliderPosition.x + this->m_width < otherCollider.m_colliderPosition.x || this->m_colliderPosition.x > otherCollider.m_colliderPosition.x + otherCollider.m_width) return false;
-    if (this->m_colliderPosition.y + m_height < otherCollider.m_colliderPosition.y || this->m_colliderPosition.y >  otherCollider.m_colliderPosition.y + otherCollider.m_width) return false;
+bool BoxCollider2D::CheckCollision(const std::shared_ptr<BoxCollider2D> _otherCollider) {
+    if (this->m_colliderPosition.x + this->m_width < _otherCollider->m_colliderPosition.x || this->m_colliderPosition.x > _otherCollider->m_colliderPosition.x + _otherCollider->m_width) return false;
+    if (this->m_colliderPosition.y + m_height < _otherCollider->m_colliderPosition.y || this->m_colliderPosition.y >  _otherCollider->m_colliderPosition.y + _otherCollider->m_width) return false;
     return true;
 }
 
 //~Above code equivalent to
-//bool BoxCollider2D::CheckCollision(const BoxCollider2D& otherCollider) {
-//    return !(this->m_colliderPosition.x + this->m_width < otherCollider.m_colliderPosition.x ||
-//        this->m_colliderPosition.x > otherCollider.m_colliderPosition.x + otherCollider.m_width ||
-//        this->m_colliderPosition.y + this->m_height < otherCollider.m_colliderPosition.y ||
-//        this->m_colliderPosition.y > otherCollider.m_colliderPosition.y + otherCollider.m_height);
+//bool BoxCollider2D::CheckCollision(const BoxCollider2D& _otherCollider) {
+//    return !(this->m_colliderPosition.x + this->m_width < _otherCollider.m_colliderPosition.x ||
+//        this->m_colliderPosition.x > _otherCollider.m_colliderPosition.x + _otherCollider.m_width ||
+//        this->m_colliderPosition.y + this->m_height < _otherCollider.m_colliderPosition.y ||
+//        this->m_colliderPosition.y > _otherCollider.m_colliderPosition.y + _otherCollider.m_height);
 //}
 
 void BoxCollider2D::DrawBoundingBox(SDL_Renderer* renderer, std::shared_ptr<SDL_Color> color) const {

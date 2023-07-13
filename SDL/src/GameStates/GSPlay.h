@@ -35,8 +35,6 @@ public:
 
 private:
 	std::shared_ptr<GameMap> m_gameMap;
-	std::shared_ptr<Background>	m_background;
-	std::shared_ptr<Background>	m_background_2;
 	std::shared_ptr<Text>		m_score;
 	std::list<std::shared_ptr<MouseButton>>	m_listButton;
 	std::list<std::shared_ptr<SpriteAnimation>>	m_listAnimation;

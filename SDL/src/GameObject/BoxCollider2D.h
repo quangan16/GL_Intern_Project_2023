@@ -11,14 +11,14 @@ class BoxCollider2D : public Collider2D, public Sprite2D {
 public:
     // Constructor
     BoxCollider2D();
-    BoxCollider2D(Vector2 objectPos, float width, float height);
-	BoxCollider2D(Vector2 objectPos, float width, float height, std::shared_ptr<TextureManager> texture, SDL_RendererFlip flip);
+    BoxCollider2D(Vector2 _objectPos,bool _isActive, float _width, float _height);
+	BoxCollider2D(Vector2 _objectPos,bool _isActive, float _width, float _height, std::shared_ptr<TextureManager> texture, SDL_RendererFlip flip);
 	
 
 
 
     // Check collision with another box collider
-    bool CheckCollision(const BoxCollider2D& otherCollider) override;
+    bool CheckCollision(const std::shared_ptr<BoxCollider2D> _otherCollider) override;
     void DrawBoundingBox(SDL_Renderer* renderer, std::shared_ptr<SDL_Color> color) const ;
 
 	void Init() override;
