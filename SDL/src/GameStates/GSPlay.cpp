@@ -227,6 +227,7 @@ void GSPlay::Update(float deltaTime)
 		}
 		it->Update(deltaTime);
 	}
+	currentProcess = currentProcess + deltaTime;
 	processBarWidth = (currentProcess * PROCESS_WIDTH) / maxProcess;
 
 	//Moving background
@@ -262,8 +263,8 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 	m_collider1->Draw(renderer);
 	m_playerCollider->Draw(renderer);
 
-	SDL_Rect backgroundRect = { PROCESS_PADDING, PROCESS_PADDING, PROCESS_WIDTH, PROCESS_HEIGHT };
-	SDL_Rect foregroundRect = { PROCESS_PADDING, PROCESS_PADDING, processBarWidth, PROCESS_HEIGHT };
+	SDL_Rect backgroundRect = { SCREEN_WIDTH / 2 - 250, PROCESS_PADDING, PROCESS_WIDTH, PROCESS_HEIGHT };
+	SDL_Rect foregroundRect = { SCREEN_WIDTH / 2 - 250, PROCESS_PADDING, processBarWidth, PROCESS_HEIGHT };
 	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // Red color
 	SDL_RenderFillRect(renderer, &backgroundRect);
 	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // Green color
