@@ -61,14 +61,14 @@ void GSPlay::Init()
 
 	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_1.tga");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
-	m_player = std::make_shared<Cube>(Vector2(-200.0f, 500.0f), 0.0, 1, m_gravity, texture);
+	m_player = std::make_shared<Cube>(Vector2(200.0f, 300.0f), 0.0, 1, 0.0, texture);
 	m_player->SetPlayerSprite(128, 128, m_playerSprite);
 	Camera::GetInstance()->SetTarget(m_playerSprite);
 	
 	//Test Colliders
 	texture = ResourceManagers::GetInstance()->GetTexture("collider_border.tga");
-	m_collider1 = std::make_shared<BoxCollider2D>(Vector2(200.0f, 400.0f),true, 480.0f, 410.0f,texture, SDL_FLIP_NONE);
-
+	m_collider1 = std::make_shared<BoxCollider2D>( ColliderType::GROUND, Vector2(0.0f, 700.0f), true, 480.0f, 410.0f, texture, SDL_FLIP_NONE);
+	m_collider1 ->SetSize(480.0f, 410.0f);
 	m_playerCollider = m_player->GetCollider();
 
 	//Dummy ground
@@ -127,7 +127,7 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 				isJumping = true;
 				/*std::cout << isJumping;
 				std::cout << m_player->GetPlayerPosition().y<<std::endl;*/
-				jumpBoundY = m_player->GetPlayerJumpBoundY(jumpHeight);
+				
 				
 			}
 			else if (isFalling) {
@@ -186,11 +186,13 @@ void GSPlay::Update(float deltaTime)
 {
 	//std::cout << m_player->GetPlayerPosition().y<<std::endl;
 	//std::cout << m_collider1->GetColliderPosition().y;
+	m_player->OnGround(isJumping, isFalling, isOnGround);
 	m_player->RunIntoScene(m_readyPos, deltaTime);
-	m_player->SetPlayerPosition(m_player->GetPlayerPosition().x + 1000.0f * deltaTime, m_player->GetPlayerPosition().y);
 	m_player->ApplyGravity(m_gravity, isJumping, isFalling, isOnGround, deltaTime);
+	//m_player->SetPlayerPosition(m_player->GetPlayerPosition().x + 1000.0f * deltaTime, m_player->GetPlayerPosition().y);
+	
 	if (isJumping == true) {
-		m_player->MoveUp(jumpForce, m_gravity, isJumping, isFalling, isOnGround, jumpBoundY, jumpBuffer, deltaTime);
+		m_player->MoveUp(jumpForce, m_gravity, isJumping, isFalling, isOnGround, jumpBuffer, deltaTime);
 	}
 
 	
@@ -232,7 +234,7 @@ void GSPlay::Update(float deltaTime)
 	//m_background_2 = std::get<1>(m_background_2->MovingBackGround(m_background, m_background_2));
 
 	//Update position of camera
-	Camera::GetInstance()->Update(deltaTime);
+	//Camera::GetInstance()->Update(deltaTime);
 	/*obj->update(deltatime);*/
 	//printf("%f, \n", obj->GetPosition().x);
 }

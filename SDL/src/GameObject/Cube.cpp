@@ -17,7 +17,7 @@ void Cube::Rotate(double _rotateSpeed, float _deltaTime) {
 }
 
 
-void Cube::MoveUp(const double& _jumpForce, const double& _gravity, bool& _isJumping, bool& _isFalling, bool& _isOnGround, const float& _jumpBoundY, bool& _jumpBuffer, float _deltaTime) {
+void Cube::MoveUp(const double& _jumpForce, const double& _gravity, bool& _isJumping, bool& _isFalling, bool& _isOnGround, bool& _jumpBuffer, float _deltaTime) {
 
 
 	if (_isJumping == true) {
@@ -38,17 +38,18 @@ void Cube::MoveUp(const double& _jumpForce, const double& _gravity, bool& _isJum
 
 
 
-		if (this->GetPlayerPosition().y > 700.0f && _isFalling == true) {
-			;
-			if (_isOnGround == false) {
+		
+		if (_isOnGround == true && _isFalling == true) {
+			_isOnGround = true;
+			if (_isOnGround == true) {
 				m_velocity = 0.0f;
 			}
 			_isJumping = false;
 			_isFalling = false;
-			_isOnGround = true;
+
 
 		}
-
+		
 
 	}
 	if (_isOnGround == true && _jumpBuffer == 1) {
@@ -72,7 +73,7 @@ void Cube::MoveUp(const double& _jumpForce, const double& _gravity, bool& _isJum
 void Cube::ApplyGravity(const double& _gravity, bool& _isJumping, bool& _isFalling, bool& _isOnGround, float _deltaTime) {
 	if (_isOnGround == false && _isJumping == false) {
 		_isFalling == true;
-		m_velocity -= _gravity * _deltaTime;
+		m_velocity += _gravity * _deltaTime;
 	}
 
 }
@@ -109,5 +110,20 @@ const std::shared_ptr<BoxCollider2D> Cube::GetCollider() const {
 	return m_playerCollider;
 }
 
+void Cube::OnGround(bool &_isJumping, bool &_isFalling, bool &_isOnGround) {
+	if (_isOnGround == true  && _isFalling == true) {
+		_isOnGround = true;
+		if (_isOnGround == true) {
+			m_velocity = 0.0f;
+		}
+		_isJumping = false;
+		_isFalling = false;
+		
 
+	}
+}
+
+//void Cube::OnCollisionStay(std::shared_ptr<BoxCollider2D> otherCollider) {
+//
+//}
 

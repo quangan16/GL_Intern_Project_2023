@@ -54,14 +54,13 @@ private:
 	float m_fBackground_speed = 10.f;
 	Vector2 m_readyPos = Vector2(500, 700);
 
-	std::shared_ptr<Player> m_player;
+	std::shared_ptr<Cube> m_player;
 	std::shared_ptr<Sprite2D> m_playerSprite;
 
 	//Player's jump params
 	bool isJumping = false;
-	bool isFalling = false;
-	bool isOnGround = true;
-	float jumpBoundY;
+	bool isFalling = true;
+	bool isOnGround = false;
 	double jumpForce = 1300.0;
 	bool jumpBuffer = false;
 
@@ -72,7 +71,7 @@ private:
 
 	std::shared_ptr<SDL_Color> m_color;
 
-	std::shared_ptr<Player> m_ground;
+	//std::shared_ptr<Player> m_ground;
 
 };
 

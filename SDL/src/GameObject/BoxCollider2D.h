@@ -12,7 +12,7 @@ public:
     // Constructor
     BoxCollider2D();
     BoxCollider2D(Vector2 _objectPos,bool _isActive, float _width, float _height);
-	BoxCollider2D(Vector2 _objectPos,bool _isActive, float _width, float _height, std::shared_ptr<TextureManager> texture, SDL_RendererFlip flip);
+	BoxCollider2D(ColliderType _id,Vector2 _objectPos,bool _isActive, float _width, float _height, std::shared_ptr<TextureManager> texture, SDL_RendererFlip flip);
 	
 
 
@@ -38,4 +38,5 @@ protected:
     float m_width;
     float m_height;
 };
+
 
