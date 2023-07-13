@@ -1,7 +1,8 @@
 #pragma once
 #include <iostream>
 #include "TextureManager.h"
-
+#include "BoxCollider2D.h"
+#include <memory>
 
 class Player
 {
@@ -15,12 +16,14 @@ protected:
 	std::shared_ptr<TextureManager> m_playerTexture;
 	std::shared_ptr<Sprite2D> m_playerSprite;
 
+	std::shared_ptr<BoxCollider2D> m_playerCollider;
+
 
 public:
 
 	Player();
 
-	Player(float _posX, float _posY,double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _playerTexture);
+	Player(Vector2 _position ,double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _playerTexture);
 
 	virtual ~Player();
 
@@ -55,6 +58,10 @@ public:
 	void UpdatePlayerPos(float& _deltaTime);
 
 	virtual void FixRotationOnGround(const bool& _isOnGround, const float& deltaTime) = 0;
+
+	virtual const std::shared_ptr<BoxCollider2D> GetCollider() const = 0;
+
+	void UpdatePlayerColliderState();
 
 	//void Update(float deltaTime);
 	

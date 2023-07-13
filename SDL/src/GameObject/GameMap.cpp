@@ -1,6 +1,6 @@
 #include "GameMap.h"
 #include "GameManager/ResourceManagers.h"
-
+#include "BoxCollider2D.h"
 
 
 GameMap::GameMap()
@@ -42,6 +42,7 @@ void GameMap::LoadMap(const char* name)
 				}
 			}
 		}
+		printf("\n");
 	}
 
 	game_map_.max_x_ = (game_map_.max_x_ + 1) * TILE_SIZE;
@@ -101,10 +102,8 @@ void GameMap::DrawMap(SDL_Renderer* renderer)
 			int val = game_map_.tile[map_y][map_x];
 			if (val > 0)
 			{
-				auto texture = ResourceManagers::GetInstance()->GetTexture(std::to_string(val) + ".tga");
-				auto tile = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
-				tile->Set2DPosition(j, i - 64.0f);
-				tile->SetSize(TILE_SIZE, TILE_SIZE);
+				auto texture = ResourceManagers::GetInstance()->GetTexture("collider_border.tga");
+				auto tile = std::make_shared<BoxCollider2D>(Vector2(j, i), true, 128, 128, texture, SDL_FLIP_NONE);
 				tile->Draw(renderer);
 			}
 			map_x++;

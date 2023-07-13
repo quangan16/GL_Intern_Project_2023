@@ -61,14 +61,15 @@ void GSPlay::Init()
 
 	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_1.tga");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
-	m_player = std::make_shared<Cube>(-200.0f, 500.0f, 0.0, 1, m_gravity, texture);
+	m_player = std::make_shared<Cube>(Vector2(-200.0f, 500.0f), 0.0, 1, m_gravity, texture);
 	m_player->SetPlayerSprite(128, 128, m_playerSprite);
 	Camera::GetInstance()->SetTarget(m_playerSprite);
 	
 	//Test Colliders
 	texture = ResourceManagers::GetInstance()->GetTexture("collider_border.tga");
-	m_collider1 = std::make_shared<BoxCollider2D
-	>(Vector2(0.0f, 400.0f), 480.0f, 210.0f,texture, SDL_FLIP_NONE);
+	m_collider1 = std::make_shared<BoxCollider2D>(Vector2(200.0f, 500.0f),true, 128.0f, 128.0f,texture, SDL_FLIP_NONE);
+
+	m_playerCollider = m_player->GetCollider();
 
 	//Dummy ground
 	//m_ground = std::make_shared<Player>(Vector2(0.0f, 400.0f), 480.0f, 210.0f);
@@ -191,7 +192,13 @@ void GSPlay::Update(float deltaTime)
 	if (isJumping == true) {
 		m_player->MoveUp(jumpForce, m_gravity, isJumping, isFalling, isOnGround, jumpBoundY, jumpBuffer, deltaTime);
 	}
+
 	
+	m_player->UpdatePlayerColliderState();
+	std::cout << m_playerCollider->GetWidth() << std::endl;
+	if (m_playerCollider->CheckCollision(m_collider1)) {
+		std::cout << "auuuu" << std::endl;
+	}
 	m_player->FixRotationOnGround(isOnGround, deltaTime);
 	m_player->UpdatePlayerPos(deltaTime);
 	m_player->UpdatePlayerSprite(m_playerSprite);
@@ -225,7 +232,7 @@ void GSPlay::Update(float deltaTime)
 	//m_background_2 = std::get<1>(m_background_2->MovingBackGround(m_background, m_background_2));
 
 	//Update position of camera
-	Camera::GetInstance()->Update(deltaTime);
+	//Camera::GetInstance()->Update(deltaTime);
 	/*obj->update(deltatime);*/
 	//printf("%f, \n", obj->GetPosition().x);
 }
@@ -251,6 +258,7 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 	m_playerSprite->Draw(renderer);
 	//m_collider1->DrawBoundingBox(renderer, m_color);
 	m_collider1->Draw(renderer);
+	m_playerCollider->Draw(renderer);
 
 	SDL_Rect backgroundRect = { PROCESS_PADDING, PROCESS_PADDING, PROCESS_WIDTH, PROCESS_HEIGHT };
 	SDL_Rect foregroundRect = { PROCESS_PADDING, PROCESS_PADDING, processBarWidth, PROCESS_HEIGHT };

@@ -1,7 +1,7 @@
 #include "Cube.h"
 
-Cube::Cube(float _posX, float _posY, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _playerTexture)
-	: Player(_posX, _posY, _rotation, _direction, _velocity, _playerTexture) {};
+Cube::Cube(Vector2 _position, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _playerTexture)
+	: Player(_position, _rotation, _direction, _velocity, _playerTexture) {};
 	
 Cube::~Cube() {
 	std::cout << "Cube object deleted";
@@ -21,7 +21,7 @@ void Cube::MoveUp(const double& _jumpForce, const double& _gravity, bool& _isJum
 
 
 	if (_isJumping == true) {
-		std::cout << m_velocity<<std::endl;
+		//std::cout << m_velocity<<std::endl;
 		this->SetDirectionY(-1);
 		_isOnGround = false;
 		Rotate(235.0, _deltaTime);
@@ -103,6 +103,10 @@ void Cube::FixRotationOnGround(const bool& _isOnGround, const float & _deltaTime
 		else if (m_playerRotation > 135.0 && m_playerRotation < 225)m_playerRotation = 180.0;
 		else if (m_playerRotation > 45 && m_playerRotation < 135)m_playerRotation = 90.0;
 	}
+}
+
+const std::shared_ptr<BoxCollider2D> Cube::GetCollider() const {
+	return m_playerCollider;
 }
 
 

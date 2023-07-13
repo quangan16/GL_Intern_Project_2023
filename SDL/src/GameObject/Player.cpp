@@ -1,11 +1,12 @@
 #include "Player.h"
+#include "ResourceManagers.h"
 
 Player::Player() : m_playerPosition{ 0.0f, 0.0f }, m_velocity{ 10.0f } {};
 
 
 
-Player::Player(float _posX, float _posY, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _playerTexture)
-: m_playerPosition{ _posX, _posY }, m_playerRotation{ _rotation }, m_direction{_direction}, m_velocity{_velocity}, m_playerTexture{_playerTexture} {};
+Player::Player(Vector2 _position, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _playerTexture )
+: m_playerPosition{ _position}, m_playerRotation{ _rotation }, m_direction{_direction}, m_velocity{_velocity}, m_playerTexture{_playerTexture}, m_playerCollider(std::make_shared<BoxCollider2D>(_position, true, 80.0f,80.0f, ResourceManagers::GetInstance()->GetTexture("collider_border.tga"), SDL_FLIP_NONE)) {}
 
 Player::~Player() {
 	std::cout << "Player deleted";
@@ -77,6 +78,8 @@ void Player::SetPlayerVelocity(float _velocity) {
 	 m_playerPosition.y += m_direction * m_velocity * _deltaTime;
  }
 
-
-
+ void Player::UpdatePlayerColliderState() {
+	 m_playerCollider->SetColliderPosition(m_playerPosition);
+ }
+ 
 
