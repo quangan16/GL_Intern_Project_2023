@@ -62,18 +62,13 @@ void Player::SetPlayerVelocity(float _velocity) {
  void Player::RunIntoScene (const Vector2 &_readyPos, float _deltaTime) {
 	 if (m_playerPosition.x >= _readyPos.x)  return;
 	 else {
-		 
 		 m_playerRotation = 0;
-		
 		 m_playerPosition.x += 400 * _deltaTime;
 	 }
 
  }
 
- float Player::GetPlayerJumpBoundY(float _jumpHeight) {
-	 float jumpYBound = 0.0f;
-	 return jumpYBound;
- }
+
 
  void Player::UpdatePlayerPos(float& _deltaTime) {
 	 m_playerPosition.y += m_direction * m_velocity * _deltaTime;
@@ -83,11 +78,17 @@ void Player::SetPlayerVelocity(float _velocity) {
 	 m_playerCollider->SetColliderPosition(m_playerPosition);
  }
 
- void Player::OnCollisionStay(std::shared_ptr<BoxCollider2D> otherCollider, bool &_isOnGround) {
+ void Player::OnCollisionStay(std::shared_ptr<BoxCollider2D> otherCollider, bool &_isOnGround, bool &_isFalling) {
 	 if (m_playerCollider->CheckCollision(otherCollider)) {
 		 if (otherCollider->GetColliderID() == ColliderType::GROUND) {
 			 _isOnGround = true;
+			 _isFalling = false;
 		 }
+		 
+	 }
+	 else if (!m_playerCollider->CheckCollision(otherCollider) && otherCollider->GetColliderID() == ColliderType::GROUND) {
+		 _isOnGround = false;
+		 _isFalling = true;
 	 }
  }
  

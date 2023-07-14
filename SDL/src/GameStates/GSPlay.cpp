@@ -61,14 +61,14 @@ void GSPlay::Init()
 
 	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_1.tga");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
-	m_player = std::make_shared<Cube>(Vector2(-200.0f, 0.0f), 0.0, 1, 0.0, texture);
+	m_player = std::make_shared<Cube>(Vector2(-200.0f, 300.0f), 0.0, 1, 0.0, texture);
 	m_player->SetPlayerSprite(80, 80, m_playerSprite);
 	Camera::GetInstance()->SetTarget(m_playerSprite);
 	
 	//Test Colliders
 	texture = ResourceManagers::GetInstance()->GetTexture("collider_border.tga");
-	m_collider1 = std::make_shared<BoxCollider2D>(ColliderType::GROUND, Vector2(0.0f, 700.0f), true, 5000.0f, 410.0f, texture, SDL_FLIP_NONE);
-	m_collider2 = std::make_shared<BoxCollider2D>( ColliderType::GROUND, Vector2(5100.0f, 700.0f), true, 5000.0f, 410.0f, texture, SDL_FLIP_NONE);
+	m_collider1 = std::make_shared<BoxCollider2D>(ColliderType::GROUND, Vector2(0.0f, 500.0f), true, 5000.0f, 410.0f, texture, SDL_FLIP_NONE);
+	m_collider2 = std::make_shared<BoxCollider2D>( ColliderType::GROUND, Vector2(5100.0f, 500.0f), true, 5000.0f, 410.0f, texture, SDL_FLIP_NONE);
 
 	m_playerCollider = m_player->GetCollider();
 
@@ -185,31 +185,34 @@ void GSPlay::HandleMouseMoveEvents(int x, int y)
 
 void GSPlay::Update(float deltaTime)
 {
-	//std::cout << m_player->GetPlayerPosition().y<<std::endl;
-	std::cout << m_playerCollider->GetColliderPosition().x<<" "<< m_playerCollider->GetColliderPosition().y<<std::endl;
-	
+	std::cout << m_player->GetPlayerVelocity()<<std::endl;
+	//std::cout << m_collider1->GetColliderPosition().y;
 	
 	m_player->RunIntoScene(m_readyPos, deltaTime);
 	
-	//m_player->SetPlayerPosition(m_player->GetPlayerPosition().x + 1000.0f * deltaTime, m_player->GetPlayerPosition().y);
+	m_player->SetPlayerPosition(m_player->GetPlayerPosition().x + 1000.0f * deltaTime, m_player->GetPlayerPosition().y);
 	
-	
-
-	
-	m_player->UpdatePlayerColliderState();
 	//std::cout << m_playerCollider->GetWidth() << std::endl;
-	//m_player->OnCollisionStay(m_collider1, isOnGround);
-	m_player->OnCollisionStay(m_collider2, isOnGround);
+	
 	
 	if (isJumping == true) {
 		m_player->MoveUp(jumpForce, m_gravity, isJumping, isFalling, isOnGround, jumpBuffer, deltaTime);
 	}
+	
 	m_player->FixRotationOnGround(isOnGround, deltaTime);
-	m_player->UpdatePlayerPos(deltaTime);
-	m_player->UpdatePlayerSprite(m_playerSprite);
 	m_player->ApplyGravity(m_gravity, isJumping, isFalling, isOnGround, deltaTime);
-	m_player->OnCollisionStay(m_collider1, isOnGround);
+	m_player->UpdatePlayerPos(deltaTime);
+	m_player->UpdatePlayerColliderState();
+	m_player->Rotate(235.0, isJumping, isFalling, deltaTime);
+	m_player->UpdatePlayerSprite(m_playerSprite);
+	m_player->OnCollisionStay(m_collider1, isOnGround, isFalling);
+	//m_player->OnCollisionStay(m_collider2, isOnGround, isFalling);
 	m_player->OnGround(isJumping, isFalling, isOnGround);
+	
+	
+	
+
+	
 	
 	switch (m_KeyPress)//Handle Key event
 	{
