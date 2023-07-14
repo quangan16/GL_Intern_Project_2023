@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "ResourceManagers.h"
+#include "Collider2D.h"
 
 Player::Player() : m_playerPosition{ 0.0f, 0.0f }, m_velocity{ 10.0f } {};
 
@@ -80,6 +81,14 @@ void Player::SetPlayerVelocity(float _velocity) {
 
  void Player::UpdatePlayerColliderState() {
 	 m_playerCollider->SetColliderPosition(m_playerPosition);
+ }
+
+ void Player::OnCollisionStay(std::shared_ptr<BoxCollider2D> otherCollider, bool &_isOnGround) {
+	 if (m_playerCollider->CheckCollision(otherCollider)) {
+		 if (otherCollider->GetColliderID() == ColliderType::GROUND) {
+			 _isOnGround = true;
+		 }
+	 }
  }
  
 

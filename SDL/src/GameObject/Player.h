@@ -67,6 +67,8 @@ public:
 
 	virtual void OnGround(bool& _isJumping, bool& _isFalling, bool& _isOnGround) = 0;
 
+	void OnCollisionStay(std::shared_ptr<BoxCollider2D> otherCollider, bool &_isOnGround);
+
 	//void Update(float deltaTime);
 	
 };
