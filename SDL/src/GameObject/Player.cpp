@@ -62,7 +62,7 @@ void Player::SetPlayerVelocity(float _velocity) {
 	 if (m_playerPosition.x >= _readyPos.x)  return;
 	 else {
 		 
-		 m_playerRotation = 0.0;
+		 m_playerRotation = 0;
 		
 		 m_playerPosition.x += 400 * _deltaTime;
 	 }

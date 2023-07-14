@@ -61,7 +61,7 @@ void GSPlay::Init()
 
 	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_1.tga");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
-	m_player = std::make_shared<Cube>(Vector2(200.0f, 300.0f), 0.0, 1, 0.0, texture);
+	m_player = std::make_shared<Cube>(Vector2(-200.0f, 0.0f), 0.0, 1, 0.0, texture);
 	m_player->SetPlayerSprite(128, 128, m_playerSprite);
 	Camera::GetInstance()->SetTarget(m_playerSprite);
 	
@@ -184,7 +184,7 @@ void GSPlay::HandleMouseMoveEvents(int x, int y)
 
 void GSPlay::Update(float deltaTime)
 {
-	//std::cout << m_player->GetPlayerPosition().y<<std::endl;
+	std::cout << m_player->GetPlayerPosition().y<<std::endl;
 	//std::cout << m_collider1->GetColliderPosition().y;
 	m_player->OnGround(isJumping, isFalling, isOnGround);
 	m_player->RunIntoScene(m_readyPos, deltaTime);
@@ -204,6 +204,7 @@ void GSPlay::Update(float deltaTime)
 	m_player->FixRotationOnGround(isOnGround, deltaTime);
 	m_player->UpdatePlayerPos(deltaTime);
 	m_player->UpdatePlayerSprite(m_playerSprite);
+	//m_player->OnGround(isJumping,isFalling, isOnGround);
 
 	
 	
@@ -235,7 +236,7 @@ void GSPlay::Update(float deltaTime)
 	//m_background_2 = std::get<1>(m_background_2->MovingBackGround(m_background, m_background_2));
 
 	//Update position of camera
-	//Camera::GetInstance()->Update(deltaTime);
+	Camera::GetInstance()->Update(deltaTime);
 	/*obj->update(deltatime);*/
 	//printf("%f, \n", obj->GetPosition().x);
 }

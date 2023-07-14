@@ -39,16 +39,19 @@ void Cube::MoveUp(const double& _jumpForce, const double& _gravity, bool& _isJum
 
 
 		
-		if (_isOnGround == true && _isFalling == true) {
-			_isOnGround = true;
-			if (_isOnGround == true) {
-				m_velocity = 0.0f;
+			if (m_playerPosition.y > 701.0f && _isFalling == true) {
+				_isOnGround = true;
+				if (_isOnGround == true) {
+					m_velocity = 0.0f;
+				}
+				_isJumping = false;
+				_isFalling = false;
+
+
 			}
-			_isJumping = false;
-			_isFalling = false;
+		
 
-
-		}
+		
 		
 
 	}
@@ -111,7 +114,7 @@ const std::shared_ptr<BoxCollider2D> Cube::GetCollider() const {
 }
 
 void Cube::OnGround(bool &_isJumping, bool &_isFalling, bool &_isOnGround) {
-	if (_isOnGround == true  && _isFalling == true) {
+	if (m_playerPosition.y >701.0f  && _isFalling == true) {
 		_isOnGround = true;
 		if (_isOnGround == true) {
 			m_velocity = 0.0f;
