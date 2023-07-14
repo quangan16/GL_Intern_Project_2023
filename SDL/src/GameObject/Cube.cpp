@@ -7,12 +7,17 @@ Cube::~Cube() {
 	std::cout << "Cube object deleted";
 }
 
-void Cube::Rotate(double _rotateSpeed, float _deltaTime) {
+void Cube::Rotate(double _rotateSpeed,const bool& _isJumping,const bool& _isFalling, float _deltaTime) {
+
 	//std::cout << m_playerRotation << std::endl;
-	if (m_playerRotation >= 360.0) {
-		m_playerRotation /= 360;
+	if (_isFalling || _isJumping) {
+		if (m_playerRotation >= 360.0) {
+			m_playerRotation /= 360;
+		}
+		m_playerRotation += _rotateSpeed * _deltaTime;
 	}
-	m_playerRotation += _rotateSpeed * _deltaTime;
+	
+	
 
 }
 
@@ -24,7 +29,7 @@ void Cube::MoveUp(const double& _jumpForce, const double& _gravity, bool& _isJum
 		//std::cout << m_velocity<<std::endl;
 		this->SetDirectionY(-1);
 		_isOnGround = false;
-		Rotate(235.0, _deltaTime);
+		
 		m_velocity -= _gravity * _deltaTime;
 
 		//Player falling Down
@@ -76,10 +81,7 @@ void Cube::SetPlayerSprite(const int& _width, const int& _height, const std::sha
 	_playerSprite->SetRotation(m_playerRotation);
 }
 
-float Cube::GetPlayerJumpBoundY(float _jumpHeight) {
-	//std::cout << m_playerPosition.y - _jumpHeight << std::endl;
-	return m_playerPosition.y - _jumpHeight;
-}
+
 
 void Cube::FixRotationOnGround(const bool& _isOnGround, const float & _deltaTime) {
 
@@ -101,16 +103,15 @@ const std::shared_ptr<BoxCollider2D> Cube::GetCollider() const {
 }
 
 void Cube::OnGround(bool &_isJumping, bool &_isFalling, bool &_isOnGround) {
-	if (_isOnGround == true  && _isFalling == true) {
-		_isOnGround = true;
-		if (_isOnGround == true) {
-			m_velocity = 0.0f;
-		}
-		_isJumping = false;
-		_isFalling = false;
+	if (_isOnGround == true) {
 		
-
+		this->SetDirectionY(1);
+		_isJumping = false;
+		m_velocity = 0.0f;
+		_isFalling = false;
 	}
+	
+	
 }
 
 
