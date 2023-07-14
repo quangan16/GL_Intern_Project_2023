@@ -185,22 +185,22 @@ void GSPlay::HandleMouseMoveEvents(int x, int y)
 
 void GSPlay::Update(float deltaTime)
 {
-	std::cout << m_player->GetPlayerPosition().y<<std::endl;
-	//std::cout << m_collider1->GetColliderPosition().y;
+	//std::cout << m_player->GetPlayerPosition().y<<std::endl;
+	std::cout << m_playerCollider->GetColliderPosition().x<<" "<< m_playerCollider->GetColliderPosition().y<<std::endl;
 	
 	
 	m_player->RunIntoScene(m_readyPos, deltaTime);
 	
-	m_player->SetPlayerPosition(m_player->GetPlayerPosition().x + 1000.0f * deltaTime, m_player->GetPlayerPosition().y);
+	//m_player->SetPlayerPosition(m_player->GetPlayerPosition().x + 1000.0f * deltaTime, m_player->GetPlayerPosition().y);
 	
 	
 
 	
 	m_player->UpdatePlayerColliderState();
-	std::cout << m_playerCollider->GetWidth() << std::endl;
-	m_player->OnCollisionStay(m_collider1, isOnGround);
+	//std::cout << m_playerCollider->GetWidth() << std::endl;
+	//m_player->OnCollisionStay(m_collider1, isOnGround);
 	m_player->OnCollisionStay(m_collider2, isOnGround);
-	m_player->OnGround(isJumping, isFalling, isOnGround);
+	
 	if (isJumping == true) {
 		m_player->MoveUp(jumpForce, m_gravity, isJumping, isFalling, isOnGround, jumpBuffer, deltaTime);
 	}
@@ -208,8 +208,8 @@ void GSPlay::Update(float deltaTime)
 	m_player->UpdatePlayerPos(deltaTime);
 	m_player->UpdatePlayerSprite(m_playerSprite);
 	m_player->ApplyGravity(m_gravity, isJumping, isFalling, isOnGround, deltaTime);
-	
-	
+	m_player->OnCollisionStay(m_collider1, isOnGround);
+	m_player->OnGround(isJumping, isFalling, isOnGround);
 	
 	switch (m_KeyPress)//Handle Key event
 	{
