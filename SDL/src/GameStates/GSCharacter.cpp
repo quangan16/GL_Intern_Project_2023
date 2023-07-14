@@ -73,13 +73,13 @@ void GSCharacter::Init()
 	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_1.tga");
 	m_imgchar = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
 	m_imgchar->SetSize(100, 100);
-	m_imgchar->Set2DPosition(SCREEN_WIDTH / 2 - 550, SCREEN_HEIGHT / 2);
+	m_imgchar->Set2DPosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 
 	//Btn prev
 	texture = ResourceManagers::GetInstance()->GetTexture("button_leftarrow.tga");
 	m_btnPrev = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
 	m_btnPrev->SetSize(100, 100);
-	m_btnPrev->Set2DPosition(((SCREEN_WIDTH - m_btnPrev->GetWidth()) / 2) - 800, SCREEN_HEIGHT / 2);
+	m_btnPrev->Set2DPosition(50, SCREEN_HEIGHT / 2);
 	m_btnPrev->SetOnClick([this, texture]() {
 		if (m_iCharacterTexture_index > 1)
 		{
@@ -98,7 +98,7 @@ void GSCharacter::Init()
 	texture = ResourceManagers::GetInstance()->GetTexture("button_rightarrow.tga");
 	m_btnNext = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
 	m_btnNext->SetSize(100, 100);
-	m_btnNext->Set2DPosition(((SCREEN_WIDTH - m_btnNext->GetWidth()) / 2) - 200, SCREEN_HEIGHT / 2);
+	m_btnNext->Set2DPosition(SCREEN_WIDTH - m_btnNext->GetWidth() - 50, SCREEN_HEIGHT / 2);
 	m_btnNext->SetOnClick([this, texture]() {
 		if (m_iCharacterTexture_index < m_iCharactertexturesCount)
 		{

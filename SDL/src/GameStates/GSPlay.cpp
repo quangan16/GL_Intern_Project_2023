@@ -37,6 +37,8 @@ void GSPlay::Init()
 	m_gameMap = std::make_shared<GameMap>();
 	m_gameMap->LoadMap("Data/map03.dat");
 
+
+
 	// button close
 	texture = ResourceManagers::GetInstance()->GetTexture("btn_close.tga");
 	button = std::make_shared<MouseButton>( texture, SDL_FLIP_NONE);
@@ -62,7 +64,7 @@ void GSPlay::Init()
 	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_1.tga");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
 	m_player = std::make_shared<Cube>(Vector2(-200.0f, 0.0f), 0.0, 1, 0.0, texture);
-	m_player->SetPlayerSprite(128, 128, m_playerSprite);
+	m_player->SetPlayerSprite(0, 0, m_playerSprite);
 	Camera::GetInstance()->SetTarget(m_playerSprite);
 	
 	//Test Colliders
@@ -125,10 +127,6 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 				m_player->SetPlayerVelocity(jumpForce);
 				float jumpHeight = 300.0f;
 				isJumping = true;
-				/*std::cout << isJumping;
-				std::cout << m_player->GetPlayerPosition().y<<std::endl;*/
-				
-				
 			}
 			else if (isFalling) {
 				jumpBuffer = true;
@@ -184,8 +182,9 @@ void GSPlay::HandleMouseMoveEvents(int x, int y)
 
 void GSPlay::Update(float deltaTime)
 {
-	std::cout << m_player->GetPlayerPosition().y<<std::endl;
+	//std::cout << m_player->GetPlayerPosition().y<<std::endl;
 	//std::cout << m_collider1->GetColliderPosition().y;
+	Map map_data = m_gameMap->getMap();
 	m_player->OnGround(isJumping, isFalling, isOnGround);
 	m_player->RunIntoScene(m_readyPos, deltaTime);
 	m_player->ApplyGravity(m_gravity, isJumping, isFalling, isOnGround, deltaTime);
@@ -196,17 +195,28 @@ void GSPlay::Update(float deltaTime)
 	}
 
 	
-	m_player->UpdatePlayerColliderState();
+	
 	//std::cout << m_playerCollider->GetWidth() << std::endl;
 	if (m_playerCollider->CheckCollision(m_collider1)) {
-		std::cout << "auuuu" << std::endl;
+		//std::cout << "auuuu" << std::endl;
 	}
 	m_player->FixRotationOnGround(isOnGround, deltaTime);
 
-	Map map_data = m_gameMap->getMap();
-	m_player->UpdatePlayerPos(deltaTime);	
-	m_player->CheckToMap(map_data);
-	//std::cout << m_player->GetPlayerVelocity() << std::endl;
+	for (auto it : m_gameMap->tile_map_)
+	{
+		if (m_playerCollider->CheckCollision(it)) 
+		{
+			m_player->SetPlayerPosition(m_player->GetPlayerPosition().x, it->GetColliderPosition().y - TILE_SIZE);
+			m_player->SetPlayerVelocity(0.0f);
+			isJumping = false;
+		}
+	}
+
+	std::cout << isJumping << std::endl;
+	std::cout << m_player->GetPlayerVelocity() << std::endl;
+	m_player->UpdatePlayerPos(deltaTime, map_data);
+	m_player->UpdatePlayerColliderState();
+	//m_player->CheckToMap(map_data);
 	m_player->UpdatePlayerSprite(m_playerSprite);
 	//m_player->OnGround(isJumping,isFalling, isOnGround);
 
@@ -232,8 +242,16 @@ void GSPlay::Update(float deltaTime)
 		}
 		it->Update(deltaTime);
 	}
-	currentProcess = currentProcess + deltaTime;
-	processBarWidth = (currentProcess * PROCESS_WIDTH) / maxProcess;
+	
+	//Process bar
+	if (processBarWidth >= PROCESS_WIDTH) {
+		currentProcess = currentProcess;
+		processBarWidth = PROCESS_WIDTH;
+	}
+	else {
+		currentProcess = currentProcess + deltaTime;
+		processBarWidth = (currentProcess * PROCESS_WIDTH) / maxProcess;
+	}
 
 	//Moving background
 	//m_background = std::get<0>(m_background->MovingBackGround(m_background, m_background_2));
@@ -253,6 +271,7 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 	}
 	
 	m_gameMap->DrawMap(renderer);
+
 	//m_score->Draw(renderer);
 	for (auto it : m_listButton)
 	{
@@ -268,8 +287,8 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 	m_collider1->Draw(renderer);
 	m_playerCollider->Draw(renderer);
 
-	SDL_Rect backgroundRect = { SCREEN_WIDTH / 2 - 250, PROCESS_PADDING, PROCESS_WIDTH, PROCESS_HEIGHT };
-	SDL_Rect foregroundRect = { SCREEN_WIDTH / 2 - 250, PROCESS_PADDING, processBarWidth, PROCESS_HEIGHT };
+	SDL_Rect backgroundRect = { SCREEN_WIDTH / 2 - 250, PROCESS_PADDING + 10, PROCESS_WIDTH, PROCESS_HEIGHT };
+	SDL_Rect foregroundRect = { SCREEN_WIDTH / 2 - 250, PROCESS_PADDING + 10, processBarWidth, PROCESS_HEIGHT };
 	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // Red color
 	SDL_RenderFillRect(renderer, &backgroundRect);
 	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // Green color

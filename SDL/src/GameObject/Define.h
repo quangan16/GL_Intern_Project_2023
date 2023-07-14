@@ -1,6 +1,6 @@
 #pragma once
-#define SCREEN_WIDTH 1920
-#define SCREEN_HEIGHT 1080
+#define SCREEN_WIDTH 1280
+#define SCREEN_HEIGHT 1024
 
 #define TILE_SIZE 128
 #define PLAYER_SPEED 1000.0f

@@ -3,7 +3,8 @@
 
 #include "BaseObject.h"
 #include "Define.h"
-
+#include "BoxCollider2D.h"
+#include <vector>
 
 #define MAX_TILES 20
 
@@ -17,6 +18,9 @@ public:
 	void LoadTiles();
 	void DrawMap(SDL_Renderer* renderer);
 	Map getMap() { return game_map_; }
+	std::vector<std::shared_ptr<BoxCollider2D>> tile_map_;
+
 private:
 	Map game_map_;
+	//std::vector<std::shared_ptr<BoxCollider2D>> tile_map_;
 };
