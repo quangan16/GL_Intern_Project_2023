@@ -189,7 +189,7 @@ void GSPlay::Update(float deltaTime)
 	m_player->OnGround(isJumping, isFalling, isOnGround);
 	m_player->RunIntoScene(m_readyPos, deltaTime);
 	m_player->ApplyGravity(m_gravity, isJumping, isFalling, isOnGround, deltaTime);
-	//m_player->SetPlayerPosition(m_player->GetPlayerPosition().x + 1000.0f * deltaTime, m_player->GetPlayerPosition().y);
+	//m_player->SetPlayerPosition(m_player->GetPlayerPosition().x, 700.0f);
 	
 	if (isJumping == true) {
 		m_player->MoveUp(jumpForce, m_gravity, isJumping, isFalling, isOnGround, jumpBuffer, deltaTime);
@@ -197,12 +197,16 @@ void GSPlay::Update(float deltaTime)
 
 	
 	m_player->UpdatePlayerColliderState();
-	std::cout << m_playerCollider->GetWidth() << std::endl;
+	//std::cout << m_playerCollider->GetWidth() << std::endl;
 	if (m_playerCollider->CheckCollision(m_collider1)) {
 		std::cout << "auuuu" << std::endl;
 	}
 	m_player->FixRotationOnGround(isOnGround, deltaTime);
-	m_player->UpdatePlayerPos(deltaTime);
+
+	Map map_data = m_gameMap->getMap();
+	m_player->UpdatePlayerPos(deltaTime);	
+	m_player->CheckToMap(map_data);
+	//std::cout << m_player->GetPlayerVelocity() << std::endl;
 	m_player->UpdatePlayerSprite(m_playerSprite);
 
 	
@@ -235,7 +239,7 @@ void GSPlay::Update(float deltaTime)
 	//m_background_2 = std::get<1>(m_background_2->MovingBackGround(m_background, m_background_2));
 
 	//Update position of camera
-	//Camera::GetInstance()->Update(deltaTime);
+	Camera::GetInstance()->Update(deltaTime);
 	/*obj->update(deltatime);*/
 	//printf("%f, \n", obj->GetPosition().x);
 }

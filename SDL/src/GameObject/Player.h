@@ -13,7 +13,7 @@ protected:
 	double m_playerRotation;
 	int m_direction;
 	double m_velocity;
-	
+	float m_playerSpeed = PLAYER_SPEED;
 
 	std::shared_ptr<TextureManager> m_playerTexture;
 	std::shared_ptr<Sprite2D> m_playerSprite;
@@ -67,6 +67,7 @@ public:
 
 	virtual void OnGround(bool& _isJumping, bool& _isFalling, bool& _isOnGround) = 0;
 
+	void CheckToMap(Map& map_data);
 	//void Update(float deltaTime);
 	
 };
