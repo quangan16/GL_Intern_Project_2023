@@ -91,9 +91,6 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 	 }
  }
  
-void Player::UpdatePlayerColliderState() {
-	m_playerCollider->SetColliderPosition(m_playerPosition);
-}
 
 void Player::CheckToMap(Map& map_data)
 {
