@@ -78,11 +78,17 @@ void Player::UpdatePlayerSpriteRotation(const std::shared_ptr<Sprite2D>& _player
 	 m_playerCollider->SetColliderPosition(m_playerPosition);
  }
 
- void Player::OnCollisionStay(std::shared_ptr<BoxCollider2D> otherCollider, bool &_isOnGround, bool &_isFalling) {
+ void Player::OnCollisionStay(std::shared_ptr<BoxCollider2D> otherCollider, bool& _isOnGround, bool& _isFalling) {
 	 if (m_playerCollider->CheckCollision(otherCollider)) {
 		 if (otherCollider->GetColliderID() == ColliderType::GROUND) {
 			 _isOnGround = true;
+			 _isFalling = false;
 		 }
+
+	 }
+	 else if (!m_playerCollider->CheckCollision(otherCollider) && otherCollider->GetColliderID() == ColliderType::GROUND) {
+		 _isOnGround = false;
+		 _isFalling = true;
 	 }
  }
  

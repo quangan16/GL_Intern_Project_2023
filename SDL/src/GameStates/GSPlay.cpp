@@ -201,9 +201,6 @@ void GSPlay::Update(float deltaTime)
 	
 	m_player->FixRotationOnGround(isOnGround, deltaTime);
 
-	Map map_data = m_gameMap->getMap();
-	m_player->UpdatePlayerPos(deltaTime);	
-	m_player->CheckToMap(map_data);
 	//std::cout << m_player->GetPlayerVelocity() << std::endl;
 	m_player->ApplyGravity(m_gravity, isJumping, isFalling, isOnGround, deltaTime);
 	m_player->UpdatePlayerPos(deltaTime);
@@ -214,7 +211,9 @@ void GSPlay::Update(float deltaTime)
 	//m_player->OnCollisionStay(m_collider2, isOnGround, isFalling);
 	m_player->OnGround(isJumping, isFalling, isOnGround);
 	
-	
+	//Map map_data = m_gameMap->getMap();
+	//m_player->UpdatePlayerPos(deltaTime);
+	//m_player->CheckToMap(map_data);
 	
 
 	
