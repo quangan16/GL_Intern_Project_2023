@@ -13,7 +13,7 @@ protected:
 	double m_playerRotation;
 	int m_direction;
 	double m_velocity;
-	
+	float m_playerSpeed = PLAYER_SPEED;
 
 	std::shared_ptr<TextureManager> m_playerTexture;
 	std::shared_ptr<Sprite2D> m_playerSprite;
@@ -69,6 +69,7 @@ public:
 
 	void OnCollisionStay(std::shared_ptr<BoxCollider2D> otherCollider, bool &_isOnGround);
 
+	void CheckToMap(Map& map_data);
 	//void Update(float deltaTime);
 	
 };
