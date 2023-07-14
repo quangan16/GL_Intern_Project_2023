@@ -10,7 +10,7 @@ BoxCollider2D::BoxCollider2D(Vector2 objectPos,bool _isActive, float width, floa
     m_height = height;
 }
 
-BoxCollider2D::BoxCollider2D(Vector2 _objectPos, bool _isActive, float _width, float _height, std::shared_ptr<TextureManager> _texture, SDL_RendererFlip _flip) :Collider2D(_objectPos, _isActive), Sprite2D(_texture, _flip, _width, _height), m_width{ _width }, m_height { _height } {}
+BoxCollider2D::BoxCollider2D(ColliderType _id,Vector2 _objectPos, bool _isActive, float _width, float _height, std::shared_ptr<TextureManager> _texture, SDL_RendererFlip _flip) :Collider2D(_id,_objectPos, _isActive), Sprite2D(_texture, _flip, _width, _height), m_width{ _width }, m_height { _height } {}
 
 void BoxCollider2D::Init()
 {
@@ -97,8 +97,8 @@ void BoxCollider2D::DrawBoundingBox(SDL_Renderer* renderer, std::shared_ptr<SDL_
 }
 
 void BoxCollider2D::SetSize() {
-    m_width = m_iWidth;
-    m_height = m_iHeight;
+    m_iWidth = m_width;
+    m_iHeight = m_height;
 }
 
 

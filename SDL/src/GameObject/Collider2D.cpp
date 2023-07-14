@@ -3,7 +3,7 @@
 
 Collider2D::Collider2D() : m_colliderPosition{0.0f, 0.0f}, m_isActive{false}{}
 
-Collider2D::Collider2D(Vector2 _position, bool _isActive = true) : m_colliderPosition{ _position }, m_isActive{ _isActive } {}
+Collider2D::Collider2D(ColliderType _id, Vector2 _position, bool _isActive = true) : m_colliderID{_id}, m_colliderPosition{_position}, m_isActive{_isActive} {}
 
 Vector2 Collider2D::GetColliderPosition()
 {

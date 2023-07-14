@@ -13,6 +13,8 @@ protected:
 	double m_playerRotation;
 	int m_direction;
 	double m_velocity;
+	float m_playerSpeed = PLAYER_SPEED;
+
 	std::shared_ptr<TextureManager> m_playerTexture;
 	std::shared_ptr<Sprite2D> m_playerSprite;
 
@@ -27,7 +29,7 @@ public:
 
 	virtual ~Player();
 
-	virtual void MoveUp(const double& _jumpForce,const double&_gravity, bool& _isJumping, bool& _isFalling, bool &_isOnGround, const float& _jumpBoundY, bool &_jumpBuffer, float _deltaTime) = 0;
+	virtual void MoveUp(const double& _jumpForce,const double&_gravity, bool& _isJumping, bool& _isFalling, bool &_isOnGround, bool &_jumpBuffer, float _deltaTime) = 0;
 
 	virtual void Rotate(double _angle, float _deltaTime) = 0;
 
@@ -55,7 +57,7 @@ public:
 
 	virtual void ApplyGravity(const double& _gravity, bool& _isFalling, bool& _isJumping, bool& _isOnGround, float _deltaTime) = 0;
 
-	void UpdatePlayerPos(float& _deltaTime);
+	void UpdatePlayerPos(float& _deltaTime, Map &map_data);
 
 	virtual void FixRotationOnGround(const bool& _isOnGround, const float& deltaTime) = 0;
 
@@ -63,6 +65,9 @@ public:
 
 	void UpdatePlayerColliderState();
 
+	virtual void OnGround(bool& _isJumping, bool& _isFalling, bool& _isOnGround) = 0;
+
+	void CheckToMap(Map& map_data, float& _deltaTime);
 	//void Update(float deltaTime);
 	
 };

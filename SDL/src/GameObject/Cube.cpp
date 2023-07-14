@@ -2,7 +2,7 @@
 
 Cube::Cube(Vector2 _position, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _playerTexture)
 	: Player(_position, _rotation, _direction, _velocity, _playerTexture) {};
-	
+
 Cube::~Cube() {
 	std::cout << "Cube object deleted";
 }
@@ -17,7 +17,7 @@ void Cube::Rotate(double _rotateSpeed, float _deltaTime) {
 }
 
 
-void Cube::MoveUp(const double& _jumpForce, const double& _gravity, bool& _isJumping, bool& _isFalling, bool& _isOnGround, const float& _jumpBoundY, bool& _jumpBuffer, float _deltaTime) {
+void Cube::MoveUp(const double& _jumpForce, const double& _gravity, bool& _isJumping, bool& _isFalling, bool& _isOnGround, bool& _jumpBuffer, float _deltaTime) {
 
 
 	if (_isJumping == true) {
@@ -38,16 +38,9 @@ void Cube::MoveUp(const double& _jumpForce, const double& _gravity, bool& _isJum
 
 
 
-		if (this->GetPlayerPosition().y > 700.0f && _isFalling == true) {
-			;
-			if (_isOnGround == false) {
-				m_velocity = 0.0f;
-			}
-			_isJumping = false;
-			_isFalling = false;
-			_isOnGround = true;
 
-		}
+
+
 
 
 	}
@@ -58,13 +51,7 @@ void Cube::MoveUp(const double& _jumpForce, const double& _gravity, bool& _isJum
 		_jumpBuffer = 0;
 	}
 
-
-
-
-
 }
-
-
 
 
 
@@ -72,7 +59,7 @@ void Cube::MoveUp(const double& _jumpForce, const double& _gravity, bool& _isJum
 void Cube::ApplyGravity(const double& _gravity, bool& _isJumping, bool& _isFalling, bool& _isOnGround, float _deltaTime) {
 	if (_isOnGround == false && _isJumping == false) {
 		_isFalling == true;
-		m_velocity -= _gravity * _deltaTime;
+		m_velocity += _gravity * _deltaTime;
 	}
 
 }
@@ -90,13 +77,13 @@ float Cube::GetPlayerJumpBoundY(float _jumpHeight) {
 	return m_playerPosition.y - _jumpHeight;
 }
 
-void Cube::FixRotationOnGround(const bool& _isOnGround, const float & _deltaTime) {
+void Cube::FixRotationOnGround(const bool& _isOnGround, const float& _deltaTime) {
 
 	if (_isOnGround == true) {
 		if (m_playerRotation > 0.0 && m_playerRotation < 45.0) {
 			m_playerRotation = 0.0;
 		}
-		else if ( m_playerRotation > 315.0 && m_playerRotation < 360){
+		else if (m_playerRotation > 315.0 && m_playerRotation < 360) {
 			m_playerRotation = 360;
 		}
 		else if (m_playerRotation > 225.0 && m_playerRotation < 315.0) m_playerRotation = 270.0;
@@ -109,5 +96,21 @@ const std::shared_ptr<BoxCollider2D> Cube::GetCollider() const {
 	return m_playerCollider;
 }
 
+void Cube::OnGround(bool& _isJumping, bool& _isFalling, bool& _isOnGround) {
+	if (m_playerPosition.y > 1080.0f && _isFalling == true) {
+		_isOnGround = true;
+		this->SetDirectionY(1);
+		if (_isOnGround == true) {
+			m_velocity = 0.0f;
+		}
+		_isJumping = false;
+		_isFalling = false;
 
+
+	}
+}
+
+//void Cube::OnCollisionStay(std::shared_ptr<BoxCollider2D> otherCollider) {
+//
+//}
 

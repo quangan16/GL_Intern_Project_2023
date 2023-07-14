@@ -86,12 +86,12 @@ void GameMap::DrawMap(SDL_Renderer* renderer)
 	int map_y = 0;
 
 	map_x = game_map_.start_x_ / TILE_SIZE;
-	x1 = (game_map_.start_x_ % TILE_SIZE) * -1;
-	x2 = x1 + MAX_MAP_X * TILE_SIZE;
+	//x1 = (game_map_.start_x_ % TILE_SIZE) * -1;
+	x2 = MAX_MAP_X * TILE_SIZE;
 
 	map_y = game_map_.start_y_ / TILE_SIZE;
-	y1 = (game_map_.start_y_ % TILE_SIZE) * -1;
-	y2 = y1 + MAX_MAP_Y * TILE_SIZE;
+	//y1 = (game_map_.start_y_ % TILE_SIZE) * -1;
+	y2 = MAX_MAP_Y * TILE_SIZE;
 
 
 	for (int i = y1; i < y2; i += TILE_SIZE)
@@ -102,8 +102,8 @@ void GameMap::DrawMap(SDL_Renderer* renderer)
 			int val = game_map_.tile[map_y][map_x];
 			if (val > 0)
 			{
-				auto texture = ResourceManagers::GetInstance()->GetTexture("collider_border.tga");
-				auto tile = std::make_shared<BoxCollider2D>(Vector2(j, i), true, 128, 128, texture, SDL_FLIP_NONE);
+				auto texture = ResourceManagers::GetInstance()->GetTexture(std::to_string(val) + ".tga");
+				auto tile = std::make_shared<BoxCollider2D>(ColliderType::GROUND, Vector2(j,i), true, TILE_SIZE, TILE_SIZE, texture, SDL_FLIP_NONE);
 				tile->Draw(renderer);
 			}
 			map_x++;
