@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "ResourceManagers.h"
 #include "Collider2D.h"
+#include "GameStateBase.h"
 
 Player::Player() : m_playerPosition{ 0.0f, 0.0f }, m_velocity{ 10.0f } {};
 
@@ -10,7 +11,7 @@ Player::Player(Vector2 _position, double _rotation, int _direction, double _velo
 	: m_playerPosition{ _position }, m_playerRotation{ _rotation }, m_direction{ _direction }, m_velocity{ _velocity }, m_playerTexture{ _playerTexture }, m_playerCollider(std::make_shared<BoxCollider2D>(ColliderType::Player, _position, true, 80.0f, 80.0f, ResourceManagers::GetInstance()->GetTexture("collider_border.tga"), SDL_FLIP_NONE)) {}
 
 Player::~Player() {
-	std::cout << "Player deleted";
+	std::cout << "Player deleted"<<std::endl;
 }
 
 
@@ -78,20 +79,38 @@ void Player::UpdatePlayerSpriteRotation(const std::shared_ptr<Sprite2D>& _player
 	 m_playerCollider->SetColliderPosition(m_playerPosition);
  }
 
- void Player::OnCollisionStay(std::shared_ptr<BoxCollider2D> otherCollider, bool& _isOnGround, bool& _isFalling) {
+ bool Player::OnCollisionStay(std::shared_ptr<BoxCollider2D> otherCollider, bool& _isFalling) {
+	 bool isOnGround = false;
+
 	 if (m_playerCollider->CheckCollision(otherCollider)) {
 		 if (otherCollider->GetColliderID() == ColliderType::GROUND) {
-			 _isOnGround = true;
-			 _isFalling = false;
+			 if (m_playerCollider->GetColliderPosition().x + m_playerCollider->GetWidth() >= otherCollider->GetColliderPosition().x
+				 && m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() / 2 > otherCollider->GetColliderPosition().y) {
+				 isOnGround = true;
+			 }
+			 else if (m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() >= otherCollider->GetColliderPosition().y) {
+				 isOnGround = true;
+			 }
 		 }
-
 	 }
-	 else if (!m_playerCollider->CheckCollision(otherCollider) && otherCollider->GetColliderID() == ColliderType::GROUND) {
-		 _isOnGround = false;
+
+	 if (isOnGround) {
+		 _isFalling = false;
+	 }
+	 else {
 		 _isFalling = true;
 	 }
+
+	 return isOnGround;
  }
  
+ void Player::Die() {
+	 if (m_isAlive == false) {
+		 //GameStateMachine::GetInstance()->PopState();
+		 GameStateMachine::GetInstance()->ChangeState(StateType::STATE_PLAY);
+		 
+	 }
+ }
 
 void Player::CheckToMap(Map& map_data)
 {

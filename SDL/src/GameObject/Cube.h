@@ -14,7 +14,7 @@ public:
 	void Rotate(double _angle,const bool& _isJumping,const bool& _isFalling, float deltaTime) override;
 	void FixRotationOnGround(const bool& _isOnGround,const float &deltaTime) override;
 	const std::shared_ptr<BoxCollider2D> GetCollider() const override;
-	void OnGround(bool &_isJumping, bool &_isFalling, bool &_isOnGround) override;
+	void OnGround(bool &_isJumping, bool &_isFalling, bool &_jumpBuffer, bool &_isOnGround) override;
 
 private:
 
