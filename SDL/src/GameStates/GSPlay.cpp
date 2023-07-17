@@ -230,7 +230,7 @@ void GSPlay::Update(float deltaTime)
 	m_player->UpdatePlayerPos(deltaTime, map_data);
 	m_player->UpdatePlayerSprite(m_playerSprite);
 	/*for (const auto& collider : m_colliderList) {
-		m_player->OnCollisionStay(collider, isOnGround, isFalling);
+		m_player->OnCollisionStay(collider, isFalling);
 	}*/
 	m_player->UpdatePlayerColliderState();
 	
