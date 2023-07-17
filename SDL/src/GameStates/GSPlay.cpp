@@ -19,9 +19,9 @@ GSPlay::~GSPlay()
 
 void GSPlay::Init()
 {
-	//auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
 	auto texture = ResourceManagers::GetInstance()->GetTexture("back1.tga");
-
+	texture->setColor(148, 34, 224);
+	texture->SetAlpha(500);
 	// background_1
 	for (int i = 0; i < MAX_MAP_X * TILE_SIZE; i += SCREEN_WIDTH)
 	{
@@ -143,7 +143,7 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 			if (!isJumping) // Only jump if the player is not already jumping
 			{
 				m_player->SetPlayerVelocity(jumpForce);
-				float jumpHeight = 300.0f;
+				float jumpHeight = JUMP_HEIGHT;
 				isJumping = true;
 			}
 			else if (isFalling) {
