@@ -36,7 +36,7 @@ void GSPlay::Init()
 	//Map
 	m_gameMap = std::make_shared<GameMap>();
 	m_gameMap->LoadMap("Data/map03.dat");
-
+	m_gameMap->DrawMap();
 
 
 	// button close
@@ -64,21 +64,26 @@ void GSPlay::Init()
 	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_1.tga");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
 	m_player = std::make_shared<Cube>(Vector2(-200.0f, 300.0f), 0.0, 1, 0.0, texture);
-	m_player->SetPlayerSprite(80, 80, m_playerSprite);
+	m_player->SetPlayerSprite(128, 128, m_playerSprite);
 	Camera::GetInstance()->SetTarget(m_playerSprite);
 	
 	//Test Colliders
 	texture = ResourceManagers::GetInstance()->GetTexture("collider_border.tga");
 	m_collider1 = std::make_shared<BoxCollider2D>(ColliderType::GROUND, Vector2(0.0f, 500.0f), true, 5000.0f, 410.0f, texture, SDL_FLIP_NONE);
 	m_collider2 = std::make_shared<BoxCollider2D>(ColliderType::GROUND, Vector2(5100.0f, 500.0f), true, 5000.0f, 410.0f, texture, SDL_FLIP_NONE);
-	m_colliderList.push_back(m_collider2);
-	m_colliderList.push_back(m_collider1);
+	/*m_colliderList.push_back(m_collider2);
+	m_colliderList.push_back(m_collider1);*/
+
 
 	m_playerCollider = m_player->GetCollider();
 
 	//Dummy ground
 	//m_ground = std::make_shared<Player>(Vector2(0.0f, 400.0f), 480.0f, 210.0f);
 	
+	for (auto& it : m_gameMap->tile_map_)
+	{
+		m_colliderList.push_back(it);
+	}
 
 }
 
@@ -221,7 +226,8 @@ void GSPlay::Update(float deltaTime)
 	
 	m_player->FixRotationOnGround(isOnGround, deltaTime);
 	m_player->Rotate(235.0, isJumping, isFalling, deltaTime);
-	m_player->UpdatePlayerPos(deltaTime);
+	Map map_data = m_gameMap->getMap();
+	m_player->UpdatePlayerPos(deltaTime, map_data);
 	m_player->UpdatePlayerSprite(m_playerSprite);
 	/*for (const auto& collider : m_colliderList) {
 		m_player->OnCollisionStay(collider, isOnGround, isFalling);
@@ -249,7 +255,7 @@ void GSPlay::Update(float deltaTime)
 	
 	
 	m_player->OnGround(isJumping, isFalling, jumpBuffer, isOnGround);
-		m_player->Die();
+	m_player->Die();
 		
 	}
 	
@@ -258,7 +264,7 @@ void GSPlay::Update(float deltaTime)
 	}
 	
 
-	for (auto it : m_gameMap->tile_map_)
+	/*for (auto it : m_gameMap->tile_map_)
 	{
 		if (m_playerCollider->CheckCollision(it)) 
 		{
@@ -266,7 +272,7 @@ void GSPlay::Update(float deltaTime)
 			m_player->SetPlayerVelocity(0.0f);
 			isJumping = false;
 		}
-	}
+	}*/
 
 	
 
@@ -321,8 +327,6 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 	{
 		it->Draw(renderer);
 	}
-	
-	m_gameMap->DrawMap(renderer);
 
 	//m_score->Draw(renderer);
 	for (auto it : m_listButton)

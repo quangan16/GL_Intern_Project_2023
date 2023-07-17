@@ -16,7 +16,7 @@ public:
 	~GameMap();
 	void LoadMap(const char* name);
 	void LoadTiles();
-	void DrawMap(SDL_Renderer* renderer);
+	void DrawMap();
 	Map getMap() { return game_map_; }
 	std::vector<std::shared_ptr<BoxCollider2D>> tile_map_;
 
