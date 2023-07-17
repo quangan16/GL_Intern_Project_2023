@@ -10,7 +10,8 @@ BoxCollider2D::BoxCollider2D(Vector2 objectPos,bool _isActive, float width, floa
     m_height = height;
 }
 
-BoxCollider2D::BoxCollider2D(ColliderType _id,Vector2 _objectPos, bool _isActive, float _width, float _height, std::shared_ptr<TextureManager> _texture, SDL_RendererFlip _flip) :Collider2D(_id,_objectPos, _isActive), Sprite2D(_texture, _flip, _width, _height), m_width{ _width }, m_height { _height } {}
+BoxCollider2D::BoxCollider2D(ColliderType _id,Vector2 _objectPos, bool _isActive, float _width, float _height, std::shared_ptr<TextureManager> _texture, SDL_RendererFlip _flip) 
+    : Collider2D(_id,_objectPos, _isActive), Sprite2D(_texture, _flip, _width, _height), m_width{ _width }, m_height { _height } {}
 
 void BoxCollider2D::Init()
 {
@@ -70,7 +71,7 @@ void BoxCollider2D::SetFlip(SDL_RendererFlip flip)
 
 bool BoxCollider2D::CheckCollision(const std::shared_ptr<BoxCollider2D> _otherCollider) {
     if (this->m_colliderPosition.x + this->m_width < _otherCollider->m_colliderPosition.x || this->m_colliderPosition.x > _otherCollider->m_colliderPosition.x + _otherCollider->m_width) return false;
-    if (this->m_colliderPosition.y + m_height < _otherCollider->m_colliderPosition.y || this->m_colliderPosition.y >  _otherCollider->m_colliderPosition.y + _otherCollider->m_width) return false;
+    if (this->m_colliderPosition.y + m_height < _otherCollider->m_colliderPosition.y || this->m_colliderPosition.y >  _otherCollider->m_colliderPosition.y + _otherCollider->m_height) return false;
     return true;
 }
 

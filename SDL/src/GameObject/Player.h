@@ -15,6 +15,7 @@ protected:
 	double m_velocity;
 	float m_playerSpeed = PLAYER_SPEED;
 
+	bool m_isAlive = true;
 	std::shared_ptr<TextureManager> m_playerTexture;
 	std::shared_ptr<Sprite2D> m_playerSprite;
 
@@ -57,7 +58,7 @@ public:
 
 	virtual void ApplyGravity(const double& _gravity, bool& _isFalling, bool& _isJumping, bool& _isOnGround, float _deltaTime) = 0;
 
-	void UpdatePlayerPos(float& _deltaTime);
+	void UpdatePlayerPos(float& _deltaTime, Map &map_data);
 
 	virtual void FixRotationOnGround(const bool& _isOnGround, const float& deltaTime) = 0;
 
@@ -65,13 +66,14 @@ public:
 
 	void UpdatePlayerColliderState();
 
-	virtual void OnGround(bool& _isJumping, bool& _isFalling, bool& _isOnGround) = 0;
+	virtual void OnGround(bool& _isJumping, bool& _isFalling, bool &_jumpBuffer, bool& _isOnGround) = 0;
 
-	void OnCollisionStay(std::shared_ptr<BoxCollider2D> otherCollider, bool &_isOnGround, bool &_isFalling);
+	bool OnCollisionStay(std::shared_ptr<BoxCollider2D> otherCollider, bool &_isFalling);
 
-	void CheckToMap(Map& map_data);
+	void CheckToMap(Map& map_data, float& _deltaTime);
+	
 
-	void FixCollisionOverlaps();
+	void Die();
 	//void Update(float deltaTime);
 	
 };

@@ -3,7 +3,6 @@
 #include "BoxCollider2D.h"
 
 
-
 GameMap::GameMap()
 {
 }
@@ -43,6 +42,7 @@ void GameMap::LoadMap(const char* name)
 				}
 			}
 		}
+		printf("\n");
 	}
 
 	game_map_.max_x_ = (game_map_.max_x_ + 1) * TILE_SIZE;
@@ -74,7 +74,7 @@ void GameMap::LoadTiles()
 	}*/
 }
 
-void GameMap::DrawMap(SDL_Renderer* renderer)
+void GameMap::DrawMap()
 {
 	int x1 = 0;
 	int x2 = 0;
@@ -104,7 +104,8 @@ void GameMap::DrawMap(SDL_Renderer* renderer)
 			{
 				auto texture = ResourceManagers::GetInstance()->GetTexture("collider_border.tga");
 				auto tile = std::make_shared<BoxCollider2D>(ColliderType::GROUND, Vector2(j,i), true, TILE_SIZE, TILE_SIZE, texture, SDL_FLIP_NONE);
-				tile->Draw(renderer);
+				//tile->Draw(renderer);
+				tile_map_.push_back(tile);
 			}
 			map_x++;
 		}

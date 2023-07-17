@@ -164,6 +164,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameObject\Ship.cpp" />
     <ClCompile Include="src\GameObject\Collider2D.cpp" />
     <ClCompile Include="src\GameObject\BoxCollider2D.cpp" />
     <ClCompile Include="src\GameObject\CircleCollider2D.cpp" />
@@ -196,6 +197,7 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameObject\Ship.h" />
     <ClInclude Include="src\GameObject\Collider2D.h" />
     <ClInclude Include="src\GameObject\BoxCollider2D.h" />
     <ClInclude Include="src\GameObject\CircleCollider2D.h" />
