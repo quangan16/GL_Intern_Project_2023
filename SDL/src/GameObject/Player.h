@@ -58,7 +58,7 @@ public:
 
 	virtual void ApplyGravity(const double& _gravity, bool& _isFalling, bool& _isJumping, bool& _isOnGround, float _deltaTime) = 0;
 
-	void UpdatePlayerPos(float& _deltaTime);
+	void UpdatePlayerPos(float& _deltaTime, Map &map_data);
 
 	virtual void FixRotationOnGround(const bool& _isOnGround, const float& deltaTime) = 0;
 
@@ -70,7 +70,8 @@ public:
 
 	bool OnCollisionStay(std::shared_ptr<BoxCollider2D> otherCollider, bool &_isFalling);
 
-	void CheckToMap(Map& map_data);
+	void CheckToMap(Map& map_data, float& _deltaTime);
+	
 
 	void Die();
 	//void Update(float deltaTime);

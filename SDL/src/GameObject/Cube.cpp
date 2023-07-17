@@ -2,7 +2,7 @@
 
 Cube::Cube(Vector2 _position, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _playerTexture)
 	: Player(_position, _rotation, _direction, _velocity, _playerTexture) {};
-	
+
 Cube::~Cube() {
 	std::cout << "Cube object deleted"<<std::endl;
 }
@@ -56,8 +56,6 @@ void Cube::MoveUp(const double& _jumpForce, const double& _gravity, bool& _isJum
 
 
 
-
-
 void Cube::ApplyGravity(const double& _gravity, bool& _isJumping, bool& _isFalling, bool& _isOnGround, float _deltaTime) {
 	if (_isOnGround == false && _isJumping == false) {
 		_isFalling == true;
@@ -76,13 +74,13 @@ void Cube::SetPlayerSprite(const int& _width, const int& _height, const std::sha
 
 
 
-void Cube::FixRotationOnGround(const bool& _isOnGround, const float & _deltaTime) {
+void Cube::FixRotationOnGround(const bool& _isOnGround, const float& _deltaTime) {
 
 	if (_isOnGround == true) {
 		if (m_playerRotation > 0.0 && m_playerRotation < 45.0) {
 			m_playerRotation = 0.0;
 		}
-		else if ( m_playerRotation > 315.0 && m_playerRotation < 360){
+		else if (m_playerRotation > 315.0 && m_playerRotation < 360) {
 			m_playerRotation = 360;
 		}
 		else if (m_playerRotation > 225.0 && m_playerRotation < 315.0) m_playerRotation = 270.0;

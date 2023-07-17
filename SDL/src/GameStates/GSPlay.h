@@ -44,9 +44,9 @@ private:
 	float time = 0.0f;
 	double m_gravity = 3500.0;
 
-	const int PROCESS_WIDTH = 500;
-	const int PROCESS_HEIGHT = 20;
-	const int PROCESS_PADDING = 10;
+	const float PROCESS_WIDTH = 500.0f;
+	const float PROCESS_HEIGHT = 20.0f;
+	const float PROCESS_PADDING = 10.0f;
 	float maxProcess = 100.0f;
 	float currentProcess = 0.0f;
 	float processBarWidth;

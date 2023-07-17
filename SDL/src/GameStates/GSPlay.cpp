@@ -37,6 +37,8 @@ void GSPlay::Init()
 	m_gameMap = std::make_shared<GameMap>();
 	m_gameMap->LoadMap("Data/map03.dat");
 
+
+
 	// button close
 	texture = ResourceManagers::GetInstance()->GetTexture("btn_close.tga");
 	button = std::make_shared<MouseButton>( texture, SDL_FLIP_NONE);
@@ -138,10 +140,6 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 				m_player->SetPlayerVelocity(jumpForce);
 				float jumpHeight = 300.0f;
 				isJumping = true;
-				/*std::cout << isJumping;
-				std::cout << m_player->GetPlayerPosition().y<<std::endl;*/
-				
-				
 			}
 			else if (isFalling) {
 				jumpBuffer = true;
@@ -259,9 +257,17 @@ void GSPlay::Update(float deltaTime)
 		
 	}
 	
-	//Map map_data = m_gameMap->getMap();
-	//m_player->UpdatePlayerPos(deltaTime);
-	//m_player->CheckToMap(map_data);
+
+	for (auto it : m_gameMap->tile_map_)
+	{
+		if (m_playerCollider->CheckCollision(it)) 
+		{
+			m_player->SetPlayerPosition(m_player->GetPlayerPosition().x, it->GetColliderPosition().y - TILE_SIZE);
+			m_player->SetPlayerVelocity(0.0f);
+			isJumping = false;
+		}
+	}
+
 	
 
 	
@@ -286,8 +292,16 @@ void GSPlay::Update(float deltaTime)
 		}
 		it->Update(deltaTime);
 	}
-	currentProcess = currentProcess + deltaTime;
-	processBarWidth = (currentProcess * PROCESS_WIDTH) / maxProcess;
+	
+	//Process bar
+	if (processBarWidth >= PROCESS_WIDTH) {
+		currentProcess = currentProcess;
+		processBarWidth = PROCESS_WIDTH;
+	}
+	else {
+		currentProcess = currentProcess + deltaTime;
+		processBarWidth = (currentProcess * PROCESS_WIDTH) / maxProcess;
+	}
 
 	//Moving background
 	//m_background = std::get<0>(m_background->MovingBackGround(m_background, m_background_2));
@@ -309,6 +323,7 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 	}
 	
 	m_gameMap->DrawMap(renderer);
+
 	//m_score->Draw(renderer);
 	for (auto it : m_listButton)
 	{
@@ -327,8 +342,8 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 	
 	m_playerCollider->Draw(renderer);
 
-	SDL_Rect backgroundRect = { SCREEN_WIDTH / 2 - 250, PROCESS_PADDING, PROCESS_WIDTH, PROCESS_HEIGHT };
-	SDL_Rect foregroundRect = { SCREEN_WIDTH / 2 - 250, PROCESS_PADDING, processBarWidth, PROCESS_HEIGHT };
+	SDL_Rect backgroundRect = { SCREEN_WIDTH / 2 - 250, PROCESS_PADDING + 10, PROCESS_WIDTH, PROCESS_HEIGHT };
+	SDL_Rect foregroundRect = { SCREEN_WIDTH / 2 - 250, PROCESS_PADDING + 10, processBarWidth, PROCESS_HEIGHT };
 	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // Red color
 	SDL_RenderFillRect(renderer, &backgroundRect);
 	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // Green color
