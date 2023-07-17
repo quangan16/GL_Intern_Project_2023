@@ -105,12 +105,16 @@ void GSPlay::Resume()
 
 void GSPlay::HandleEvents()
 {
-	if (m_KeyPress & (1 << 4)) {
-		std::cout << "lol";
-		/*if (isFalling) {
-			jumpBuffer = true;
-		}*/
-	}
+	//if (m_KeyPress & (1 << 4)) {
+	//	//std::cout << "lol";
+	//	if (!isJumping) // Only jump if the player is not already jumping
+	//	{
+	//		m_player->SetPlayerVelocity(jumpForce);
+	//		float jumpHeight = 300.0f;
+	//		isJumping = true;
+	//	}
+	//	
+	//}
 	
 }
 
@@ -120,7 +124,7 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 		
 	}
 	//If a key was pressed
-	if (e.type == SDL_KEYDOWN && e.key.repeat == 0) 
+	if (e.type == SDL_KEYDOWN ) 
 	//For e.key.repeat it's because key repeat is enabled by default and if you press and hold a key it will report multiple key presses. That means we have to check if the key press is the first one because we only care when the key was first pressed.
 	{
 		//Adjust the velocity
@@ -178,6 +182,7 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 			break;
 		case SDLK_SPACE:
 			m_KeyPress ^= 1 << 4;
+			
 		default:
 			break;
 		}
@@ -209,10 +214,10 @@ void GSPlay::Update(float deltaTime)
 		HandleEvents();
 	//std::cout << m_player->GetPlayerVelocity()<<std::endl;
 	//std::cout << m_collider1->GetColliderPosition().y;
-	//std::cout << "isFalling " << isFalling << std::endl;
+	std::cout << "isFalling " << isFalling << std::endl;
 	//std::cout << "isJumping " << isJumping << std::endl;
-	std::cout << "isOnground " << isOnGround << std::endl;
-	//std::cout << "jumpBuffer " << jumpBuffer << std::endl;
+	//std::cout << "isOnground " << isOnGround << std::endl;
+	std::cout << "jumpBuffer " << jumpBuffer << std::endl;
 	//std::cout << "Number of coliders: " << m_colliderList.size()<<std::endl;
 	m_player->RunIntoScene(m_readyPos, deltaTime);
 	m_player->ApplyGravity(m_gravity, isJumping, isFalling, isOnGround, deltaTime);
@@ -225,7 +230,7 @@ void GSPlay::Update(float deltaTime)
 	
 	
 	m_player->FixRotationOnGround(isOnGround, deltaTime);
-	m_player->Rotate(235.0, isJumping, isFalling, deltaTime);
+	m_player->Rotate(315.0, isJumping, isFalling, deltaTime);
 	Map map_data = m_gameMap->getMap();
 	m_player->UpdatePlayerPos(deltaTime, map_data);
 	m_player->UpdatePlayerSprite(m_playerSprite);
@@ -238,7 +243,11 @@ void GSPlay::Update(float deltaTime)
 	for (const auto& collider : m_colliderList) {
 		if (m_player->OnCollisionStay(collider, isFalling)) {
 			isOnGround = true;
+			m_player->SetDirectionY(1);
+			isJumping = false;
+			m_player->SetPlayerVelocity(0.0f);
 			isFalling = false;
+			
 			break; // Exit the loop if ground collision is detected with any collider
 		}
 		else {
@@ -254,7 +263,7 @@ void GSPlay::Update(float deltaTime)
 	m_player->OnCollisionStay(m_collider1, isOnGround, isFalling);*/
 	
 	
-	m_player->OnGround(isJumping, isFalling, jumpBuffer, isOnGround);
+	//m_player->OnGround(isJumping, isFalling, jumpBuffer, isOnGround);
 	m_player->Die();
 		
 	}

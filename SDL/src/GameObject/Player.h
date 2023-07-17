@@ -72,6 +72,7 @@ public:
 
 	void CheckToMap(Map& map_data, float& _deltaTime);
 	
+	void FixCollisionOverlaps(std::shared_ptr<BoxCollider2D> otherCollider);
 
 	void Die();
 	//void Update(float deltaTime);

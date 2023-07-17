@@ -4,7 +4,7 @@ Ship::Ship(Vector2 _position, double _rotation, int _direction, double _velocity
 	: Player(_position, _rotation, _direction, _velocity, _playerTexture) {};
 
 Ship::~Ship() {
-	std::cout << "Cube object deleted" << std::endl;
+	std::cout << "Ship object deleted" << std::endl;
 }
 
 void Ship::Rotate(double _rotateSpeed, const bool& _isJumping, const bool& _isFalling, float _deltaTime) {

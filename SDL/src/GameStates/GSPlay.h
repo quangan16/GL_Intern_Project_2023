@@ -41,8 +41,8 @@ private:
 	std::list<std::shared_ptr<Background>> m_listBackground;
 	std::shared_ptr<SpriteAnimation> obj;
 	std::shared_ptr<MouseButton> button;
-	float time = 0.0f;
-	double m_gravity = 3500.0;
+	double time = 0.0f;
+	double m_gravity = 10000.0;
 
 	const float PROCESS_WIDTH = 500.0f;
 	const float PROCESS_HEIGHT = 20.0f;
@@ -61,7 +61,7 @@ private:
 	bool isJumping = false;
 	bool isFalling = true;
 	bool isOnGround = false;
-	double jumpForce = 1300.0;
+	double jumpForce = 3000.0;
 	bool jumpBuffer = false;
 
 

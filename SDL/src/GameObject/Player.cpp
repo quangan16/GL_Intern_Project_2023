@@ -80,18 +80,28 @@ void Player::UpdatePlayerPos(float& _deltaTime, Map& map_data) {
 	 m_playerCollider->SetColliderPosition(m_playerPosition);
  }
 
- bool Player::OnCollisionStay(std::shared_ptr<BoxCollider2D> otherCollider, bool& _isFalling) {
+ bool Player::OnCollisionStay(std::shared_ptr<BoxCollider2D> _otherCollider, bool& _isFalling) {
 	 bool isOnGround = false;
 
-	 if (m_playerCollider->CheckCollision(otherCollider)) {
-		 if (otherCollider->GetColliderID() == ColliderType::GROUND) {
-			 if (m_playerCollider->GetColliderPosition().x + m_playerCollider->GetWidth() >= otherCollider->GetColliderPosition().x
-				 && m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() / 2 > otherCollider->GetColliderPosition().y) {
-				 isOnGround = true;
+	 if (m_playerCollider->CheckCollision(_otherCollider)) {
+		 if (_otherCollider->GetColliderID() == ColliderType::GROUND) {
+			 //Handle side collide with grounds
+			 if (m_playerCollider->GetColliderPosition().x + m_playerCollider->GetWidth() >= _otherCollider->GetColliderPosition().x
+			 && m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() *7/10 > _otherCollider->GetColliderPosition().y
+			 && m_playerCollider->GetColliderPosition().x + m_playerCollider->GetWidth()*(3/4) < _otherCollider->GetColliderPosition().x
+			 ) {
+				 
 				 m_isAlive = false;
 			 }
-			 else if (m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() >= otherCollider->GetColliderPosition().y) {
+			 //Handle top collide with grounds
+			 else if (m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() >= _otherCollider->GetColliderPosition().y 
+				 && m_playerCollider->GetColliderPosition().y  < _otherCollider->GetColliderPosition().y) {
 				 isOnGround = true;
+				 FixCollisionOverlaps(_otherCollider);
+			 }
+			 //Handle bottom collide with grounds
+			 else if (m_playerCollider->GetColliderPosition().y < _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight()) {
+				 m_isAlive = false;
 			 }
 		 }
 	 }
@@ -107,11 +117,12 @@ void Player::UpdatePlayerPos(float& _deltaTime, Map& map_data) {
  }
 
 
- void Player::FixCollisionOverlaps() {
+ void Player::FixCollisionOverlaps(std::shared_ptr<BoxCollider2D> _otherCollider) {
 	 float playerBottomCollider = m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight();
-	 float groundTopCollider = m_playerCollider->GetColliderPosition().y;
-	 float bottomPenetration = groundTopCollider - playerBottomCollider;
+	 float groundTopCollider = _otherCollider->GetColliderPosition().y;
+	 float bottomPenetration = playerBottomCollider - groundTopCollider;
 	 if (playerBottomCollider > groundTopCollider) {
+		 //std::cout << bottomPenetration << std::endl;
 		 this->SetPlayerPosition(this->GetPlayerPosition().x, this->GetPlayerPosition().y - bottomPenetration);
 	 }
  }

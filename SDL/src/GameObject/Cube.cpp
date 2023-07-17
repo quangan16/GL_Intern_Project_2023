@@ -33,7 +33,7 @@ void Cube::MoveUp(const double& _jumpForce, const double& _gravity, bool& _isJum
 		m_velocity -= _gravity * _deltaTime;
 
 		//Player falling Down
-		if (this->GetPlayerVelocity() <= 0.0f) {
+		if (this->GetPlayerVelocity() < 0.0f) {
 			_isFalling = true;
 			//this->SetPlayerVelocity(_gravity);
 			/*m_playerPosition.y += m_direction * m_velocity * _deltaTime;*/
@@ -95,11 +95,12 @@ const std::shared_ptr<BoxCollider2D> Cube::GetCollider() const {
 
 void Cube::OnGround(bool &_isJumping, bool &_isFalling,bool &_jumpBuffer, bool &_isOnGround) {
 	if (_isOnGround == true) {
-		//FixCollisionOverlaps();
+		
 		this->SetDirectionY(1);
 		_isJumping = false;
 		m_velocity = 0.0f;
 		_isFalling = false;
+		//FixCollisionOverlaps();
 	}
 	
 	
