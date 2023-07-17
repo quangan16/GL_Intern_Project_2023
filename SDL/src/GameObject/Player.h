@@ -15,6 +15,7 @@ protected:
 	double m_velocity;
 	float m_playerSpeed = PLAYER_SPEED;
 
+	bool m_isAlive = true;
 	std::shared_ptr<TextureManager> m_playerTexture;
 	std::shared_ptr<Sprite2D> m_playerSprite;
 
@@ -31,7 +32,7 @@ public:
 
 	virtual void MoveUp(const double& _jumpForce,const double&_gravity, bool& _isJumping, bool& _isFalling, bool &_isOnGround, bool &_jumpBuffer, float _deltaTime) = 0;
 
-	virtual void Rotate(double _angle, float _deltaTime) = 0;
+	virtual void Rotate(double _angle,const bool& _isJumping,const bool& _isFalling, float _deltaTime) = 0;
 
 	Vector2 GetPlayerPosition();
 
@@ -53,7 +54,7 @@ public:
 
 	void RunIntoScene(const Vector2 &endPos, float _deltaTime);
 
-	virtual float GetPlayerJumpBoundY(float _jumpHeight);
+
 
 	virtual void ApplyGravity(const double& _gravity, bool& _isFalling, bool& _isJumping, bool& _isOnGround, float _deltaTime) = 0;
 
@@ -65,9 +66,14 @@ public:
 
 	void UpdatePlayerColliderState();
 
-	virtual void OnGround(bool& _isJumping, bool& _isFalling, bool& _isOnGround) = 0;
+	virtual void OnGround(bool& _isJumping, bool& _isFalling, bool &_jumpBuffer, bool& _isOnGround) = 0;
+
+	bool OnCollisionStay(std::shared_ptr<BoxCollider2D> otherCollider, bool &_isFalling);
 
 	void CheckToMap(Map& map_data, float& _deltaTime);
+	
+
+	void Die();
 	//void Update(float deltaTime);
 	
 };

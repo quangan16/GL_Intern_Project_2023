@@ -66,8 +66,10 @@ private:
 
 
 	//Collider
+	std::vector<std::shared_ptr<BoxCollider2D>> m_colliderList;
 	std::shared_ptr<BoxCollider2D> m_playerCollider;
 	std::shared_ptr<BoxCollider2D> m_collider1;
+	std::shared_ptr<BoxCollider2D> m_collider2;
 
 	std::shared_ptr<SDL_Color> m_color;
 

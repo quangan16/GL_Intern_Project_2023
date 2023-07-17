@@ -31,6 +31,10 @@ public:
 	
 
 	virtual bool CheckCollision(const std::shared_ptr<BoxCollider2D> _otherCollider) = 0;
+
+	ColliderType GetColliderID() {
+		return this->m_colliderID;
+	}
 };
 
 
