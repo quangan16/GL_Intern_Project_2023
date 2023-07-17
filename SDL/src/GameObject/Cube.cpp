@@ -104,7 +104,7 @@ const std::shared_ptr<BoxCollider2D> Cube::GetCollider() const {
 
 void Cube::OnGround(bool &_isJumping, bool &_isFalling, bool &_isOnGround) {
 	if (_isOnGround == true) {
-		
+		//FixCollisionOverlaps();
 		this->SetDirectionY(1);
 		_isJumping = false;
 		m_velocity = 0.0f;

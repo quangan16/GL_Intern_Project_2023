@@ -70,6 +70,8 @@ public:
 	void OnCollisionStay(std::shared_ptr<BoxCollider2D> otherCollider, bool &_isOnGround, bool &_isFalling);
 
 	void CheckToMap(Map& map_data);
+
+	void FixCollisionOverlaps();
 	//void Update(float deltaTime);
 	
 };

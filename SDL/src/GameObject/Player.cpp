@@ -91,6 +91,16 @@ void Player::UpdatePlayerSpriteRotation(const std::shared_ptr<Sprite2D>& _player
 		 _isFalling = true;
 	 }
  }
+
+
+ void Player::FixCollisionOverlaps() {
+	 float playerBottomCollider = m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight();
+	 float groundTopCollider = m_playerCollider->GetColliderPosition().y;
+	 float bottomPenetration = groundTopCollider - playerBottomCollider;
+	 if (playerBottomCollider > groundTopCollider) {
+		 this->SetPlayerPosition(this->GetPlayerPosition().x, this->GetPlayerPosition().y - bottomPenetration);
+	 }
+ }
  
 
 void Player::CheckToMap(Map& map_data)
