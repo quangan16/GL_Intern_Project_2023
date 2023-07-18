@@ -229,7 +229,7 @@ void GSPlay::Update(float deltaTime)
 	m_player->FixRotationOnGround(deltaTime);
 	m_player->Rotate(315.0, deltaTime);
 	Map map_data = m_gameMap->getMap();
-	m_player->UpdatePlayerPos(deltaTime, map_data);
+	m_player->UpdatePlayerPos(deltaTime);
 	m_player->UpdatePlayerSprite(m_playerSprite);
 	/*for (const auto& collider : m_colliderList) {
 		m_player->OnCollisionStay(collider, isFalling);
@@ -238,14 +238,14 @@ void GSPlay::Update(float deltaTime)
 	
 
 			for (const auto& collider : m_colliderList) {
-				if (m_player->OnCollisionStay(collider, isFalling)) {
-					isOnGround = true;
-					isFalling = false;
+				if (m_player->OnCollisionStay(collider)) {
+					m_player->m_isOnGround = true;
+					m_player->m_isFalling = false;
 					break; // Exit the loop if ground collision is detected with any collider
 				}
 				else {
-					isOnGround = false;
-					isFalling = true;
+					m_player->m_isOnGround = false;
+					m_player->m_isFalling = true;
 				}
 			}
 
@@ -256,7 +256,7 @@ void GSPlay::Update(float deltaTime)
 			m_player->OnCollisionStay(m_collider1, isOnGround, isFalling);*/
 
 
-			m_player->OnGround(isJumping, isFalling, jumpBuffer, isOnGround);
+			m_player->OnGround();
 			m_player->Die();
 
 		}
@@ -264,25 +264,25 @@ void GSPlay::Update(float deltaTime)
 		catch (std::exception_ptr e) {
 
 		}
-	}
-
-	if (isShip)
-	{
-		try
+		if (isShip)
 		{
-			HandleEvents();
-			if (isFly)
+			try
 			{
-				m_ship->FlyUp(500.0f, m_gravity, deltaTime);
+				HandleEvents();
+				if (isFly)
+				{
+					m_ship->FlyUp(500.0f, m_gravity, deltaTime);
+				}
+				std::cout << isFly << std::endl;
+				m_ship->GravityPull(deltaTime);
+				m_ship->SetPlayerPosition(m_ship->GetPlayerPosition().x + PLAYER_SPEED * deltaTime, m_ship->GetPlayerPosition().y);
+				m_ship->UpdatePlayerSprite(m_playerSprite);
+				m_ship->UpdatePlayerColliderState();
 			}
-			std::cout << isFly << std::endl;
-			m_ship->GravityPull(deltaTime);
-			m_ship->SetPlayerPosition(m_ship->GetPlayerPosition().x + PLAYER_SPEED * deltaTime, m_ship->GetPlayerPosition().y);
-			m_ship->UpdatePlayerSprite(m_playerSprite);
-			m_ship->UpdatePlayerColliderState();
-		}
-		catch (std::exception_ptr e) 
-		{
+			catch (std::exception_ptr e)
+			{
+
+			}
 
 		}
 		//std::cout << m_player->GetPlayerVelocity()<<std::endl;
@@ -295,8 +295,9 @@ void GSPlay::Update(float deltaTime)
 	//std::cout << "Number of coliders: " << m_colliderList.size()<<std::endl;
 	//std::cout << OnButtonPressed << std::endl;
 	//std::cout << m_playerCollider->GetWidth() << std::endl;
-	}
+	
 
+	
 
 	/*for (auto it : m_gameMap->tile_map_)
 	{
@@ -309,7 +310,7 @@ void GSPlay::Update(float deltaTime)
 	}*/
 
 
-
+	
 
 
 	switch (m_KeyPress)//Handle Key event
