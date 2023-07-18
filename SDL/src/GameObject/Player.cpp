@@ -8,7 +8,7 @@ Player::Player() : m_playerPosition{ 0.0f, 0.0f }, m_velocity{ 10.0f } {};
 
 
 Player::Player(Vector2 _position, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _playerTexture)
-	: m_playerPosition{ _position }, m_playerRotation{ _rotation }, m_direction{ _direction }, m_velocity{ _velocity }, m_playerTexture{ _playerTexture }, m_playerCollider(std::make_shared<BoxCollider2D>(ColliderType::PLAYER, _position, true, 128.0f, 128.0f, ResourceManagers::GetInstance()->GetTexture("collider_border.tga"), SDL_FLIP_NONE)) {}
+	: m_playerPosition{ _position }, m_playerRotation{ _rotation }, m_direction{ _direction }, m_velocity{ _velocity }, m_playerTexture{ _playerTexture }, m_playerCollider(std::make_shared<BoxCollider2D>(ColliderType::Player, _position, true, 128.0f, 64.0f, ResourceManagers::GetInstance()->GetTexture("collider_border.tga"), SDL_FLIP_NONE)) {}
 
 Player::~Player() {
 	std::cout << "Player deleted"<<std::endl;
@@ -70,8 +70,8 @@ void Player::UpdatePlayerSpriteRotation(const std::shared_ptr<Sprite2D>& _player
 }
 
 
-void Player::UpdatePlayerPos(float& _deltaTime, Map& map_data) {
-	CheckToMap(map_data, _deltaTime);
+void Player::UpdatePlayerPos(float& _deltaTime) {
+	//CheckToMap(map_data, _deltaTime);
 	m_playerPosition.y += m_direction * m_velocity * _deltaTime;
 	m_playerPosition.x += m_playerSpeed * _deltaTime;
 }

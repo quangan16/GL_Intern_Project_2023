@@ -1,7 +1,6 @@
 #pragma once
 #include "Player.h"
-#include "Define.h"
-#include <memory>
+
 class Ship : public Player
 {
 public:
@@ -17,8 +16,7 @@ public:
 	const std::shared_ptr<BoxCollider2D> GetCollider() const override;
 	void OnGround() override;
 
-protected:
-	
-
+	void GravityPull(float _deltaTime);
+	void FlyUp(const float& _velocity, const float& _gravity, float _deltaTime);
 };
 
