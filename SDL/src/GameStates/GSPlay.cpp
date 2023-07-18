@@ -60,11 +60,18 @@ void GSPlay::Init()
 	//m_listAnimation.push_back(obj);
 
 	//Init Player
-
-	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_1.tga");
+	//Cube
+	/*texture = ResourceManagers::GetInstance()->GetTexture("player_cube_1.tga");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
 	m_player = std::make_shared<Cube>(Vector2(-200.0f, 300.0f), 0.0, 1, 0.0, texture);
 	m_player->SetPlayerSprite(128, 128, m_playerSprite);
+	Camera::GetInstance()->SetTarget(m_playerSprite);*/
+
+	//Ship
+	texture = ResourceManagers::GetInstance()->GetTexture("ship_26.png");
+	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
+	m_player = std::make_shared<Ship>(Vector2(-200.0f, 300.0f), 0.0, 1, 0.0, texture);
+	m_player->SetPlayerSprite(90, 60, m_playerSprite);
 	Camera::GetInstance()->SetTarget(m_playerSprite);
 	
 	//Test Colliders
@@ -105,24 +112,21 @@ void GSPlay::Resume()
 
 void GSPlay::HandleEvents()
 {
-	//if (m_KeyPress & (1 << 4)) {
-	//	//std::cout << "lol";
-	//	if (!isJumping) // Only jump if the player is not already jumping
-	//	{
-	//		m_player->SetPlayerVelocity(jumpForce);
-	//		float jumpHeight = 300.0f;
-	//		isJumping = true;
-	//	}
-	//	
-	//}
+	if (m_KeyPress & (1 << 4)) {
+		//std::cout << "lol";
+		//if (!isJumping) // Only jump if the player is not already jumping
+		//{
+		//	m_player->SetPlayerVelocity(jumpForce);
+		//	float jumpHeight = 300.0f;
+		//	isJumping = true;
+		//}
+		//OnButtonPressed = true;
+	}
 	
 }
 
 void GSPlay::HandleKeyEvents(SDL_Event& e)
 {
-	if (e.type == SDL_MOUSEBUTTONDOWN) {
-		
-	}
 	//If a key was pressed
 	if (e.type == SDL_KEYDOWN ) 
 	//For e.key.repeat it's because key repeat is enabled by default and if you press and hold a key it will report multiple key presses. That means we have to check if the key press is the first one because we only care when the key was first pressed.
@@ -144,15 +148,18 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 			break;
 		case SDLK_SPACE:
 			m_KeyPress |= 1 << 4;
-			if (!isJumping) // Only jump if the player is not already jumping
+			OnButtonPressed = true;
+			if (!m_player->m_isJumping) // Only jump if the player is not already jumping
 			{
-				m_player->SetPlayerVelocity(jumpForce);
+				
+				m_player->SetPlayerVelocity(m_player->m_jumpForce);
 				float jumpHeight = JUMP_HEIGHT;
-				isJumping = true;
+				m_player->m_isJumping = true;
 			}
-			else if (isFalling) {
+			else if (m_player->m_isFalling) {
 				jumpBuffer = true;
 			}
+
 			
 			break;
 		
@@ -163,7 +170,7 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 
 	}
 	////Key Up
-	else if (e.type == SDL_KEYUP && e.key.repeat == 0)
+	else if (e.type == SDL_KEYUP )
 	{
 		//Adjust the velocity
 		switch (e.key.keysym.sym)
@@ -182,7 +189,9 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 			break;
 		case SDLK_SPACE:
 			m_KeyPress ^= 1 << 4;
-			
+			OnButtonPressed = false;
+			m_player->m_isJumping = false;
+			m_player->m_isFalling = true;
 		default:
 			break;
 		}
@@ -210,27 +219,19 @@ void GSPlay::HandleMouseMoveEvents(int x, int y)
 
 void GSPlay::Update(float deltaTime)
 {
+	
 	try {
 		HandleEvents();
-	//std::cout << m_player->GetPlayerVelocity()<<std::endl;
-	//std::cout << m_collider1->GetColliderPosition().y;
-	std::cout << "isFalling " << isFalling << std::endl;
-	//std::cout << "isJumping " << isJumping << std::endl;
-	//std::cout << "isOnground " << isOnGround << std::endl;
-	std::cout << "jumpBuffer " << jumpBuffer << std::endl;
-	//std::cout << "Number of coliders: " << m_colliderList.size()<<std::endl;
+	
 	m_player->RunIntoScene(m_readyPos, deltaTime);
-	m_player->ApplyGravity(m_gravity, isJumping, isFalling, isOnGround, deltaTime);
+	m_player->ApplyGravity(m_gravity, deltaTime);
 	m_player->SetPlayerPosition(m_player->GetPlayerPosition().x + 1000.0f * deltaTime, m_player->GetPlayerPosition().y);
+	std::cout << OnButtonPressed << std::endl;
+	m_player->MoveUp(m_gravity, jumpBuffer, deltaTime);
+	std::cout << OnButtonPressed << std::endl;
 	
-	
-	//std::cout << m_playerCollider->GetWidth() << std::endl;
-	
-	m_player->MoveUp(jumpForce, m_gravity, isJumping, isFalling, isOnGround, jumpBuffer, deltaTime);
-	
-	
-	m_player->FixRotationOnGround(isOnGround, deltaTime);
-	m_player->Rotate(315.0, isJumping, isFalling, deltaTime);
+	m_player->FixRotationOnGround(deltaTime);
+	m_player->Rotate(315.0, deltaTime);
 	Map map_data = m_gameMap->getMap();
 	m_player->UpdatePlayerPos(deltaTime, map_data);
 	m_player->UpdatePlayerSprite(m_playerSprite);
@@ -241,18 +242,15 @@ void GSPlay::Update(float deltaTime)
 	
 
 	for (const auto& collider : m_colliderList) {
-		if (m_player->OnCollisionStay(collider, isFalling)) {
-			isOnGround = true;
-			m_player->SetDirectionY(1);
-			isJumping = false;
-			m_player->SetPlayerVelocity(0.0f);
-			isFalling = false;
+		if (m_player->OnCollisionStay(collider)) {
+			m_player->m_isOnGround = true;
+			m_player->OnGround();
 			
 			break; // Exit the loop if ground collision is detected with any collider
 		}
 		else {
-			isOnGround = false;
-			isFalling = true;
+			m_player->m_isOnGround = false;
+			m_player->m_isFalling = true;
 		}
 	}
 	
@@ -271,8 +269,16 @@ void GSPlay::Update(float deltaTime)
 	catch (std::exception_ptr e) {
 		
 	}
-	
-
+	//std::cout << m_player->GetPlayerVelocity()<<std::endl;
+	//std::cout << m_collider1->GetColliderPosition().y;
+	//std::cout << "isFalling " << m_player->m_isFalling << std::endl;
+	//std::cout << "isJumping " << m_player->m_isJumping << std::endl;
+	//std::cout << "isOnground " << m_player->m_isOnGround << std::endl;
+	//std::cout << "direction " << m_player->GetDirectionY() << std::endl;
+	//std::cout << "jumpBuffer " << jumpBuffer << std::endl;
+	//std::cout << "Number of coliders: " << m_colliderList.size()<<std::endl;
+	//std::cout << OnButtonPressed << std::endl;
+	//std::cout << m_playerCollider->GetWidth() << std::endl;
 	/*for (auto it : m_gameMap->tile_map_)
 	{
 		if (m_playerCollider->CheckCollision(it)) 
@@ -328,6 +334,7 @@ void GSPlay::Update(float deltaTime)
 	/*obj->update(deltatime);*/
 	//printf("%f, \n", obj->GetPosition().x);
 	//std::system("cls");
+	
 }
 
 void GSPlay::Draw(SDL_Renderer* renderer)

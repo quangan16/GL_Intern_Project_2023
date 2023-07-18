@@ -1,16 +1,29 @@
 #include "Ship.h"
 
+Ship::Ship() {
+	m_isJumping = false;
+	m_isFalling = true;
+	m_isOnGround = false;
+	m_jumpForce = 3000.0;
+}
+
 Ship::Ship(Vector2 _position, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _playerTexture)
-	: Player(_position, _rotation, _direction, _velocity, _playerTexture) {};
+	: Player(_position, _rotation, _direction, _velocity, _playerTexture)
+{
+	m_isJumping = false;
+	m_isFalling = true;
+	m_isOnGround = false;
+	m_jumpForce = 3000.0;
+};
 
 Ship::~Ship() {
 	std::cout << "Ship object deleted" << std::endl;
 }
 
-void Ship::Rotate(double _rotateSpeed, const bool& _isJumping, const bool& _isFalling, float _deltaTime) {
+void Ship::Rotate(double _rotateSpeed, float _deltaTime) {
 
 	//std::cout << m_playerRotation << std::endl;
-	if (_isFalling || _isJumping) {
+	if (m_isFalling || m_isJumping) {
 		if (m_playerRotation >= 360.0) {
 			m_playerRotation /= 360;
 		}
@@ -22,50 +35,53 @@ void Ship::Rotate(double _rotateSpeed, const bool& _isJumping, const bool& _isFa
 }
 
 
-void Ship::MoveUp(const double& _jumpForce, const double& _gravity, bool& _isJumping, bool& _isFalling, bool& _isOnGround, bool& _jumpBuffer, float _deltaTime) {
+void Ship::MoveUp(const double& _gravity, bool& m_jumpBuffer, float _deltaTime) {
+	
+ 	
 
-
-	if (_isJumping == true) {
+	if (m_isJumping == true) {
 		//std::cout << m_velocity<<std::endl;
-		this->SetDirectionY(-1);
-		_isOnGround = false;
-
-		m_velocity -= _gravity * _deltaTime;
-
-		//Player falling Down
-		if (this->GetPlayerVelocity() <= 0.0f) {
-			_isFalling = true;
-			//this->SetPlayerVelocity(_gravity);
-			/*m_playerPosition.y += m_direction * m_velocity * _deltaTime;*/
-			//std::cout << "Down";
-
-		}
-
-
-
-
-	}
-	if (_isOnGround == true && _jumpBuffer == true) {
-		_isJumping = true;
+		//OnButtonPressed = true;
 		m_direction = -1;
-		m_velocity = _jumpForce;
-		m_velocity -= _gravity * _deltaTime;
-		_jumpBuffer = 0;
+		m_isOnGround = false;
+		m_velocity += 3000 * _deltaTime;
+		std::cout << OnButtonPressed << std::endl;
+		
+		if(OnButtonPressed == false)
+		{
+			m_isFalling = true;
+			std::cout << "lol";
+			m_velocity -= 3000 * _deltaTime;
+		}
+		
+		//Player falling Down
+		//if (this->GetPlayerVelocity() < 0.0f) {
+		//	m_isFalling = true;
+		//	//this->SetPlayerVelocity(_gravity);
+		//	/*m_playerPosition.y += m_direction * m_velocity * _deltaTime;*/
+		//	//std::cout << "Down";
+
+		////}
+
 	}
+	/*if (m_isOnGround == true && m_jumpBuffer == true) {
+		m_isJumping = true;
+		m_direction = -1;
+		m_velocity = m_jumpForce;
+		m_velocity -= _gravity * _deltaTime;
+		m_jumpBuffer = false;
+	}*/
 
-
+	
 }
 
 
 
 
-
-
-void Ship::ApplyGravity(const double& _gravity, bool& _isJumping, bool& _isFalling, bool& _isOnGround, float _deltaTime) {
-	if (_isOnGround == false && _isJumping == false) {
-		_isFalling == true;
+void Ship::ApplyGravity(const double& _gravity, float _deltaTime) {
+	
 		m_velocity += _gravity * _deltaTime;
-	}
+	
 
 }
 
@@ -79,9 +95,9 @@ void Ship::SetPlayerSprite(const int& _width, const int& _height, const std::sha
 
 
 
-void Ship::FixRotationOnGround(const bool& _isOnGround, const float& _deltaTime) {
+void Ship::FixRotationOnGround(const float& _deltaTime) {
 
-	if (_isOnGround == true) {
+	if (m_isOnGround == true) {
 		if (m_playerRotation > 0.0 && m_playerRotation < 45.0) {
 			m_playerRotation = 0.0;
 		}
@@ -98,14 +114,16 @@ const std::shared_ptr<BoxCollider2D> Ship::GetCollider() const {
 	return m_playerCollider;
 }
 
-void Ship::OnGround(bool& _isJumping, bool& _isFalling, bool& _jumpBuffer, bool& _isOnGround) {
-	if (_isOnGround == true) {
+void Ship::OnGround() {
+	if (m_isOnGround == true && OnButtonPressed == false) {
 
-		this->SetDirectionY(1);
-		_isJumping = false;
-		m_velocity = 0.0f;
-		_isFalling = false;
+		//this->SetDirectionY(-1);
+ 		m_isJumping = false;
+		m_velocity = 0.0;
+		m_isFalling = false;
+		//FixCollisionOverlaps();
 	}
+
 
 
 }

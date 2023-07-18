@@ -4,6 +4,7 @@
 #include "GameObject/Text.h"
 #include "GameObject/Player.h"
 #include "GameObject/Cube.h"
+#include "GameObject/Ship.h"
 #include "GameObject/GameMap.h"
 #include "GameObject/BoxCollider2D.h"
 class Sprite2D;
@@ -44,24 +45,24 @@ private:
 	double time = 0.0f;
 	double m_gravity = 10000.0;
 
-	const float PROCESS_WIDTH = 500.0f;
-	const float PROCESS_HEIGHT = 20.0f;
-	const float PROCESS_PADDING = 10.0f;
+	const int PROCESS_WIDTH = 500;
+	const int PROCESS_HEIGHT = 20;
+	const int PROCESS_PADDING = 10;
 	float maxProcess = 100.0f;
 	float currentProcess = 0.0f;
-	float processBarWidth;
+	int processBarWidth;
 
-	float m_fBackground_speed = 10.f;
+	const int m_fBackground_speed = 10.f;
 	Vector2 m_readyPos = Vector2(500, 700);
 
-	std::shared_ptr<Cube> m_player;
+	std::shared_ptr<Player> m_player;
 	std::shared_ptr<Sprite2D> m_playerSprite;
 
 	//Player's jump params
-	bool isJumping = false;
+	/*bool isJumping = false;
 	bool isFalling = true;
 	bool isOnGround = false;
-	double jumpForce = 3000.0;
+	double jumpForce = 3000.0;*/
 	bool jumpBuffer = false;
 
 
