@@ -104,6 +104,14 @@ void Player::UpdatePlayerPos(float& _deltaTime, Map& map_data) {
 				 m_isAlive = false;
 			 }
 		 }
+		 else if (otherCollider->GetColliderID() == ColliderType::OBSTACLE)
+		 {
+			 if (m_playerCollider->GetColliderPosition().x + m_playerCollider->GetWidth() >= otherCollider->GetColliderPosition().x
+				 && m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() / 2 > otherCollider->GetColliderPosition().y) {
+				 isOnGround = true;
+				 m_isAlive = false;
+			 }
+		 }
 	 }
 
 	 if (isOnGround) {

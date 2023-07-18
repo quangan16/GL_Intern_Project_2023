@@ -3,7 +3,8 @@
 #define SCREEN_HEIGHT 1080
 
 #define TILE_SIZE 128   
-#define PLAYER_SPEED 100.0f
+#define PLAYER_SPEED 70.0f
+#define JUMP_HEIGHT 200.0f
 #define MAX_MAP_X 400
 #define MAX_MAP_Y 20
 

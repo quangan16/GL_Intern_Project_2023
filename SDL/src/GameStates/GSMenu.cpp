@@ -16,7 +16,9 @@ void GSMenu::Init()
 {
 	//auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
 	auto texture = ResourceManagers::GetInstance()->GetTexture("back1.tga");
-
+	m_texture = std::make_shared<TextureManager>();
+	m_texture = texture;
+	a = 256;
 	// background
 	//auto shader = ResourceManagers::GetInstance()->GetShader("TextureShader");
 	m_background = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
@@ -27,7 +29,7 @@ void GSMenu::Init()
 	texture = ResourceManagers::GetInstance()->GetTexture("button_play.tga");
 	std::shared_ptr<MouseButton> btnPlay = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
 	btnPlay->SetSize(150, 150);
-	btnPlay->Set2DPosition((SCREEN_WIDTH - btnPlay->GetWidth())/2, (SCREEN_HEIGHT - btnPlay->GetHeight()) / 2);
+	btnPlay->Set2DPosition((SCREEN_WIDTH - btnPlay->GetWidth()) / 2, (SCREEN_HEIGHT - btnPlay->GetHeight()) / 2);
 	btnPlay->SetOnClick([]() {
 		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_LEVEL);
 		});
@@ -79,7 +81,7 @@ void GSMenu::Init()
 	m_textColor = { 255, 255, 0 };
 	m_textGameName = std::make_shared<Text>("Data/xirod.otf", m_textColor);
 	m_textGameName->SetSize(1200, 150);
-	m_textGameName->Set2DPosition((SCREEN_WIDTH - m_textGameName->GetWidth())/2, SCREEN_HEIGHT / 2 - 400);
+	m_textGameName->Set2DPosition((SCREEN_WIDTH - m_textGameName->GetWidth()) / 2, SCREEN_HEIGHT / 2 - 400);
 	m_textGameName->LoadFromRenderText("Geometry Dash");
 	m_Sound = std::make_shared<Sound>("Data/Sounds/Alarm01.wav");
 	m_Sound->PlaySound();
@@ -115,7 +117,7 @@ void GSMenu::HandleTouchEvents(SDL_Event& e, bool bIsPressed)
 {
 	for (auto button : m_listButton)
 	{
-		if (button ->HandleTouchEvent(&e))
+		if (button->HandleTouchEvent(&e))
 		{
 			break;
 		}
@@ -126,14 +128,43 @@ void GSMenu::HandleMouseMoveEvents(int x, int y)
 {
 }
 float time = 0.0f;
+int index = 0;
 void GSMenu::Update(float deltaTime)
 {
 	time += deltaTime;
+
 	//printf("DeltaTime = %f", deltaTime);
 	if (time >= 1.5f)
 	{
 		time = 0.0f;
 	}
+	
+	if (index > 2) index = 0;
+	if (r == 255 && index == 0 || g == 255 && index == 1 || b == 255 && index == 2) index++;
+
+	if (index == 0)
+	{
+		if (r == 255 || r < 2) interval *= -1;
+		r += interval;
+		printf("%d \n", r);
+	}
+
+	if (index == 1)
+	{
+		if (g == 255 || g < 2) interval *= -1;
+		g += interval;
+		printf("%d \n", r);
+	}
+
+	if (index == 2)
+	{
+		if (b == 255 || b < 2) interval *= -1;
+		b += interval;
+		printf("%d \n", r);
+	}
+
+	m_texture->setColor(r, g, b);
+	m_background->SetTexture(m_texture);
 	m_background->Update(deltaTime);
 	for (auto it : m_listButton)
 	{
