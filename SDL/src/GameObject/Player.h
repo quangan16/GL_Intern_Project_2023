@@ -58,7 +58,7 @@ public:
 
 	virtual void ApplyGravity(const double& _gravity, bool& _isFalling, bool& _isJumping, bool& _isOnGround, float _deltaTime) = 0;
 
-	void UpdatePlayerPos(float& _deltaTime, Map &map_data);
+	void UpdatePlayerPos(float& _deltaTime);
 
 	virtual void FixRotationOnGround(const bool& _isOnGround, const float& deltaTime) = 0;
 

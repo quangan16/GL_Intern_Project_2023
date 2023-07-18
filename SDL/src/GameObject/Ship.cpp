@@ -79,6 +79,7 @@ void Ship::SetPlayerSprite(const int& _width, const int& _height, const std::sha
 
 
 
+
 void Ship::FixRotationOnGround(const bool& _isOnGround, const float& _deltaTime) {
 
 	if (_isOnGround == true) {
@@ -110,5 +111,18 @@ void Ship::OnGround(bool& _isJumping, bool& _isFalling, bool& _jumpBuffer, bool&
 
 }
 
+void Ship::FlyUp(const float& _velocity, const float& _gravity, float _deltaTime)
+{
+	float velocity = 500.0f;
+	m_playerPosition.y -= (velocity) * _deltaTime;
+}
 
+
+void Ship::GravityPull(float _deltaTime)
+{
+	if (m_playerPosition.y < 1080)
+	{
+		m_playerPosition.y += 200.0f * _deltaTime;
+	}
+}
 

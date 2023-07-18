@@ -9,7 +9,6 @@ public:
 	~Cube();
 	void MoveUp(const double& _jumpForce, const double &_gravity, bool &_isJumping,bool& _isFalling,bool &_isOnGround, bool &_jumpBuffer,  float _deltaTime) override;
 	void ApplyGravity(const double& _gravity, bool& _isFalling, bool& _isJumping, bool& _isOnGround, float _deltaTime) override;
-	
 	void SetPlayerSprite(const int& _width, const int& _height, const std::shared_ptr<Sprite2D>& _playerSprite) override;
 	void Rotate(double _angle,const bool& _isJumping,const bool& _isFalling, float deltaTime) override;
 	void FixRotationOnGround(const bool& _isOnGround,const float &deltaTime) override;

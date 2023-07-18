@@ -1,7 +1,9 @@
 #pragma once
 #include "Player.h"
-class Ship :public Player
+
+class Ship : public Player
 {
+public:
 	Ship();
 	Ship(Vector2 _position, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _playerTexture);
 	~Ship();
@@ -13,5 +15,8 @@ class Ship :public Player
 	void FixRotationOnGround(const bool& _isOnGround, const float& deltaTime) override;
 	const std::shared_ptr<BoxCollider2D> GetCollider() const override;
 	void OnGround(bool& _isJumping, bool& _isFalling, bool& _jumpBuffer, bool& _isOnGround) override;
+
+	void GravityPull(float _deltaTime);
+	void FlyUp(const float& _velocity, const float& _gravity, float _deltaTime);
 };
 

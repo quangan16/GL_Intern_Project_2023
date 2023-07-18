@@ -4,6 +4,7 @@
 #include "GameObject/Text.h"
 #include "GameObject/Player.h"
 #include "GameObject/Cube.h"
+#include "GameObject/Ship.h"
 #include "GameObject/GameMap.h"
 #include "GameObject/BoxCollider2D.h"
 class Sprite2D;
@@ -55,7 +56,12 @@ private:
 	Vector2 m_readyPos = Vector2(500, 700);
 
 	std::shared_ptr<Cube> m_player;
+	std::shared_ptr<Ship> m_ship;
 	std::shared_ptr<Sprite2D> m_playerSprite;
+
+	//Player's typ
+	bool isCube = false;
+	bool isShip = true;
 
 	//Player's jump params
 	bool isJumping = false;
@@ -64,6 +70,8 @@ private:
 	double jumpForce = 1300.0;
 	bool jumpBuffer = false;
 
+	//Ship's param
+	bool isFly = false;
 
 	//Collider
 	std::vector<std::shared_ptr<BoxCollider2D>> m_colliderList;

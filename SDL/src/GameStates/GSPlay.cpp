@@ -26,7 +26,7 @@ void GSPlay::Init()
 	for (int i = 0; i < MAX_MAP_X * TILE_SIZE; i += SCREEN_WIDTH)
 	{
 		auto bg = std::make_shared<Background>(texture, 10.0f, SDL_FLIP_NONE);
-		bg->SetSize(SCREEN_WIDTH,SCREEN_HEIGHT*2);
+		bg->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT * 2);
 		bg->Set2DPosition(i, 0);
 		m_listBackground.push_back(bg);
 	}
@@ -41,45 +41,60 @@ void GSPlay::Init()
 
 	// button close
 	texture = ResourceManagers::GetInstance()->GetTexture("btn_close.tga");
-	button = std::make_shared<MouseButton>( texture, SDL_FLIP_NONE);
+	button = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
 	button->SetSize(50, 50);
-	button->Set2DPosition(Camera::GetInstance()->GetViewBox().x + SCREEN_WIDTH , 10);
+	button->Set2DPosition(Camera::GetInstance()->GetViewBox().x + SCREEN_WIDTH, 10);
 	button->SetOnClick([this]() {
 		GameStateMachine::GetInstance()->PopState();
 		});
 	m_listButton.push_back(button);
 
-   // Animation 
-	//texture = ResourceManagers::GetInstance()->GetTexture("player.tga");
-	//obj = std::make_shared<SpriteAnimation>( texture, 1, 1, 1, 0.2f);
-	//obj->SetFlip(SDL_FLIP_HORIZONTAL);
-	//obj->SetSize(145/2, 120/2);
-	//obj->Set2DPosition(0, 700);
-	//
-	
-	//m_listAnimation.push_back(obj);
+	// Animation 
+	 //texture = ResourceManagers::GetInstance()->GetTexture("player.tga");
+	 //obj = std::make_shared<SpriteAnimation>( texture, 1, 1, 1, 0.2f);
+	 //obj->SetFlip(SDL_FLIP_HORIZONTAL);
+	 //obj->SetSize(145/2, 120/2);
+	 //obj->Set2DPosition(0, 700);
+	 //
 
-	//Init Player
+	 //m_listAnimation.push_back(obj);
 
-	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_1.tga");
-	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
-	m_player = std::make_shared<Cube>(Vector2(-200.0f, 300.0f), 0.0, 1, 0.0, texture);
-	m_player->SetPlayerSprite(128, 128, m_playerSprite);
-	Camera::GetInstance()->SetTarget(m_playerSprite);
-	
+	 //Init Player
+
+	if (isCube)
+	{
+		texture = ResourceManagers::GetInstance()->GetTexture("player_cube_1.tga");
+		m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
+		m_player = std::make_shared<Cube>(Vector2(-200.0f, 300.0f), 0.0, 1, 0.0, texture);
+		m_player->SetPlayerSprite(128, 128, m_playerSprite);
+		Camera::GetInstance()->SetTarget(m_playerSprite);
+		m_playerCollider = m_player->GetCollider();
+	}
+
+	if (isShip)
+	{
+		texture = ResourceManagers::GetInstance()->GetTexture("ship_25.tga");
+		m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
+		m_ship = std::make_shared<Ship>(Vector2(500.0f, 300.0f), 0.0, 1, 0.0, texture);
+		m_ship->SetPlayerSprite(128, 64, m_playerSprite);
+		Camera::GetInstance()->SetTarget(m_playerSprite);
+		m_playerCollider = m_ship->GetCollider();
+	}
+
+
 	//Test Colliders
 	texture = ResourceManagers::GetInstance()->GetTexture("collider_border.tga");
-	m_collider1 = std::make_shared<BoxCollider2D>(ColliderType::GROUND, Vector2(0.0f, 500.0f), true, 5000.0f, 410.0f, texture, SDL_FLIP_NONE);
+	/*m_collider1 = std::make_shared<BoxCollider2D>(ColliderType::GROUND, Vector2(0.0f, 500.0f), true, 5000.0f, 410.0f, texture, SDL_FLIP_NONE);
 	m_collider2 = std::make_shared<BoxCollider2D>(ColliderType::GROUND, Vector2(5100.0f, 500.0f), true, 5000.0f, 410.0f, texture, SDL_FLIP_NONE);
-	/*m_colliderList.push_back(m_collider2);
+	m_colliderList.push_back(m_collider2);
 	m_colliderList.push_back(m_collider1);*/
 
 
-	m_playerCollider = m_player->GetCollider();
+	
 
 	//Dummy ground
 	//m_ground = std::make_shared<Player>(Vector2(0.0f, 400.0f), 480.0f, 210.0f);
-	
+
 	for (auto& it : m_gameMap->tile_map_)
 	{
 		m_colliderList.push_back(it);
@@ -89,7 +104,7 @@ void GSPlay::Init()
 
 void GSPlay::Exit()
 {
-	
+
 }
 
 
@@ -99,29 +114,31 @@ void GSPlay::Pause()
 }
 void GSPlay::Resume()
 {
-	
+
 }
 
 
 void GSPlay::HandleEvents()
 {
-	if (m_KeyPress & (1 << 4)) {
+	if (m_KeyPress & (1 << 4))
+	{
+		isFly = true;
 		std::cout << "lol";
 		/*if (isFalling) {
 			jumpBuffer = true;
 		}*/
 	}
-	
+
 }
 
 void GSPlay::HandleKeyEvents(SDL_Event& e)
 {
 	if (e.type == SDL_MOUSEBUTTONDOWN) {
-		
+
 	}
 	//If a key was pressed
-	if (e.type == SDL_KEYDOWN && e.key.repeat == 0) 
-	//For e.key.repeat it's because key repeat is enabled by default and if you press and hold a key it will report multiple key presses. That means we have to check if the key press is the first one because we only care when the key was first pressed.
+	if (e.type == SDL_KEYDOWN && e.key.repeat == 0)
+		//For e.key.repeat it's because key repeat is enabled by default and if you press and hold a key it will report multiple key presses. That means we have to check if the key press is the first one because we only care when the key was first pressed.
 	{
 		//Adjust the velocity
 		switch (e.key.keysym.sym)
@@ -140,19 +157,22 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 			break;
 		case SDLK_SPACE:
 			m_KeyPress |= 1 << 4;
-			if (!isJumping) // Only jump if the player is not already jumping
+			if (isCube)
 			{
-				m_player->SetPlayerVelocity(jumpForce);
-				float jumpHeight = JUMP_HEIGHT;
-				isJumping = true;
+				if (!isJumping) // Only jump if the player is not already jumping
+				{
+					m_player->SetPlayerVelocity(jumpForce);
+					float jumpHeight = JUMP_HEIGHT;
+					isJumping = true;
+				}
+				else if (isFalling) {
+					jumpBuffer = true;
+				}
 			}
-			else if (isFalling) {
-				jumpBuffer = true;
-			}
-			
+
 			break;
-		
-			
+
+
 		default:
 			break;
 		}
@@ -178,6 +198,10 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 			break;
 		case SDLK_SPACE:
 			m_KeyPress ^= 1 << 4;
+			if (isShip)
+			{
+				isFly = false;
+			}
 		default:
 			break;
 		}
@@ -187,7 +211,7 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 
 void GSPlay::HandleTouchEvents(SDL_Event& e, bool bIsPressed)
 {
-	
+
 	for (auto button : m_listButton)
 	{
 		if (button->HandleTouchEvent(&e))
@@ -205,68 +229,91 @@ void GSPlay::HandleMouseMoveEvents(int x, int y)
 
 void GSPlay::Update(float deltaTime)
 {
-	try {
-		HandleEvents();
-	//std::cout << m_player->GetPlayerVelocity()<<std::endl;
-	//std::cout << m_collider1->GetColliderPosition().y;
-	//std::cout << "isFalling " << isFalling << std::endl;
-	//std::cout << "isJumping " << isJumping << std::endl;
-	std::cout << "isOnground " << isOnGround << std::endl;
-	//std::cout << "jumpBuffer " << jumpBuffer << std::endl;
-	//std::cout << "Number of coliders: " << m_colliderList.size()<<std::endl;
-	m_player->RunIntoScene(m_readyPos, deltaTime);
-	m_player->ApplyGravity(m_gravity, isJumping, isFalling, isOnGround, deltaTime);
-	m_player->SetPlayerPosition(m_player->GetPlayerPosition().x + 1000.0f * deltaTime, m_player->GetPlayerPosition().y);
-	
-	
-	//std::cout << m_playerCollider->GetWidth() << std::endl;
-	
-	m_player->MoveUp(jumpForce, m_gravity, isJumping, isFalling, isOnGround, jumpBuffer, deltaTime);
-	
-	
-	m_player->FixRotationOnGround(isOnGround, deltaTime);
-	m_player->Rotate(235.0, isJumping, isFalling, deltaTime);
-	Map map_data = m_gameMap->getMap();
-	m_player->UpdatePlayerPos(deltaTime, map_data);
-	m_player->UpdatePlayerSprite(m_playerSprite);
-	/*for (const auto& collider : m_colliderList) {
-		m_player->OnCollisionStay(collider, isFalling);
-	}*/
-	m_player->UpdatePlayerColliderState();
-	
+	if (isCube)
+	{
+		try {
+			HandleEvents();
+			//std::cout << m_player->GetPlayerVelocity()<<std::endl;
+			//std::cout << m_collider1->GetColliderPosition().y;
+			//std::cout << "isFalling " << isFalling << std::endl;
+			//std::cout << "isJumping " << isJumping << std::endl;
+			//std::cout << "isOnground " << isOnGround << std::endl;
+			//std::cout << "jumpBuffer " << jumpBuffer << std::endl;
+			//std::cout << "Number of coliders: " << m_colliderList.size()<<std::endl;
+			m_player->RunIntoScene(m_readyPos, deltaTime);
+			m_player->ApplyGravity(m_gravity, isJumping, isFalling, isOnGround, deltaTime);
+			//m_player->SetPlayerPosition(m_player->GetPlayerPosition().x + 1000.0f * deltaTime, m_player->GetPlayerPosition().y);
 
-	for (const auto& collider : m_colliderList) {
-		if (m_player->OnCollisionStay(collider, isFalling)) {
-			isOnGround = true;
-			isFalling = false;
-			break; // Exit the loop if ground collision is detected with any collider
+
+			//std::cout << m_playerCollider->GetWidth() << std::endl;
+
+			m_player->MoveUp(jumpForce, m_gravity, isJumping, isFalling, isOnGround, jumpBuffer, deltaTime);
+
+
+			m_player->FixRotationOnGround(isOnGround, deltaTime);
+			m_player->Rotate(235.0, isJumping, isFalling, deltaTime);
+			m_player->UpdatePlayerPos(deltaTime);
+			m_player->UpdatePlayerSprite(m_playerSprite);
+			/*for (const auto& collider : m_colliderList) {
+				m_player->OnCollisionStay(collider, isFalling);
+			}*/
+			m_player->UpdatePlayerColliderState();
+
+
+			for (const auto& collider : m_colliderList) {
+				if (m_player->OnCollisionStay(collider, isFalling)) {
+					isOnGround = true;
+					isFalling = false;
+					break; // Exit the loop if ground collision is detected with any collider
+				}
+				else {
+					isOnGround = false;
+					isFalling = true;
+				}
+			}
+
+			/*for (const auto& collider : m_colliderList) {
+				m_player->OnCollisionStay(collider, isOnGround, isFalling);
+			}*/
+			/*m_player->OnCollisionStay(m_collider2, isOnGround, isFalling);
+			m_player->OnCollisionStay(m_collider1, isOnGround, isFalling);*/
+
+
+			m_player->OnGround(isJumping, isFalling, jumpBuffer, isOnGround);
+			m_player->Die();
+
 		}
-		else {
-			isOnGround = false;
-			isFalling = true;
+
+		catch (std::exception_ptr e) {
+
 		}
 	}
-	
-	/*for (const auto& collider : m_colliderList) {
-		m_player->OnCollisionStay(collider, isOnGround, isFalling);
-	}*/
-	/*m_player->OnCollisionStay(m_collider2, isOnGround, isFalling);
-	m_player->OnCollisionStay(m_collider1, isOnGround, isFalling);*/
-	
-	
-	m_player->OnGround(isJumping, isFalling, jumpBuffer, isOnGround);
-	m_player->Die();
-		
+
+	if (isShip)
+	{
+		try
+		{
+			HandleEvents();
+			if (isFly)
+			{
+				m_ship->FlyUp(500.0f, m_gravity, deltaTime);
+			}
+			std::cout << isFly << std::endl;
+			m_ship->GravityPull(deltaTime);
+			m_ship->SetPlayerPosition(m_ship->GetPlayerPosition().x + PLAYER_SPEED * deltaTime, m_ship->GetPlayerPosition().y);
+			m_ship->UpdatePlayerSprite(m_playerSprite);
+			m_ship->UpdatePlayerColliderState();
+		}
+		catch (std::exception_ptr e) 
+		{
+
+		}
 	}
-	
-	catch (std::exception_ptr e) {
-		
-	}
-	
+
 
 	/*for (auto it : m_gameMap->tile_map_)
 	{
-		if (m_playerCollider->CheckCollision(it)) 
+		if (m_playerCollider->CheckCollision(it))
 		{
 			m_player->SetPlayerPosition(m_player->GetPlayerPosition().x, it->GetColliderPosition().y - TILE_SIZE);
 			m_player->SetPlayerVelocity(0.0f);
@@ -274,17 +321,17 @@ void GSPlay::Update(float deltaTime)
 		}
 	}*/
 
-	
 
-	
-	
+
+
+
 	switch (m_KeyPress)//Handle Key event
 	{
 
 	default:
 		break;
 	}
-	
+
 	for (auto it : m_listButton)
 	{
 		it->Update(deltaTime);
@@ -293,12 +340,12 @@ void GSPlay::Update(float deltaTime)
 	{
 		if (m_KeyPress == 1)
 		{
-			
+
 			it->MoveLeft(deltaTime);
 		}
 		it->Update(deltaTime);
 	}
-	
+
 	//Process bar
 	if (processBarWidth >= PROCESS_WIDTH) {
 		currentProcess = currentProcess;
@@ -338,12 +385,12 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 	{
 		it->Draw(renderer);
 	}
+	//draw player
 	m_playerSprite->Draw(renderer);
-	//m_collider1->DrawBoundingBox(renderer, m_color);
 	for (auto it : m_colliderList) {
 		it->Draw(renderer);
 	}
-	
+
 	m_playerCollider->Draw(renderer);
 
 	SDL_Rect backgroundRect = { SCREEN_WIDTH / 2 - 250, PROCESS_PADDING + 10, PROCESS_WIDTH, PROCESS_HEIGHT };
@@ -352,6 +399,6 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 	SDL_RenderFillRect(renderer, &backgroundRect);
 	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // Green color
 	SDL_RenderFillRect(renderer, &foregroundRect);
-	
+
 
 }
