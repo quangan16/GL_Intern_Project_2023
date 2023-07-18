@@ -61,18 +61,18 @@ void GSPlay::Init()
 
 	//Init Player
 	//Cube
-	/*texture = ResourceManagers::GetInstance()->GetTexture("player_cube_1.tga");
+	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_1.tga");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
 	m_player = std::make_shared<Cube>(Vector2(-200.0f, 300.0f), 0.0, 1, 0.0, texture);
 	m_player->SetPlayerSprite(128, 128, m_playerSprite);
-	Camera::GetInstance()->SetTarget(m_playerSprite);*/
+	Camera::GetInstance()->SetTarget(m_playerSprite);
 
 	//Ship
-	texture = ResourceManagers::GetInstance()->GetTexture("ship_26.png");
+	/*texture = ResourceManagers::GetInstance()->GetTexture("ship_26.png");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
 	m_player = std::make_shared<Ship>(Vector2(-200.0f, 300.0f), 0.0, 1, 0.0, texture);
 	m_player->SetPlayerSprite(90, 60, m_playerSprite);
-	Camera::GetInstance()->SetTarget(m_playerSprite);
+	Camera::GetInstance()->SetTarget(m_playerSprite);*/
 	
 	//Test Colliders
 	texture = ResourceManagers::GetInstance()->GetTexture("collider_border.tga");
@@ -112,7 +112,7 @@ void GSPlay::Resume()
 
 void GSPlay::HandleEvents()
 {
-	if (m_KeyPress & (1 << 4)) {
+	//if (m_KeyPress & (1 << 4)) {
 		//std::cout << "lol";
 		//if (!isJumping) // Only jump if the player is not already jumping
 		//{
@@ -121,7 +121,7 @@ void GSPlay::HandleEvents()
 		//	isJumping = true;
 		//}
 		//OnButtonPressed = true;
-	}
+	//}
 	
 }
 
@@ -148,7 +148,7 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 			break;
 		case SDLK_SPACE:
 			m_KeyPress |= 1 << 4;
-			OnButtonPressed = true;
+			//OnButtonPressed = true;
 			if (!m_player->m_isJumping) // Only jump if the player is not already jumping
 			{
 				
@@ -190,8 +190,9 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 		case SDLK_SPACE:
 			m_KeyPress ^= 1 << 4;
 			OnButtonPressed = false;
-			m_player->m_isJumping = false;
-			m_player->m_isFalling = true;
+			/*m_player->m_isJumping = false;
+			m_player->m_isFalling = true;*/
+			break;
 		default:
 			break;
 		}
