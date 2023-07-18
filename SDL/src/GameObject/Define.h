@@ -6,7 +6,7 @@
 #define PLAYER_SPEED 70.0f
 #define JUMP_HEIGHT 200.0f
 #define MAX_MAP_X 400
-#define MAX_MAP_Y 20
+#define MAX_MAP_Y 15
 
 typedef struct Map
 {

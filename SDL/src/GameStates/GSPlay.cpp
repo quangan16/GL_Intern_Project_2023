@@ -19,14 +19,14 @@ GSPlay::~GSPlay()
 
 void GSPlay::Init()
 {
-	auto texture = ResourceManagers::GetInstance()->GetTexture("back1.tga");
+	auto texture = ResourceManagers::GetInstance()->GetTexture("backx2.tga");
 	texture->setColor(148, 34, 224);
 	texture->SetAlpha(500);
 	// background_1
 	for (int i = 0; i < MAX_MAP_X * TILE_SIZE; i += SCREEN_WIDTH)
 	{
 		auto bg = std::make_shared<Background>(texture, 10.0f, SDL_FLIP_NONE);
-		bg->SetSize(SCREEN_WIDTH,SCREEN_HEIGHT);
+		bg->SetSize(SCREEN_WIDTH,SCREEN_HEIGHT*2);
 		bg->Set2DPosition(i, 0);
 		m_listBackground.push_back(bg);
 	}
@@ -35,7 +35,7 @@ void GSPlay::Init()
 
 	//Map
 	m_gameMap = std::make_shared<GameMap>();
-	m_gameMap->LoadMap("Data/map03.dat");
+	m_gameMap->LoadMap("Data/map01.dat");
 	m_gameMap->DrawMap();
 
 
