@@ -22,7 +22,7 @@ void Camera::Update(float deltaTime)
 	{
 		//Center the camera over the dot
 		m_ViewBox.x = (m_Target->Get2DPosition().x);
-		m_ViewBox.y = (m_Target->Get2DPosition().y) ;
+		m_ViewBox.y = (m_Target->Get2DPosition().y/2) ;
 		
 		//Keep the camera in bounds
 		if (m_ViewBox.x < 0)

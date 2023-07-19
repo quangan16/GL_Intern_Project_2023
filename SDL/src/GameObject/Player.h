@@ -61,8 +61,6 @@ public:
 
 	void RunIntoScene(const Vector2 &endPos, float _deltaTime);
 
-
-
 	virtual void ApplyGravity(const double& _gravity, float _deltaTime) = 0;
 
 	void UpdatePlayerPos(float& _deltaTime, Map &map_data);

@@ -22,11 +22,11 @@ Ship::~Ship() {
 
 void Ship::Rotate(double _rotateSpeed, float _deltaTime) {
 	if (m_isJumping) {
-		if (m_isFalling) {
-			m_playerRotation += _rotateSpeed * _deltaTime;
+		if (m_isFalling && m_playerRotation < 35) {
+			m_playerRotation += _rotateSpeed * 1/(m_jumpForce/5000) * _deltaTime;
 		}
-		else if (!m_isFalling) {
-			m_playerRotation -= _rotateSpeed * _deltaTime;
+		else if (!m_isFalling && m_playerRotation > -35) {
+			m_playerRotation -= _rotateSpeed *  1/(m_jumpForce/3000) * _deltaTime;
 		}
 	}
 	//std::cout << m_playerRotation << std::endl;
@@ -108,7 +108,7 @@ void Ship::MoveUp(const double& _gravity, const bool& m_onButtonPressed, bool& m
 
 void Ship::ApplyGravity(const double& _gravity, float _deltaTime) {
 	if (!OnButtonPressed && m_velocity <1300) {
-		m_velocity += _gravity * _deltaTime;
+		m_velocity += _gravity  * _deltaTime;
 	}
 		
 	
@@ -141,7 +141,7 @@ void Ship::FixRotationOnGround(const float& _deltaTime) {
 }
 
 const std::shared_ptr<BoxCollider2D> Ship::GetCollider() const {
-	return m_playerCollider;
+	return this->m_playerCollider;
 }
 
 void Ship::OnGround() {

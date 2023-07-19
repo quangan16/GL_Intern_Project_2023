@@ -1,4 +1,6 @@
 #include "GSPlay.h"
+
+
 #include "GameObject/TextureManager.h"
 #include "GameObject/Sprite2D.h"
 #include "GameObject/MouseButton.h"
@@ -65,15 +67,30 @@ void GSPlay::Init()
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
 	m_player = std::make_shared<Cube>(Vector2(-200.0f, 300.0f), 0.0, 1, 0.0, texture);
 	m_player->SetPlayerSprite(128, 128, m_playerSprite);
+	m_playerCollider = m_player->GetCollider();
+	m_playerCollider->SetSize(90, 90);
 	Camera::GetInstance()->SetTarget(m_playerSprite);*/
 
 	//Ship
-	texture = ResourceManagers::GetInstance()->GetTexture("ship_26.png");
+	/*texture = ResourceManagers::GetInstance()->GetTexture("ship_26.png");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
 	m_player = std::make_shared<Ship>(Vector2(-200.0f, 300.0f), 0.0, 1, 0.0, texture);
 	m_player->SetPlayerSprite(90, 60, m_playerSprite);
+	m_playerCollider = m_player->GetCollider();
+	m_playerCollider->SetSize(90, 90);
+	Camera::GetInstance()->SetTarget(m_playerSprite);*/
+
+	//Arrow
+	texture = ResourceManagers::GetInstance()->GetTexture("wave_13.png");
+	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
+	m_player = std::make_shared<Wave>(Vector2(-200.0f, 300.0f), 0.0, 1, 0.0, texture);
+	m_player->SetPlayerSprite(90, 60, m_playerSprite);
+	m_playerCollider = m_player->GetCollider();
+	m_playerCollider->SetSize(90, 90);
 	Camera::GetInstance()->SetTarget(m_playerSprite);
-	
+
+
+
 	//Test Colliders
 	texture = ResourceManagers::GetInstance()->GetTexture("collider_border.tga");
 	m_collider1 = std::make_shared<BoxCollider2D>(ColliderType::GROUND, Vector2(0.0f, 500.0f), true, 5000.0f, 410.0f, texture, SDL_FLIP_NONE);
@@ -82,7 +99,7 @@ void GSPlay::Init()
 	m_colliderList.push_back(m_collider1);*/
 
 
-	m_playerCollider = m_player->GetCollider();
+	;
 
 	//Dummy ground
 	//m_ground = std::make_shared<Player>(Vector2(0.0f, 400.0f), 480.0f, 210.0f);
@@ -225,6 +242,11 @@ void GSPlay::HandleTouchEvents(SDL_Event& e, bool bIsPressed)
 
 void GSPlay::HandleMouseMoveEvents(int x, int y)
 {
+}
+
+void GSPlay::PlayerTransform()
+{
+	
 }
 
 void GSPlay::Update(float deltaTime)

@@ -23,7 +23,7 @@ void BoxCollider2D::Draw(SDL_Renderer* renderer)
     //Get2DPosition();
     if (m_pTexture != nullptr)
     {
-        m_pTexture->Render(m_colliderPosition.x, m_colliderPosition.y, m_iWidth, m_iHeight, m_angle, m_flip);
+        m_pTexture->Render(m_colliderPosition.x, m_colliderPosition.y, m_width, m_height, m_angle, m_flip);
     }
 
 }
@@ -42,10 +42,10 @@ Vector3 BoxCollider2D::Get2DPosition()
     return Vector3(m_position.x, m_position.y, 0.0f);
 }
 
-void BoxCollider2D::SetSize(int width, int height)
+void BoxCollider2D::SetSize(int _width, int _height)
 {
-    m_iWidth = width;
-    m_iHeight = height;
+    m_width = _width;
+    m_height = _height;
     m_scale = Vector3((float)m_iWidth, (float)m_iHeight, 0.0f);
 }
 
@@ -56,7 +56,7 @@ int BoxCollider2D::GetWidth()
 
 int BoxCollider2D::GetHeight()
 {
-    return m_iHeight;
+    return m_height;
 }
 
 void BoxCollider2D::SetRotation(double angle)
@@ -97,9 +97,6 @@ void BoxCollider2D::DrawBoundingBox(SDL_Renderer* renderer, std::shared_ptr<SDL_
     SDL_RenderDrawLine(renderer, left, bottom, left, top);
 }
 
-void BoxCollider2D::SetSize() {
-    m_iWidth = m_width;
-    m_iHeight = m_height;
-}
+
 
 

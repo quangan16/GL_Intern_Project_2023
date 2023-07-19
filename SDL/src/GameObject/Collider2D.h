@@ -9,7 +9,9 @@ typedef enum COLLIDER_TYPE {
 	GROUND,
 	OBSTACLE,
 	BOOST,
-	GATE
+	PORTAL_CUBE,
+	PORTAL_SHIP,
+	PORTAL_ARROW
 }ColliderType;
 
 
