@@ -170,6 +170,7 @@
     <ClCompile Include="src\GameObject\Background.cpp" />
     <ClCompile Include="src\GameObject\GameMap.cpp" />
     <ClCompile Include="src\GameObject\Player.cpp" />
+    <ClCompile Include="src\GameObject\Ship.cpp" />
     <ClCompile Include="src\GameStates\GSCharacter.cpp" />
     <ClCompile Include="src\GameStates\GSGuide.cpp" />
     <ClCompile Include="src\GameStates\GSLevel.cpp" />
@@ -202,6 +203,7 @@
     <ClInclude Include="src\GameObject\Background.h" />
     <ClInclude Include="src\GameObject\GameMap.h" />
     <ClInclude Include="src\GameObject\Player.h" />
+    <ClInclude Include="src\GameObject\Ship.h" />
     <ClInclude Include="src\GameStates\GSCharacter.h" />
     <ClInclude Include="src\GameStates\GSGuide.h" />
     <ClInclude Include="src\GameStates\GSLevel.h" />

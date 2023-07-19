@@ -5,7 +5,7 @@
 class BoxCollider2D;
 
 typedef enum COLLIDER_TYPE {
-	Player,
+	PLAYER,
 	GROUND,
 	OBSTACLE,
 	BOOST,
