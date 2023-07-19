@@ -1,6 +1,6 @@
 #include "GameMap.h"
 #include "GameManager/ResourceManagers.h"
-
+#include "BoxCollider2D.h"
 
 
 GameMap::GameMap()
@@ -42,6 +42,7 @@ void GameMap::LoadMap(const char* name)
 				}
 			}
 		}
+		printf("\n");
 	}
 
 	game_map_.max_x_ = (game_map_.max_x_ + 1) * TILE_SIZE;
@@ -73,7 +74,7 @@ void GameMap::LoadTiles()
 	}*/
 }
 
-void GameMap::DrawMap(SDL_Renderer* renderer)
+void GameMap::DrawMap()
 {
 	int x1 = 0;
 	int x2 = 0;
@@ -85,12 +86,12 @@ void GameMap::DrawMap(SDL_Renderer* renderer)
 	int map_y = 0;
 
 	map_x = game_map_.start_x_ / TILE_SIZE;
-	x1 = (game_map_.start_x_ % TILE_SIZE) * -1;
-	x2 = x1 + MAX_MAP_X * TILE_SIZE;
+	//x1 = (game_map_.start_x_ % TILE_SIZE) * -1;
+	x2 = MAX_MAP_X * TILE_SIZE;
 
 	map_y = game_map_.start_y_ / TILE_SIZE;
-	y1 = (game_map_.start_y_ % TILE_SIZE) * -1;
-	y2 = y1 + MAX_MAP_Y * TILE_SIZE;
+	//y1 = (game_map_.start_y_ % TILE_SIZE) * -1;
+	y2 = MAX_MAP_Y * TILE_SIZE;
 
 
 	for (int i = y1; i < y2; i += TILE_SIZE)
@@ -101,11 +102,20 @@ void GameMap::DrawMap(SDL_Renderer* renderer)
 			int val = game_map_.tile[map_y][map_x];
 			if (val > 0)
 			{
-				auto texture = ResourceManagers::GetInstance()->GetTexture(std::to_string(val) + ".tga");
-				auto tile = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
-				tile->Set2DPosition(j, i - 64.0f);
-				tile->SetSize(TILE_SIZE, TILE_SIZE);
-				tile->Draw(renderer);
+				if (val == 16 || val == 17)
+				{
+					auto texture = ResourceManagers::GetInstance()->GetTexture(std::to_string(val) + ".tga");				
+					auto tile = std::make_shared<BoxCollider2D>(ColliderType::OBSTACLE, Vector2(j, i), true, TILE_SIZE, TILE_SIZE, texture, SDL_FLIP_NONE);
+					tile_map_.push_back(tile);
+				}
+				else
+				{
+					auto texture = ResourceManagers::GetInstance()->GetTexture(std::to_string(val) + ".tga");
+					texture->setColor(161, 52, 235);
+					texture->SetAlpha(1000);
+					auto tile = std::make_shared<BoxCollider2D>(ColliderType::GROUND, Vector2(j, i), true, TILE_SIZE, TILE_SIZE, texture, SDL_FLIP_NONE);
+					tile_map_.push_back(tile);
+				}
 			}
 			map_x++;
 		}

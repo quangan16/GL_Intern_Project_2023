@@ -4,6 +4,7 @@
 #include "GameObject/Text.h"
 #include "GameObject/Player.h"
 #include "GameObject/Cube.h"
+#include "GameObject/Ship.h"
 #include "GameObject/GameMap.h"
 #include "GameObject/BoxCollider2D.h"
 class Sprite2D;
@@ -41,31 +42,32 @@ private:
 	std::list<std::shared_ptr<Background>> m_listBackground;
 	std::shared_ptr<SpriteAnimation> obj;
 	std::shared_ptr<MouseButton> button;
-	float time = 0.0f;
-	double m_gravity = 3500.0;
+	double time = 0.0f;
+	double m_gravity = 10000.0;
 
 	const int PROCESS_WIDTH = 500;
 	const int PROCESS_HEIGHT = 20;
 	const int PROCESS_PADDING = 10;
 	float maxProcess = 100.0f;
 	float currentProcess = 0.0f;
-	float processBarWidth;
+	int processBarWidth;
 
-	float m_fBackground_speed = 10.f;
+	const int m_fBackground_speed = 10.f;
 	Vector2 m_readyPos = Vector2(500, 700);
 
-	std::shared_ptr<Cube> m_player;
+	std::shared_ptr<Player> m_player;
 	std::shared_ptr<Sprite2D> m_playerSprite;
 
 	//Player's jump params
-	bool isJumping = false;
+	/*bool isJumping = false;
 	bool isFalling = true;
 	bool isOnGround = false;
-	double jumpForce = 1300.0;
+	double jumpForce = 3000.0;*/
 	bool jumpBuffer = false;
 
 
 	//Collider
+	std::vector<std::shared_ptr<BoxCollider2D>> m_colliderList;
 	std::shared_ptr<BoxCollider2D> m_playerCollider;
 	std::shared_ptr<BoxCollider2D> m_collider1;
 	std::shared_ptr<BoxCollider2D> m_collider2;
@@ -73,6 +75,8 @@ private:
 	std::shared_ptr<SDL_Color> m_color;
 
 	//std::shared_ptr<Player> m_ground;
+
+	bool m_onButtonPressed = false;
 
 };
 

@@ -19,7 +19,7 @@ GSGuide::~GSGuide()
 void GSGuide::Init()
 {
 	//auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
-	auto texture = ResourceManagers::GetInstance()->GetTexture("guide.tga");
+	auto texture = ResourceManagers::GetInstance()->GetTexture("back1.tga");
 
 	// background
 
@@ -48,6 +48,18 @@ void GSGuide::Init()
 	m_listAnimation.push_back(obj);
 
 	m_KeyPress = 0;
+
+	m_textColor = { 255, 255, 0 };
+	m_textGameName = std::make_shared<Text>("Data/xirod.otf", m_textColor);
+	m_textGameName->SetSize(1200, 150);
+	m_textGameName->Set2DPosition((SCREEN_WIDTH - m_textGameName->GetWidth()) / 2, SCREEN_HEIGHT / 2 - 400);
+	m_textGameName->LoadFromRenderText("Huong dan");
+
+	m_textColor = { 255, 255, 0 };
+	m_textStateName = std::make_shared<Text>("Data/xirod.otf", m_textColor);
+	m_textStateName->SetSize(1800, 150);
+	m_textStateName->Set2DPosition((SCREEN_WIDTH - m_textStateName->GetWidth()) / 2, SCREEN_HEIGHT / 2);
+	m_textStateName->LoadFromRenderText("Using 'SPACE' to control character avoiding obstacles");
 }
 
 void GSGuide::Exit()
@@ -175,4 +187,6 @@ void GSGuide::Draw(SDL_Renderer* renderer)
 	{
 		//it->Draw(renderer);
 	}
+	m_textGameName->Draw(renderer);
+	m_textStateName->Draw(renderer);
 }
