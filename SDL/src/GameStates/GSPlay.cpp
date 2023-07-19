@@ -152,10 +152,14 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 			m_onButtonPressed = true;
 			if (!m_player->m_isJumping) // Only jump if the player is not already jumping
 			{
-				
-				m_player->SetPlayerVelocity(m_player->m_jumpForce);
-				float jumpHeight = JUMP_HEIGHT;
-				m_player->m_isJumping = true;
+				if (std::dynamic_pointer_cast<Cube>(m_player) != NULL) {
+					m_player->SetPlayerVelocity(m_player->m_jumpForce);
+					float jumpHeight = JUMP_HEIGHT;
+					m_player->m_isJumping = true;
+				}
+				if (std::dynamic_pointer_cast<Ship>(m_player) != NULL) {
+					m_player->m_jumpForce = 5000;
+				}
 			}
 			else if (m_player->m_isFalling) {
 				jumpBuffer = true;
@@ -191,6 +195,10 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 		case SDLK_SPACE:
 			m_KeyPress ^= 1 << 4;
 			OnButtonPressed = false;
+			m_onButtonPressed = false;
+			if (std::dynamic_pointer_cast<Ship>(m_player) != NULL && !m_player->m_isFalling) {
+				m_player->m_jumpForce = 5000;
+			}
 			/*m_player->m_isJumping = false;
 			m_player->m_isFalling = true;*/
 			break;
@@ -228,9 +236,9 @@ void GSPlay::Update(float deltaTime)
 	m_player->RunIntoScene(m_readyPos, deltaTime);
 	m_player->ApplyGravity(m_gravity, deltaTime);
 	m_player->SetPlayerPosition(m_player->GetPlayerPosition().x + 1000.0f * deltaTime, m_player->GetPlayerPosition().y);
-	std::cout << OnButtonPressed << std::endl;
+	//std::cout << OnButtonPressed << std::endl;
 	m_player->MoveUp(m_gravity, m_onButtonPressed, jumpBuffer, deltaTime);
-	std::cout << OnButtonPressed << std::endl;
+	//std::cout << OnButtonPressed << std::endl;
 	
 	m_player->FixRotationOnGround(deltaTime);
 	m_player->Rotate(315.0, deltaTime);
@@ -252,7 +260,7 @@ void GSPlay::Update(float deltaTime)
 		}
 		else {
 			m_player->m_isOnGround = false;
-			m_player->m_isFalling = true;
+			//m_player->m_isFalling = true;
 		}
 	}
 	
@@ -273,7 +281,7 @@ void GSPlay::Update(float deltaTime)
 	}
 	//std::cout << m_player->GetPlayerVelocity()<<std::endl;
 	//std::cout << m_collider1->GetColliderPosition().y;
-	//std::cout << "isFalling " << m_player->m_isFalling << std::endl;
+	std::cout << "isFalling " << m_player->m_isFalling << std::endl;
 	//std::cout << "isJumping " << m_player->m_isJumping << std::endl;
 	//std::cout << "isOnground " << m_player->m_isOnGround << std::endl;
 	//std::cout << "direction " << m_player->GetDirectionY() << std::endl;

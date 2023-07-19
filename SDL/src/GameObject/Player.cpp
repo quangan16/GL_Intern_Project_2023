@@ -114,12 +114,12 @@ void Player::UpdatePlayerPos(float& _deltaTime, Map& map_data) {
 		 }
 	 }
 
-	 if (isOnGround) {
+	 /*if (isOnGround) {
 		 m_isFalling = false;
 	 }
 	 else {
 		 m_isFalling = true;
-	 }
+	 }*/
 
 	 return isOnGround;
  }
@@ -142,6 +142,8 @@ void Player::UpdatePlayerPos(float& _deltaTime, Map& map_data) {
 		 
 	 }
  }
+
+ 
 
 
 void Player::CheckToMap(Map& map_data, float &_deltaTime)

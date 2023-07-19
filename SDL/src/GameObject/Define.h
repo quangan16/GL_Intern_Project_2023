@@ -8,7 +8,7 @@
 #define MAX_MAP_X 400
 #define MAX_MAP_Y 20
 
-static bool OnButtonPressed = false;
+inline bool OnButtonPressed = false;
 static bool OnButtonDown = false;
 static bool OnButtonUp = false;
 
