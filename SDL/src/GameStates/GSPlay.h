@@ -76,5 +76,7 @@ private:
 
 	//std::shared_ptr<Player> m_ground;
 
+	bool m_onButtonPressed = false;
+
 };
 

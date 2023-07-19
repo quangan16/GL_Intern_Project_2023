@@ -34,7 +34,7 @@ void Cube::Rotate(double _rotateSpeed, float _deltaTime) {
 }
 
 
-void Cube::MoveUp(const double& _gravity, bool& m_jumpBuffer, float _deltaTime) {
+void Cube::MoveUp(const double& _gravity, const bool& m_onButtonPressed, bool& m_jumpBuffer, float _deltaTime) {
 
 
 	if (m_isJumping == true) {

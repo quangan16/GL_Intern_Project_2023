@@ -37,7 +37,7 @@ public:
 
 	virtual ~Player();
 
-	virtual void MoveUp(const double&_gravity, bool &_jumpBuffer, float _deltaTime) = 0;
+	virtual void MoveUp(const double&_gravity,const bool& m_onButtonPressed, bool &_jumpBuffer, float _deltaTime) = 0;
 
 	virtual void Rotate(double _angle, float _deltaTime) = 0;
 

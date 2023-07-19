@@ -43,7 +43,7 @@ void GSPlay::Init()
 	texture = ResourceManagers::GetInstance()->GetTexture("btn_close.tga");
 	button = std::make_shared<MouseButton>( texture, SDL_FLIP_NONE);
 	button->SetSize(50, 50);
-	button->Set2DPosition(Camera::GetInstance()->GetViewBox().x + SCREEN_WIDTH , 10);
+	button->Set2DPosition(SCREEN_WIDTH -100 , 10);
 	button->SetOnClick([this]() {
 		GameStateMachine::GetInstance()->PopState();
 		});
@@ -61,18 +61,18 @@ void GSPlay::Init()
 
 	//Init Player
 	//Cube
-	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_1.tga");
+	/*texture = ResourceManagers::GetInstance()->GetTexture("player_cube_1.tga");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
 	m_player = std::make_shared<Cube>(Vector2(-200.0f, 300.0f), 0.0, 1, 0.0, texture);
 	m_player->SetPlayerSprite(128, 128, m_playerSprite);
-	Camera::GetInstance()->SetTarget(m_playerSprite);
+	Camera::GetInstance()->SetTarget(m_playerSprite);*/
 
 	//Ship
-	/*texture = ResourceManagers::GetInstance()->GetTexture("ship_26.png");
+	texture = ResourceManagers::GetInstance()->GetTexture("ship_26.png");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
 	m_player = std::make_shared<Ship>(Vector2(-200.0f, 300.0f), 0.0, 1, 0.0, texture);
 	m_player->SetPlayerSprite(90, 60, m_playerSprite);
-	Camera::GetInstance()->SetTarget(m_playerSprite);*/
+	Camera::GetInstance()->SetTarget(m_playerSprite);
 	
 	//Test Colliders
 	texture = ResourceManagers::GetInstance()->GetTexture("collider_border.tga");
@@ -148,7 +148,8 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 			break;
 		case SDLK_SPACE:
 			m_KeyPress |= 1 << 4;
-			//OnButtonPressed = true;
+			OnButtonPressed = true;
+			m_onButtonPressed = true;
 			if (!m_player->m_isJumping) // Only jump if the player is not already jumping
 			{
 				
@@ -228,7 +229,7 @@ void GSPlay::Update(float deltaTime)
 	m_player->ApplyGravity(m_gravity, deltaTime);
 	m_player->SetPlayerPosition(m_player->GetPlayerPosition().x + 1000.0f * deltaTime, m_player->GetPlayerPosition().y);
 	std::cout << OnButtonPressed << std::endl;
-	m_player->MoveUp(m_gravity, jumpBuffer, deltaTime);
+	m_player->MoveUp(m_gravity, m_onButtonPressed, jumpBuffer, deltaTime);
 	std::cout << OnButtonPressed << std::endl;
 	
 	m_player->FixRotationOnGround(deltaTime);

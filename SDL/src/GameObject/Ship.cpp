@@ -35,24 +35,24 @@ void Ship::Rotate(double _rotateSpeed, float _deltaTime) {
 }
 
 
-void Ship::MoveUp(const double& _gravity, bool& m_jumpBuffer, float _deltaTime) {
+void Ship::MoveUp(const double& _gravity, const bool& m_onButtonPressed, bool& m_jumpBuffer, float _deltaTime) {
 	
  	
-
+	std::cout << OnButtonPressed<<std::endl;
 	if (m_isJumping == true) {
 		//std::cout << m_velocity<<std::endl;
 		//OnButtonPressed = true;
 		m_direction = -1;
 		m_isOnGround = false;
 		m_velocity += 3000 * _deltaTime;
-		std::cout << OnButtonPressed << std::endl;
+		//std::cout << OnButtonPressed << std::endl;
 		
-		if(OnButtonPressed == false)
+		/*if(m_onButtonPressed == false)
 		{
 			m_isFalling = true;
 			std::cout << "lol";
 			m_velocity -= 3000 * _deltaTime;
-		}
+		}*/
 		
 		//Player falling Down
 		//if (this->GetPlayerVelocity() < 0.0f) {
