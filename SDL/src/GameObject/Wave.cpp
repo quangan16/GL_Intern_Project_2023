@@ -23,10 +23,10 @@ Wave::~Wave() {
 void Wave::Rotate(double _rotateSpeed, float _deltaTime) {
 	if (m_isJumping) {
 		if (m_isFalling ) {
-			m_playerRotation = 45.0;
+			m_playerRotation = 44.0;
 		}
 		else if (!m_isFalling ) {
-			m_playerRotation = -45.0;
+			m_playerRotation = -44.0;
 		}
 	}
 	//std::cout << m_playerRotation << std::endl;
@@ -123,7 +123,7 @@ void Wave::SetPlayerSprite(const int& _width, const int& _height, const std::sha
 void Wave::FixRotationOnGround(const float& _deltaTime) {
 
 	if (m_isOnGround == true) {
-		if (m_playerRotation > 0.0 && m_playerRotation <= 45.0) {
+		if (m_playerRotation > 0.0 && m_playerRotation < 45.0) {
 			m_playerRotation = 0.0;
 		}
 		else if (m_playerRotation > 315.0 && m_playerRotation < 360) {
