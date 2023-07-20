@@ -1,4 +1,6 @@
 #include "GSPlay.h"
+
+
 #include "GameObject/TextureManager.h"
 #include "GameObject/Sprite2D.h"
 #include "GameObject/MouseButton.h"
@@ -43,7 +45,7 @@ void GSPlay::Init()
 	texture = ResourceManagers::GetInstance()->GetTexture("btn_close.tga");
 	button = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
 	button->SetSize(50, 50);
-	button->Set2DPosition(Camera::GetInstance()->GetViewBox().x + SCREEN_WIDTH, 10);
+	button->Set2DPosition(SCREEN_WIDTH -100 , 10);
 	button->SetOnClick([this]() {
 		GameStateMachine::GetInstance()->PopState();
 		});
@@ -60,13 +62,35 @@ void GSPlay::Init()
 	 //m_listAnimation.push_back(obj);
 
 	//Init Player
-
-	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_1.tga");
+	//Cube
+	/*texture = ResourceManagers::GetInstance()->GetTexture("player_cube_1.tga");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
-	m_player = std::make_shared<Cube>(Vector2(500.0f, 300.0f), 0.0, 1, 0.0, texture);
-	m_player->SetPlayerSprite(128, 64, m_playerSprite);
+	m_player = std::make_shared<Cube>(Vector2(-200.0f, 300.0f), 0.0, 1, 0.0, texture);
+	m_player->SetPlayerSprite(128, 128, m_playerSprite);
+	m_playerCollider = m_player->GetCollider();
+	m_playerCollider->SetSize(90, 90);
+	Camera::GetInstance()->SetTarget(m_playerSprite);*/
+
+	//Ship
+	/*texture = ResourceManagers::GetInstance()->GetTexture("ship_26.png");
+	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
+	m_player = std::make_shared<Ship>(Vector2(-200.0f, 300.0f), 0.0, 1, 0.0, texture);
+	m_player->SetPlayerSprite(90, 60, m_playerSprite);
+	m_playerCollider = m_player->GetCollider();
+	m_playerCollider->SetSize(90, 90);
+	Camera::GetInstance()->SetTarget(m_playerSprite);*/
+
+	//Arrow
+	texture = ResourceManagers::GetInstance()->GetTexture("wave_13.png");
+	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
+	m_player = std::make_shared<Wave>(Vector2(-200.0f, 300.0f), 0.0, 1, 0.0, texture);
+	m_player->SetPlayerSprite(90, 60, m_playerSprite);
+	m_playerCollider = m_player->GetCollider();
+	m_playerCollider->SetSize(90, 90);
 	Camera::GetInstance()->SetTarget(m_playerSprite);
-	
+
+
+
 	//Test Colliders
 	texture = ResourceManagers::GetInstance()->GetTexture("collider_border.tga");
 	/*m_collider1 = std::make_shared<BoxCollider2D>(ColliderType::GROUND, Vector2(0.0f, 500.0f), true, 5000.0f, 410.0f, texture, SDL_FLIP_NONE);
@@ -75,7 +99,7 @@ void GSPlay::Init()
 	m_colliderList.push_back(m_collider1);*/
 
 
-	
+	m_playerCollider = m_player->GetCollider();
 
 	//Dummy ground
 	//m_ground = std::make_shared<Player>(Vector2(0.0f, 400.0f), 480.0f, 210.0f);
@@ -139,13 +163,18 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 			break;
 		case SDLK_SPACE:
 			m_KeyPress |= 1 << 4;
-			//OnButtonPressed = true;
+			OnButtonPressed = true;
+			m_onButtonPressed = true;
 			if (!m_player->m_isJumping) // Only jump if the player is not already jumping
 			{
-				
-				m_player->SetPlayerVelocity(m_player->m_jumpForce);
-				float jumpHeight = JUMP_HEIGHT;
-				m_player->m_isJumping = true;
+				if (std::dynamic_pointer_cast<Cube>(m_player) != NULL) {
+					m_player->SetPlayerVelocity(m_player->m_jumpForce);
+					float jumpHeight = JUMP_HEIGHT;
+					m_player->m_isJumping = true;
+				}
+				if (std::dynamic_pointer_cast<Ship>(m_player) != NULL) {
+					m_player->m_jumpForce = 5000;
+				}
 			}
 			else if (m_player->m_isFalling) {
 				jumpBuffer = true;
@@ -181,6 +210,10 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 		case SDLK_SPACE:
 			m_KeyPress ^= 1 << 4;
 			OnButtonPressed = false;
+			m_onButtonPressed = false;
+			if (std::dynamic_pointer_cast<Ship>(m_player) != NULL && !m_player->m_isFalling) {
+				m_player->m_jumpForce = 5000;
+			}
 			/*m_player->m_isJumping = false;
 			m_player->m_isFalling = true;*/
 			break;
@@ -213,6 +246,11 @@ void GSPlay::HandleMouseMoveEvents(int x, int y)
 {
 }
 
+void GSPlay::PlayerTransform()
+{
+	
+}
+
 void GSPlay::Update(float deltaTime)
 {
 	
@@ -222,9 +260,9 @@ void GSPlay::Update(float deltaTime)
 	m_player->RunIntoScene(m_readyPos, deltaTime);
 	m_player->ApplyGravity(m_gravity, deltaTime);
 	m_player->SetPlayerPosition(m_player->GetPlayerPosition().x + 1000.0f * deltaTime, m_player->GetPlayerPosition().y);
-	std::cout << OnButtonPressed << std::endl;
-	m_player->MoveUp(m_gravity, jumpBuffer, deltaTime);
-	std::cout << OnButtonPressed << std::endl;
+	//std::cout << OnButtonPressed << std::endl;
+	m_player->MoveUp(m_gravity, m_onButtonPressed, jumpBuffer, deltaTime);
+	//std::cout << OnButtonPressed << std::endl;
 	
 	m_player->FixRotationOnGround(deltaTime);
 	m_player->Rotate(315.0, deltaTime);
@@ -237,57 +275,37 @@ void GSPlay::Update(float deltaTime)
 	m_player->UpdatePlayerColliderState();
 	
 
-			for (const auto& collider : m_colliderList) {
-				if (m_player->OnCollisionStay(collider)) {
-					m_player->m_isOnGround = true;
-					m_player->m_isFalling = false;
-					break; // Exit the loop if ground collision is detected with any collider
-				}
-				else {
-					m_player->m_isOnGround = false;
-					m_player->m_isFalling = true;
-				}
-			}
-
-			/*for (const auto& collider : m_colliderList) {
-				m_player->OnCollisionStay(collider, isOnGround, isFalling);
-			}*/
-			/*m_player->OnCollisionStay(m_collider2, isOnGround, isFalling);
-			m_player->OnCollisionStay(m_collider1, isOnGround, isFalling);*/
-
-
+	for (const auto& collider : m_colliderList) {
+		if (m_player->OnCollisionStay(collider)) {
+			m_player->m_isOnGround = true;
 			m_player->OnGround();
-			m_player->Die();
-
+			
+			break; // Exit the loop if ground collision is detected with any collider
 		}
-
-		catch (std::exception_ptr e) {
-
+		else {
+			m_player->m_isOnGround = false;
+			//m_player->m_isFalling = true;
 		}
-		if (isShip)
-		{
-			try
-			{
-				HandleEvents();
-				if (isFly)
-				{
-					m_ship->FlyUp(500.0f, m_gravity, deltaTime);
-				}
-				std::cout << isFly << std::endl;
-				m_ship->GravityPull(deltaTime);
-				m_ship->SetPlayerPosition(m_ship->GetPlayerPosition().x + PLAYER_SPEED * deltaTime, m_ship->GetPlayerPosition().y);
-				m_ship->UpdatePlayerSprite(m_playerSprite);
-				m_ship->UpdatePlayerColliderState();
-			}
-			catch (std::exception_ptr e)
-			{
-
-			}
-
-		}
-		//std::cout << m_player->GetPlayerVelocity()<<std::endl;
+	}
+	
+	/*for (const auto& collider : m_colliderList) {
+		m_player->OnCollisionStay(collider, isOnGround, isFalling);
+	}*/
+	/*m_player->OnCollisionStay(m_collider2, isOnGround, isFalling);
+	m_player->OnCollisionStay(m_collider1, isOnGround, isFalling);*/
+	
+	
+	//m_player->OnGround(isJumping, isFalling, jumpBuffer, isOnGround);
+	m_player->Die();
+		
+	}
+	
+	catch (std::exception_ptr e) {
+		
+	}
+	//std::cout << m_player->GetPlayerVelocity()<<std::endl;
 	//std::cout << m_collider1->GetColliderPosition().y;
-	//std::cout << "isFalling " << m_player->m_isFalling << std::endl;
+	std::cout << "isFalling " << m_player->m_isFalling << std::endl;
 	//std::cout << "isJumping " << m_player->m_isJumping << std::endl;
 	//std::cout << "isOnground " << m_player->m_isOnGround << std::endl;
 	//std::cout << "direction " << m_player->GetDirectionY() << std::endl;

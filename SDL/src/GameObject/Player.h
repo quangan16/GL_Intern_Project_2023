@@ -37,7 +37,7 @@ public:
 
 	virtual ~Player();
 
-	virtual void MoveUp(const double&_gravity, bool &_jumpBuffer, float _deltaTime) = 0;
+	virtual void MoveUp(const double&_gravity,const bool& m_onButtonPressed, bool &_jumpBuffer, float _deltaTime) = 0;
 
 	virtual void Rotate(double _angle, float _deltaTime) = 0;
 
@@ -60,8 +60,6 @@ public:
 	void UpdatePlayerSpriteRotation(const std::shared_ptr<Sprite2D>& _playerSprite);
 
 	void RunIntoScene(const Vector2 &endPos, float _deltaTime);
-
-
 
 	virtual void ApplyGravity(const double& _gravity, float _deltaTime) = 0;
 

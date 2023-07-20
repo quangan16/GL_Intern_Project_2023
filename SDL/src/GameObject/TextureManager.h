@@ -22,6 +22,7 @@ public:
 
 	void setColor(Uint8 red, Uint8 green, Uint8 blue);
 	void Render(int x, int y, int width, int height, double angle = 0, SDL_RendererFlip flip = SDL_FLIP_NONE);
+	void Render1(int x, int y, int width, int height, double angle = 0, SDL_RendererFlip flip = SDL_FLIP_NONE);
 	//void RenderOriginal(int x, int y, int width, int height, double angle = 0, SDL_RendererFlip flip = SDL_FLIP_NONE);
 	void RenderFrame(int x, int y, int width, int height, int row, int currentframe, int framecount,int numAction, double angle = 0, SDL_RendererFlip flip = SDL_FLIP_NONE);
 	//Set blending
