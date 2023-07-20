@@ -47,7 +47,7 @@ void GSPlay::Init()
 	button->SetSize(50, 50);
 	button->Set2DPosition(SCREEN_WIDTH -100 , 10);
 	button->SetOnClick([this]() {
-		GameStateMachine::GetInstance()->PopState();
+		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_MENU);
 		});
 	m_listButton.push_back(button);
 
@@ -63,22 +63,22 @@ void GSPlay::Init()
 
 	//Init Player
 	//Cube
-	/*texture = ResourceManagers::GetInstance()->GetTexture("player_cube_1.tga");
+	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_1.tga");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
 	m_player = std::make_shared<Cube>(Vector2(-200.0f, 300.0f), 0.0, 1, 0.0, texture);
 	m_player->SetPlayerSprite(128, 128, m_playerSprite);
 	m_playerCollider = m_player->GetCollider();
-	m_playerCollider->SetSize(90, 90);
-	Camera::GetInstance()->SetTarget(m_playerSprite);*/
+	m_playerCollider->SetSize(128, 128);
+	Camera::GetInstance()->SetTarget(m_playerSprite);
 
 	//Ship
-	texture = ResourceManagers::GetInstance()->GetTexture("ship_26.png");
+	/*texture = ResourceManagers::GetInstance()->GetTexture("ship_26.png");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
 	m_player = std::make_shared<Ship>(Vector2(-200.0f, 300.0f), 0.0, 1, 0.0, texture);
 	m_player->SetPlayerSprite(90, 60, m_playerSprite);
 	m_playerCollider = m_player->GetCollider();
 	m_playerCollider->SetSize(90, 90);
-	Camera::GetInstance()->SetTarget(m_playerSprite);
+	Camera::GetInstance()->SetTarget(m_playerSprite);*/
 
 	//Arrow
 	/*texture = ResourceManagers::GetInstance()->GetTexture("wave_13.png");

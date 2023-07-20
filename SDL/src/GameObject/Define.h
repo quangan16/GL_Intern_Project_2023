@@ -23,3 +23,9 @@ typedef struct Map
 	int tile[MAX_MAP_Y][MAX_MAP_X];
 	char* file_name_;
 };
+
+static int m_iMapTexture_index = 1;
+static int m_iMaptexturesCount = 3;
+
+static int m_iCharacterTexture_index = 1;
+static int m_iCharactertexturesCount = 3;
