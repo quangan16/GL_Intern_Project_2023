@@ -37,6 +37,14 @@ void Sprite2D::Draw(SDL_Renderer * renderer)
 	
 }
 
+void Sprite2D :: DrawFixedObject(SDL_Renderer* renderer)
+{
+	if (m_pTexture != nullptr)
+	{
+		m_pTexture->Render1(m_position.x, m_position.y, m_iWidth, m_iHeight, m_angle, m_flip);
+	}
+}
+
 void Sprite2D::Update(float deltatime)
 {
 }

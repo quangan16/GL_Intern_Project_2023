@@ -37,28 +37,28 @@ public:
 	int m_KeyPress;
 
 private:
-	std::shared_ptr<GameMap> m_gameMap;
-	std::shared_ptr<Text>		m_score;
-	std::list<std::shared_ptr<MouseButton>>	m_listButton;
-	std::list<std::shared_ptr<SpriteAnimation>>	m_listAnimation;
-	std::list<std::shared_ptr<Background>> m_listBackground;
-	std::shared_ptr<SpriteAnimation> obj;
-	std::shared_ptr<MouseButton> button;
+	std::shared_ptr<GameMap>						m_gameMap;
+	std::shared_ptr<Text>							m_score;
+	std::list<std::shared_ptr<MouseButton>>			m_listButton;
+	std::list<std::shared_ptr<SpriteAnimation>>		m_listAnimation;
+	std::list<std::shared_ptr<Background>>			m_listBackground;
+	std::shared_ptr<MouseButton>					button;
+	std::shared_ptr<Sprite2D>						m_slider;
+	std::shared_ptr<Player>							m_player;
+	std::shared_ptr<Sprite2D>						m_playerSprite;
+	std::shared_ptr<Text>							m_Process;
 	double time = 0.0f;
 	double m_gravity = 10000.0;
 
-	const int PROCESS_WIDTH = 500;
-	const int PROCESS_HEIGHT = 20;
-	const int PROCESS_PADDING = 10;
+	const int PROCESS_WIDTH = 495;
+	const int PROCESS_HEIGHT = 10;
+	const int PROCESS_PADDING = 5;
 	float maxProcess = 100.0f;
 	float currentProcess = 0.0f;
 	int processBarWidth;
 
 	const int m_fBackground_speed = 10.f;
 	Vector2 m_readyPos = Vector2(500, 700);
-
-	std::shared_ptr<Player> m_player;
-	std::shared_ptr<Sprite2D> m_playerSprite;
 
 	
 

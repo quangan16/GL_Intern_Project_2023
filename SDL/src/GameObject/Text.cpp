@@ -31,7 +31,7 @@ void Text::Init()
 
 void Text::Draw(SDL_Renderer* renderer)
 {
-	m_pTexture->Render(m_position.x, m_position.y, m_iWidth, m_iHeight);
+	m_pTexture->Render1(m_position.x, m_position.y, m_iWidth, m_iHeight);
 }
 
 void Text::Update(float deltatime)
