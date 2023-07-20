@@ -115,8 +115,14 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 		 }
 		 else if (_otherCollider->GetColliderID() == ColliderType::PORTAL_SHIP) {
 			 _player = this->TransformToShip();
-			 _playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("ship_26.png"));
-			 std::cout << "damnnn";
+			 _playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_ship_1.png"));
+			 
+		 }
+
+		 else if (_otherCollider->GetColliderID() == ColliderType::PORTAL_WAVE) {
+			 _player = this->TransformToWave();
+			 _playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_wave_1.png"));
+			 
 		 }
 		   
 	 }

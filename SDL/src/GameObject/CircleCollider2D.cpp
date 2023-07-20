@@ -1,7 +1,8 @@
 #include "CircleCollider2D.h"
 
 
-
+CircleCollider2D::CircleCollider2D(ColliderType _id, Vector2 _objectPos, bool _isActive, float _radius, std::shared_ptr<TextureManager> _texture, SDL_RendererFlip _flip)
+    : Collider2D(_id, _objectPos, _isActive), Sprite2D(_texture, _flip, _radius * 2, _radius * 2), m_radius{ _radius } {}
 
 CircleCollider2D::CircleCollider2D(Vector2 objectPos, float radius) {
     this->m_colliderPosition = objectPos;
@@ -12,6 +13,11 @@ CircleCollider2D::CircleCollider2D(Vector2 objectPos, float radius) {
 bool CircleCollider2D::CheckCollision(const CircleCollider2D& otherCircle) {
     float distance = sqrt((this->m_colliderPosition.x - otherCircle.m_colliderPosition.x) * (this->m_colliderPosition.x - otherCircle.m_colliderPosition.x) + (this->m_colliderPosition.y - otherCircle.m_colliderPosition.y) * (this->m_colliderPosition.y - otherCircle.m_colliderPosition.y));
     return distance <= m_radius + otherCircle.m_radius;
+}
+
+ float CircleCollider2D::GetRadius() 
+{
+    return m_radius;
 }
 
 //bool CircleCollider2D::CheckCollision(Circle circle, Square square) {

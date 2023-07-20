@@ -69,19 +69,40 @@ void BoxCollider2D::SetFlip(SDL_RendererFlip flip)
     m_flip = flip;
 }
 
-bool BoxCollider2D::CheckCollision(const std::shared_ptr<BoxCollider2D> _otherCollider) {
-    if (this->m_colliderPosition.x + this->m_width < _otherCollider->m_colliderPosition.x || this->m_colliderPosition.x > _otherCollider->m_colliderPosition.x + _otherCollider->m_width) return false;
-    if (this->m_colliderPosition.y + m_height < _otherCollider->m_colliderPosition.y || this->m_colliderPosition.y >  _otherCollider->m_colliderPosition.y + _otherCollider->m_height) return false;
+bool BoxCollider2D::CheckCollision(const std::shared_ptr<BoxCollider2D> &_otherAABBCollider) {
+    if (this->m_colliderPosition.x + this->m_width < _otherAABBCollider->m_colliderPosition.x || this->m_colliderPosition.x > _otherAABBCollider->m_colliderPosition.x + _otherAABBCollider->m_width) return false;
+    if (this->m_colliderPosition.y + m_height < _otherAABBCollider->m_colliderPosition.y || this->m_colliderPosition.y >  _otherAABBCollider->m_colliderPosition.y + _otherAABBCollider->m_height) return false;
     return true;
 }
 
-//~Above code equivalent to
-//bool BoxCollider2D::CheckCollision(const BoxCollider2D& _otherCollider) {
-//    return !(this->m_colliderPosition.x + this->m_width < _otherCollider.m_colliderPosition.x ||
-//        this->m_colliderPosition.x > _otherCollider.m_colliderPosition.x + _otherCollider.m_width ||
-//        this->m_colliderPosition.y + this->m_height < _otherCollider.m_colliderPosition.y ||
-//        this->m_colliderPosition.y > _otherCollider.m_colliderPosition.y + _otherCollider.m_height);
-//}
+bool BoxCollider2D::CheckCollision(const std::shared_ptr<CircleCollider2D> &_otherCircleCollider) {
+    Vector2 minPoint = m_colliderPosition;
+    Vector2 maxPoint = Vector2(m_colliderPosition.x + m_width, m_colliderPosition.y + m_height);
+    Vector2 closestPointToCircle = _otherCircleCollider->GetColliderPosition();
+
+    if(closestPointToCircle.x < minPoint.x)
+    {
+        closestPointToCircle.x = minPoint.x;
+    }
+    else if(closestPointToCircle.x > maxPoint.x)
+    {
+        closestPointToCircle.x = maxPoint.x;
+    }
+
+    if (closestPointToCircle.y < minPoint.y)
+    {
+        closestPointToCircle.y = minPoint.y;
+    }
+    else if (closestPointToCircle.y > maxPoint.y)
+    {
+        closestPointToCircle.y = maxPoint.y;
+    }
+
+    Vector2 minLength = closestPointToCircle - (_otherCircleCollider->GetColliderPosition());
+    return minLength.Length() <= _otherCircleCollider->GetRadius() * _otherCircleCollider->GetRadius();
+}
+
+
 
 void BoxCollider2D::DrawBoundingBox(SDL_Renderer* renderer, std::shared_ptr<SDL_Color> color) const {
     SDL_SetRenderDrawColor(renderer, color->r, color->g, color->b, color->a);

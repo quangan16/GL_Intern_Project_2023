@@ -7,6 +7,8 @@
 #include <memory>
 #include <SDL.h>
 
+#include "CircleCollider2D.h"
+
 class BoxCollider2D : public Collider2D, public Sprite2D {
 public:
     // Constructor
@@ -18,7 +20,8 @@ public:
 
 
     // Check collision with another box collider
-    bool CheckCollision(const std::shared_ptr<BoxCollider2D> _otherCollider) override;
+	bool CheckCollision(const std::shared_ptr<BoxCollider2D> &_otherCollider) override;
+	bool CheckCollision(const std::shared_ptr<CircleCollider2D> &_otherCollider) override;
     void DrawBoundingBox(SDL_Renderer* renderer, std::shared_ptr<SDL_Color> color) const ;
 
 	void Init() override;
