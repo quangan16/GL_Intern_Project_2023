@@ -116,6 +116,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 				 m_isAlive = false;
 			 }
 		 }
+		 
 	 }
 
 	 /*if (isOnGround) {
@@ -161,7 +162,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 
  std::shared_ptr<Ship> Player::TransformToShip() {
 	 Vector2 currentPosition = this->m_playerPosition;
-	 std::shared_ptr<TextureManager> currentTexture = this->m_playerTexture;
+	 std::shared_ptr<TextureManager> currentTexture = ResourceManagers::GetInstance()->GetTexture("ship_26.png");
 	 delete this;
 	 return std::make_shared<Ship>(currentPosition, 0.0, 1, 0.0, currentTexture);
  }
