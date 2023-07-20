@@ -2,7 +2,7 @@
 #define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 960
 
-#define TILE_SIZE 128   
+#define TILE_SIZE 80   
 #define PLAYER_SPEED 1000.0f
 #define JUMP_HEIGHT 200.0f
 #define MAX_MAP_X 400
@@ -24,8 +24,14 @@ typedef struct Map
 	char* file_name_;
 };
 
-static int m_iMapTexture_index = 1;
-static int m_iMaptexturesCount = 3;
+inline int m_iMapTexture_index = 1;
+inline int m_iMaptexturesCount = 3;
 
-static int m_iCharacterTexture_index = 1;
-static int m_iCharactertexturesCount = 3;
+inline int m_iCharacterTexture_index = 1;
+inline int m_iCharactertextures_count = 3;
+
+inline int m_iShipTexture_index = 1;
+inline int m_iShipTexture_count = 3;
+
+inline int m_iWaveTexture_index = 1;
+inline int m_iWaveTexture_count = 3;

@@ -134,7 +134,6 @@ void GSMenu::Update(float deltaTime)
 {
 	time += deltaTime;
 
-	//printf("DeltaTime = %f", deltaTime);
 	if (time >= 1.5f)
 	{
 		time = 0.0f;
@@ -147,21 +146,18 @@ void GSMenu::Update(float deltaTime)
 	{
 		if (r == 255 || r < 2) interval *= -1;
 		r += interval;
-		printf("%d \n", r);
 	}
 
 	if (index == 1)
 	{
 		if (g == 255 || g < 2) interval *= -1;
 		g += interval;
-		printf("%d \n", r);
 	}
 
 	if (index == 2)
 	{
 		if (b == 255 || b < 2) interval *= -1;
 		b += interval;
-		printf("%d \n", r);
 	}
 
 	m_texture->setColor(r, g, b);
