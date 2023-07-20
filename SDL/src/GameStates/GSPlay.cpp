@@ -63,12 +63,13 @@ void GSPlay::Init()
 
 	//Init Player
 	//Cube
-	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_1.tga");
+	std::cout << m_iCharacterTexture_index << std::endl;
+	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_" + std::to_string(m_iCharacterTexture_index) +".tga");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
 	m_player = std::make_shared<Cube>(Vector2(-200.0f, 300.0f), 0.0, 1, 0.0, texture);
-	m_player->SetPlayerSprite(128, 128, m_playerSprite);
+	m_player->SetPlayerSprite(80, 80, m_playerSprite);
 	m_playerCollider = m_player->GetCollider();
-	m_playerCollider->SetSize(128, 128);
+	m_playerCollider->SetSize(80, 80);
 	Camera::GetInstance()->SetTarget(m_playerSprite);
 
 	//Ship
@@ -256,7 +257,7 @@ void GSPlay::Update(float deltaTime)
 	
 	m_player->RunIntoScene(m_readyPos, deltaTime);
 	m_player->ApplyGravity(m_gravity, deltaTime);
-	m_player->SetPlayerPosition(m_player->GetPlayerPosition().x + 1000.0f * deltaTime, m_player->GetPlayerPosition().y);
+	m_player->SetPlayerPosition(m_player->GetPlayerPosition().x + 200.0f * deltaTime, m_player->GetPlayerPosition().y);
 	//std::cout << OnButtonPressed << std::endl;
 	m_player->MoveUp(m_gravity, m_onButtonPressed, jumpBuffer, deltaTime);
 	//std::cout << OnButtonPressed << std::endl;

@@ -14,11 +14,6 @@ GSCharacter::~GSCharacter()
 
 void GSCharacter::Init()
 {
-	m_iMapTexture_index = 1;
-	m_iMaptexturesCount = 2;
-
-	m_iCharacterTexture_index = 1;
-	m_iCharactertexturesCount = 2;
 	//auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
 	auto texture = ResourceManagers::GetInstance()->GetTexture("back1.tga");
 
@@ -69,38 +64,51 @@ void GSCharacter::Init()
 		});
 	m_listButton.push_back(m_btnGuide);
 
-	//Show character
-	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_1.tga");
-	m_imgchar = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
-	m_imgchar->SetSize(100, 100);
-	m_imgchar->Set2DPosition(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+	//Show character cube
+	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_" + std::to_string(m_iCharacterTexture_index) + ".tga");
+	m_img_Cube = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
+	m_img_Cube->SetSize(100, 100);
+	m_img_Cube->Set2DPosition(SCREEN_WIDTH / 2 - 50, 100);
 
-	//Btn prev
+	//Show character ship
+	texture = ResourceManagers::GetInstance()->GetTexture("player_ship_" + std::to_string(m_iShipTexture_index) + ".tga");
+	m_img_Ship = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
+	m_img_Ship->SetSize(100, 100);
+	m_img_Ship->Set2DPosition(SCREEN_WIDTH / 2 - 50, 300);
+
+	//Show character wave
+	texture = ResourceManagers::GetInstance()->GetTexture("player_wave_" + std::to_string(m_iShipTexture_index) + ".tga");
+	m_img_Wave = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
+	m_img_Wave->SetSize(100, 100);
+	m_img_Wave->Set2DPosition(SCREEN_WIDTH / 2 - 50, 500);
+
+	//Btn prev Cube
 	texture = ResourceManagers::GetInstance()->GetTexture("button_leftarrow.tga");
-	m_btnPrev = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
-	m_btnPrev->SetSize(100, 100);
-	m_btnPrev->Set2DPosition(50, SCREEN_HEIGHT / 2);
-	m_btnPrev->SetOnClick([this, texture]() {
+	m_btnPrev_Cube = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
+	m_btnPrev_Cube->SetSize(100, 100);
+	m_btnPrev_Cube->Set2DPosition(m_img_Cube->Get2DPosition().x - m_img_Cube->GetWidth() - 20, 100);
+	m_btnPrev_Cube->SetOnClick([this, texture]() {
 		if (m_iCharacterTexture_index > 1)
 		{
 			m_iCharacterTexture_index--;
 		}
 		else
 		{
-			m_iCharacterTexture_index = m_iCharactertexturesCount;
+			m_iCharacterTexture_index = m_iCharactertextures_count;
 		}
+		printf("%d \n", m_iCharacterTexture_index);
 		std::string texture_path = "player_cube_" + std::to_string(m_iCharacterTexture_index) + ".tga";
-		m_imgchar->SetTexture(ResourceManagers::GetInstance()->GetTexture(texture_path));
+		m_img_Cube->SetTexture(ResourceManagers::GetInstance()->GetTexture(texture_path));
 		});
-	m_listButton.push_back(m_btnPrev);
+	m_listButton.push_back(m_btnPrev_Cube);
 
-	//Btn next
+	//Btn next Cube
 	texture = ResourceManagers::GetInstance()->GetTexture("button_rightarrow.tga");
-	m_btnNext = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
-	m_btnNext->SetSize(100, 100);
-	m_btnNext->Set2DPosition(SCREEN_WIDTH - m_btnNext->GetWidth() - 50, SCREEN_HEIGHT / 2);
-	m_btnNext->SetOnClick([this, texture]() {
-		if (m_iCharacterTexture_index < m_iCharactertexturesCount)
+	m_btnNext_Cube = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
+	m_btnNext_Cube->SetSize(100, 100);
+	m_btnNext_Cube->Set2DPosition(m_img_Cube->Get2DPosition().x + m_img_Cube->GetWidth() + 20, 100);
+	m_btnNext_Cube->SetOnClick([this, texture]() {
+		if (m_iCharacterTexture_index < m_iCharactertextures_count)
 		{
 			m_iCharacterTexture_index++;
 		}
@@ -108,10 +116,91 @@ void GSCharacter::Init()
 		{
 			m_iCharacterTexture_index = 1;
 		}
+		printf("%d \n", m_iCharacterTexture_index);
 		std::string texture_path = "player_cube_" + std::to_string(m_iCharacterTexture_index) + ".tga";
-		m_imgchar->SetTexture(ResourceManagers::GetInstance()->GetTexture(texture_path));
+		m_img_Cube->SetTexture(ResourceManagers::GetInstance()->GetTexture(texture_path));
 		});
-	m_listButton.push_back(m_btnNext);
+	m_listButton.push_back(m_btnNext_Cube);
+
+	//Btn prv Ship
+	texture = ResourceManagers::GetInstance()->GetTexture("button_leftarrow.tga");
+	m_btnPrev_Ship = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
+	m_btnPrev_Ship->SetSize(100, 100);
+	m_btnPrev_Ship->Set2DPosition(m_img_Cube->Get2DPosition().x - m_img_Cube->GetWidth() - 20, 300);
+	m_btnPrev_Ship->SetOnClick([this, texture]() {
+		if (m_iShipTexture_index > 1)
+		{
+			m_iShipTexture_index--;
+		}
+		else
+		{
+			m_iShipTexture_index = m_iShipTexture_count;
+		}
+		printf("%d \n", m_iCharacterTexture_index);
+		std::string texture_path = "player_ship_" + std::to_string(m_iShipTexture_index) + ".tga";
+		m_img_Ship->SetTexture(ResourceManagers::GetInstance()->GetTexture(texture_path));
+		});
+	m_listButton.push_back(m_btnPrev_Ship);
+
+	//Btn next Ship
+	texture = ResourceManagers::GetInstance()->GetTexture("button_rightarrow.tga");
+	m_btnNext_Ship = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
+	m_btnNext_Ship->SetSize(100, 100);
+	m_btnNext_Ship->Set2DPosition(m_img_Cube->Get2DPosition().x + m_img_Cube->GetWidth() + 20, 300);
+	m_btnNext_Ship->SetOnClick([this, texture]() {
+		if (m_iShipTexture_index < m_iShipTexture_count)
+		{
+			m_iShipTexture_index++;
+		}
+		else
+		{
+			m_iShipTexture_index = 1;
+		}
+		printf("%d \n", m_iCharacterTexture_index);
+		std::string texture_path = "player_ship_" + std::to_string(m_iShipTexture_index) + ".tga";
+		m_img_Ship->SetTexture(ResourceManagers::GetInstance()->GetTexture(texture_path));
+		});
+	m_listButton.push_back(m_btnNext_Ship);
+
+	//Btn prev Wave
+	texture = ResourceManagers::GetInstance()->GetTexture("button_leftarrow.tga");
+	m_btnPrev_Wave = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
+	m_btnPrev_Wave->SetSize(100, 100);
+	m_btnPrev_Wave->Set2DPosition(m_img_Cube->Get2DPosition().x - m_img_Cube->GetWidth() - 20, 500);
+	m_btnPrev_Wave->SetOnClick([this, texture]() {
+		if (m_iWaveTexture_index > 1)
+		{
+			m_iWaveTexture_index--;
+		}
+		else
+		{
+			m_iWaveTexture_index = m_iWaveTexture_count;
+		}
+		printf("%d \n", m_iCharacterTexture_index);
+		std::string texture_path = "player_wave_" + std::to_string(m_iWaveTexture_index) + ".tga";
+		m_img_Wave->SetTexture(ResourceManagers::GetInstance()->GetTexture(texture_path));
+		});
+	m_listButton.push_back(m_btnPrev_Wave);
+
+	//Btn next Wave
+	texture = ResourceManagers::GetInstance()->GetTexture("button_rightarrow.tga");
+	m_btnNext_Wave = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
+	m_btnNext_Wave->SetSize(100, 100);
+	m_btnNext_Wave->Set2DPosition(m_img_Cube->Get2DPosition().x + m_img_Cube->GetWidth() + 20, 500);
+	m_btnNext_Wave->SetOnClick([this, texture]() {
+		if (m_iWaveTexture_index < m_iWaveTexture_count)
+		{
+			m_iWaveTexture_index++;
+		}
+		else
+		{
+			m_iWaveTexture_index = 1;
+		}
+		printf("%d \n", m_iCharacterTexture_index);
+		std::string texture_path = "player_wave_" + std::to_string(m_iWaveTexture_index) + ".tga";
+		m_img_Wave->SetTexture(ResourceManagers::GetInstance()->GetTexture(texture_path));
+		});
+	m_listButton.push_back(m_btnNext_Wave);
 
 	//Text back
 	m_textColor = { 255, 255, 0 };
@@ -209,7 +298,12 @@ void GSCharacter::Draw(SDL_Renderer* renderer)
 	{
 		it->Draw(renderer);
 	}
-	m_imgchar->Draw(renderer);
+
+	m_img_Cube->Draw(renderer);
+	m_img_Ship->Draw(renderer);
+	m_img_Wave->Draw(renderer);
+
+
 	m_textNext->Draw(renderer);
 	m_textBack->Draw(renderer);
 }

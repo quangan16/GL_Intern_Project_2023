@@ -38,11 +38,19 @@ private:
 
 	std::list<std::shared_ptr<SpriteAnimation>>	m_listAnimation;
 	std::shared_ptr<SpriteAnimation> obj;
-	std::shared_ptr<MouseButton> m_btnPrev;
-	std::shared_ptr<MouseButton> m_btnNext;
+	std::shared_ptr<MouseButton> m_btnPrev_Cube;
+	std::shared_ptr<MouseButton> m_btnNext_Cube;
+	std::shared_ptr<MouseButton> m_btnPrev_Ship;
+	std::shared_ptr<MouseButton> m_btnNext_Ship;
+	std::shared_ptr<MouseButton> m_btnPrev_Wave;
+	std::shared_ptr<MouseButton> m_btnNext_Wave;
 	std::shared_ptr<MouseButton> m_btnGuide;
 	std::shared_ptr<MouseButton> m_btnBack;
 	std::shared_ptr<MouseButton> m_btnPlay;
 	std::shared_ptr<Sprite2D>				m_imglv;
-	std::shared_ptr<Sprite2D>				m_imgchar;
+	//Image Selection
+	std::shared_ptr<Sprite2D>				m_img_Cube;
+	std::shared_ptr<Sprite2D>				m_img_Ship;
+	std::shared_ptr<Sprite2D>				m_img_Wave;
+
 };
