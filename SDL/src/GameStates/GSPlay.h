@@ -57,8 +57,7 @@ private:
 	const int m_fBackground_speed = 10.f;
 	Vector2 m_readyPos = Vector2(500, 700);
 
-	std::shared_ptr<Cube> m_player;
-	std::shared_ptr<Ship> m_ship;
+	std::shared_ptr<Player> m_player;
 	std::shared_ptr<Sprite2D> m_playerSprite;
 
 	//Player's typ

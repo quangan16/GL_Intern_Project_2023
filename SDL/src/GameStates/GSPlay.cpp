@@ -72,22 +72,22 @@ void GSPlay::Init()
 	Camera::GetInstance()->SetTarget(m_playerSprite);*/
 
 	//Ship
-	/*texture = ResourceManagers::GetInstance()->GetTexture("ship_26.png");
+	texture = ResourceManagers::GetInstance()->GetTexture("ship_26.png");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
 	m_player = std::make_shared<Ship>(Vector2(-200.0f, 300.0f), 0.0, 1, 0.0, texture);
 	m_player->SetPlayerSprite(90, 60, m_playerSprite);
 	m_playerCollider = m_player->GetCollider();
 	m_playerCollider->SetSize(90, 90);
-	Camera::GetInstance()->SetTarget(m_playerSprite);*/
+	Camera::GetInstance()->SetTarget(m_playerSprite);
 
 	//Arrow
-	texture = ResourceManagers::GetInstance()->GetTexture("wave_13.png");
+	/*texture = ResourceManagers::GetInstance()->GetTexture("wave_13.png");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
 	m_player = std::make_shared<Wave>(Vector2(-200.0f, 300.0f), 0.0, 1, 0.0, texture);
 	m_player->SetPlayerSprite(90, 60, m_playerSprite);
 	m_playerCollider = m_player->GetCollider();
 	m_playerCollider->SetSize(90, 90);
-	Camera::GetInstance()->SetTarget(m_playerSprite);
+	Camera::GetInstance()->SetTarget(m_playerSprite);*/
 
 
 
