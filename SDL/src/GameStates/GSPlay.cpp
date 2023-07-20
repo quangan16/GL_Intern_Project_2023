@@ -283,6 +283,10 @@ void GSPlay::Update(float deltaTime)
 			m_player->m_isOnGround = false;
 			//m_player->m_isFalling = true;
 		}
+		if (m_player->OnCollisionStay(collider) && collider->GetColliderID() == ColliderType::PORTAL_SHIP) {
+			m_player = m_player->TransformToShip();
+		}
+
 	}
 	
 	/*for (const auto& collider : m_colliderList) {
