@@ -79,11 +79,11 @@ void GSMenu::Init()
 	// game title
 	///Set Font
 	m_textColor = { 255, 255, 0 };
-	m_textGameName = std::make_shared<Text>("Data/xirod.otf", m_textColor);
+	m_textGameName = std::make_shared<Text>("Data/PUSAB___.otf", m_textColor);
 	m_textGameName->SetSize(1200, 150);
 	m_textGameName->Set2DPosition((SCREEN_WIDTH - m_textGameName->GetWidth()) / 2, SCREEN_HEIGHT / 2 - 400);
 	m_textGameName->LoadFromRenderText("Geometry Dash");
-	m_Sound = std::make_shared<Sound>("Data/Sounds/Alarm01.wav");
+	m_Sound = std::make_shared<Sound>("Data/Sounds/menuLoop.mp3");
 	m_Sound->PlaySound();
 	Camera::GetInstance()->SetPosition({ 0, 0 });
 }

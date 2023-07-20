@@ -50,16 +50,19 @@ void GSPlay::Init()
 		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_MENU);
 		});
 	m_listButton.push_back(button);
+	
+	//Slider
+	texture = ResourceManagers::GetInstance()->GetTexture("slider.tga");
+	m_slider = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
+	m_slider->SetSize(500, 20);
+	m_slider->Set2DPosition(SCREEN_WIDTH / 2 - 250, 20);
 
-	// Animation 
-	 //texture = ResourceManagers::GetInstance()->GetTexture("player.tga");
-	 //obj = std::make_shared<SpriteAnimation>( texture, 1, 1, 1, 0.2f);
-	 //obj->SetFlip(SDL_FLIP_HORIZONTAL);
-	 //obj->SetSize(145/2, 120/2);
-	 //obj->Set2DPosition(0, 700);
-	 //
-
-	 //m_listAnimation.push_back(obj);
+	//Process
+	SDL_Color text_Color = {255, 255, 255};
+	m_Process = std::make_shared<Text>("Data/PUSAB___.otf", text_Color);
+	m_Process->SetSize(70, 50);
+	m_Process->Set2DPosition(m_slider->Get2DPosition().x + m_slider->GetWidth() + 10, 10);
+	m_Process->LoadFromRenderText(std::to_string(currentProcess));
 
 	//Init Player
 	//Cube
@@ -363,6 +366,7 @@ void GSPlay::Update(float deltaTime)
 		currentProcess = currentProcess + deltaTime;
 		processBarWidth = (currentProcess * PROCESS_WIDTH) / maxProcess;
 	}
+	m_Process->LoadFromRenderText(std::to_string((int)currentProcess) + "%");
 
 	//Moving background
 	//m_background = std::get<0>(m_background->MovingBackGround(m_background, m_background_2));
@@ -385,10 +389,7 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 	}
 
 	//m_score->Draw(renderer);
-	for (auto it : m_listButton)
-	{
-		it->Draw(renderer);
-	}
+	
 	//obj->Draw(renderer);
 	for (auto it : m_listAnimation)
 	{
@@ -402,12 +403,19 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 
 	m_playerCollider->Draw(renderer);
 
-	SDL_Rect backgroundRect = { SCREEN_WIDTH / 2 - 250, PROCESS_PADDING + 10, PROCESS_WIDTH, PROCESS_HEIGHT };
-	SDL_Rect foregroundRect = { SCREEN_WIDTH / 2 - 250, PROCESS_PADDING + 10, processBarWidth, PROCESS_HEIGHT };
+	//SDL_Rect backgroundRect = { SCREEN_WIDTH / 2 - 245, PROCESS_PADDING + 20, PROCESS_WIDTH, PROCESS_HEIGHT };
+	SDL_Rect foregroundRect = { SCREEN_WIDTH / 2 - 245, PROCESS_PADDING + 20, processBarWidth, PROCESS_HEIGHT };
 	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // Red color
-	SDL_RenderFillRect(renderer, &backgroundRect);
+	//SDL_RenderFillRect(renderer, &backgroundRect);
 	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // Green color
 	SDL_RenderFillRect(renderer, &foregroundRect);
 
+	for (auto it : m_listButton)
+	{
+		it->Draw(renderer);
+	}
+
+	m_slider->DrawFixedObject(renderer);
+	m_Process->Draw(renderer);
 
 }

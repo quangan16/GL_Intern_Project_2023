@@ -14,7 +14,7 @@ public:
 	Sprite2D( std::shared_ptr<TextureManager> texture, SDL_RendererFlip flip, int _width, int _height);
 	void Init() override;
 	void Draw(SDL_Renderer * renderer) override;
-
+	void DrawFixedObject(SDL_Renderer* renderer);
 	void Update(float deltatime) override;
 	void Set2DPosition(float x, float y);
 	Vector3		Get2DPosition();
