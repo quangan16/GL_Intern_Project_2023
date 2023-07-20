@@ -2,6 +2,9 @@
 #include "ResourceManagers.h"
 #include "Collider2D.h"
 #include "GameStateBase.h"
+#include "Cube.h"
+#include "Ship.h"
+#include "Wave.h"
 
 Player::Player() : m_playerPosition{ 0.0f, 0.0f }, m_velocity{ 10.0f } {};
 
@@ -145,70 +148,33 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
  }
 
  
+ std::shared_ptr<TextureManager> Player::GetPlayerTexture() {
+	 return m_playerTexture;
+ }
+
+ std::shared_ptr<Cube> Player::TransformToCube() {
+	 Vector2 currentPosition = this->m_playerPosition;
+	 std::shared_ptr<TextureManager> currentTexture = this->m_playerTexture;
+	 delete this;
+	 return std::make_shared<Cube>(currentPosition, 0.0, 1, 0.0, currentTexture);
+ }
+
+ std::shared_ptr<Ship> Player::TransformToShip() {
+	 Vector2 currentPosition = this->m_playerPosition;
+	 std::shared_ptr<TextureManager> currentTexture = this->m_playerTexture;
+	 delete this;
+	 return std::make_shared<Ship>(currentPosition, 0.0, 1, 0.0, currentTexture);
+ }
+
+ std::shared_ptr<Wave> Player::TransformToWave() {
+	 Vector2 currentPosition = this->m_playerPosition;
+	 std::shared_ptr<TextureManager> currentTexture = this->m_playerTexture;
+	 delete this;
+	 return std::make_shared<Wave>(currentPosition, 0.0, 1, 0.0, currentTexture);
+ }
 
 
-void Player::CheckToMap(Map& map_data, float &_deltaTime)
-{
-	//Check vertical
-	//int width_min = TILE_SIZE;
-	//int height_min = TILE_SIZE;
 
-	//int i_leftBound = (m_playerPosition.x) / TILE_SIZE;
-	//int i_rightBound = (m_playerPosition.x + width_min) / TILE_SIZE;
-
-
-	//int i_topBound = (m_playerPosition.y  + m_velocity * _deltaTime) / TILE_SIZE;
-	//int i_bottomBound = (m_playerPosition.y + height_min + m_velocity * _deltaTime - 1) / TILE_SIZE;
-
-	//if (i_leftBound >= 0 && i_rightBound < MAX_MAP_X && i_topBound >= 0 && i_bottomBound < MAX_MAP_Y)
-	//{
-	//	if (m_velocity <= 0)
-	//	{
-	//		if (map_data.tile[i_bottomBound][i_leftBound] != 0
-	//			|| map_data.tile[i_bottomBound][i_rightBound] != 0)
-	//		{
-	//			m_velocity = 0; 
-	//		}
-	//	}
-	//	else if (m_velocity  > 0)
-	//	{
-	//		if (map_data.tile[i_topBound][i_leftBound] != 0
-	//			|| map_data.tile[i_topBound][i_rightBound] != 0)
-	//		{
-	//			m_playerPosition.y = (i_topBound + 1) * TILE_SIZE;
-	//		}
-	//	}
-	//}
-
-	////check horizontal
-
-	//i_leftBound = (m_playerPosition.x + m_velocity * _deltaTime) / TILE_SIZE;
-	//i_rightBound = (m_playerPosition.x + width_min + m_velocity * _deltaTime - 1) / TILE_SIZE;
-	//i_bottomBound = (m_playerPosition.y + height_min) / TILE_SIZE;
-	//i_topBound = (m_playerPosition.y) / TILE_SIZE;
-
-	//if (i_leftBound >= 0 && i_rightBound < MAX_MAP_X && i_topBound >= 0 && i_bottomBound < MAX_MAP_Y)
-	//{
-	//	if (m_velocity < 0)
-	//	{
-	//		if (map_data.tile[i_topBound][i_rightBound] != 0
-	//			|| map_data.tile[i_bottomBound][i_rightBound] != 0)
-	//		{
-	//			m_playerPosition.x = i_rightBound * TILE_SIZE;
-	//			m_playerPosition.x -= (width_min + 1);
-	//		}
-	//	}
-	//	else if (m_velocity > 0)
-	//	{
-	//		if (map_data.tile[i_topBound][i_leftBound] != 0
-	//			|| map_data.tile[i_bottomBound][i_leftBound] != 0)
-	//		{
-	//			m_playerPosition.x = (i_leftBound + 1) * TILE_SIZE;
-	//		}
-	//	}
-	//}
-	
-}
 
 
 
