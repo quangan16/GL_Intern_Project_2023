@@ -2,7 +2,10 @@
 #include <iostream>
 #include "TextureManager.h"
 #include "BoxCollider2D.h"
-#include <memory>
+
+class Cube;
+class Ship;
+class Wave;
 
 class Player
 {
@@ -75,7 +78,14 @@ public:
 
 	bool OnCollisionStay(std::shared_ptr<BoxCollider2D> otherCollider);
 
-	void CheckToMap(Map& map_data, float& _deltaTime);
+	std::shared_ptr<TextureManager> GetPlayerTexture();
+
+	std::shared_ptr<Cube> TransformToCube();
+
+	std::shared_ptr<Ship> TransformToShip();
+
+	std::shared_ptr<Wave> TransformToWave();
+		
 	
 	void FixCollisionOverlaps(std::shared_ptr<BoxCollider2D> otherCollider);
 

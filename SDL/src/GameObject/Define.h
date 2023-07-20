@@ -23,3 +23,7 @@ typedef struct Map
 	int tile[MAX_MAP_Y][MAX_MAP_X];
 	char* file_name_;
 };
+
+//static int character_Seclect_Index = 1;
+//static int character_Seclect_
+//static int map_Select_Index = 1;

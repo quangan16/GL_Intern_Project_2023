@@ -60,9 +60,7 @@ private:
 	std::shared_ptr<Player> m_player;
 	std::shared_ptr<Sprite2D> m_playerSprite;
 
-	//Player's typ
-	bool isCube = false;
-	bool isShip = true;
+	
 
 	//Player's jump params
 	/*bool isJumping = false;
@@ -72,7 +70,7 @@ private:
 	bool jumpBuffer = false;
 
 	//Ship's param
-	bool isFly = false;
+	
 
 	//Collider
 	std::vector<std::shared_ptr<BoxCollider2D>> m_colliderList;

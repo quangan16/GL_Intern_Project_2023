@@ -131,8 +131,8 @@ void GSPlay::HandleEvents()
 {
 	if (m_KeyPress & (1 << 4))
 	{
-		isFly = true;
-		std::cout << "lol";
+		
+		
 		/*if (isFalling) {
 			jumpBuffer = true;
 		}*/
@@ -217,10 +217,7 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 			/*m_player->m_isJumping = false;
 			m_player->m_isFalling = true;*/
 			break;
-			if (isShip)
-			{
-				isFly = false;
-			}
+			
 		default:
 			break;
 		}
@@ -291,12 +288,11 @@ void GSPlay::Update(float deltaTime)
 	/*for (const auto& collider : m_colliderList) {
 		m_player->OnCollisionStay(collider, isOnGround, isFalling);
 	}*/
-	/*m_player->OnCollisionStay(m_collider2, isOnGround, isFalling);
-	m_player->OnCollisionStay(m_collider1, isOnGround, isFalling);*/
 	
 	
-	//m_player->OnGround(isJumping, isFalling, jumpBuffer, isOnGround);
-	m_player->Die();
+	
+
+	//m_player->Die();
 		
 	}
 	
@@ -305,7 +301,7 @@ void GSPlay::Update(float deltaTime)
 	}
 	//std::cout << m_player->GetPlayerVelocity()<<std::endl;
 	//std::cout << m_collider1->GetColliderPosition().y;
-	std::cout << "isFalling " << m_player->m_isFalling << std::endl;
+	//std::cout << "isFalling " << m_player->m_isFalling << std::endl;
 	//std::cout << "isJumping " << m_player->m_isJumping << std::endl;
 	//std::cout << "isOnground " << m_player->m_isOnGround << std::endl;
 	//std::cout << "direction " << m_player->GetDirectionY() << std::endl;
