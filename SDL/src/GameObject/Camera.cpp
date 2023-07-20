@@ -5,6 +5,11 @@ SDL_Rect Camera::GetViewBox()
 	return m_ViewBox;
 }
 
+void Camera :: SetPosition(Vector2 _position)
+{
+	m_Position = _position;
+}
+
 Vector2 Camera::GetPosition()
 {
 	return m_Position;

@@ -24,6 +24,8 @@ typedef struct Map
 	char* file_name_;
 };
 
-//static int character_Seclect_Index = 1;
-//static int character_Seclect_
-//static int map_Select_Index = 1;
+static int m_iMapTexture_index = 1;
+static int m_iMaptexturesCount = 3;
+
+static int m_iCharacterTexture_index = 1;
+static int m_iCharactertexturesCount = 3;

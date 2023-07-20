@@ -36,12 +36,6 @@ private:
 	int score = 0;
 	float time = 0.0f;
 
-	int m_iMapTexture_index;
-	int m_iMaptexturesCount;
-
-	int m_iCharacterTexture_index;
-	int m_iCharactertexturesCount;
-
 	std::list<std::shared_ptr<SpriteAnimation>>	m_listAnimation;
 	std::shared_ptr<SpriteAnimation> obj;
 	std::shared_ptr<MouseButton> m_btnPrev;

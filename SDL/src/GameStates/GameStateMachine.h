@@ -1,5 +1,6 @@
 #pragma once
 #include "../GameManager/Singleton.h"
+#include "Camera.h"
 #include <list>
 class GameStateBase;
 enum class StateType

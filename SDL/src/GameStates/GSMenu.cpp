@@ -85,6 +85,7 @@ void GSMenu::Init()
 	m_textGameName->LoadFromRenderText("Geometry Dash");
 	m_Sound = std::make_shared<Sound>("Data/Sounds/Alarm01.wav");
 	m_Sound->PlaySound();
+	Camera::GetInstance()->SetPosition({ 0, 0 });
 }
 
 void GSMenu::Exit()
