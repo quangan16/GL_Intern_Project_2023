@@ -25,7 +25,7 @@ typedef struct Map
 };
 
 static int m_iMapTexture_index = 1;
-static int m_iMaptexturesCount = 3;
+static int m_iMaptexturesCount = 4;
 
 static int m_iCharacterTexture_index = 1;
-static int m_iCharactertexturesCount = 3;
+static int m_iCharactertexturesCount = 4;
