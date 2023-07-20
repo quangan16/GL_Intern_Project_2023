@@ -102,19 +102,19 @@ void GameMap::DrawMap()
 			int val = game_map_.tile[map_y][map_x];
 			if (val > 0)
 			{
-				if (val > 16 && val != 19)
+				if (val > 16 && val < 19)
 				{
 					auto texture = ResourceManagers::GetInstance()->GetTexture(std::to_string(val) + ".tga");
 					auto tile = std::make_shared<BoxCollider2D>(ColliderType::OBSTACLE, Vector2(j, i), true, TILE_SIZE, TILE_SIZE, texture, SDL_FLIP_NONE);
 					tile_map_.push_back(tile);
 				}
-				else if (val == 22 || val == 23)
+				if (val == 22 || val == 23)
 				{
 					auto texture = ResourceManagers::GetInstance()->GetTexture(std::to_string(val) + ".tga");
 					auto tile = std::make_shared<BoxCollider2D>(ColliderType::PORTAL_SHIP, Vector2(j, i), true, TILE_SIZE, TILE_SIZE, texture, SDL_FLIP_NONE);
 					tile_map_.push_back(tile);
 				}
-				else
+				if(val <= 16 )
 				{
 					auto texture = ResourceManagers::GetInstance()->GetTexture(std::to_string(val) + ".tga");
 					texture->setColor(230, 7, 207);

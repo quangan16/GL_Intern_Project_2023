@@ -11,6 +11,7 @@ public:
 	void ApplyGravity(const double& _gravity, float _deltaTime) override;
 	
 	void SetPlayerSprite(const int& _width, const int& _height, const std::shared_ptr<Sprite2D>& _playerSprite) override;
+	std::shared_ptr<Sprite2D> GetPlayerSprite();
 	void Rotate(double _angle, float deltaTime) override;
 	void FixRotationOnGround(const float &deltaTime) override;
 	const std::shared_ptr<BoxCollider2D> GetCollider() const override;

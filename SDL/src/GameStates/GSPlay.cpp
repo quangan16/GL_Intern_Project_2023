@@ -273,19 +273,20 @@ void GSPlay::Update(float deltaTime)
 	
 
 	for (const auto& collider : m_colliderList) {
-		if (m_player->OnCollisionStay(collider)) {
+		if (m_player->OnCollisionStay(collider, m_player, m_playerSprite)) {
 			m_player->m_isOnGround = true;
 			m_player->OnGround();
-			
+			if (collider->GetColliderID() == ColliderType::PORTAL_SHIP) {
+				std::cout << "changing";
+				m_player = m_player->TransformToShip();
+			}
 			break; // Exit the loop if ground collision is detected with any collider
 		}
 		else {
 			m_player->m_isOnGround = false;
 			//m_player->m_isFalling = true;
 		}
-		if (m_player->OnCollisionStay(collider) && collider->GetColliderID() == ColliderType::PORTAL_SHIP) {
-			m_player = m_player->TransformToShip();
-		}
+		
 
 	}
 	

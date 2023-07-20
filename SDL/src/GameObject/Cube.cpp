@@ -84,6 +84,10 @@ void Cube::SetPlayerSprite(const int& _width, const int& _height, const std::sha
 	_playerSprite->SetRotation(m_playerRotation);
 }
 
+std::shared_ptr<Sprite2D> Cube::GetPlayerSprite() {
+	return m_playerSprite;
+	
+}
 
 
 void Cube::FixRotationOnGround(const float& _deltaTime) {

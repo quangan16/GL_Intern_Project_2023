@@ -173,3 +173,8 @@ void Ship::GravityPull(float _deltaTime)
 	}
 }
 
+std::shared_ptr<Sprite2D> Ship::GetPlayerSprite() {
+	return m_playerSprite;
+
+}
+

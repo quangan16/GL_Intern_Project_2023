@@ -153,5 +153,10 @@ void Wave::OnGround() {
 
 }
 
+std::shared_ptr<Sprite2D> Wave::GetPlayerSprite() {
+	return m_playerSprite;
+
+}
+
 
 

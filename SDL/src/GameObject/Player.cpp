@@ -84,7 +84,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 	 m_playerCollider->SetColliderPosition(m_playerPosition);
  }
 
- bool Player::OnCollisionStay(std::shared_ptr<BoxCollider2D> _otherCollider) {
+ bool Player::OnCollisionStay(std::shared_ptr<BoxCollider2D> _otherCollider,  std::shared_ptr<Player>& _player, std::shared_ptr<Sprite2D>& _playerSprite) {
 	 bool isOnGround = false;
 
 	 if (m_playerCollider->CheckCollision(_otherCollider)) {
@@ -110,13 +110,15 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 		 }
 		 else if (_otherCollider->GetColliderID() == ColliderType::OBSTACLE)
 		 {
-			 if (m_playerCollider->GetColliderPosition().x + m_playerCollider->GetWidth() >= _otherCollider->GetColliderPosition().x
-				 && m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() / 2 > _otherCollider->GetColliderPosition().y) {
-				 isOnGround = true;
 				 m_isAlive = false;
-			 }
+			 
 		 }
-		 
+		 else if (_otherCollider->GetColliderID() == ColliderType::PORTAL_SHIP) {
+			 _player = this->TransformToShip();
+			 _playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("ship_26.png"));
+			 std::cout << "damnnn";
+		 }
+		   
 	 }
 
 	 /*if (isOnGround) {
@@ -162,8 +164,8 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 
  std::shared_ptr<Ship> Player::TransformToShip() {
 	 Vector2 currentPosition = this->m_playerPosition;
-	 std::shared_ptr<TextureManager> currentTexture = ResourceManagers::GetInstance()->GetTexture("ship_26.png");
-	 delete this;
+ 	 std::shared_ptr<TextureManager> currentTexture = ResourceManagers::GetInstance()->GetTexture("ship_26.png");
+	 this->SetPlayerSprite(300,300, std::make_shared<Sprite2D>(currentTexture, SDL_FLIP_NONE));
 	 return std::make_shared<Ship>(currentPosition, 0.0, 1, 0.0, currentTexture);
  }
 

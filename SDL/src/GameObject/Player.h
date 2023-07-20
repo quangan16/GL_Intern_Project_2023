@@ -52,7 +52,9 @@ public:
 
 	void SetPlayerVelocity(float _velocity);
 
-	virtual void SetPlayerSprite(const int &_width,const int &_height, const std::shared_ptr<Sprite2D> &_playerSprite);
+	virtual void SetPlayerSprite(const int& _width, const int& _height, const std::shared_ptr<Sprite2D>& _playerSprite) ;
+
+	virtual std::shared_ptr<Sprite2D> GetPlayerSprite() = 0;
 
 	void SetDirectionY(int _direction);
 
@@ -76,7 +78,7 @@ public:
 
 	virtual void OnGround() = 0;
 
-	bool OnCollisionStay(std::shared_ptr<BoxCollider2D> otherCollider);
+	bool OnCollisionStay(std::shared_ptr<BoxCollider2D> otherCollider, std::shared_ptr<Player> &_player, std::shared_ptr<Sprite2D>& _playerSprite);
 
 	std::shared_ptr<TextureManager> GetPlayerTexture();
 
