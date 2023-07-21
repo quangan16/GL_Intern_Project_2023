@@ -60,6 +60,7 @@ private:
 	const int m_fBackground_speed = 10.f;
 	Vector2 m_readyPos = Vector2(500, 700);
 
+	std::shared_ptr<SpriteAnimation> m_trigger1;
 	
 
 	//Player's jump params
@@ -73,7 +74,8 @@ private:
 	
 
 	//Collider
-	std::vector<std::shared_ptr<BoxCollider2D>> m_colliderList;
+	std::vector<std::shared_ptr<BoxCollider2D>> m_boxColliderList;
+	std::vector<std::shared_ptr<CircleCollider2D>> m_circleColliderList;
 	std::shared_ptr<BoxCollider2D> m_playerCollider;
 	std::shared_ptr<BoxCollider2D> m_collider1;
 	std::shared_ptr<BoxCollider2D> m_collider2;
@@ -83,6 +85,8 @@ private:
 	//std::shared_ptr<Player> m_ground;
 
 	bool m_onButtonPressed = false;
+	bool m_onButtonDown = false;
+	bool m_onButtonUp = false;
 
 };
 

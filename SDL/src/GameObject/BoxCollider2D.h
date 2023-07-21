@@ -20,8 +20,8 @@ public:
 
 
     // Check collision with another box collider
-	bool CheckCollision(const std::shared_ptr<BoxCollider2D> &_otherCollider) override;
-	bool CheckCollision(const std::shared_ptr<CircleCollider2D> &_otherCollider) override;
+	bool CheckCollision(const std::shared_ptr<BoxCollider2D> &_otherCollider) ;
+	bool CheckCollision(const std::shared_ptr<CircleCollider2D> &_otherCollider) ;
     void DrawBoundingBox(SDL_Renderer* renderer, std::shared_ptr<SDL_Color> color) const ;
 
 	void Init() override;

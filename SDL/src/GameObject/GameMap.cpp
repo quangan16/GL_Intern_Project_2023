@@ -1,6 +1,7 @@
 #include "GameMap.h"
 #include "GameManager/ResourceManagers.h"
 #include "BoxCollider2D.h"
+#include "CircleCollider2D.h"
 
 
 GameMap::GameMap()
@@ -29,7 +30,7 @@ void GameMap::LoadMap(const char* name)
 		{
 			fscanf_s(fp, "%d", &game_map_.tile[i][j]);
 			int val = game_map_.tile[i][j];
-			if (val > 0)
+			/*if (val > 0)
 			{
 				if (j > game_map_.max_x_)
 				{
@@ -40,7 +41,7 @@ void GameMap::LoadMap(const char* name)
 				{
 					game_map_.max_y_ = i;
 				}
-			}
+			}*/
 		}
 		printf("\n");
 	}
@@ -106,13 +107,13 @@ void GameMap::DrawMap()
 				{
 					auto texture = ResourceManagers::GetInstance()->GetTexture(std::to_string(val) + ".tga");
 					auto tile = std::make_shared<BoxCollider2D>(ColliderType::OBSTACLE, Vector2(j, ( i + tile_offset)), true, TILE_SIZE, TILE_SIZE, texture, SDL_FLIP_NONE);
-					tile_map_.push_back(tile);
+					tile_map_box.push_back(tile);
 				}
 				if (val == 22 || val == 23)
 				{
 					auto texture = ResourceManagers::GetInstance()->GetTexture(std::to_string(val) + ".tga");
 					auto tile = std::make_shared<BoxCollider2D>(ColliderType::PORTAL_SHIP, Vector2(j, i + tile_offset), true, TILE_SIZE, TILE_SIZE, texture, SDL_FLIP_NONE);
-					tile_map_.push_back(tile);
+					tile_map_box.push_back(tile);
 				}
 				if(val <= 16 || val == 19)
 				{
@@ -120,7 +121,16 @@ void GameMap::DrawMap()
 					texture->setColor(230, 7, 207);
 					texture->SetAlpha(1000);
 					auto tile = std::make_shared<BoxCollider2D>(ColliderType::GROUND, Vector2(j, i + tile_offset), true, TILE_SIZE, TILE_SIZE, texture, SDL_FLIP_NONE);
-					tile_map_.push_back(tile);
+					tile_map_box.push_back(tile);
+				}
+				if (val == 24) {
+					auto texture = ResourceManagers::GetInstance()->GetTexture("jump_trigger_" + std::to_string(val) + ".tga");
+					auto tile = std::make_shared<CircleCollider2D>(ColliderType::JUMP_BOOST, Vector2(j, i + tile_offset), true, TILE_SIZE, texture, 1, 15, 1, 0.2f);
+					tile->m_animation->SetSize(80, 80);
+					tile->m_animation->SetFlip(SDL_FLIP_HORIZONTAL);
+					tile->m_animation->SetSize(90, 90);
+					tile->m_animation->Set2DPosition(240, 400);
+					tile_map_circle.push_back(tile);
 				}
 			}
 			map_x++;

@@ -1,6 +1,7 @@
 
 #include "GameStateMachine.h"
 #include "GameStateBase.h"
+#include <iostream>
 GameStateMachine::GameStateMachine() : m_running(true), m_pActiveState(nullptr), m_pNextState(nullptr), m_fullscreen(false)
 {
 }
@@ -22,7 +23,12 @@ void GameStateMachine::Cleanup()
 
 void GameStateMachine::ChangeState(StateType state)
 {
+	
 	std::shared_ptr<GameStateBase> nextState = GameStateBase::CreateState(state);
+	if (!m_StateStack.empty()) {
+		g_stateControllerPtr = m_StateStack.back();
+		std::cout << "okela";
+	}
 	ChangeState(nextState);
 }
 
