@@ -1,4 +1,5 @@
 #pragma once
+#include<memory>
 #define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 960
 
@@ -9,10 +10,14 @@
 #define MAX_MAP_Y 15
 
 
+class GameStateBase;
 const float tile_offset = 128.0f * 4;
 inline bool OnButtonPressed = false;
 static bool OnButtonDown = false;
 static bool OnButtonUp = false;
+
+
+inline std::shared_ptr<GameStateBase> g_stateControllerPtr;
 
 typedef struct Map
 {

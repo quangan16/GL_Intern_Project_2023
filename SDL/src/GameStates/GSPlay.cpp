@@ -254,7 +254,7 @@ void GSPlay::PlayerTransform()
 
 void GSPlay::Update(float deltaTime)
 {
-	
+	std::cout << g_stateControllerPtr;
 	try {
 		HandleEvents();
 	
@@ -301,7 +301,7 @@ void GSPlay::Update(float deltaTime)
 	
 	
 
-	//m_player->Die();
+	m_player->Die();
 		
 	}
 	
