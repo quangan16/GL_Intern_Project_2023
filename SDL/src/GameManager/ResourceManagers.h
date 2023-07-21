@@ -21,6 +21,8 @@ public:
 
 	std::shared_ptr<TextureManager> GetTexture(const std::string& name);
 
+	bool WriteToFile(const char* _fileName);
+	void ReadFromFile(const char* _fileName);
 	static bool isMuted;
 private:
 	std::map<std::string, std::shared_ptr<TextureManager>> m_MapTexture;
@@ -31,6 +33,6 @@ private:
 
 	//Sound
 	std::string m_SoundPath;
-
+	const char* m_fileName;
 };
 
