@@ -22,10 +22,21 @@ void GSGuide::Init()
 	auto texture = ResourceManagers::GetInstance()->GetTexture("back1.tga");
 
 	// background
-
 	m_background = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
 	m_background->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 	m_background->Set2DPosition(0, 0);
+
+	// guide image
+	texture = ResourceManagers::GetInstance()->GetTexture("guide_cube.tga");
+	m_guide_Cube = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
+	m_guide_Cube->SetSize(676, 380);
+	m_guide_Cube->Set2DPosition((SCREEN_WIDTH - m_guide_Cube->GetWidth())/2, 100);
+
+	// guide ship
+	texture = ResourceManagers::GetInstance()->GetTexture("guide_ship.tga");
+	m_guide_Ship = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
+	m_guide_Ship->SetSize(676, 380);
+	m_guide_Ship->Set2DPosition((SCREEN_WIDTH - m_guide_Cube->GetWidth()) / 2, 530);
 
 	// button close
 	texture = ResourceManagers::GetInstance()->GetTexture("button_close.tga");
@@ -33,19 +44,19 @@ void GSGuide::Init()
 	button->SetSize(50, 50);
 	button->Set2DPosition(SCREEN_WIDTH - 50, 10);
 	button->SetOnClick([this]() {
-		GameStateMachine::GetInstance()->PopState();
+		exit(0);
 		});
 	m_listButton.push_back(button);
 
-	// Animation 
-	//texture = ResourceManagers::GetInstance()->GetTexture("Actor1_2.tga");
-	//obj = std::make_shared<SpriteAnimation>(texture, 2, 9, 6, 0.2f);
-	//obj->SetFlip(SDL_FLIP_HORIZONTAL);
-	//obj->SetSize(40, 50);
-	//obj->Set2DPosition(240, 400);
-
-	//Camera::GetInstance()->SetTarget(obj);
-	m_listAnimation.push_back(obj);
+	// button back
+	texture = ResourceManagers::GetInstance()->GetTexture("back.tga");
+	m_buttonBack = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
+	m_buttonBack->SetSize(80, 80);
+	m_buttonBack->Set2DPosition(20, 20);
+	m_buttonBack->SetOnClick([this]() {
+		GameStateMachine::GetInstance()->PopState();
+		});
+	m_listButton.push_back(m_buttonBack);
 }
 
 void GSGuide::Exit()
@@ -165,7 +176,6 @@ void GSGuide::Update(float deltaTime)
 void GSGuide::Draw(SDL_Renderer* renderer)
 {
 	m_background->Draw(renderer);
-	//m_score->Draw();
 	for (auto it : m_listButton)
 	{
 		it->Draw(renderer);
@@ -175,4 +185,6 @@ void GSGuide::Draw(SDL_Renderer* renderer)
 	{
 		//it->Draw(renderer);
 	}
+	m_guide_Cube->Draw(renderer);
+	m_guide_Ship->Draw(renderer);
 }

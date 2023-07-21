@@ -130,7 +130,7 @@ void GSLevel::Pause()
 
 void GSLevel::Resume()
 {
-	m_Sound->PlaySound();
+	//m_Sound->PlaySound();
 }
 
 
