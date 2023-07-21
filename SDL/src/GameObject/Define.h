@@ -42,3 +42,7 @@ inline int m_iShipTexture_count = 3;
 
 inline int m_iWaveTexture_index = 1;
 inline int m_iWaveTexture_count = 3;
+
+inline int m_iHighest_process_level_1 = 0;
+inline int m_iHighest_process_level_2 = 0;
+inline int m_iHighest_process_level_3 = 0;
