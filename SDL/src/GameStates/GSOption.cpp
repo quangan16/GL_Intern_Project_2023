@@ -36,6 +36,15 @@ void GSOption::Init()
 		});
 	m_listButton.push_back(button);
 
+	// back button
+	texture = ResourceManagers::GetInstance()->GetTexture("back.tga");
+	m_backButton = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
+	m_backButton->SetSize(80, 80);
+	m_backButton->Set2DPosition(20, 20);
+	m_backButton->SetOnClick([this]() {
+		GameStateMachine::GetInstance()->PopState();
+		});
+	m_listButton.push_back(m_backButton);
 	//sound
 	Mix_Music* music = Mix_LoadMUS("");
 	if (music == nullptr) {
@@ -56,7 +65,7 @@ void GSOption::Init()
 	}
 	button = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
 	button->SetSize(100, 100);
-	button->Set2DPosition(900,540);
+	button->Set2DPosition((SCREEN_WIDTH - button->GetWidth())/2, (SCREEN_HEIGHT - button->GetHeight()) / 2);
 	button->SetOnClick([this, texture]() {
 		if (!ResourceManagers::GetInstance()->isMuted)
 		{

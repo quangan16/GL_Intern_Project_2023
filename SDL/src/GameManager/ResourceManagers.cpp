@@ -4,7 +4,6 @@ ResourceManagers::ResourceManagers()
 {
 	std::string dataPath = "Data/";
 	m_TexturePath = dataPath + "Textures/";
-
 }
 
 ResourceManagers::~ResourceManagers()
@@ -49,5 +48,4 @@ std::shared_ptr<TextureManager> ResourceManagers::GetTexture(const std::string& 
 	m_MapTexture.insert(std::pair<std::string, std::shared_ptr<TextureManager>>(name, texture));
 	return texture;
 }
-
 

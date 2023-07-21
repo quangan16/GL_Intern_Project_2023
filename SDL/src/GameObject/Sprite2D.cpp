@@ -86,3 +86,34 @@ void Sprite2D::SetFlip(SDL_RendererFlip flip)
 	m_flip = flip;
 }
 
+std::shared_ptr<TextureManager> Sprite2D::GetTexture()
+{
+	return this->m_pTexture;
+}
+
+void Sprite2D::RGBEffect()
+{
+	if (index > 2) index = 0;
+	if (r == 255 && index == 0 || g == 255 && index == 1 || b == 255 && index == 2) index++;
+
+	if (index == 0)
+	{
+		if (r == 255 || r < 2) interval *= -1;
+		r += interval;
+	}
+
+	if (index == 1)
+	{
+		if (g == 255 || g < 2) interval *= -1;
+		g += interval;
+	}
+
+	if (index == 2)
+	{
+		if (b == 255 || b < 2) interval *= -1;
+		b += interval;
+	}
+
+	this->m_pTexture->setColor(r, g, b);
+}
+

@@ -29,18 +29,6 @@ void GameMap::LoadMap(const char* name)
 		{
 			fscanf_s(fp, "%d", &game_map_.tile[i][j]);
 			int val = game_map_.tile[i][j];
-			if (val > 0)
-			{
-				if (j > game_map_.max_x_)
-				{
-					game_map_.max_x_ = j;
-				}
-
-				if (i > game_map_.max_y_)
-				{
-					game_map_.max_y_ = i;
-				}
-			}
 		}
 		printf("\n");
 	}
