@@ -16,6 +16,7 @@ GSPlay::GSPlay()
 
 GSPlay::~GSPlay()
 {
+	
 }
 
 
@@ -40,7 +41,11 @@ void GSPlay::Init()
 	m_gameMap->LoadMap("Data/map01.dat");
 	m_gameMap->DrawMap();
 
-
+	texture = ResourceManagers::GetInstance()->GetTexture("jump_trigger_24.tga");
+	m_trigger1 = std::make_shared<CircleCollider2D>(ColliderType::JUMP_BOOST, Vector2(500, 500), true, TILE_SIZE, texture, 1, 15, 1, 0.2f)->m_animation;
+	m_trigger1->SetFlip(SDL_FLIP_HORIZONTAL);
+	m_trigger1->SetSize(90, 90);
+	m_trigger1->Set2DPosition(240, 400);
 	// button close
 	texture = ResourceManagers::GetInstance()->GetTexture("button_close.tga");
 	button = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
@@ -48,8 +53,13 @@ void GSPlay::Init()
 	button->Set2DPosition(SCREEN_WIDTH -100 , 10);
 	button->SetOnClick([this]() {
 		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_MENU);
+		
+		g_stateControllerPtr.reset();
+		g_stateControllerPtr = nullptr;
+		std::cout << "duma";
 		});
 	m_listButton.push_back(button);
+	
 	
 	//Slider
 	texture = ResourceManagers::GetInstance()->GetTexture("slider.tga");
@@ -73,6 +83,7 @@ void GSPlay::Init()
 	m_player->SetPlayerSprite(80, 80, m_playerSprite);
 	m_playerCollider = m_player->GetCollider();
 	m_playerCollider->SetSize(80, 80);
+	m_player->m_changedState = false;
 	Camera::GetInstance()->SetTarget(m_playerSprite);
 
 	//Ship
@@ -108,11 +119,17 @@ void GSPlay::Init()
 	//Dummy ground
 	//m_ground = std::make_shared<Player>(Vector2(0.0f, 400.0f), 480.0f, 210.0f);
 
-	for (auto& it : m_gameMap->tile_map_)
+	for (auto& it : m_gameMap->tile_map_box)
 	{
-		m_colliderList.push_back(it);
+		m_boxColliderList.push_back(it);
 	}
-
+	for (auto& it : m_gameMap->tile_map_circle)
+	{
+		m_circleColliderList.push_back(it);
+		m_listAnimation.push_back(it->m_animation);
+		//std::cout<< m_listAnimation
+	}
+	m_listAnimation.push_back(m_trigger1);
 }
 
 void GSPlay::Exit()
@@ -215,6 +232,7 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 			m_KeyPress ^= 1 << 4;
 			OnButtonPressed = false;
 			m_onButtonPressed = false;
+			m_onButtonUp = true;
 			if (std::dynamic_pointer_cast<Ship>(m_player) != NULL && !m_player->m_isFalling) {
 				m_player->m_jumpForce = 5000;
 			}
@@ -254,13 +272,14 @@ void GSPlay::PlayerTransform()
 
 void GSPlay::Update(float deltaTime)
 {
-	std::cout << g_stateControllerPtr;
+	m_player->Die();
+	//std::cout << g_stateControllerPtr;
 	try {
 		HandleEvents();
-	
+		
 	m_player->RunIntoScene(m_readyPos, deltaTime);
 	m_player->ApplyGravity(m_gravity, deltaTime);
-	m_player->SetPlayerPosition(m_player->GetPlayerPosition().x + 200.0f * deltaTime, m_player->GetPlayerPosition().y);
+	//m_player->SetPlayerPosition(m_player->GetPlayerPosition().x + 200.0f * deltaTime, m_player->GetPlayerPosition().y);
 	//std::cout << OnButtonPressed << std::endl;
 	m_player->MoveUp(m_gravity, m_onButtonPressed, jumpBuffer, deltaTime);
 	//std::cout << OnButtonPressed << std::endl;
@@ -276,7 +295,7 @@ void GSPlay::Update(float deltaTime)
 	m_player->UpdatePlayerColliderState();
 	
 
-	for (const auto& collider : m_colliderList) {
+	for (const auto& collider : m_boxColliderList) {
 		if (m_player->OnCollisionStay(collider, m_player, m_playerSprite)) {
 			m_player->m_isOnGround = true;
 			m_player->OnGround();
@@ -301,8 +320,11 @@ void GSPlay::Update(float deltaTime)
 	
 	
 
-	m_player->Die();
-		
+	
+	if (m_player->m_changedState == true) {
+		m_player->m_changedState = false;
+	}
+	
 	}
 	
 	catch (std::exception_ptr e) {
@@ -334,7 +356,7 @@ void GSPlay::Update(float deltaTime)
 
 
 	
-
+	
 
 	switch (m_KeyPress)//Handle Key event
 	{
@@ -349,11 +371,11 @@ void GSPlay::Update(float deltaTime)
 	}
 	for (auto it : m_listAnimation)
 	{
-		if (m_KeyPress == 1)
+		/*if (m_KeyPress == 1)
 		{
 
 			it->MoveLeft(deltaTime);
-		}
+		}*/
 		it->Update(deltaTime);
 	}
 
@@ -390,16 +412,14 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 
 	//m_score->Draw(renderer);
 	
-	//obj->Draw(renderer);
-	for (auto it : m_listAnimation)
-	{
-		it->Draw(renderer);
-	}
+	
 	//draw player
 	m_playerSprite->Draw(renderer);
-	for (auto it : m_colliderList) {
+	for (auto it : m_boxColliderList) {
 		it->Draw(renderer);
 	}
+
+	
 
 	m_playerCollider->Draw(renderer);
 
@@ -414,7 +434,11 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 	{
 		it->Draw(renderer);
 	}
-
+	//obj->Draw(renderer);
+	for (auto it : m_listAnimation)
+	{
+		it->Draw(renderer);
+	}
 	m_slider->DrawFixedObject(renderer);
 	m_Process->Draw(renderer);
 

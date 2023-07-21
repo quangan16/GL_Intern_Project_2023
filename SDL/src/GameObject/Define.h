@@ -6,15 +6,15 @@
 #define TILE_SIZE 80   
 #define PLAYER_SPEED 1000.0f
 #define JUMP_HEIGHT 200.0f
-#define MAX_MAP_X 400
+#define MAX_MAP_X 401
 #define MAX_MAP_Y 15
 #define SAVE_PATH = "Data/save_data.txt"
 
 class GameStateBase;
 const float tile_offset = 128.0f * 4;
 inline bool OnButtonPressed = false;
-static bool OnButtonDown = false;
-static bool OnButtonUp = false;
+inline bool OnButtonDown = false;
+inline bool OnButtonUp = false;
 
 
 inline std::shared_ptr<GameStateBase> g_stateControllerPtr;

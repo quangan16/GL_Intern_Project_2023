@@ -1,18 +1,28 @@
 #include "CircleCollider2D.h"
 
-
-CircleCollider2D::CircleCollider2D(ColliderType _id, Vector2 _objectPos, bool _isActive, float _radius, std::shared_ptr<TextureManager> _texture, SDL_RendererFlip _flip)
-    : Collider2D(_id, _objectPos, _isActive), Sprite2D(_texture, _flip, _radius * 2, _radius * 2), m_radius{ _radius } {}
-
 CircleCollider2D::CircleCollider2D(Vector2 objectPos, float radius) {
     this->m_colliderPosition = objectPos;
     m_radius = radius;
 }
 
+CircleCollider2D::CircleCollider2D(ColliderType _id, Vector2 _objectPos, bool _isActive, float _radius, std::shared_ptr<TextureManager> _texture, SDL_RendererFlip _flip)
+    : Collider2D(_id, _objectPos, _isActive), Sprite2D(_texture, _flip, _radius * 2, _radius * 2), m_radius{ _radius } {}
+
+
+CircleCollider2D::CircleCollider2D(ColliderType _id, Vector2 _objectPos, bool _isActive, float _radius, std::shared_ptr<TextureManager> _texture, int _spriteRow, int _frameCount, int _numAction, float _frameTime)
+    : Collider2D(_id, _objectPos, _isActive), SpriteAnimation(_texture, _spriteRow,  _frameCount,   _numAction,  _frameTime) {
+    m_radius = _radius ;
+    m_animation = std::make_shared<SpriteAnimation>(_texture, _spriteRow, _frameCount, _numAction, _frameTime);
+}
+
 // Check collision with another circle collider
-bool CircleCollider2D::CheckCollision(const CircleCollider2D& otherCircle) {
-    float distance = sqrt((this->m_colliderPosition.x - otherCircle.m_colliderPosition.x) * (this->m_colliderPosition.x - otherCircle.m_colliderPosition.x) + (this->m_colliderPosition.y - otherCircle.m_colliderPosition.y) * (this->m_colliderPosition.y - otherCircle.m_colliderPosition.y));
-    return distance <= m_radius + otherCircle.m_radius;
+bool CircleCollider2D::CheckCollision(const std::shared_ptr<CircleCollider2D>& otherCircle) {
+    float distance = sqrt((this->m_colliderPosition.x - otherCircle->m_colliderPosition.x) * (this->m_colliderPosition.x - otherCircle->m_colliderPosition.x) + (this->m_colliderPosition.y - otherCircle->m_colliderPosition.y) * (this->m_colliderPosition.y - otherCircle->m_colliderPosition.y));
+    return distance <= m_radius + otherCircle->m_radius;
+}
+
+bool CircleCollider2D::CheckCollision(const std::shared_ptr<BoxCollider2D>& _otherBoxCollider) {
+    return false;
 }
 
  float CircleCollider2D::GetRadius() 
@@ -33,3 +43,63 @@ bool CircleCollider2D::CheckCollision(const CircleCollider2D& otherCircle) {
 //    // Check if the distance is less than or equal to the radius of the circle
 //    return distanceSquared <= circle.radius * circle.radius;
 //}
+
+ void CircleCollider2D::Init()
+ {
+     // Init Camera
+ }
+
+ void CircleCollider2D::Draw(SDL_Renderer* renderer)
+ {
+     //Get2DPosition();
+     if (BaseObject::m_pTexture != nullptr)
+     {
+         BaseObject::m_pTexture->Render(m_colliderPosition.x, m_colliderPosition.y, m_radius*2, m_radius*2,
+             BaseObject::m_angle,
+             BaseObject::m_flip);
+     }
+
+ }
+
+ void CircleCollider2D::Update(float deltatime)
+ {
+ }
+
+ void CircleCollider2D::Set2DPosition(float x, float y)
+ {
+     BaseObject::m_position = Vector3((float)x, (float)y, 0.0f);
+ }
+
+ Vector3 CircleCollider2D::Get2DPosition()
+ {
+     return Vector3(BaseObject::m_position.x, BaseObject::m_position.y, 0.0f);
+ }
+
+ void CircleCollider2D::SetSize(int _width, int _height)
+ {
+     m_radius = _width/2;
+     
+     BaseObject::m_scale = Vector3((float)SpriteAnimation::m_iWidth, (float)SpriteAnimation::m_iHeight, 0.0f);
+ }
+
+ int CircleCollider2D::GetWidth()
+ {
+     return m_radius*2;
+ }
+
+ int CircleCollider2D::GetHeight()
+ {
+     return m_radius*2;
+ }
+
+ void CircleCollider2D::SetRotation(double angle)
+ {
+
+     BaseObject::m_angle = angle;
+ }
+
+ void CircleCollider2D::SetFlip(SDL_RendererFlip flip)
+ {
+
+     BaseObject::m_flip = flip;
+ }

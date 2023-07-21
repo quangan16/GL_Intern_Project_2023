@@ -86,7 +86,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 
  bool Player::OnCollisionStay(std::shared_ptr<BoxCollider2D> _otherCollider,  std::shared_ptr<Player>& _player, std::shared_ptr<Sprite2D>& _playerSprite) {
 	 bool isOnGround = false;
-
+	 bool isChangedForm = false;
 	 if (m_playerCollider->CheckCollision(_otherCollider)) {
 		 if (_otherCollider->GetColliderID() == ColliderType::GROUND) {
 			 //Handle side collide with grounds
@@ -113,10 +113,10 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 				 m_isAlive = false;
 			 
 		 }
-		 else if (_otherCollider->GetColliderID() == ColliderType::PORTAL_SHIP) {
+		 else if (_otherCollider->GetColliderID() == ColliderType::PORTAL_SHIP && m_changedState == false) {
 			 _player = this->TransformToShip();
 			 _playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_ship_1.png"));
-			 
+			 isChangedForm = true;
 		 }
 
 		 else if (_otherCollider->GetColliderID() == ColliderType::PORTAL_WAVE) {
@@ -135,6 +135,14 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 	 }*/
 
 	 return isOnGround;
+ }
+
+ void Player::OnCollisionStay(std::shared_ptr<CircleCollider2D> _otherCollider, std::shared_ptr<Player>& _player, std::shared_ptr<Sprite2D>& _playerSprite) {
+	 if (m_playerCollider->CheckCollision(_otherCollider)) {
+		 if (_otherCollider->GetColliderID() == ColliderType::JUMP_BOOST && OnButtonPressed) {
+			 m_velocity = 10000.0;
+		 }
+	 }
  }
 
 

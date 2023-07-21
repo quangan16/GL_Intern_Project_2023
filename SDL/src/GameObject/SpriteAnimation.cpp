@@ -1,5 +1,11 @@
+
 #include "SpriteAnimation.h"
 #include "TextureManager.h"
+
+SpriteAnimation::SpriteAnimation()
+{
+	
+}
 SpriteAnimation::SpriteAnimation(std::shared_ptr<TextureManager> texture, int spriteRow, int frameCount, int numAction, float frameTime) : BaseObject(texture)
 {
 	m_spriteRow = spriteRow;

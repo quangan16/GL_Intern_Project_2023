@@ -16,6 +16,7 @@ public:
 	bool m_isOnGround;
 	double m_jumpForce;
 	bool m_isAlive;
+	bool m_changedState;
 
 protected:
 	Vector2 m_playerPosition;
@@ -79,6 +80,8 @@ public:
 	virtual void OnGround() = 0;
 
 	bool OnCollisionStay(std::shared_ptr<BoxCollider2D> otherCollider, std::shared_ptr<Player> &_player, std::shared_ptr<Sprite2D>& _playerSprite);
+
+	void OnCollisionStay(std::shared_ptr<CircleCollider2D> _otherCollider, std::shared_ptr<Player>& _player, std::shared_ptr<Sprite2D>& _playerSprite);
 
 	std::shared_ptr<TextureManager> GetPlayerTexture();
 
