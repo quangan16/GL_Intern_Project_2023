@@ -76,8 +76,9 @@ void Player::UpdatePlayerSpriteRotation(const std::shared_ptr<Sprite2D>& _player
 
 void Player::UpdatePlayerPos(float& _deltaTime) {
 	//CheckToMap(map_data, _deltaTime);
+	// //m_playerPosition.x += m_playerSpeed * _deltaTime;
 	m_playerPosition.y += m_direction * m_velocity * _deltaTime;
-	m_playerPosition.x += m_playerSpeed * _deltaTime;
+	
 }
 
  void Player::UpdatePlayerColliderState() {

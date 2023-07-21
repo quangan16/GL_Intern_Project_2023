@@ -106,13 +106,13 @@ void GameMap::DrawMap()
 				if (val > 16 && val < 19)
 				{
 					auto texture = ResourceManagers::GetInstance()->GetTexture(std::to_string(val) + ".tga");
-					auto tile = std::make_shared<BoxCollider2D>(ColliderType::OBSTACLE, Vector2(j, ( i + tile_offset)), true, TILE_SIZE, TILE_SIZE, texture, SDL_FLIP_NONE);
+					auto tile = std::make_shared<BoxCollider2D>(ColliderType::OBSTACLE, Vector2(j, ( i )), true, TILE_SIZE, TILE_SIZE, texture, SDL_FLIP_NONE);
 					tile_map_box.push_back(tile);
 				}
 				if (val == 22 || val == 23)
 				{
 					auto texture = ResourceManagers::GetInstance()->GetTexture(std::to_string(val) + ".tga");
-					auto tile = std::make_shared<BoxCollider2D>(ColliderType::PORTAL_SHIP, Vector2(j, i + tile_offset), true, TILE_SIZE, TILE_SIZE, texture, SDL_FLIP_NONE);
+					auto tile = std::make_shared<BoxCollider2D>(ColliderType::PORTAL_SHIP, Vector2(j, i), true, TILE_SIZE, TILE_SIZE, texture, SDL_FLIP_NONE);
 					tile_map_box.push_back(tile);
 				}
 				if(val <= 16 || val == 19)
@@ -120,16 +120,14 @@ void GameMap::DrawMap()
 					auto texture = ResourceManagers::GetInstance()->GetTexture(std::to_string(val) + ".tga");
 					texture->setColor(230, 7, 207);
 					texture->SetAlpha(1000);
-					auto tile = std::make_shared<BoxCollider2D>(ColliderType::GROUND, Vector2(j, i + tile_offset), true, TILE_SIZE, TILE_SIZE, texture, SDL_FLIP_NONE);
+					auto tile = std::make_shared<BoxCollider2D>(ColliderType::GROUND, Vector2(j, i ), true, TILE_SIZE, TILE_SIZE, texture, SDL_FLIP_NONE);
 					tile_map_box.push_back(tile);
 				}
 				if (val == 24) {
 					auto texture = ResourceManagers::GetInstance()->GetTexture("jump_trigger_" + std::to_string(val) + ".tga");
-					auto tile = std::make_shared<CircleCollider2D>(ColliderType::JUMP_BOOST, Vector2(j, i + tile_offset), true, TILE_SIZE, texture, 1, 15, 1, 0.2f);
-					tile->m_animation->SetSize(80, 80);
-					tile->m_animation->SetFlip(SDL_FLIP_HORIZONTAL);
-					tile->m_animation->SetSize(90, 90);
-					tile->m_animation->Set2DPosition(240, 400);
+					auto tile = std::make_shared<CircleCollider2D>(ColliderType::JUMP_BOOST, Vector2(j,i ), true, TILE_SIZE*2, texture, 1, 15, 1, 0.2f);
+					
+					tile->m_animation->SetSize(TILE_SIZE, TILE_SIZE);
 					tile_map_circle.push_back(tile);
 				}
 			}

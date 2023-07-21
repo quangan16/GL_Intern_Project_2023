@@ -45,7 +45,7 @@ void GSPlay::Init()
 	m_trigger1 = std::make_shared<CircleCollider2D>(ColliderType::JUMP_BOOST, Vector2(500, 500), true, TILE_SIZE, texture, 1, 15, 1, 0.2f)->m_animation;
 	m_trigger1->SetFlip(SDL_FLIP_HORIZONTAL);
 	m_trigger1->SetSize(90, 90);
-	m_trigger1->Set2DPosition(240, 400);
+	m_trigger1->Set2DPosition(640, 800);
 	// button close
 	texture = ResourceManagers::GetInstance()->GetTexture("btn_close.tga");
 	button = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
