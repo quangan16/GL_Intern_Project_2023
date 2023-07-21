@@ -1,5 +1,6 @@
 #pragma once
 #include"BaseObject.h"
+#include "Define.h"
 
 class Sprite2D : public BaseObject
 {
@@ -23,5 +24,7 @@ public:
 	int GetHeight();
 	void SetRotation(double angle);
 	void SetFlip(SDL_RendererFlip flip);
+	std::shared_ptr<TextureManager> GetTexture();
+	void RGBEffect();
 };
 

@@ -25,6 +25,7 @@ public:
 	void	Draw(SDL_Renderer* renderer) override;
 
 private:
+	std::shared_ptr<TextureManager>			m_texture;
 	std::shared_ptr<Sprite2D>				m_background;
 	std::list<std::shared_ptr<MouseButton>>	m_listButton;
 	std::shared_ptr<Text>					m_textNext;

@@ -30,6 +30,7 @@ private:
 	std::list<std::shared_ptr<SpriteAnimation>>	m_listAnimation;
 	std::shared_ptr<SpriteAnimation> obj;
 	std::shared_ptr<MouseButton> button;
+	std::shared_ptr<MouseButton> m_backButton;
 	float time = 0.0f;
 	//const int VOLUME_WIDTH = 200;
 	//const int VOLUME_HEIGHT = 20;
