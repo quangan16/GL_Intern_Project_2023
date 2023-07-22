@@ -114,15 +114,21 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 				 m_isAlive = false;
 			 
 		 }
+		 else if (_otherCollider->GetColliderID() == ColliderType::PORTAL_CUBE && m_changedState == false) {
+			 _player = this->TransformToShip();
+			 _playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_cube_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
+			 isChangedForm = true;
+		 }
+
 		 else if (_otherCollider->GetColliderID() == ColliderType::PORTAL_SHIP && m_changedState == false) {
 			 _player = this->TransformToShip();
-			 _playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_ship_1.png"));
+			 _playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_ship_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
 			 isChangedForm = true;
 		 }
 
 		 else if (_otherCollider->GetColliderID() == ColliderType::PORTAL_WAVE) {
 			 _player = this->TransformToWave();
-			 _playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_wave_1.png"));
+			 _playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_wave_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
 			 
 		 }
 		   
@@ -174,21 +180,22 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
  std::shared_ptr<Cube> Player::TransformToCube() {
 	 Vector2 currentPosition = this->m_playerPosition;
 	 std::shared_ptr<TextureManager> currentTexture = this->m_playerTexture;
-	 delete this;
 	 return std::make_shared<Cube>(currentPosition, 0.0, 1, 0.0, currentTexture);
  }
 
  std::shared_ptr<Ship> Player::TransformToShip() {
 	 Vector2 currentPosition = this->m_playerPosition;
- 	 std::shared_ptr<TextureManager> currentTexture = ResourceManagers::GetInstance()->GetTexture("ship_26.png");
-	 this->SetPlayerSprite(300,300, std::make_shared<Sprite2D>(currentTexture, SDL_FLIP_NONE));
+ 	 std::shared_ptr<TextureManager> currentTexture = ResourceManagers::GetInstance()->GetTexture("player_ship_1.tga");
+
+	 //this->SetPlayerSprite(300, 300, std::make_shared<Sprite2D>(currentTexture, SDL_FLIP_NONE));
+	 
 	 return std::make_shared<Ship>(currentPosition, 0.0, 1, 0.0, currentTexture);
+	 
  }
 
  std::shared_ptr<Wave> Player::TransformToWave() {
 	 Vector2 currentPosition = this->m_playerPosition;
 	 std::shared_ptr<TextureManager> currentTexture = this->m_playerTexture;
-	 delete this;
 	 return std::make_shared<Wave>(currentPosition, 0.0, 1, 0.0, currentTexture);
  }
 
