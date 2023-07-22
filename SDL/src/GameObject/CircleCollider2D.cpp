@@ -9,10 +9,11 @@ CircleCollider2D::CircleCollider2D(Vector2 objectPos, float radius) {
 //    : Collider2D(_id, _objectPos, _isActive), Sprite2D(_texture, _flip, _radius * 2, _radius * 2), m_radius{ _radius } {}
 
 
-CircleCollider2D::CircleCollider2D(ColliderType _id, Vector2 _objectPos, bool _isActive, float _radius, std::shared_ptr<TextureManager> _texture, int _spriteRow, int _frameCount, int _numAction, float _frameTime)
-    : Collider2D(_id, _objectPos, _isActive), SpriteAnimation(_texture,_radius*2, _radius *2, _spriteRow,  _frameCount,   _numAction,  _frameTime) {
+CircleCollider2D::CircleCollider2D(ColliderType _id, Vector2 _objectPos, bool _isActive, float _radius, std::shared_ptr<TextureManager> _texture, int _spriteRow, int _frameCount, int _numAction, float _frameTime, bool _repeatAni)
+    : Collider2D(_id, _objectPos, _isActive), SpriteAnimation(_texture,_radius*2, _radius *2, _spriteRow,  _frameCount,   _numAction,  _frameTime, _repeatAni) {
     m_radius = _radius ;
-    
+    m_animation = std::make_shared<SpriteAnimation>(_texture, _radius * 2, _radius * 2, _spriteRow, _frameCount, _numAction, _frameTime, _repeatAni);
+    m_animation->SetPosition(Vector3{ m_colliderPosition.x, m_colliderPosition.y, 0 });
 }
 
 // Check collision with another circle collider

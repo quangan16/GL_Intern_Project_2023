@@ -49,7 +49,9 @@ private:
 	std::shared_ptr<Player>							m_player;
 	std::shared_ptr<Sprite2D>						m_playerSprite;
 	std::shared_ptr<Text>							m_Process;
-	double time = 0.0f;
+
+	float aliveTime;
+	const float finishTime = 60.0f;
 	double m_gravity = 10000.0;
 
 	const int PROCESS_WIDTH = 495;
@@ -70,7 +72,7 @@ private:
 	bool isFalling = true;
 	bool isOnGround = false;
 	double jumpForce = 3000.0;*/
-	bool jumpBuffer = false;
+	
 
 	//Ship's param
 	

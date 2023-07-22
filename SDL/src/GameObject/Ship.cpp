@@ -1,6 +1,7 @@
 #include "Ship.h"
 
 Ship::Ship() {
+	m_playerForm = SHIP;
 	m_isJumping = false;
 	m_isFalling = true;
 	m_isOnGround = false;
@@ -10,6 +11,7 @@ Ship::Ship() {
 Ship::Ship(Vector2 _position, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _playerTexture)
 	: Player(_position, _rotation, _direction, _velocity, _playerTexture)
 {
+	m_playerForm = SHIP;
 	m_isJumping = false;
 	m_isFalling = true;
 	m_isOnGround = false;
@@ -36,7 +38,7 @@ void Ship::Rotate(double _rotateSpeed, float _deltaTime) {
 }
 
 
-void Ship::MoveUp(const double& _gravity, const bool& m_onButtonPressed, bool& m_jumpBuffer, float _deltaTime) {
+void Ship::MoveUp(const double& _gravity, const bool& m_onButtonPressed, float _deltaTime) {
 	
 	if (m_onButtonPressed == true) {
 		
@@ -50,7 +52,7 @@ void Ship::MoveUp(const double& _gravity, const bool& m_onButtonPressed, bool& m
 		
 		this -> m_isFalling = true;
 	}
-	std::cout << m_jumpForce <<std::endl;
+	//std::cout << m_jumpForce <<std::endl;
 	if (m_isJumping == true) {
 		if (m_isFalling == false) {
 			m_isOnGround = false;
@@ -158,20 +160,7 @@ void Ship::OnGround() {
 
 }
 
-void Ship::FlyUp(const float& _velocity, const float& _gravity, float _deltaTime)
-{
-	float velocity = 500.0f;
-	m_playerPosition.y -= (velocity) * _deltaTime;
-}
 
-
-void Ship::GravityPull(float _deltaTime)
-{
-	if (m_playerPosition.y < 1080)
-	{
-		m_playerPosition.y += 200.0f * _deltaTime;
-	}
-}
 
 std::shared_ptr<Sprite2D> Ship::GetPlayerSprite() {
 	return m_playerSprite;

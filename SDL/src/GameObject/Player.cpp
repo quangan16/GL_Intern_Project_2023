@@ -1,4 +1,8 @@
 #include "Player.h"
+
+#include <chrono>
+#include <thread>
+
 #include "ResourceManagers.h"
 #include "Collider2D.h"
 #include "GameStateBase.h"
@@ -105,7 +109,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 				 FixCollisionOverlaps(_otherCollider);
 			 }
 			 //Handle bottom collide with grounds
-			 else if (m_playerCollider->GetColliderPosition().y < _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight()) {
+			 else if (m_playerCollider->GetColliderPosition().y < _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight() && m_playerForm != ROBOT) {
 				 m_isAlive = false;
 			 }
 		 }
@@ -131,6 +135,17 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 _playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_wave_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
 			 
 		 }
+
+		 if (_otherCollider->GetColliderID() == ColliderType::JUMP_BOOST_AUTO ) {
+			 //std::cout << "ok" << std::endl;
+			 m_isJumping = false;
+			 m_isJumping = true;
+			 m_velocity = m_jumpForce;
+			 m_jumpBuffer = false;
+
+		 }
+
+		
 		   
 	 }
 
@@ -144,13 +159,21 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 	 return isOnGround;
  }
 
- void Player::OnCollisionStay(std::shared_ptr<CircleCollider2D> _otherCollider, std::shared_ptr<Player>& _player, std::shared_ptr<Sprite2D>& _playerSprite) {
+ void Player::OnCollisionTrigger(std::shared_ptr<CircleCollider2D> _otherCollider, double& _gravity,const float& _deltaTime) {
 	 if (m_playerCollider->CheckCollision(_otherCollider)) {
-		 if (_otherCollider->GetColliderID() == ColliderType::JUMP_BOOST && OnButtonPressed) {
-			 m_velocity = 10000.0;
+		
+		 if (_otherCollider->GetColliderID() == ColliderType::JUMP_BOOST && OnButtonDown) {
+			 //std::cout << "ok" << std::endl;
+			 m_isJumping = false;
+			 m_isJumping = true;
+			 m_velocity = m_jumpForce;
+			 m_jumpBuffer = false;
+			 
 		 }
 	 }
  }
+
+
 
 
  void Player::FixCollisionOverlaps(std::shared_ptr<BoxCollider2D> _otherCollider) {
@@ -159,15 +182,23 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 	 float bottomPenetration = playerBottomCollider - groundTopCollider;
 	 if (playerBottomCollider > groundTopCollider) {
 		 //std::cout << bottomPenetration << std::endl;
+		 
 		 this->SetPlayerPosition(this->GetPlayerPosition().x, this->GetPlayerPosition().y - bottomPenetration);
 	 }
  }
  
- void Player::Die() {
+ void Player::Die(float &_dieTime, float waitTime) {
+ 	
+	
 	 if (m_isAlive == false) {
 		 //GameStateMachine::GetInstance()->PopState();
-		 
-		 GameStateMachine::GetInstance()->ChangeState(StateType::STATE_PLAY);
+		 std::cout << _dieTime;
+		 if(timer >= _dieTime + 2.0f)
+		 {
+
+			 GameStateMachine::GetInstance()->ChangeState(StateType::STATE_PLAY);
+		 }
+		
 		 
 	 }
  }

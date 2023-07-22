@@ -17,12 +17,13 @@ protected:
 	Uint32 m_lastUpdate;
 	int			m_animSpeed;
 	int m_numAction; //start from 1,2,3...
+	bool m_repeat;
 	//SDL_RendererFlip m_flip;
 	//std::shared_ptr<TextureManager> m_texture;
 public:
 	SpriteAnimation();
 	SpriteAnimation(std::shared_ptr<TextureManager> texture, int spriteRow, int frameCount, int numAction, float  frameTime);
-	SpriteAnimation(std::shared_ptr<TextureManager> texture,int width, int height, int spriteRow, int frameCount, int numAction, float  frameTime);
+	SpriteAnimation(std::shared_ptr<TextureManager> texture,int width, int height, int spriteRow, int frameCount, int numAction, float  frameTime, bool _repeat);
 
 	~SpriteAnimation();
 

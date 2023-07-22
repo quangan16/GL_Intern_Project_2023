@@ -16,6 +16,8 @@ inline bool OnButtonPressed = false;
 inline bool OnButtonDown = false;
 inline bool OnButtonUp = false;
 
+inline float timer = 0.0f;
+
 inline std::shared_ptr<Sound> m_Sound;
 inline std::shared_ptr<GameStateBase> g_stateControllerPtr;
 

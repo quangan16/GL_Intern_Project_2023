@@ -7,6 +7,14 @@ class Cube;
 class Ship;
 class Wave;
 
+enum PlayerForm {
+	CUBE,
+	SHIP,
+	WAVE,
+	WHEEL,
+	ROBOT
+};
+
 class Player
 {
 public:
@@ -16,9 +24,11 @@ public:
 	bool m_isOnGround;
 	double m_jumpForce;
 	bool m_isAlive;
+	bool m_jumpBuffer = false;
 	bool m_changedState;
 
 protected:
+	PlayerForm m_playerForm;
 	Vector2 m_playerPosition;
 	double m_playerRotation;
 	int m_direction;
@@ -41,7 +51,7 @@ public:
 
 	virtual ~Player();
 
-	virtual void MoveUp(const double&_gravity,const bool& m_onButtonPressed, bool &_jumpBuffer, float _deltaTime) = 0;
+	virtual void MoveUp(const double&_gravity,const bool& m_onButtonPressed, float _deltaTime) = 0;
 
 	virtual void Rotate(double _angle, float _deltaTime) = 0;
 
@@ -81,7 +91,9 @@ public:
 
 	bool OnCollisionStay(std::shared_ptr<BoxCollider2D> otherCollider, std::shared_ptr<Player> &_player, std::shared_ptr<Sprite2D>& _playerSprite);
 
-	void OnCollisionStay(std::shared_ptr<CircleCollider2D> _otherCollider, std::shared_ptr<Player>& _player, std::shared_ptr<Sprite2D>& _playerSprite);
+	void JumpTrigger();
+
+	void OnCollisionTrigger(std::shared_ptr<CircleCollider2D> _otherCollider, double& _gravity, const float& _deltaTime);
 
 	std::shared_ptr<TextureManager> GetPlayerTexture();
 
@@ -94,16 +106,10 @@ public:
 	
 	void FixCollisionOverlaps(std::shared_ptr<BoxCollider2D> otherCollider);
 
-	void Die();
+	void Die(float& dieTime, float _waitTime);
 	//void Update(float deltaTime);
 	
 };
 
-enum PlayerForm {
-	CUBE,
-	SHIP,
-	ARROW,
-	WHEEL,
-	ROBOT
-};
+
 

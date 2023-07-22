@@ -1,6 +1,7 @@
 #include "Wave.h"
 
 Wave::Wave() {
+	m_playerForm = WAVE;
 	m_isJumping = false;
 	m_isFalling = true;
 	m_isOnGround = false;
@@ -10,6 +11,7 @@ Wave::Wave() {
 Wave::Wave(Vector2 _position, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _playerTexture)
 	: Player(_position, _rotation, _direction, _velocity, _playerTexture)
 {
+	m_playerForm = WAVE;
 	m_isJumping = false;
 	m_isFalling = true;
 	m_isOnGround = false;
@@ -36,7 +38,7 @@ void Wave::Rotate(double _rotateSpeed, float _deltaTime) {
 }
 
 
-void Wave::MoveUp(const double& _gravity, const bool& m_onButtonPressed, bool& m_jumpBuffer, float _deltaTime) {
+void Wave::MoveUp(const double& _gravity, const bool& m_onButtonPressed, float _deltaTime) {
 
 	if (m_onButtonPressed == true) {
 

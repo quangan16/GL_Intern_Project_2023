@@ -99,7 +99,7 @@ bool BoxCollider2D::CheckCollision(const std::shared_ptr<CircleCollider2D> &_oth
     }
 
     Vector2 minLength = closestPointToCircle - (_otherCircleCollider->GetColliderPosition());
-    return minLength.Length() <= _otherCircleCollider->GetRadius() * _otherCircleCollider->GetRadius();
+    return minLength.Length() <= _otherCircleCollider->GetRadius();
 }
 
 

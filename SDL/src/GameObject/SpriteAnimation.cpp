@@ -17,10 +17,11 @@ SpriteAnimation::SpriteAnimation(std::shared_ptr<TextureManager> texture, int sp
 	m_currentFrame = 0;
 	m_currentTicks = 0;
 	m_lastUpdate = SDL_GetTicks();
+	m_repeat = true;
 	Init();
 }
 
-SpriteAnimation::SpriteAnimation(std::shared_ptr<TextureManager> texture, int width, int height, int spriteRow, int frameCount, int numAction, float  frameTime) : BaseObject(texture), m_iWidth {width}, m_iHeight{height}
+SpriteAnimation::SpriteAnimation(std::shared_ptr<TextureManager> texture, int width, int height, int spriteRow, int frameCount, int numAction, float  frameTime, bool _repeat) : BaseObject(texture), m_iWidth {width}, m_iHeight{height}
 {
 
 	m_spriteRow = spriteRow;
@@ -32,6 +33,7 @@ SpriteAnimation::SpriteAnimation(std::shared_ptr<TextureManager> texture, int wi
 	m_currentFrame = 0;
 	m_currentTicks = 0;
 	m_lastUpdate = SDL_GetTicks();
+	m_repeat = _repeat;
 	Init();
 }
 SpriteAnimation::~SpriteAnimation()
@@ -55,10 +57,10 @@ void SpriteAnimation::Draw(SDL_Renderer* renderer)
 void SpriteAnimation::Update(float deltatime)
 {
 	m_currentTicks += deltatime;
-		if(m_currentTicks  >= m_frameTime) {
+	if(m_currentTicks  >= m_frameTime) {
 		m_currentFrame++;
-		if (m_currentFrame >= m_frameCount) {
-			m_currentFrame = 0;
+		if (m_currentFrame >= m_frameCount ) {
+			if(m_repeat == true) m_currentFrame = 0;
 		}
 		m_currentTicks -= m_frameTime;
 	}

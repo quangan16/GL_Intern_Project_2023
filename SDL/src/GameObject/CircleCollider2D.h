@@ -15,7 +15,7 @@ public:
 
     //CircleCollider2D(ColliderType _id, Vector2 _objectPos, bool _isActive, float radius, std::shared_ptr<TextureManager> _texture, SDL_RendererFlip _flip);
 
-    CircleCollider2D(ColliderType _id, Vector2 _objectPos, bool _isActive, float radius, std::shared_ptr<TextureManager> _texture, int _spriteRow, int _frameCount, int _numAction, float _frameTime);
+    CircleCollider2D(ColliderType _id, Vector2 _objectPos, bool _isActive, float radius, std::shared_ptr<TextureManager> _texture, int _spriteRow, int _frameCount, int _numAction, float _frameTime, bool _repeatAni = true);
 
     // Check collision with another circle collider
     bool CheckCollision(const std::shared_ptr<CircleCollider2D>& otherCircle)override;
@@ -37,7 +37,7 @@ public:
 	void SetRotation(double angle);
 	void SetFlip(SDL_RendererFlip flip);
 
-	//std::shared_ptr<SpriteAnimation> m_animation;
+	std::shared_ptr<SpriteAnimation> m_animation;
 
 private:
    

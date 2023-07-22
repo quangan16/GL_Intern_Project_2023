@@ -22,6 +22,8 @@ GSPlay::~GSPlay()
 
 void GSPlay::Init()
 {
+	timer = 0.0f;
+	aliveTime = 0.0f;
 	auto texture = ResourceManagers::GetInstance()->GetTexture("backx2.tga");
 	texture->setColor(148, 34, 224);
 	texture->SetAlpha(500);
@@ -40,12 +42,15 @@ void GSPlay::Init()
 	m_gameMap = std::make_shared<GameMap>();
 	m_gameMap->LoadMap("Data/map01.dat");
 	m_gameMap->DrawMap();
-
-	texture = ResourceManagers::GetInstance()->GetTexture("jump_trigger_24.tga");
-	m_trigger1 = std::make_shared<CircleCollider2D>(ColliderType::JUMP_BOOST, Vector2(500, 500), true, TILE_SIZE, texture, 1, 15, 1, 0.2f);
-	m_trigger1->SetFlip(SDL_FLIP_HORIZONTAL);
-	m_trigger1->SetSize(90, 90);
-	m_trigger1->Set2DPosition(640, 800);
+	//Test jump trigger
+	{
+		
+		texture = ResourceManagers::GetInstance()->GetTexture("jump_trigger_24.tga");
+		m_trigger1 = std::make_shared<CircleCollider2D>(ColliderType::JUMP_BOOST, Vector2(1200, 500), true, TILE_SIZE, texture, 1, 15, 1, 0.2f)->m_animation;
+		m_trigger1->SetFlip(SDL_FLIP_HORIZONTAL);
+		m_trigger1->SetSize(90, 90);
+		m_trigger1->Set2DPosition(640, 800);
+	}
 	// button close
 	texture = ResourceManagers::GetInstance()->GetTexture("button_close.tga");
 	button = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
@@ -56,7 +61,7 @@ void GSPlay::Init()
 		
 		g_stateControllerPtr.reset();
 		g_stateControllerPtr = nullptr;
-		std::cout << "duma";
+		
 		});
 	m_listButton.push_back(button);
 	
@@ -76,7 +81,7 @@ void GSPlay::Init()
 
 	//Init Player
 	//Cube
-	std::cout << m_iCharacterTexture_index << std::endl;
+	//std::cout << m_iCharacterTexture_index << std::endl;
 	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_" + std::to_string(m_iCharacterTexture_index) +".tga");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
 	m_player = std::make_shared<Cube>(Vector2(-100.0f, 300.0f), 0.0, 1, 0.0, texture);
@@ -94,7 +99,7 @@ void GSPlay::Init()
 	m_playerCollider = m_player->GetCollider();
 	m_playerCollider->SetSize(90, 90);
 	Camera::GetInstance()->SetTarget(m_playerSprite);*/
-
+	
 	//Arrow
 	/*texture = ResourceManagers::GetInstance()->GetTexture("wave_13.png");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
@@ -107,8 +112,8 @@ void GSPlay::Init()
 
 
 	//Test Colliders
-	texture = ResourceManagers::GetInstance()->GetTexture("collider_border.tga");
-	/*m_collider1 = std::make_shared<BoxCollider2D>(ColliderType::GROUND, Vector2(0.0f, 500.0f), true, 5000.0f, 410.0f, texture, SDL_FLIP_NONE);
+	/*texture = ResourceManagers::GetInstance()->GetTexture("collider_border.tga");
+	m_collider1 = std::make_shared<BoxCollider2D>(ColliderType::GROUND, Vector2(0.0f, 500.0f), true, 5000.0f, 410.0f, texture, SDL_FLIP_NONE);
 	m_collider2 = std::make_shared<BoxCollider2D>(ColliderType::GROUND, Vector2(5100.0f, 500.0f), true, 5000.0f, 410.0f, texture, SDL_FLIP_NONE);
 	m_colliderList.push_back(m_collider2);
 	m_colliderList.push_back(m_collider1);*/
@@ -126,7 +131,7 @@ void GSPlay::Init()
 	for (auto& it : m_gameMap->tile_map_circle)
 	{
 		m_circleColliderList.push_back(it);
-		
+		m_listTriggerAnimation.push_back(it->m_animation);
 		//std::cout<< m_listAnimation
 	}
 	m_listAnimation.push_back(m_trigger1);
@@ -186,6 +191,7 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 			m_KeyPress |= 1 << 4;
 			OnButtonPressed = true;
 			m_onButtonPressed = true;
+			OnButtonDown = true;
 			if (!m_player->m_isJumping) // Only jump if the player is not already jumping
 			{
 				if (std::dynamic_pointer_cast<Cube>(m_player) != NULL) {
@@ -198,7 +204,7 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 				}
 			}
 			else if (m_player->m_isFalling) {
-				jumpBuffer = true;
+				m_player->m_jumpBuffer = true;
 			}
 
 			
@@ -272,7 +278,13 @@ void GSPlay::PlayerTransform()
 
 void GSPlay::Update(float deltaTime)
 {
-	m_player->Die();
+	if(m_player->m_isAlive)
+	{
+		aliveTime += deltaTime;
+	}
+	timer += deltaTime;
+	
+	m_player->Die(aliveTime, 2);
 	//std::cout << g_stateControllerPtr;
 	try {
 		HandleEvents();
@@ -281,7 +293,7 @@ void GSPlay::Update(float deltaTime)
 	m_player->ApplyGravity(m_gravity, deltaTime);
 	m_player->SetPlayerPosition(m_player->GetPlayerPosition().x + 500 * deltaTime, m_player->GetPlayerPosition().y);
 	//std::cout << OnButtonPressed << std::endl;
-	m_player->MoveUp(m_gravity, m_onButtonPressed, jumpBuffer, deltaTime);
+	m_player->MoveUp(m_gravity, m_onButtonPressed, deltaTime);
 	//std::cout << OnButtonPressed << std::endl;
 	
 	m_player->FixRotationOnGround(deltaTime);
@@ -313,9 +325,9 @@ void GSPlay::Update(float deltaTime)
 
 	}
 	
-	/*for (const auto& collider : m_colliderList) {
-		m_player->OnCollisionStay(collider, isOnGround, isFalling);
-	}*/
+	for (const auto& collider : m_circleColliderList) {
+		m_player->OnCollisionTrigger(collider, m_gravity, deltaTime);
+	}
 	
 	
 	
@@ -324,6 +336,10 @@ void GSPlay::Update(float deltaTime)
 	if (m_player->m_changedState == true) {
 		m_player->m_changedState = false;
 	}
+		if(OnButtonDown == true)
+		{
+			OnButtonDown = false;
+		}
 	
 	}
 	
@@ -379,7 +395,7 @@ void GSPlay::Update(float deltaTime)
 		it->Update(deltaTime);
 	}
 
-	for (auto it : m_circleColliderList)
+	for (auto it : m_listTriggerAnimation)
 	{
 		it->Update(deltaTime);
 	}
@@ -401,7 +417,7 @@ void GSPlay::Update(float deltaTime)
 
 	//Update position of camera
 	Camera::GetInstance()->Update(deltaTime);
-	Camera::GetInstance()->GetPosition();
+	//Camera::GetInstance()->GetPosition();
 	/*obj->update(deltatime);*/
 	//printf("%f, \n", obj->GetPosition().x);
 	//std::system("cls");
@@ -446,7 +462,7 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 	{
 		it->Draw(renderer);
 	}
-	for (auto it : m_circleColliderList)
+	for (auto it : m_listTriggerAnimation)
 	{
 		it->Draw(renderer);
 	}

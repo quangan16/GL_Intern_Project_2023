@@ -1,4 +1,7 @@
 #include "GameMap.h"
+
+#include <iostream>
+
 #include "GameManager/ResourceManagers.h"
 #include "BoxCollider2D.h"
 #include "CircleCollider2D.h"
@@ -124,9 +127,9 @@ void GameMap::DrawMap()
 					tile_map_box.push_back(tile);
 				}
 				if (val == 24) {
-					auto texture = ResourceManagers::GetInstance()->GetTexture("jump_trigger_" + std::to_string(val) + ".tga");
-					auto tile = std::make_shared<CircleCollider2D>(ColliderType::JUMP_BOOST, Vector2(j,i ), true, TILE_SIZE/2, texture, 1, 15, 1, 0.2f);
-					
+					auto texture = ResourceManagers::GetInstance()->GetTexture("Jump_Trigger_" + std::to_string(val) + ".tga");
+					auto tile = std::make_shared<CircleCollider2D>(ColliderType::JUMP_BOOST, Vector2(j,i ), true, TILE_SIZE/2, texture, 1, 4, 1, 0.06f, false);
+					//std::cout << "Pos" <<tile->GetPosition().y<<" "<< j << std::endl;
 					
 					tile_map_circle.push_back(tile);
 				}
