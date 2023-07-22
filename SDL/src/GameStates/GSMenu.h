@@ -29,7 +29,6 @@ private:
 	std::shared_ptr<Sprite2D>				m_gameTitle;
 	SDL_Color m_textColor;
 	TTF_Font*  m_Font;
-	std::shared_ptr<Sound>					m_Sound;
 	int score = 0;
 	std::list<std::shared_ptr<SpriteAnimation>>	m_listAnimation;
 	std::shared_ptr<SpriteAnimation> obj;

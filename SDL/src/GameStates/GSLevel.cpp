@@ -14,7 +14,7 @@ GSLevel::~GSLevel()
 
 void GSLevel::Init()
 {
-
+	if (!isMuted)m_Sound->PlaySound();
 	auto texture = ResourceManagers::GetInstance()->GetTexture("back1.tga");
 
 	// background
@@ -114,6 +114,9 @@ void GSLevel::Init()
 		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_PLAY);
 		});
 	m_listButton.push_back(m_btnPlay);
+
+	//sound
+
 }
 
 void GSLevel::Exit()
@@ -130,7 +133,7 @@ void GSLevel::Pause()
 
 void GSLevel::Resume()
 {
-	//m_Sound->PlaySound();
+	if(!isMuted)m_Sound->PlaySound();
 }
 
 

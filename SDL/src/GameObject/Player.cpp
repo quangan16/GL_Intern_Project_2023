@@ -160,6 +160,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
  void Player::Die() {
 	 if (m_isAlive == false) {
 		 //GameStateMachine::GetInstance()->PopState();
+		 
 		 GameStateMachine::GetInstance()->ChangeState(StateType::STATE_PLAY);
 		 
 	 }

@@ -14,6 +14,8 @@ bool ResourceManagers::isMuted = false;
 
 void GSMenu::Init()
 {
+	//Sound 
+	m_Sound = std::make_shared<Sound>("Data/Sounds/menuLoop.mp3");
 	Camera::GetInstance()->SetPosition({ 0, 0 });
 	auto texture = ResourceManagers::GetInstance()->GetTexture("back1.tga");
 	// background
@@ -79,6 +81,7 @@ void GSMenu::Init()
 	m_gameTitle = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
 	m_gameTitle->SetSize(1409 , 179);
 	m_gameTitle->Set2DPosition((SCREEN_WIDTH - m_gameTitle->GetWidth()) / 2, 50);
+
 }
 
 void GSMenu::Exit()
@@ -89,14 +92,14 @@ void GSMenu::Exit()
 
 void GSMenu::Pause()
 {
-	m_Sound->StopSound();
+	m_Sound->PauseSound();
 
 }
 
 void GSMenu::Resume()
 {
-	m_Sound->PlaySound();
-	Camera::GetInstance()->SetPosition({ 0, 0 });
+	if(!isMuted)
+		m_Sound->PlaySound();
 }
 
 
@@ -125,6 +128,8 @@ void GSMenu::HandleMouseMoveEvents(int x, int y)
 
 void GSMenu::Update(float deltaTime)
 {
+	/*if (isMuted) m_Sound->PauseSound();
+	else m_Sound->PlaySound()*/;
 	m_background->RGBEffect();
 	m_background->Update(deltaTime);
 	for (auto it : m_listButton)

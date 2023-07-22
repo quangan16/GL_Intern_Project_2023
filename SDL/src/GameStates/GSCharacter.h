@@ -32,7 +32,6 @@ private:
 	std::shared_ptr<Text>					m_textBack;
 	SDL_Color m_textColor;
 	TTF_Font* m_Font;
-	std::shared_ptr<Sound>					m_Sound;
 	std::shared_ptr<MouseButton> btnCredit;
 	int score = 0;
 	float time = 0.0f;

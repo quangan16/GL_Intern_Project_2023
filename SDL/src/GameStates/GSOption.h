@@ -1,6 +1,7 @@
 #pragma once
 #include "GameStateBase.h"
 #include "GameObject/MouseButton.h"
+#include "GameObject/Sound.h"
 class Sprite2D;
 class SpriteAnimation;
 
