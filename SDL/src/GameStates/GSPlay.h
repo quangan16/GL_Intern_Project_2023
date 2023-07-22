@@ -8,6 +8,7 @@
 #include "GameObject/Wave.h"
 #include "GameObject/GameMap.h"
 #include "GameObject/BoxCollider2D.h"
+#include "GameObject/CircleCollider2D.h"
 class Sprite2D;
 class SpriteAnimation;
 class Background;
@@ -41,6 +42,7 @@ private:
 	std::shared_ptr<Text>							m_score;
 	std::list<std::shared_ptr<MouseButton>>			m_listButton;
 	std::list<std::shared_ptr<SpriteAnimation>>		m_listAnimation;
+	std::list<std::shared_ptr<SpriteAnimation>>	m_listTriggerAnimation;
 	std::list<std::shared_ptr<Background>>			m_listBackground;
 	std::shared_ptr<MouseButton>					button;
 	std::shared_ptr<Sprite2D>						m_slider;

@@ -125,9 +125,9 @@ void GameMap::DrawMap()
 				}
 				if (val == 24) {
 					auto texture = ResourceManagers::GetInstance()->GetTexture("jump_trigger_" + std::to_string(val) + ".tga");
-					auto tile = std::make_shared<CircleCollider2D>(ColliderType::JUMP_BOOST, Vector2(j,i ), true, TILE_SIZE*2, texture, 1, 15, 1, 0.2f);
+					auto tile = std::make_shared<CircleCollider2D>(ColliderType::JUMP_BOOST, Vector2(j,i ), true, TILE_SIZE/2, texture, 1, 15, 1, 0.2f);
 					
-					tile->m_animation->SetSize(TILE_SIZE, TILE_SIZE);
+					
 					tile_map_circle.push_back(tile);
 				}
 			}

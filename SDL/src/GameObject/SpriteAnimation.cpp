@@ -19,6 +19,21 @@ SpriteAnimation::SpriteAnimation(std::shared_ptr<TextureManager> texture, int sp
 	m_lastUpdate = SDL_GetTicks();
 	Init();
 }
+
+SpriteAnimation::SpriteAnimation(std::shared_ptr<TextureManager> texture, int width, int height, int spriteRow, int frameCount, int numAction, float  frameTime) : BaseObject(texture), m_iWidth {width}, m_iHeight{height}
+{
+
+	m_spriteRow = spriteRow;
+	m_frameCount = frameCount;
+	m_numAction = numAction;
+	//m_animSpeed = animSpeed;
+	m_frameTime = frameTime;
+	//m_flip = flip;
+	m_currentFrame = 0;
+	m_currentTicks = 0;
+	m_lastUpdate = SDL_GetTicks();
+	Init();
+}
 SpriteAnimation::~SpriteAnimation()
 {
 

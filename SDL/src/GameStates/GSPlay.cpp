@@ -42,7 +42,7 @@ void GSPlay::Init()
 	m_gameMap->DrawMap();
 
 	texture = ResourceManagers::GetInstance()->GetTexture("jump_trigger_24.tga");
-	m_trigger1 = std::make_shared<CircleCollider2D>(ColliderType::JUMP_BOOST, Vector2(500, 500), true, TILE_SIZE, texture, 1, 15, 1, 0.2f)->m_animation;
+	m_trigger1 = std::make_shared<CircleCollider2D>(ColliderType::JUMP_BOOST, Vector2(500, 500), true, TILE_SIZE, texture, 1, 15, 1, 0.2f);
 	m_trigger1->SetFlip(SDL_FLIP_HORIZONTAL);
 	m_trigger1->SetSize(90, 90);
 	m_trigger1->Set2DPosition(640, 800);
@@ -79,7 +79,7 @@ void GSPlay::Init()
 	std::cout << m_iCharacterTexture_index << std::endl;
 	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_" + std::to_string(m_iCharacterTexture_index) +".tga");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
-	m_player = std::make_shared<Cube>(Vector2(-200.0f, 300.0f), 0.0, 1, 0.0, texture);
+	m_player = std::make_shared<Cube>(Vector2(-100.0f, 300.0f), 0.0, 1, 0.0, texture);
 	m_player->SetPlayerSprite(80, 80, m_playerSprite);
 	m_playerCollider = m_player->GetCollider();
 	m_playerCollider->SetSize(80, 80);
@@ -126,7 +126,7 @@ void GSPlay::Init()
 	for (auto& it : m_gameMap->tile_map_circle)
 	{
 		m_circleColliderList.push_back(it);
-		m_listAnimation.push_back(it->m_animation);
+		
 		//std::cout<< m_listAnimation
 	}
 	m_listAnimation.push_back(m_trigger1);
@@ -379,6 +379,11 @@ void GSPlay::Update(float deltaTime)
 		it->Update(deltaTime);
 	}
 
+	for (auto it : m_circleColliderList)
+	{
+		it->Update(deltaTime);
+	}
+
 	//Process bar
 	if (processBarWidth >= PROCESS_WIDTH) {
 		currentProcess = currentProcess;
@@ -415,13 +420,14 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 	
 	//draw player
 	m_playerSprite->Draw(renderer);
+	m_playerCollider->Draw(renderer);
 	for (auto it : m_boxColliderList) {
 		it->Draw(renderer);
 	}
 
 	
 
-	m_playerCollider->Draw(renderer);
+	
 
 	//SDL_Rect backgroundRect = { SCREEN_WIDTH / 2 - 245, PROCESS_PADDING + 20, PROCESS_WIDTH, PROCESS_HEIGHT };
 	SDL_Rect foregroundRect = { SCREEN_WIDTH / 2 - 245, PROCESS_PADDING + 20, processBarWidth, PROCESS_HEIGHT };
@@ -435,7 +441,12 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 		it->Draw(renderer);
 	}
 	//obj->Draw(renderer);
+
 	for (auto it : m_listAnimation)
+	{
+		it->Draw(renderer);
+	}
+	for (auto it : m_circleColliderList)
 	{
 		it->Draw(renderer);
 	}

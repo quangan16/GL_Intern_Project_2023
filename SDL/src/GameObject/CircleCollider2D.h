@@ -8,12 +8,12 @@
 #include "BaseObject.h"
 
 #include <memory>
-class CircleCollider2D : public Collider2D, virtual public Sprite2D , virtual public SpriteAnimation{
+class CircleCollider2D : public Collider2D  , virtual public SpriteAnimation{
 public:
     // Constructor
     CircleCollider2D(Vector2 objPosition, float radius);
 
-    CircleCollider2D(ColliderType _id, Vector2 _objectPos, bool _isActive, float radius, std::shared_ptr<TextureManager> _texture, SDL_RendererFlip _flip);
+    //CircleCollider2D(ColliderType _id, Vector2 _objectPos, bool _isActive, float radius, std::shared_ptr<TextureManager> _texture, SDL_RendererFlip _flip);
 
     CircleCollider2D(ColliderType _id, Vector2 _objectPos, bool _isActive, float radius, std::shared_ptr<TextureManager> _texture, int _spriteRow, int _frameCount, int _numAction, float _frameTime);
 
@@ -37,7 +37,7 @@ public:
 	void SetRotation(double angle);
 	void SetFlip(SDL_RendererFlip flip);
 
-	std::shared_ptr<SpriteAnimation> m_animation;
+	//std::shared_ptr<SpriteAnimation> m_animation;
 
 private:
    

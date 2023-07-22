@@ -5,14 +5,14 @@ CircleCollider2D::CircleCollider2D(Vector2 objectPos, float radius) {
     m_radius = radius;
 }
 
-CircleCollider2D::CircleCollider2D(ColliderType _id, Vector2 _objectPos, bool _isActive, float _radius, std::shared_ptr<TextureManager> _texture, SDL_RendererFlip _flip)
-    : Collider2D(_id, _objectPos, _isActive), Sprite2D(_texture, _flip, _radius * 2, _radius * 2), m_radius{ _radius } {}
+//CircleCollider2D::CircleCollider2D(ColliderType _id, Vector2 _objectPos, bool _isActive, float _radius, std::shared_ptr<TextureManager> _texture, SDL_RendererFlip _flip)
+//    : Collider2D(_id, _objectPos, _isActive), Sprite2D(_texture, _flip, _radius * 2, _radius * 2), m_radius{ _radius } {}
 
 
 CircleCollider2D::CircleCollider2D(ColliderType _id, Vector2 _objectPos, bool _isActive, float _radius, std::shared_ptr<TextureManager> _texture, int _spriteRow, int _frameCount, int _numAction, float _frameTime)
-    : Collider2D(_id, _objectPos, _isActive), SpriteAnimation(_texture, _spriteRow,  _frameCount,   _numAction,  _frameTime) {
+    : Collider2D(_id, _objectPos, _isActive), SpriteAnimation(_texture,_radius*2, _radius *2, _spriteRow,  _frameCount,   _numAction,  _frameTime) {
     m_radius = _radius ;
-    m_animation = std::make_shared<SpriteAnimation>(_texture, _spriteRow, _frameCount, _numAction, _frameTime);
+    
 }
 
 // Check collision with another circle collider
@@ -51,13 +51,12 @@ bool CircleCollider2D::CheckCollision(const std::shared_ptr<BoxCollider2D>& _oth
 
  void CircleCollider2D::Draw(SDL_Renderer* renderer)
  {
-     //Get2DPosition();
-     if (BaseObject::m_pTexture != nullptr)
-     {
-         BaseObject::m_pTexture->Render(m_colliderPosition.x, m_colliderPosition.y, m_radius*2, m_radius*2,
-             BaseObject::m_angle,
-             BaseObject::m_flip);
-     }
+     
+         if (BaseObject::m_pTexture != nullptr)
+         {
+             BaseObject::m_pTexture->RenderFrame(m_colliderPosition.x, m_colliderPosition.y, SpriteAnimation::m_iWidth, SpriteAnimation::m_iHeight, m_spriteRow, m_currentFrame, m_frameCount, m_numAction, BaseObject::m_angle, BaseObject::m_flip);
+         }
+     
 
  }
 
