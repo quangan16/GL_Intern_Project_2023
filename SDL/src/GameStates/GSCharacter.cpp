@@ -14,6 +14,7 @@ GSCharacter::~GSCharacter()
 
 void GSCharacter::Init()
 {
+	if (!isMuted)m_Sound->PlaySound();
 	//auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
 	auto texture = ResourceManagers::GetInstance()->GetTexture("back1.tga");
 	m_texture = std::make_shared<TextureManager>();
@@ -209,7 +210,7 @@ void GSCharacter::Init()
 	m_btnBack->SetSize(80, 80);
 	m_btnBack->Set2DPosition(20, 20);
 	m_btnBack->SetOnClick([this, texture]() {
-		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_MENU);
+		GameStateMachine::GetInstance()->PopState();
 		});
 	m_listButton.push_back(m_btnBack);
 
@@ -229,7 +230,8 @@ void GSCharacter::Pause()
 
 void GSCharacter::Resume()
 {
-	m_Sound->PlaySound();
+	if (!isMuted)
+		m_Sound->PlaySound();
 }
 
 

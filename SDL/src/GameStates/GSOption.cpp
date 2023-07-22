@@ -18,6 +18,8 @@ GSOption::~GSOption()
 
 void GSOption::Init()
 {
+	//sound
+	if(!isMuted)m_Sound->PlaySound();
 	//auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
 	auto texture = ResourceManagers::GetInstance()->GetTexture("back1.tga");
 
@@ -54,7 +56,7 @@ void GSOption::Init()
 
 	//onoffmusic
 	//texture = ResourceManagers::GetInstance()->GetTexture("btn_music.tga");
-	if (ResourceManagers::GetInstance()->isMuted)
+	if (isMuted)
 	{
 		texture = ResourceManagers::GetInstance()->GetTexture("button_musicoff.tga");
 	}
@@ -63,19 +65,23 @@ void GSOption::Init()
 		texture = ResourceManagers::GetInstance()->GetTexture("button_musicon.tga");
 
 	}
+
+	//Muted button
 	button = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
 	button->SetSize(100, 100);
 	button->Set2DPosition((SCREEN_WIDTH - button->GetWidth())/2, (SCREEN_HEIGHT - button->GetHeight()) / 2);
 	button->SetOnClick([this, texture]() {
-		if (!ResourceManagers::GetInstance()->isMuted)
-		{
-			button->SetTexture(ResourceManagers::GetInstance()->GetTexture("button_musicoff.tga"));
-			ResourceManagers::GetInstance()->isMuted = true;
-		}
-		else
+		if (isMuted)
 		{
 			button->SetTexture(ResourceManagers::GetInstance()->GetTexture("button_musicon.tga"));
-			ResourceManagers::GetInstance()->isMuted = false;
+			isMuted = false;
+			m_Sound->PlaySound();
+		}
+		else if(!isMuted)
+		{
+			button->SetTexture(ResourceManagers::GetInstance()->GetTexture("button_musicoff.tga"));
+			isMuted = true;
+			m_Sound->PauseSound();
 		}
 	});
 	m_listButton.push_back(button);
@@ -94,11 +100,11 @@ void GSOption::Exit()
 
 void GSOption::Pause()
 {
-
+	m_Sound->PauseSound();
 }
 void GSOption::Resume()
 {
-
+	if (!isMuted) m_Sound->PlaySound();
 }
 
 
@@ -179,7 +185,7 @@ void GSOption::Update(float deltaTime)
 	default:
 		break;
 	}
-
+	m_background->RGBEffect();
 	for (auto it : m_listButton)
 	{
 		it->Update(deltaTime);

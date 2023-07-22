@@ -18,6 +18,7 @@ GSGuide::~GSGuide()
 
 void GSGuide::Init()
 {
+	if (!isMuted)m_Sound->PlaySound();
 	//auto model = ResourceManagers::GetInstance()->GetModel("Sprite2D.nfg");
 	auto texture = ResourceManagers::GetInstance()->GetTexture("back1.tga");
 
@@ -57,6 +58,8 @@ void GSGuide::Init()
 		GameStateMachine::GetInstance()->PopState();
 		});
 	m_listButton.push_back(m_buttonBack);
+
+	//sound
 }
 
 void GSGuide::Exit()
@@ -67,11 +70,11 @@ void GSGuide::Exit()
 
 void GSGuide::Pause()
 {
-
+	m_Sound->PauseSound();
 }
 void GSGuide::Resume()
 {
-
+	if (!isMuted) m_Sound->PlaySound();
 }
 
 

@@ -5,6 +5,7 @@ Sound::Sound(std::string pathMusic)
 {
     Init();
 	LoadSound(pathMusic);
+    PlaySound();
 }
 
 Sound::~Sound()
@@ -49,11 +50,11 @@ void Sound::PlaySound()
             Mix_ResumeMusic();
         }
         //If the music is playing
-        else
-        {
-            //Pause the music
-            Mix_PauseMusic();
-        }
+        //else
+        //{
+        //    //Pause the music
+        //    Mix_PauseMusic();
+        //}
     }
 }
 
