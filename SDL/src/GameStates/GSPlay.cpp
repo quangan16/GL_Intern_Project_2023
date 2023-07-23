@@ -291,7 +291,6 @@ void GSPlay::Update(float deltaTime)
 		
 	m_player->RunIntoScene(m_readyPos, deltaTime);
 	m_player->ApplyGravity(m_gravity, deltaTime);
-	m_player->SetPlayerPosition(m_player->GetPlayerPosition().x + 500 * deltaTime, m_player->GetPlayerPosition().y);
 	//std::cout << OnButtonPressed << std::endl;
 	m_player->MoveUp(m_gravity, m_onButtonPressed, deltaTime);
 	//std::cout << OnButtonPressed << std::endl;

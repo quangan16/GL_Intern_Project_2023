@@ -80,8 +80,13 @@ void Player::UpdatePlayerSpriteRotation(const std::shared_ptr<Sprite2D>& _player
 
 void Player::UpdatePlayerPos(float& _deltaTime) {
 	//CheckToMap(map_data, _deltaTime);
-	// //m_playerPosition.x += m_playerSpeed * _deltaTime;
-	m_playerPosition.y += m_direction * m_velocity * _deltaTime;
+	if(m_isAlive)
+	{
+		m_playerPosition.x += m_playerSpeed * _deltaTime;
+		m_playerPosition.y += m_direction * m_velocity * _deltaTime;
+	}
+	 
+	
 	
 }
 
@@ -169,6 +174,14 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 m_velocity = m_jumpForce;
 			 m_jumpBuffer = false;
 			 
+		 }
+		 if (_otherCollider->GetColliderID() == ColliderType::JUMP_BOOST_AUTO ) {
+			 //std::cout << "ok" << std::endl;
+			 m_isJumping = false;
+			 m_isJumping = true;
+			 m_velocity = m_jumpForce;
+			 m_jumpBuffer = false;
+
 		 }
 	 }
  }

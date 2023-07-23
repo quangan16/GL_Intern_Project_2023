@@ -127,10 +127,19 @@ void GameMap::DrawMap()
 					tile_map_box.push_back(tile);
 				}
 				if (val == 24) {
-					auto texture = ResourceManagers::GetInstance()->GetTexture("Jump_Trigger_" + std::to_string(val) + ".tga");
-					auto tile = std::make_shared<CircleCollider2D>(ColliderType::JUMP_BOOST, Vector2(j,i ), true, TILE_SIZE/2, texture, 1, 4, 1, 0.06f, false);
+					auto texture = ResourceManagers::GetInstance()->GetTexture("Mouse_Jump_Trigger_" + std::to_string(val) + ".tga");
+					auto tile = std::make_shared<CircleCollider2D>(ColliderType::JUMP_BOOST, Vector2(j,i ), true, TILE_SIZE/2, texture, 1, 30, 1, 0.033f);
 					//std::cout << "Pos" <<tile->GetPosition().y<<" "<< j << std::endl;
-					
+					tile->m_animation->SetSize(TILE_SIZE *2 , TILE_SIZE*2);
+					tile_map_circle.push_back(tile);
+				}
+				if(val == 25)
+				{
+					auto texture = ResourceManagers::GetInstance()->GetTexture("Auto_Jump_Trigger_" + std::to_string(val) + ".tga");
+					auto tile = std::make_shared<CircleCollider2D>(ColliderType::JUMP_BOOST_AUTO, Vector2(j , i), true, TILE_SIZE / 6, texture, 1, 19, 1, 0.033f);
+					//std::cout << "Pos" <<tile->GetPosition().y<<" "<< j << std::endl;
+					tile->m_animation->SetPosition(Vector3(j - (TILE_SIZE / 2), i, 0));
+					tile->m_animation->SetSize(TILE_SIZE * 2, TILE_SIZE);
 					tile_map_circle.push_back(tile);
 				}
 			}
