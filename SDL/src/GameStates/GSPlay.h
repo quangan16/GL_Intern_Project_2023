@@ -92,5 +92,6 @@ private:
 	bool m_onButtonDown = false;
 	bool m_onButtonUp = false;
 
+	bool m_hasGotPlayerJumpLocation;
 };
 

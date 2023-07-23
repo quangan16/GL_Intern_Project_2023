@@ -3,6 +3,7 @@
 #include "SDL.h"
 #include "Sprite2D.h"
 #include "Define.h"
+#include "Player.h"
 #include "GameManager/Singleton.h"
 class Camera : public CSingleton<Camera>
 {
@@ -12,6 +13,7 @@ public:
 	Vector2 GetPosition();
 	void SetTarget(std::shared_ptr<Sprite2D> target);
 	void Update(float deltaTime);
+	void Update2(std::shared_ptr<Player>& _player, float deltaTime);
 	void SetPosition(Vector2 _position);
 private:
 	std::shared_ptr<Sprite2D> m_Target;

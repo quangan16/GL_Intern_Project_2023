@@ -18,9 +18,10 @@ Player::Player(Vector2 _position, double _rotation, int _direction, double _velo
 	: m_playerPosition{ _position }, m_playerRotation{ _rotation }, m_direction{ _direction }, m_velocity{ _velocity }, m_playerTexture{ _playerTexture },
 	m_playerCollider(std::make_shared<BoxCollider2D>(ColliderType::PLAYER, _position, true, 128.0f, 128.0f, ResourceManagers::GetInstance()->GetTexture("collider_border.tga"), SDL_FLIP_NONE))
 {
+	m_isAlive = true;
 	m_playerDieEffect = std::make_shared<SpriteAnimation>(ResourceManagers::GetInstance()->GetTexture("Player_Die_1.tga"), TILE_SIZE, TILE_SIZE , 1, 59, 1, 0.01f, false);
-	m_playerJumpEffect = std::make_shared<SpriteAnimation>(ResourceManagers::GetInstance()->GetTexture("Player_Jump_Effect_1.tga"), TILE_SIZE, TILE_SIZE, 1, 4, 1, 0.01f, false);
-	m_playerTrailEffect = std::make_shared<SpriteAnimation>(ResourceManagers::GetInstance()->GetTexture("Player_Trail_Effect_1.tga"), TILE_SIZE, TILE_SIZE, 1, 59, 1, 0.01f, false);
+	m_playerJumpEffect = std::make_shared<SpriteAnimation>(ResourceManagers::GetInstance()->GetTexture("Player_Jump_Effect_1.tga"), TILE_SIZE, TILE_SIZE, 1, 4, 1, 0.02f, false);
+	m_playerTrailEffect = std::make_shared<SpriteAnimation>(ResourceManagers::GetInstance()->GetTexture("Player_Trail_Effect_1.tga"), TILE_SIZE, TILE_SIZE, 1, 9, 1, 0.03f, true);
 }
 
 Player::~Player() {
@@ -87,7 +88,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 	//CheckToMap(map_data, _deltaTime);
 	if(m_isAlive)
 	{
-		m_playerPosition.x += 100.0f * _deltaTime;
+		m_playerPosition.x += m_playerSpeed * _deltaTime;
 		m_playerPosition.y += m_direction * m_velocity * _deltaTime;
 	}
 	 
@@ -173,12 +174,12 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 		
 		 if (_otherCollider->GetColliderID() == ColliderType::JUMP_BOOST ) {
 			 //std::cout << "ok" << std::endl;
-			 std::cout << "contact";
+			 //std::cout << "contact";
 
-			 /*m_isJumping = false;
+			 m_isJumping = false;
 			 m_isJumping = true;
 			 m_velocity = m_jumpForce;
-			 m_jumpBuffer = false;*/
+			 m_jumpBuffer = false;
 			 
 		 }
 		 if (_otherCollider->GetColliderID() == ColliderType::JUMP_BOOST_AUTO ) {

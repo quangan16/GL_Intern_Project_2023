@@ -57,10 +57,21 @@ void SpriteAnimation::Draw(SDL_Renderer* renderer)
 void SpriteAnimation::Update(float deltatime)
 {
 	m_currentTicks += deltatime;
-	if(m_currentTicks  >= m_frameTime) {
+	if(m_currentTicks  >= m_frameTime ) {
 		m_currentFrame++;
-		if (m_currentFrame >= m_frameCount ) {
-			if(m_repeat == true) m_currentFrame = 0;
+		if (m_repeat == true)
+		{
+			if (m_currentFrame >= m_frameCount) {
+				m_currentFrame = 0;
+			}
+		}
+		else
+		{
+			if(g_trigger == true)
+			{
+				m_currentFrame = 0;
+				g_trigger = false;
+			}
 		}
 		m_currentTicks -= m_frameTime;
 	}
