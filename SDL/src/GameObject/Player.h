@@ -27,6 +27,10 @@ public:
 	bool m_jumpBuffer = false;
 	bool m_changedState;
 
+	std::shared_ptr<SpriteAnimation> m_playerDieEffect;
+	std::shared_ptr<SpriteAnimation> m_playerTrailEffect;
+	std::shared_ptr<SpriteAnimation> m_playerJumpEffect;
+
 protected:
 	PlayerForm m_playerForm;
 	Vector2 m_playerPosition;
@@ -39,6 +43,9 @@ protected:
 
 	std::shared_ptr<TextureManager> m_playerTexture;
 	std::shared_ptr<Sprite2D> m_playerSprite;
+
+	
+
 
 	std::shared_ptr<BoxCollider2D> m_playerCollider;
 

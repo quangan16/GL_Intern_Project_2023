@@ -43,14 +43,14 @@ void GSPlay::Init()
 	m_gameMap->LoadMap("Data/map01.dat");
 	m_gameMap->DrawMap();
 	//Test jump trigger
-	{
+	/*{
 		
-		texture = ResourceManagers::GetInstance()->GetTexture("jump_trigger_24.tga");
-		m_trigger1 = std::make_shared<CircleCollider2D>(ColliderType::JUMP_BOOST, Vector2(1200, 500), true, TILE_SIZE, texture, 1, 15, 1, 0.2f)->m_animation;
+		texture = ResourceManagers::GetInstance()->GetTexture("circleBorder.tga");
+		m_trigger1 = std::make_shared<CircleCollider2D>(ColliderType::JUMP_BOOST, Vector2(1200, 500), true, TILE_SIZE, texture, SDL_FLIP_NONE);
 		m_trigger1->SetFlip(SDL_FLIP_HORIZONTAL);
 		m_trigger1->SetSize(90, 90);
 		m_trigger1->Set2DPosition(640, 800);
-	}
+	}*/
 	// button close
 	texture = ResourceManagers::GetInstance()->GetTexture("button_close.tga");
 	button = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
@@ -134,7 +134,8 @@ void GSPlay::Init()
 		m_listTriggerAnimation.push_back(it->m_animation);
 		//std::cout<< m_listAnimation
 	}
-	m_listAnimation.push_back(m_trigger1);
+	//m_listAnimation.push_back(m_trigger1);
+	m_listAnimation.push_back(m_player->m_playerDieEffect);
 }
 
 void GSPlay::Exit()
@@ -168,6 +169,34 @@ void GSPlay::HandleEvents()
 
 void GSPlay::HandleKeyEvents(SDL_Event& e)
 {
+	if(e.type == SDL_MOUSEBUTTONDOWN)
+	{
+		switch (e.button.button)
+		{
+		case 1:
+			m_KeyPress |= 1 << 4;
+			OnButtonPressed = true;
+			m_onButtonPressed = true;
+			OnButtonDown = true;
+			if (!m_player->m_isJumping) // Only jump if the player is not already jumping
+			{
+				if (std::dynamic_pointer_cast<Cube>(m_player) != NULL) {
+					m_player->SetPlayerVelocity(m_player->m_jumpForce);
+					float jumpHeight = JUMP_HEIGHT;
+					m_player->m_isJumping = true;
+				}
+				if (std::dynamic_pointer_cast<Ship>(m_player) != NULL) {
+					m_player->m_jumpForce = 5000;
+				}
+			}
+			else if (m_player->m_isFalling) {
+				m_player->m_jumpBuffer = true;
+			}
+
+
+			break;
+		}
+	}
 	//If a key was pressed
 	if (e.type == SDL_KEYDOWN ) 
 	//For e.key.repeat it's because key repeat is enabled by default and if you press and hold a key it will report multiple key presses. That means we have to check if the key press is the first one because we only care when the key was first pressed.
@@ -210,11 +239,29 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 			
 			break;
 
-
+		
 		default:
 			break;
 		}
 
+	}
+	//Mouse Up
+	if (e.type == SDL_MOUSEBUTTONUP)
+	{
+		switch (e.button.button)
+		{
+		case 1:
+			m_KeyPress ^= 1 << 4;
+			OnButtonPressed = false;
+			m_onButtonPressed = false;
+			m_onButtonUp = true;
+			if (std::dynamic_pointer_cast<Ship>(m_player) != NULL && !m_player->m_isFalling) {
+				m_player->m_jumpForce = 5000;
+			}
+			/*m_player->m_isJumping = false;
+			m_player->m_isFalling = true;*/
+			break;
+		}
 	}
 	////Key Up
 	else if (e.type == SDL_KEYUP )
@@ -255,6 +302,10 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 
 void GSPlay::HandleTouchEvents(SDL_Event& e, bool bIsPressed)
 {
+	if(bIsPressed)
+	{
+		//std::cout << "sdjkfhdjkfgh";
+	}
 
 	for (auto button : m_listButton)
 	{
@@ -384,14 +435,16 @@ void GSPlay::Update(float deltaTime)
 	{
 		it->Update(deltaTime);
 	}
-	for (auto it : m_listAnimation)
+	if (m_player->m_isAlive == false)
 	{
-		/*if (m_KeyPress == 1)
-		{
+		
+			m_player->m_playerDieEffect->Update(deltaTime);
+		
+	}
 
-			it->MoveLeft(deltaTime);
-		}*/
-		it->Update(deltaTime);
+	if(m_player->m_isJumping == true)
+	{
+		m_player->m_playerJumpEffect->Update(deltaTime);
 	}
 
 	for (auto it : m_listTriggerAnimation)
@@ -431,10 +484,20 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 	}
 
 	//m_score->Draw(renderer);
-	
+	if(m_player->m_isAlive == false)
+	{
+		//m_player->m_playerDieEffect->SetCurrentFrame(1);
+		m_player->m_playerDieEffect->SetPosition(Vector3(m_player->GetPlayerPosition().x - TILE_SIZE/2, m_player->GetPlayerPosition().y - TILE_SIZE / 2, 0));
+		m_player->m_playerDieEffect->SetSize(TILE_SIZE*2, TILE_SIZE*2);
+		m_player->m_playerDieEffect->Draw(renderer);
+	}
+	else
+	{
+		m_playerSprite->Draw(renderer);
+	}
 	
 	//draw player
-	m_playerSprite->Draw(renderer);
+	//m_playerSprite->Draw(renderer);
 	m_playerCollider->Draw(renderer);
 	for (auto it : m_boxColliderList) {
 		it->Draw(renderer);
@@ -457,14 +520,17 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 	}
 	//obj->Draw(renderer);
 
-	for (auto it : m_listAnimation)
+	/*for (auto it : m_listAnimation)
 	{
 		it->Draw(renderer);
+	}*/
+	if (!m_circleColliderList.empty()) {
+		for (auto it : m_listTriggerAnimation)
+		{
+			it->Draw(renderer);
+		}
 	}
-	for (auto it : m_listTriggerAnimation)
-	{
-		it->Draw(renderer);
-	}
+	//m_trigger1->Draw(renderer);
 	m_slider->DrawFixedObject(renderer);
 	m_Process->Draw(renderer);
 

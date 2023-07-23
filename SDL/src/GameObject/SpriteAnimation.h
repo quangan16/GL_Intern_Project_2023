@@ -34,7 +34,7 @@ public:
 	void		Set2DPosition(float x, float y);
 	void		SetRotation(double angle);
 	void SetFlip (SDL_RendererFlip flip);
-
+	void SetCurrentFrame(int _frame);
 	Vector2		Get2DPosition();
 	void		SetSize(int width, int height);
 	int GetWidth();

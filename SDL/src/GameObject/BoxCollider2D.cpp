@@ -78,7 +78,7 @@ bool BoxCollider2D::CheckCollision(const std::shared_ptr<BoxCollider2D> &_otherA
 bool BoxCollider2D::CheckCollision(const std::shared_ptr<CircleCollider2D> &_otherCircleCollider) {
     Vector2 minPoint = m_colliderPosition;
     Vector2 maxPoint = Vector2(m_colliderPosition.x + m_width, m_colliderPosition.y + m_height);
-    Vector2 closestPointToCircle = _otherCircleCollider->GetColliderPosition();
+    Vector2 closestPointToCircle = _otherCircleCollider->GetCenterPosition();
 
     if(closestPointToCircle.x < minPoint.x)
     {
@@ -98,7 +98,7 @@ bool BoxCollider2D::CheckCollision(const std::shared_ptr<CircleCollider2D> &_oth
         closestPointToCircle.y = maxPoint.y;
     }
 
-    Vector2 minLength = closestPointToCircle - (_otherCircleCollider->GetColliderPosition());
+    Vector2 minLength = closestPointToCircle - (_otherCircleCollider->GetCenterPosition());
     return minLength.Length() <= _otherCircleCollider->GetRadius();
 }
 

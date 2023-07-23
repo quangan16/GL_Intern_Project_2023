@@ -5,7 +5,7 @@
 #include "GameStateMachine.h"
 //Screen dimension constants
 #include"SDL_mixer.h"
-const int SCREEN_FPS = 60;
+const int SCREEN_FPS = 120;
 const int SCREEN_TICKS_PER_FRAME = 1000 / SCREEN_FPS;
 Game::Game()
 {

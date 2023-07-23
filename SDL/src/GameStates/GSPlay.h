@@ -64,7 +64,7 @@ private:
 	const int m_fBackground_speed = 10.f;
 	Vector2 m_readyPos = Vector2(500, 700);
 
-	std::shared_ptr<SpriteAnimation> m_trigger1;
+	std::shared_ptr<Sprite2D> m_trigger1;
 	
 
 	//Player's jump params

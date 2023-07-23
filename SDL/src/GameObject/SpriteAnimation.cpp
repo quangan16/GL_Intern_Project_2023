@@ -107,3 +107,8 @@ void SpriteAnimation::MoveLeft(float deltaTime)
 {
 	m_position.x += 20 * deltaTime;
 }
+
+void SpriteAnimation::SetCurrentFrame(int _frame)
+{
+	m_currentFrame = _frame;
+}
