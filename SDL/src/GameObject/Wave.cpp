@@ -6,6 +6,7 @@ Wave::Wave() {
 	m_isFalling = true;
 	m_isOnGround = false;
 	m_jumpForce = 10000.0;
+	m_isAlive = true;
 }
 
 Wave::Wave(Vector2 _position, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _playerTexture)
@@ -16,6 +17,7 @@ Wave::Wave(Vector2 _position, double _rotation, int _direction, double _velocity
 	m_isFalling = true;
 	m_isOnGround = false;
 	m_jumpForce = 10000.0;
+	m_isAlive = true;
 };
 
 Wave::~Wave() {

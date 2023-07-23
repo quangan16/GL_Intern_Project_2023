@@ -93,9 +93,9 @@ void GSPlay::Init()
 	Camera::GetInstance()->SetTarget(m_playerSprite);
 
 	//Ship
-	/*texture = ResourceManagers::GetInstance()->GetTexture("ship_26.png");
+	/*texture = ResourceManagers::GetInstance()->GetTexture("player_ship_1.tga");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
-	m_player = std::make_shared<Ship>(Vector2(-200.0f, 300.0f), 0.0, 1, 0.0, texture);
+	m_player = std::make_shared<Ship>(Vector2(-200.0f, 500.0f), 0.0, 1, 0.0, texture);
 	m_player->SetPlayerSprite(90, 60, m_playerSprite);
 	m_playerCollider = m_player->GetCollider();
 	m_playerCollider->SetSize(90, 90);
@@ -402,6 +402,7 @@ void GSPlay::Update(float deltaTime)
 		
 	}
 	//std::cout << m_player->GetPlayerVelocity()<<std::endl;
+	//std::cout << m_player->GetPlayerPosition().x << std::endl;
 	//std::cout << m_collider1->GetColliderPosition().y;
 	//std::cout << "isFalling " << m_player->m_isFalling << std::endl;
 	//std::cout << "isJumping " << m_player->m_isJumping << std::endl;
@@ -411,7 +412,7 @@ void GSPlay::Update(float deltaTime)
 	//std::cout << "Number of coliders: " << m_colliderList.size()<<std::endl;
 	//std::cout << OnButtonPressed << std::endl;
 	//std::cout << m_playerCollider->GetWidth() << std::endl;
-	std::cout << "isAlive" + m_player->m_isAlive << std::endl;
+	//std::cout << m_player->m_isAlive << std::endl;
 	
 	
 
@@ -494,10 +495,10 @@ void GSPlay::Update(float deltaTime)
 
 	//Update position of camera
 	
-		Camera::GetInstance()->Update2(m_player, deltaTime);
+	Camera::GetInstance()->Update(deltaTime);
 	
 	
-	std::cout<<Camera::GetInstance()->GetPosition().x;
+	//std::cout<<Camera::GetInstance()->GetPosition().x;
 	/*obj->update(deltatime);*/
 	//printf("%f, \n", obj->GetPosition().x);
 	//std::system("cls");

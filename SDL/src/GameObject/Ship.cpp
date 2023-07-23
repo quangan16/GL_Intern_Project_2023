@@ -5,7 +5,9 @@ Ship::Ship() {
 	m_isJumping = false;
 	m_isFalling = true;
 	m_isOnGround = false;
+	m_isAlive = true;
 	m_jumpForce = 10000.0;
+	m_
 }
 
 Ship::Ship(Vector2 _position, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _playerTexture)
@@ -15,6 +17,7 @@ Ship::Ship(Vector2 _position, double _rotation, int _direction, double _velocity
 	m_isJumping = false;
 	m_isFalling = true;
 	m_isOnGround = false;
+	m_isAlive = true;
 	m_jumpForce = 10000.0;
 };
 

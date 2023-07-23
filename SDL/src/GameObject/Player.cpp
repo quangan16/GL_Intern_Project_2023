@@ -120,7 +120,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 				 FixCollisionOverlaps(_otherCollider);
 			 }
 			 //Handle bottom collide with grounds
-			 else if (m_playerCollider->GetColliderPosition().y < _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight() && m_playerForm != ROBOT) {
+			 else if (m_playerCollider->GetColliderPosition().y < _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight() ) {
 				 m_isAlive = false;
 			 }
 		 }
@@ -130,20 +130,21 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 
 		 }
 		 else if (_otherCollider->GetColliderID() == ColliderType::PORTAL_CUBE && m_changedState == false) {
-			 _player = this->TransformToShip();
+			 _player = this->TransformToCube();
 			 _playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_cube_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
-			 isChangedForm = true;
+			 m_changedState = true;
 		 }
 
 		 else if (_otherCollider->GetColliderID() == ColliderType::PORTAL_SHIP && m_changedState == false) {
 			 _player = this->TransformToShip();
 			 _playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_ship_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
-			 isChangedForm = true;
+			 m_changedState = true;
 		 }
 
 		 else if (_otherCollider->GetColliderID() == ColliderType::PORTAL_WAVE) {
 			 _player = this->TransformToWave();
 			 _playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_wave_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
+			 m_changedState = true;
 		 }
 
 		 //if (_otherCollider->GetColliderID() == ColliderType::JUMP_BOOST_AUTO ) {
@@ -239,7 +240,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 	 Vector2 currentPosition = this->m_playerPosition;
  	 std::shared_ptr<TextureManager> currentTexture = ResourceManagers::GetInstance()->GetTexture("player_ship_1.tga");
 
-	 //this->SetPlayerSprite(300, 300, std::make_shared<Sprite2D>(currentTexture, SDL_FLIP_NONE));
+	 this->SetPlayerSprite(300, 300, std::make_shared<Sprite2D>(currentTexture, SDL_FLIP_NONE));
 	 
 	 return std::make_shared<Ship>(currentPosition, 0.0, 1, 0.0, currentTexture);
 	 
