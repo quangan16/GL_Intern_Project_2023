@@ -37,7 +37,7 @@ protected:
 	double m_playerRotation;
 	int m_direction;
 	double m_velocity;
-	float m_playerSpeed = PLAYER_SPEED;
+	float m_playerSpeed;
 	double max_velocity = 3000;
 	
 

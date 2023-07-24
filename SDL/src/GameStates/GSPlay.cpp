@@ -27,6 +27,7 @@ void GSPlay::Init()
 	auto texture = ResourceManagers::GetInstance()->GetTexture("backx2.tga");
 	texture->setColor(148, 34, 224);
 	texture->SetAlpha(500);
+	m_hasGotPlayerJumpLocation = false;
 	// background_1
 	for (int i = 0; i < MAX_MAP_X * TILE_SIZE; i += SCREEN_WIDTH)
 	{
@@ -84,17 +85,17 @@ void GSPlay::Init()
 	//std::cout << m_iCharacterTexture_index << std::endl;
 	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_" + std::to_string(m_iCharacterTexture_index) +".tga");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
-	m_player = std::make_shared<Cube>(Vector2(-100.0f, 300.0f), 0.0, 1, 0.0, texture);
-	m_player->SetPlayerSprite(80, 80, m_playerSprite);
+	m_player = std::make_shared<Cube>(Vector2(-200.0f, 500.0f), 0.0, 1, 0.0, texture);
+	m_player->SetPlayerSprite(TILE_SIZE, TILE_SIZE, m_playerSprite);
 	m_playerCollider = m_player->GetCollider();
-	m_playerCollider->SetSize(80, 80);
+	m_playerCollider->SetSize(TILE_SIZE, TILE_SIZE);
 	m_player->m_changedState = false;
 	Camera::GetInstance()->SetTarget(m_playerSprite);
 
 	//Ship
-	/*texture = ResourceManagers::GetInstance()->GetTexture("ship_26.png");
+	/*texture = ResourceManagers::GetInstance()->GetTexture("player_ship_1.tga");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
-	m_player = std::make_shared<Ship>(Vector2(-200.0f, 300.0f), 0.0, 1, 0.0, texture);
+	m_player = std::make_shared<Ship>(Vector2(-200.0f, 500.0f), 0.0, 1, 0.0, texture);
 	m_player->SetPlayerSprite(90, 60, m_playerSprite);
 	m_playerCollider = m_player->GetCollider();
 	m_playerCollider->SetSize(90, 90);
@@ -178,8 +179,10 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 			OnButtonPressed = true;
 			m_onButtonPressed = true;
 			OnButtonDown = true;
+			
 			if (!m_player->m_isJumping) // Only jump if the player is not already jumping
 			{
+				
 				if (std::dynamic_pointer_cast<Cube>(m_player) != NULL) {
 					m_player->SetPlayerVelocity(m_player->m_jumpForce);
 					float jumpHeight = JUMP_HEIGHT;
@@ -347,7 +350,7 @@ void GSPlay::Update(float deltaTime)
 	//std::cout << OnButtonPressed << std::endl;
 	
 	m_player->FixRotationOnGround(deltaTime);
-	m_player->Rotate(315.0, deltaTime);
+	m_player->Rotate(400.0, deltaTime);
 	Map map_data = m_gameMap->getMap();
 	m_player->UpdatePlayerPos(deltaTime);
 	m_player->UpdatePlayerSprite(m_playerSprite);
@@ -388,6 +391,8 @@ void GSPlay::Update(float deltaTime)
 	}
 		if(OnButtonDown == true)
 		{
+			m_hasGotPlayerJumpLocation = true;
+			g_trigger = true;
 			OnButtonDown = false;
 		}
 	
@@ -397,6 +402,7 @@ void GSPlay::Update(float deltaTime)
 		
 	}
 	//std::cout << m_player->GetPlayerVelocity()<<std::endl;
+	//std::cout << m_player->GetPlayerPosition().x << std::endl;
 	//std::cout << m_collider1->GetColliderPosition().y;
 	//std::cout << "isFalling " << m_player->m_isFalling << std::endl;
 	//std::cout << "isJumping " << m_player->m_isJumping << std::endl;
@@ -406,6 +412,8 @@ void GSPlay::Update(float deltaTime)
 	//std::cout << "Number of coliders: " << m_colliderList.size()<<std::endl;
 	//std::cout << OnButtonPressed << std::endl;
 	//std::cout << m_playerCollider->GetWidth() << std::endl;
+	//std::cout << m_player->m_isAlive << std::endl;
+	
 	
 
 	
@@ -437,14 +445,32 @@ void GSPlay::Update(float deltaTime)
 	}
 	if (m_player->m_isAlive == false)
 	{
-		
+		m_player->m_playerDieEffect->SetPosition(Vector3(m_player->GetPlayerPosition().x - TILE_SIZE / 2, m_player->GetPlayerPosition().y - TILE_SIZE / 2, 0));
+		m_player->m_playerDieEffect->SetSize(TILE_SIZE * 2, TILE_SIZE * 2);
 			m_player->m_playerDieEffect->Update(deltaTime);
 		
 	}
 
-	if(m_player->m_isJumping == true)
+	if (m_player->m_isOnGround == true && m_player->m_isAlive)
 	{
+		m_player->m_playerTrailEffect->SetPosition(Vector3(m_player->GetPlayerPosition().x- TILE_SIZE*1.8 , m_player->GetPlayerPosition().y - TILE_SIZE *1.3, 0));
+		m_player->m_playerTrailEffect->SetSize(TILE_SIZE * 3, TILE_SIZE * 3);
+		m_player->m_playerTrailEffect->Update(deltaTime);
+		m_player->m_playerJumpEffect->SetPosition(Vector3(m_player->GetPlayerPosition().x - TILE_SIZE / 2, m_player->GetPlayerPosition().y - TILE_SIZE / 2, 0));
+	}
+
+	if(m_player->m_isJumping == true )
+	{
+		
+		if (g_trigger == true )
+		{
+			
+			m_player->m_playerJumpEffect->SetSize(TILE_SIZE * 2, TILE_SIZE * 2);
+			
+			
+		}
 		m_player->m_playerJumpEffect->Update(deltaTime);
+
 	}
 
 	for (auto it : m_listTriggerAnimation)
@@ -476,8 +502,11 @@ void GSPlay::Update(float deltaTime)
 	//m_background_2 = std::get<1>(m_background_2->MovingBackGround(m_background, m_background_2));
 
 	//Update position of camera
+	
 	Camera::GetInstance()->Update(deltaTime);
-	//Camera::GetInstance()->GetPosition();
+	
+	
+	//std::cout<<Camera::GetInstance()->GetPosition().x;
 	/*obj->update(deltatime);*/
 	//printf("%f, \n", obj->GetPosition().x);
 	//std::system("cls");
@@ -495,8 +524,7 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 	if(m_player->m_isAlive == false)
 	{
 		//m_player->m_playerDieEffect->SetCurrentFrame(1);
-		m_player->m_playerDieEffect->SetPosition(Vector3(m_player->GetPlayerPosition().x - TILE_SIZE/2, m_player->GetPlayerPosition().y - TILE_SIZE / 2, 0));
-		m_player->m_playerDieEffect->SetSize(TILE_SIZE*2, TILE_SIZE*2);
+		
 		m_player->m_playerDieEffect->Draw(renderer);
 	}
 	else
@@ -531,6 +559,15 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 			it->Draw(renderer);
 		}
 	}
+	if (m_player->m_isJumping == true && m_player->m_isAlive == true)
+	{
+		m_player->m_playerJumpEffect->Draw(renderer);
+	}
+	if(m_player->m_isOnGround == true && m_player->m_isAlive == true)
+	{
+		m_player->m_playerTrailEffect->Draw(renderer);
+	}
+	
 	//m_trigger1->Draw(renderer);
 	m_slider->DrawFixedObject(renderer);
 	m_Process->Draw(renderer);

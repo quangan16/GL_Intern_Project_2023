@@ -75,6 +75,8 @@ void Background::SetFlip(SDL_RendererFlip flip)
 }
 
 
+
+
 std::tuple<std::shared_ptr<Background>, std::shared_ptr<Background>> Background::MovingBackGround(std::shared_ptr<Background> m_background, std::shared_ptr<Background> m_background_2)
 {
 	m_background->Set2DPosition(m_background->Get2DPosition().x - m_fBackground_speed, 0);

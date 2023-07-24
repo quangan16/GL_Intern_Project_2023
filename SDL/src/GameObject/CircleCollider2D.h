@@ -8,7 +8,7 @@
 #include "BaseObject.h"
 
 #include <memory>
-class CircleCollider2D : public Collider2D, virtual public Sprite2D, virtual public SpriteAnimation{
+class CircleCollider2D : public Collider2D, virtual public SpriteAnimation{
 public:
     // Constructor
     CircleCollider2D(Vector2 objPosition, float radius);

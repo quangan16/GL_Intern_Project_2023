@@ -16,11 +16,12 @@ Player::Player() : m_playerPosition{ 0.0f, 0.0f }, m_velocity{ 10.0f } {};
 
 Player::Player(Vector2 _position, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _playerTexture)
 	: m_playerPosition{ _position }, m_playerRotation{ _rotation }, m_direction{ _direction }, m_velocity{ _velocity }, m_playerTexture{ _playerTexture },
-	m_playerCollider(std::make_shared<BoxCollider2D>(ColliderType::PLAYER, _position, true, 128.0f, 128.0f, ResourceManagers::GetInstance()->GetTexture("collider_border.tga"), SDL_FLIP_NONE))
+	m_playerCollider(std::make_shared<BoxCollider2D>(ColliderType::PLAYER, _position, true, 128.0f, 128.0f, ResourceManagers::GetInstance()->GetTexture("collider_border.png"), SDL_FLIP_NONE))
 {
+	m_isAlive = true;
 	m_playerDieEffect = std::make_shared<SpriteAnimation>(ResourceManagers::GetInstance()->GetTexture("Player_Die_1.tga"), TILE_SIZE, TILE_SIZE , 1, 59, 1, 0.01f, false);
-	m_playerJumpEffect = std::make_shared<SpriteAnimation>(ResourceManagers::GetInstance()->GetTexture("Player_Jump_Effect_1.tga"), TILE_SIZE, TILE_SIZE, 1, 4, 1, 0.01f, false);
-	m_playerTrailEffect = std::make_shared<SpriteAnimation>(ResourceManagers::GetInstance()->GetTexture("Player_Trail_Effect_1.tga"), TILE_SIZE, TILE_SIZE, 1, 59, 1, 0.01f, false);
+	m_playerJumpEffect = std::make_shared<SpriteAnimation>(ResourceManagers::GetInstance()->GetTexture("Player_Jump_Effect_1.tga"), TILE_SIZE, TILE_SIZE, 1, 4, 1, 0.02f, false);
+	m_playerTrailEffect = std::make_shared<SpriteAnimation>(ResourceManagers::GetInstance()->GetTexture("Player_Trail_Effect_1.tga"), TILE_SIZE, TILE_SIZE, 1, 9, 1, 0.03f, true);
 }
 
 Player::~Player() {
@@ -107,7 +108,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 //Handle side collide with grounds
 			 if (m_playerCollider->GetColliderPosition().x + m_playerCollider->GetWidth() >= _otherCollider->GetColliderPosition().x
 			 && m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() *7/10 > _otherCollider->GetColliderPosition().y
-			 && m_playerCollider->GetColliderPosition().x + m_playerCollider->GetWidth()*(3/4) < _otherCollider->GetColliderPosition().x
+			 && m_playerCollider->GetColliderPosition().x + m_playerCollider->GetWidth()*(4/5) < _otherCollider->GetColliderPosition().x
 			 ) {
 				 
 				 //m_isAlive = false;
@@ -129,32 +130,30 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 
 		 }
 		 else if (_otherCollider->GetColliderID() == ColliderType::PORTAL_CUBE && m_changedState == false) {
-			 _player = this->TransformToShip();
+			 _player = this->TransformToCube();
+			 _player->m_playerCollider->SetSize(TILE_SIZE, TILE_SIZE);
 			 _playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_cube_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
-			 isChangedForm = true;
+			 m_changedState = true;
 		 }
 
 		 else if (_otherCollider->GetColliderID() == ColliderType::PORTAL_SHIP && m_changedState == false) {
 			 _player = this->TransformToShip();
+			 _player->m_playerCollider->SetSize(TILE_SIZE, TILE_SIZE);
 			 _playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_ship_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
-			 isChangedForm = true;
+			 _playerSprite->SetSize(TILE_SIZE * 4/3 , TILE_SIZE*2/3);
+			 m_changedState = true;
 		 }
 
 		 else if (_otherCollider->GetColliderID() == ColliderType::PORTAL_WAVE) {
 			 _player = this->TransformToWave();
+			 _player->m_playerCollider->SetSize(TILE_SIZE, TILE_SIZE);
 			 _playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_wave_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
+			 
+
+
+			 m_changedState = true;
 		 }
 
-		 //if (_otherCollider->GetColliderID() == ColliderType::JUMP_BOOST_AUTO ) {
-			// //std::cout << "ok" << std::endl;
-			// m_isJumping = false;
-			// m_isJumping = true;
-			// m_velocity = m_jumpForce;
-			// m_jumpBuffer = false;
-
-		 //}
-
-		
 		   
 	 }
 
@@ -171,21 +170,21 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
  void Player::OnCollisionTrigger(std::shared_ptr<CircleCollider2D> _otherCollider, double& _gravity,const float& _deltaTime) {
 	 if (m_playerCollider->CheckCollision(_otherCollider)) {
 		
-		 if (_otherCollider->GetColliderID() == ColliderType::JUMP_BOOST ) {
+		 if (_otherCollider->GetColliderID() == ColliderType::JUMP_BOOST && OnButtonDown == true) {
 			 //std::cout << "ok" << std::endl;
-			 std::cout << "contact";
+			 //std::cout << "contact";
 
-			 /*m_isJumping = false;
+			 m_isJumping = false;
 			 m_isJumping = true;
 			 m_velocity = m_jumpForce;
-			 m_jumpBuffer = false;*/
+			 m_jumpBuffer = false;
 			 
 		 }
 		 if (_otherCollider->GetColliderID() == ColliderType::JUMP_BOOST_AUTO ) {
 			 //std::cout << "ok" << std::endl;
 			 m_isJumping = false;
 			 m_isJumping = true;
-			 m_velocity = m_jumpForce;
+			 m_velocity = m_jumpForce * 1.5;
 			 m_jumpBuffer = false;
 
 		 }
@@ -238,7 +237,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 	 Vector2 currentPosition = this->m_playerPosition;
  	 std::shared_ptr<TextureManager> currentTexture = ResourceManagers::GetInstance()->GetTexture("player_ship_1.tga");
 
-	 //this->SetPlayerSprite(300, 300, std::make_shared<Sprite2D>(currentTexture, SDL_FLIP_NONE));
+	 //this->SetPlayerSprite(300, 00, std::make_shared<Sprite2D>(currentTexture, SDL_FLIP_NONE));
 	 
 	 return std::make_shared<Ship>(currentPosition, 0.0, 1, 0.0, currentTexture);
 	 
