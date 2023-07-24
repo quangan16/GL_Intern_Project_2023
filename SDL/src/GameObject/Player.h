@@ -37,8 +37,8 @@ protected:
 	double m_playerRotation;
 	int m_direction;
 	double m_velocity;
-	float m_playerSpeed ;
-	double max_velocity ;
+	float m_playerSpeed;
+	double max_velocity = 3000;
 	
 
 	std::shared_ptr<TextureManager> m_playerTexture;
