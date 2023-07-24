@@ -44,7 +44,7 @@ protected:
 
 	std::shared_ptr<TextureManager> m_playerTexture;
 	std::shared_ptr<Sprite2D> m_playerSprite;
-
+	std::shared_ptr<SpriteAnimation> m_playerAnimation;
 	
 
 

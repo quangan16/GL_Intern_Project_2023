@@ -30,8 +30,8 @@ public:
 	void Update(float deltatime) override;
 	void Set2DPosition(float x, float y);
 	Vector3		Get2DPosition();
+	void SetColliderSize(int width, int height);
 	void SetSize(int width, int height);
-	void SetSize();
 	int GetWidth();
 	int GetHeight();
 	void SetRotation(double angle);

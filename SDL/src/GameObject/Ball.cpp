@@ -6,7 +6,7 @@ Ball::Ball() {
 	m_isFalling = true;
 	m_isOnGround = false;
 	m_isAlive = true;
-	m_jumpForce = 10000.0;
+	m_jumpForce = 3000.0;
 	m_playerSpeed = 1100;
 }
 
@@ -39,7 +39,7 @@ void Ball::Rotate(double _rotateSpeed, float _deltaTime) {
 
 void Ball::MoveUp(const double& _gravity, const bool& m_onButtonPressed, float _deltaTime) {
 
-	if (OnButtonDown == true) {
+	if (OnButtonDown == true && m_isOnGround) {
 
 		m_isJumping = true;
 		this->m_isFalling = false;

@@ -114,11 +114,11 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 //Handle side collide with grounds
 			 if (m_playerCollider->GetColliderPosition().x + m_playerCollider->GetWidth() >= _otherCollider->GetColliderPosition().x
 			 && m_playerCollider->GetColliderPosition().x + m_playerCollider->GetWidth()*(4/5) < _otherCollider->GetColliderPosition().x
-			 && m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() * 7 / 10 > _otherCollider->GetColliderPosition().y
+			 && m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() * (4 / 10) > _otherCollider->GetColliderPosition().y
 			 && m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() < _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight()
 			 ) {
 				 
-				 //m_isAlive = false;
+				 m_isAlive = false;
 			 }
 			 //Handle  collide with ground's surface
 			 else if (m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() >= _otherCollider->GetColliderPosition().y 
@@ -140,19 +140,19 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 		 }
 		 else if (_otherCollider->GetColliderID() == ColliderType::OBSTACLE)
 		 {
-				// m_isAlive = false;
+				 m_isAlive = false;
 			 
 		 }
 		 else if (_otherCollider->GetColliderID() == ColliderType::PORTAL_CUBE && m_changedState == false) {
 			 _player = this->TransformToCube();
-			 _player->m_playerCollider->SetSize(TILE_SIZE, TILE_SIZE);
+			 _player->m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE);
 			 _playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_cube_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
 			 m_changedState = true;
 		 }
 
 		 else if (_otherCollider->GetColliderID() == ColliderType::PORTAL_SHIP && m_changedState == false) {
 			 _player = this->TransformToShip();
-			 _player->m_playerCollider->SetSize(TILE_SIZE * 5 / 4, TILE_SIZE * 2 / 3);
+			 _player->m_playerCollider->SetColliderSize(TILE_SIZE * 5 / 4, TILE_SIZE * 2 / 3);
 			 _playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_ship_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
 			 _playerSprite->SetSize(TILE_SIZE * 5/4 , TILE_SIZE*2/3);
 			 m_changedState = true;
@@ -160,7 +160,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 
 		 else if (_otherCollider->GetColliderID() == ColliderType::PORTAL_WAVE) {
 			 _player = this->TransformToWave();
-			 _player->m_playerCollider->SetSize(TILE_SIZE, TILE_SIZE * 2 / 3);
+			 _player->m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE * 2 / 3);
 			 _playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_wave_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
 			 
 			 _playerSprite->SetSize(TILE_SIZE , TILE_SIZE * 2 / 3);
@@ -169,8 +169,8 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 		 }
 		 else if (_otherCollider->GetColliderID() == ColliderType::PORTAL_BALL) {
 			 _player = this->TransformToBall();
-			 _player->m_playerCollider->SetSize(TILE_SIZE, TILE_SIZE );
-			 _playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_wave_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
+			 _player->m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE );
+			 _playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_bug_1.tga"));
 
 			 _playerSprite->SetSize(TILE_SIZE, TILE_SIZE );
 
@@ -192,7 +192,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
  void Player::OnCollisionTrigger(std::shared_ptr<CircleCollider2D> _otherCollider, double& _gravity,const float& _deltaTime) {
 	 if (m_playerCollider->CheckCollision(_otherCollider)) {
 		
-		 if (_otherCollider->GetColliderID() == ColliderType::JUMP_BOOST && OnButtonDown == true) {
+		 if (_otherCollider->GetColliderID() == ColliderType::JUMP_BOOST && m_playerForm == CUBE && OnButtonDown == true) {
 			 //std::cout << "ok" << std::endl;
 			 //std::cout << "contact";
 
@@ -202,7 +202,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 m_jumpBuffer = false;
 			 
 		 }
-		 if (_otherCollider->GetColliderID() == ColliderType::JUMP_BOOST_AUTO ) {
+		 if (_otherCollider->GetColliderID() == ColliderType::JUMP_BOOST_AUTO && m_playerForm == CUBE) {
 			 //std::cout << "ok" << std::endl;
 			 m_isJumping = false;
 			 m_isJumping = true;

@@ -86,10 +86,10 @@ void GSPlay::Init()
 	//std::cout << m_iCharacterTexture_index << std::endl;
 	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_" + std::to_string(m_iCharacterTexture_index) +".tga");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
-	m_player = std::make_shared<Cube>(Vector2(-200.0f, 500.0f), 0.0, 1, 0.0, texture);
+	m_player = std::make_shared<Cube>(Vector2(-100.0f, 400.0f), 0.0, 1, 0.0, texture);
 	m_player->SetPlayerSprite(TILE_SIZE, TILE_SIZE, m_playerSprite);
 	m_playerCollider = m_player->GetCollider();
-	m_playerCollider->SetSize(TILE_SIZE, TILE_SIZE);
+	m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE);
 	m_player->m_changedState = false;
 	Camera::GetInstance()->SetTarget(m_playerSprite);
 
@@ -122,6 +122,8 @@ void GSPlay::Init()
 
 
 	m_playerCollider = m_player->GetCollider();
+
+	Camera::GetInstance()->InitPosition();
 
 	//Dummy ground
 	//m_ground = std::make_shared<Player>(Vector2(0.0f, 400.0f), 480.0f, 210.0f);
@@ -506,7 +508,7 @@ void GSPlay::Update(float deltaTime)
 	//m_background_2 = std::get<1>(m_background_2->MovingBackGround(m_background, m_background_2));
 
 	//Update position of camera
-	
+	Camera::GetInstance()->UpdateOnYAxis(deltaTime);
 	Camera::GetInstance()->Update(deltaTime);
 	
 	

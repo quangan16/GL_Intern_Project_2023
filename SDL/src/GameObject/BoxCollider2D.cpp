@@ -8,10 +8,16 @@ BoxCollider2D::BoxCollider2D(Vector2 objectPos,bool _isActive, float width, floa
     this->m_isActive = _isActive;
     m_width = width;
     m_height = height;
+    m_iWidth = m_width;
+    m_iHeight = m_height;
 }
 
 BoxCollider2D::BoxCollider2D(ColliderType _id,Vector2 _objectPos, bool _isActive, float _width, float _height, std::shared_ptr<TextureManager> _texture, SDL_RendererFlip _flip) 
-    : Collider2D(_id,_objectPos, _isActive), Sprite2D(_texture, _flip, _width, _height), m_width{ _width }, m_height { _height } {}
+    : Collider2D(_id,_objectPos, _isActive), Sprite2D(_texture, _flip, _width, _height), m_width{ _width }, m_height { _height } {
+    m_iWidth = m_width;
+    m_iHeight = m_height;
+    m_position = Vector3(_objectPos.x, _objectPos.y, 0.0f);
+}
 
 void BoxCollider2D::Init()
 {
@@ -23,7 +29,7 @@ void BoxCollider2D::Draw(SDL_Renderer* renderer)
     //Get2DPosition();
     if (m_pTexture != nullptr)
     {
-        m_pTexture->Render(m_colliderPosition.x, m_colliderPosition.y, m_width, m_height, m_angle, m_flip);
+        m_pTexture->Render(m_position.x, m_position.y, m_iWidth, m_iHeight, m_angle, m_flip);
     }
 
 }
@@ -42,10 +48,17 @@ Vector3 BoxCollider2D::Get2DPosition()
     return Vector3(m_position.x, m_position.y, 0.0f);
 }
 
-void BoxCollider2D::SetSize(int _width, int _height)
+void BoxCollider2D::SetColliderSize(int _width, int _height)
 {
     m_width = _width;
     m_height = _height;
+   
+}
+
+void BoxCollider2D::SetSize(int width, int height)
+{
+    m_iWidth = width;
+    m_iHeight = height;
     m_scale = Vector3((float)m_iWidth, (float)m_iHeight, 0.0f);
 }
 

@@ -22,7 +22,11 @@ void GSLevel::Init()
 	m_background->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 	m_background->Set2DPosition(0, 0);
 
-	// play button
+	// Level 
+	texture = ResourceManagers::GetInstance()->GetTexture("levelPickCanvas.png");
+	m_levelPickCanvas = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
+	m_levelPickCanvas->SetSize(SCREEN_WIDTH - 200, SCREEN_HEIGHT -200 );
+	m_levelPickCanvas->Set2DPosition(100, 100);
 	
 
 	// exit button
@@ -172,7 +176,9 @@ void GSLevel::Update(float deltaTime)
 
 void GSLevel::Draw(SDL_Renderer* renderer)
 {
+	
 	m_background->Draw(renderer);
+	m_levelPickCanvas->Draw(renderer);
 	for (auto it : m_listButton)
 	{
 		it->Draw(renderer);
