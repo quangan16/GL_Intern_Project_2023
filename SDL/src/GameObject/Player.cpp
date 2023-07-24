@@ -94,7 +94,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 	//CheckToMap(map_data, _deltaTime);
 	if(m_isAlive)
 	{
-		m_playerPosition.x += PLAYER_SPEED * _deltaTime;
+		m_playerPosition.x += m_playerSpeed * _deltaTime;
 		m_playerPosition.y += m_direction * m_velocity * _deltaTime;
 	}
 	 

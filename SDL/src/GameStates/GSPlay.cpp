@@ -149,7 +149,7 @@ void GSPlay::Init()
 	//std::cout << m_iCharacterTexture_index << std::endl;
 	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_" + std::to_string(m_iCharacterTexture_index) + ".tga");
 	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
-	m_player = std::make_shared<Cube>(Vector2(-100.0f, 400.0f), 0.0, 1, 0.0, texture);
+	m_player = std::make_shared<Cube>(Vector2(-100.0f, 700.0f), 0.0, 1, 0.0, texture);
 	m_player->SetPlayerSprite(TILE_SIZE, TILE_SIZE, m_playerSprite);
 	m_playerCollider = m_player->GetCollider();
 	m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE);
@@ -434,7 +434,7 @@ void GSPlay::Update(float deltaTime)
 			//std::cout << OnButtonPressed << std::endl;
 
 			m_player->FixRotationOnGround(deltaTime);
-			m_player->Rotate(400.0, deltaTime);
+			m_player->Rotate(390.0, deltaTime);
 			m_player->UpdatePlayerPos(deltaTime);
 			m_player->UpdatePlayerSprite(m_playerSprite);
 			/*for (const auto& collider : m_colliderList) {

@@ -4,7 +4,7 @@ void Camera::InitPosition() {
 	if (m_Target != nullptr)
 	{
 		m_ViewBox.x = (m_Target->GetPosition().x - 650);
-		m_ViewBox.y = (m_Target->GetPosition().y );
+		m_ViewBox.y = (m_Target->GetPosition().y - 410);
 	}
 }
 
@@ -37,7 +37,7 @@ void Camera::UpdateOnYAxis(float _deltaTime) {
 				hasGetLocationY = true;
 			}
 			if (m_ViewBox.y > newCameraPosition.y && hasGetLocationY == true) {
-				m_ViewBox.y -= 10;
+				m_ViewBox.y -= 20;
 				hasGetLocationY = false;
 			}
 		}
@@ -46,8 +46,8 @@ void Camera::UpdateOnYAxis(float _deltaTime) {
 				newCameraPosition = Vector2(m_ViewBox.x, m_ViewBox.y + m_ViewBox.h + 300);
 				hasGetLocationY = true;
 			}
-			if (m_ViewBox.y + m_ViewBox.h < newCameraPosition.y && hasGetLocationY == true) {
-				m_ViewBox.y += 10;
+			if (m_ViewBox.y + m_ViewBox.h < newCameraPosition.y + m_ViewBox.h  && hasGetLocationY == true) {
+				m_ViewBox.y += 20;
 				hasGetLocationY = false;
 			}
 		}

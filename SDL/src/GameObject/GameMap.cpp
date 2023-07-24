@@ -110,7 +110,7 @@ void GameMap::DrawMap()
 				{
 					auto texture = ResourceManagers::GetInstance()->GetTexture(std::to_string(val) + ".tga");
 					auto tile = std::make_shared<BoxCollider2D>(ColliderType::OBSTACLE, Vector2(j ,  i), true, TILE_SIZE , TILE_SIZE, texture, SDL_FLIP_NONE);
-					tile->SetColliderPosition(Vector2(j, i + TILE_SIZE/8));
+					tile->SetColliderPosition(Vector2(j, i + TILE_SIZE/4));
 					tile_map_box.push_back(tile);
 				}
 				if (val == 22 || val == 23)
