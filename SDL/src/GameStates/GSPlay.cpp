@@ -458,10 +458,18 @@ void GSPlay::Update(float deltaTime)
 		processBarWidth = PROCESS_WIDTH;
 	}
 	else {
-		currentProcess = currentProcess + deltaTime;
-		processBarWidth = (currentProcess * PROCESS_WIDTH) / maxProcess;
+		currentProcess = ((m_player->GetPlayerPosition().x) / (MAX_MAP_X * TILE_SIZE)) * 100.0f;
+		//processBarWidth += ((PROCESS_WIDTH * (PLAYER_SPEED * deltaTime))/ (MAX_MAP_X * TILE_SIZE)) * deltaTime;
+		processBarWidth = (m_player->GetPlayerPosition().x) / ((MAX_MAP_X * TILE_SIZE) / PROCESS_WIDTH);
 	}
 	m_Process->LoadFromRenderText(std::to_string((int)currentProcess) + "%");
+
+	//Save High Process
+	if (currentProcess > m_iHighest_process_level_1)
+	{
+		m_iHighest_process_level_1 = currentProcess;
+		m_fileController->WriteToFile("Data/save_data.txt");
+	}
 
 	//Moving background
 	//m_background = std::get<0>(m_background->MovingBackGround(m_background, m_background_2));
@@ -503,14 +511,7 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 		it->Draw(renderer);
 	}
 
-	
-
-	
-
-	//SDL_Rect backgroundRect = { SCREEN_WIDTH / 2 - 245, PROCESS_PADDING + 20, PROCESS_WIDTH, PROCESS_HEIGHT };
 	SDL_Rect foregroundRect = { SCREEN_WIDTH / 2 - 245, PROCESS_PADDING + 20, processBarWidth, PROCESS_HEIGHT };
-	SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // Red color
-	//SDL_RenderFillRect(renderer, &backgroundRect);
 	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // Green color
 	SDL_RenderFillRect(renderer, &foregroundRect);
 

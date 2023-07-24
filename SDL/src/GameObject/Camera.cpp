@@ -28,6 +28,10 @@ void Camera::Update(float deltaTime)
 		//Center the camera over the dot
 		m_ViewBox.x = (m_Target->GetPosition().x-200);
 		m_ViewBox.y = (m_Target->GetPosition().y-500) ;
+		if (m_ViewBox.x >= (MAX_MAP_X * TILE_SIZE) - SCREEN_WIDTH)
+		{
+			m_ViewBox.x = (MAX_MAP_X * TILE_SIZE) - SCREEN_WIDTH;
+		}
 		
 		//Keep the camera in bounds
 		/*if (m_ViewBox.x < 0)
