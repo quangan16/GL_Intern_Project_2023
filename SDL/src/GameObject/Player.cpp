@@ -108,7 +108,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 //Handle side collide with grounds
 			 if (m_playerCollider->GetColliderPosition().x + m_playerCollider->GetWidth() >= _otherCollider->GetColliderPosition().x
 			 && m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() *7/10 > _otherCollider->GetColliderPosition().y
-			 && m_playerCollider->GetColliderPosition().x + m_playerCollider->GetWidth()*(3/4) < _otherCollider->GetColliderPosition().x
+			 && m_playerCollider->GetColliderPosition().x + m_playerCollider->GetWidth()*(4/5) < _otherCollider->GetColliderPosition().x
 			 ) {
 				 
 				 m_isAlive = false;
@@ -131,33 +131,29 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 		 }
 		 else if (_otherCollider->GetColliderID() == ColliderType::PORTAL_CUBE && m_changedState == false) {
 			 _player = this->TransformToCube();
+			 _player->m_playerCollider->SetSize(TILE_SIZE, TILE_SIZE);
 			 _playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_cube_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
 			 m_changedState = true;
 		 }
 
 		 else if (_otherCollider->GetColliderID() == ColliderType::PORTAL_SHIP && m_changedState == false) {
 			 _player = this->TransformToShip();
+			 _player->m_playerCollider->SetSize(TILE_SIZE, TILE_SIZE);
 			 _playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_ship_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
+			 _playerSprite->SetSize(TILE_SIZE * 4/3 , TILE_SIZE*2/3);
 			 m_changedState = true;
 		 }
 
 		 else if (_otherCollider->GetColliderID() == ColliderType::PORTAL_WAVE) {
 			 _player = this->TransformToWave();
+			 _player->m_playerCollider->SetSize(TILE_SIZE, TILE_SIZE);
 			 _playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_wave_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
+			 
+
 
 			 m_changedState = true;
 		 }
 
-		 //if (_otherCollider->GetColliderID() == ColliderType::JUMP_BOOST_AUTO ) {
-			// //std::cout << "ok" << std::endl;
-			// m_isJumping = false;
-			// m_isJumping = true;
-			// m_velocity = m_jumpForce;
-			// m_jumpBuffer = false;
-
-		 //}
-
-		
 		   
 	 }
 
@@ -174,7 +170,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
  void Player::OnCollisionTrigger(std::shared_ptr<CircleCollider2D> _otherCollider, double& _gravity,const float& _deltaTime) {
 	 if (m_playerCollider->CheckCollision(_otherCollider)) {
 		
-		 if (_otherCollider->GetColliderID() == ColliderType::JUMP_BOOST ) {
+		 if (_otherCollider->GetColliderID() == ColliderType::JUMP_BOOST && OnButtonDown == true) {
 			 //std::cout << "ok" << std::endl;
 			 //std::cout << "contact";
 
@@ -188,7 +184,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 //std::cout << "ok" << std::endl;
 			 m_isJumping = false;
 			 m_isJumping = true;
-			 m_velocity = m_jumpForce;
+			 m_velocity = m_jumpForce * 1.5;
 			 m_jumpBuffer = false;
 
 		 }

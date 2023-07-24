@@ -52,7 +52,7 @@ private:
 
 	float aliveTime;
 	const float finishTime = 60.0f;
-	double m_gravity = 10000.0;
+	double m_gravity = 8000.0;
 
 	const int PROCESS_WIDTH = 495;
 	const int PROCESS_HEIGHT = 10;

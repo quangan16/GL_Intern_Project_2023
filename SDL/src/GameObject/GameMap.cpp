@@ -109,14 +109,14 @@ void GameMap::DrawMap()
 				if (val > 16 && val < 22 && val != 19)
 				{
 					auto texture = ResourceManagers::GetInstance()->GetTexture(std::to_string(val) + ".tga");
-					auto tile = std::make_shared<BoxCollider2D>(ColliderType::OBSTACLE, Vector2(j , ( i - (3/4 * TILE_SIZE))), true, TILE_SIZE * 4/5, TILE_SIZE* 3/4, texture, SDL_FLIP_NONE);
-					tile->SetColliderPosition(Vector2(j, i + (TILE_SIZE  * 1/4)));
+					auto tile = std::make_shared<BoxCollider2D>(ColliderType::OBSTACLE, Vector2(j ,  i), true, TILE_SIZE , TILE_SIZE, texture, SDL_FLIP_NONE);
+					tile->SetColliderPosition(Vector2(j, i));
 					tile_map_box.push_back(tile);
 				}
 				if (val == 22 || val == 23)
 				{
 					auto texture = ResourceManagers::GetInstance()->GetTexture(std::to_string(val) + ".tga");
-					auto tile = std::make_shared<BoxCollider2D>(ColliderType::PORTAL_CUBE, Vector2(j, i), true, TILE_SIZE, TILE_SIZE, texture, SDL_FLIP_NONE);
+					auto tile = std::make_shared<BoxCollider2D>(ColliderType::PORTAL_SHIP, Vector2(j, i), true, TILE_SIZE, TILE_SIZE, texture, SDL_FLIP_NONE);
 					tile_map_box.push_back(tile);
 				}
 				if(val <= 16 || val == 19)

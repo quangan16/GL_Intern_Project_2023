@@ -15,8 +15,8 @@ Cube::Cube(Vector2 _position, double _rotation, int _direction, double _velocity
 	m_isJumping = false;
 	m_isFalling = true;
 	m_isOnGround = false;
-	m_jumpForce = 2200.0;
-	m_playerSpeed = 860.0f;
+	m_jumpForce = 2000.0;
+	m_playerSpeed = 1200.0f;
 	m_isAlive = true;
 };
 

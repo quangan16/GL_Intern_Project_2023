@@ -38,14 +38,14 @@ void Camera::Update(float deltaTime)
 		{
 			m_ViewBox.y = 0;
 		}*/
-		if (m_ViewBox.x > (2 * SCREEN_WIDTH - m_ViewBox.w))
+		/*if (m_ViewBox.x > (2 * SCREEN_WIDTH - m_ViewBox.w))
 		{
 			m_ViewBox.x = (2 * SCREEN_WIDTH - m_ViewBox.w);
 		}
 		if (m_ViewBox.y > (2 * SCREEN_HEIGHT - m_ViewBox.h))
 		{
 			m_ViewBox.y = (SCREEN_HEIGHT - m_ViewBox.h);
-		}
+		}*/
 		m_Position = Vector2(m_ViewBox.x, m_ViewBox.y);
 	}
 }
