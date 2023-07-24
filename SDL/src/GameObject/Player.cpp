@@ -94,7 +94,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 	//CheckToMap(map_data, _deltaTime);
 	if(m_isAlive)
 	{
-		m_playerPosition.x += m_playerSpeed * _deltaTime;
+		m_playerPosition.x += PLAYER_SPEED * _deltaTime;
 		m_playerPosition.y += m_direction * m_velocity * _deltaTime;
 	}
 	 
@@ -118,7 +118,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 && m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() < _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight()
 			 ) {
 				 
-				 m_isAlive = false;
+				 //m_isAlive = false;
 			 }
 			 //Handle  collide with ground's surface
 			 else if (m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() >= _otherCollider->GetColliderPosition().y 
@@ -140,7 +140,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 		 }
 		 else if (_otherCollider->GetColliderID() == ColliderType::OBSTACLE)
 		 {
-				 m_isAlive = false;
+				// m_isAlive = false;
 			 
 		 }
 		 else if (_otherCollider->GetColliderID() == ColliderType::PORTAL_CUBE && m_changedState == false) {
