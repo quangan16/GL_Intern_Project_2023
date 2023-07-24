@@ -50,6 +50,8 @@ private:
 	std::shared_ptr<Sprite2D>						m_playerSprite;
 	std::shared_ptr<Text>							m_Process;
 
+
+	
 	float aliveTime;
 	const float finishTime = 60.0f;
 	double m_gravity = 8000.0;

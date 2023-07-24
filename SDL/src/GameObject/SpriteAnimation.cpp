@@ -72,6 +72,11 @@ void SpriteAnimation::Update(float deltatime)
 				m_currentFrame = 0;
 				g_trigger = false;
 			}
+			if (m_currentFrame >= m_frameCount) {
+				
+				canDrawEvent = false;
+				m_currentFrame = -1;
+			}
 		}
 		m_currentTicks -= m_frameTime;
 	}

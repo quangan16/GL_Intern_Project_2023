@@ -7,7 +7,7 @@ Ship::Ship() {
 	m_isOnGround = false;
 	m_isAlive = true;
 	m_jumpForce = 10000.0;
-	m_playerSpeed = 900;
+	m_playerSpeed = 1100;
 }
 
 Ship::Ship(Vector2 _position, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _playerTexture)
@@ -19,7 +19,7 @@ Ship::Ship(Vector2 _position, double _rotation, int _direction, double _velocity
 	m_isOnGround = false;
 	m_isAlive = true;
 	m_jumpForce = 3000.0;
-	m_playerSpeed = 900;
+	m_playerSpeed = 1100;
 
 };
 
@@ -28,18 +28,34 @@ Ship::~Ship() {
 }
 
 void Ship::Rotate(double _rotateSpeed, float _deltaTime) {
-	if (m_isJumping) {
+	
 		if (m_isFalling && m_playerRotation < 35) {
-			m_playerRotation += _rotateSpeed * 1/(m_jumpForce/3000) * _deltaTime;
+			_rotateSpeed = SyncVelocityToRotationSpeed(std::abs(m_jumpForce/15));
+			m_playerRotation += _rotateSpeed  * _deltaTime;
 		}
 		else if (!m_isFalling && m_playerRotation > -35) {
-			m_playerRotation -= _rotateSpeed *  1/(m_jumpForce/3000) * _deltaTime;
+			_rotateSpeed = SyncVelocityToRotationSpeed(std::abs(m_jumpForce/15));
+
+			m_playerRotation -= _rotateSpeed * _deltaTime;
 		}
-	}
+	
 	//std::cout << m_playerRotation << std::endl;
 	
 
 
+}
+
+double Ship::SyncVelocityToRotationSpeed(float velocity) {
+	// Adjust these parameters based on your game's requirements and testing.
+	float minVelocity = 0.0f;
+	float maxVelocity = 100.0f;
+	double minRotationSpeed = 20.0;
+	double maxRotationSpeed = 60.0;
+
+	// Linearly map the velocity to the rotation speed.
+	double mappedRotationSpeed = minRotationSpeed + (velocity - minVelocity) * (maxRotationSpeed - minRotationSpeed) / (maxVelocity - minVelocity);
+
+	return mappedRotationSpeed;
 }
 
 
@@ -49,7 +65,7 @@ void Ship::MoveUp(const double& _gravity, const bool& m_onButtonPressed, float _
 		
 		m_isJumping = true;
 		this -> m_isFalling = false;
-		if(m_jumpForce <= 10000)
+		//if(m_jumpForce <= 10000)
 		m_jumpForce += 2000 * _deltaTime;
 	}
 	else {
@@ -61,11 +77,11 @@ void Ship::MoveUp(const double& _gravity, const bool& m_onButtonPressed, float _
 	if (m_isJumping == true) {
 		if (m_isFalling == false) {
 			m_isOnGround = false;
-			if(m_velocity >= -800)
+			//if(m_velocity >= -800)
 			m_velocity -= m_jumpForce *_deltaTime;
-			else if (m_velocity < -800) {
-				m_velocity -= m_jumpForce *1/4 * _deltaTime;
-			}
+			/*else if (m_velocity < -800) {
+				m_velocity -= m_jumpForce  * _deltaTime;
+			}*/
 			
 			
 		}

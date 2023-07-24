@@ -26,8 +26,9 @@ void Camera::Update(float deltaTime)
 	if (m_Target != nullptr)
 	{
 		//Center the camera over the dot
-		m_ViewBox.x = (m_Target->GetPosition().x-400);
-		//m_ViewBox.y = (m_Target->GetPosition().y-500) ;
+		m_ViewBox.x = (m_Target->GetPosition().x-650);
+		//m_ViewBox.y = (m_Target->GetPosition().y-200) ;
+		m_ViewBox.y = 330 ;
 		
 		//Keep the camera in bounds
 		/*if (m_ViewBox.x < 0)

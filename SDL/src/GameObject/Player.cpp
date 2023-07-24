@@ -6,6 +6,7 @@
 #include "ResourceManagers.h"
 #include "Collider2D.h"
 #include "GameStateBase.h"
+#include "Ball.h"
 #include "Cube.h"
 #include "Ship.h"
 #include "Wave.h"
@@ -36,6 +37,11 @@ Vector2 Player::GetPlayerPosition() {
 void Player::SetPlayerPosition(float _x, float _y) {
 	m_playerPosition.x = _x;
 	m_playerPosition.y = _y;
+}
+
+const double& Player::GetPlayerRotation()
+{
+	return m_playerRotation;
 }
 
 float Player::GetPlayerVelocity() {
@@ -107,21 +113,29 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 		 if (_otherCollider->GetColliderID() == ColliderType::GROUND) {
 			 //Handle side collide with grounds
 			 if (m_playerCollider->GetColliderPosition().x + m_playerCollider->GetWidth() >= _otherCollider->GetColliderPosition().x
-			 && m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() *7/10 > _otherCollider->GetColliderPosition().y
 			 && m_playerCollider->GetColliderPosition().x + m_playerCollider->GetWidth()*(4/5) < _otherCollider->GetColliderPosition().x
+			 && m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() * 7 / 10 > _otherCollider->GetColliderPosition().y
+			 && m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() < _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight()
 			 ) {
 				 
 				 m_isAlive = false;
 			 }
-			 //Handle top collide with grounds
+			 //Handle  collide with ground's surface
 			 else if (m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() >= _otherCollider->GetColliderPosition().y 
 				 && m_playerCollider->GetColliderPosition().y  < _otherCollider->GetColliderPosition().y) {
 				 isOnGround = true;
-				 FixCollisionOverlaps(_otherCollider);
+				 FixCollisionOverlapsOnSurface(_otherCollider);
 			 }
-			 //Handle bottom collide with grounds
-			 else if (m_playerCollider->GetColliderPosition().y < _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight() ) {
-				 m_isAlive = false;
+			 //Handle collide with grounds bottom
+			 else if (m_playerCollider->GetColliderPosition().y < _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight() && m_playerForm != BALL) {
+				 
+				m_isAlive = false;
+
+			 }
+			 else if (m_playerCollider->GetColliderPosition().y < _otherCollider->GetColliderPosition().y && m_playerForm == BALL)
+			 {
+				 isOnGround = true;
+				 FixCollisionOverlapsUnderSurface(_otherCollider);
 			 }
 		 }
 		 else if (_otherCollider->GetColliderID() == ColliderType::OBSTACLE)
@@ -138,22 +152,30 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 
 		 else if (_otherCollider->GetColliderID() == ColliderType::PORTAL_SHIP && m_changedState == false) {
 			 _player = this->TransformToShip();
-			 _player->m_playerCollider->SetSize(TILE_SIZE, TILE_SIZE);
+			 _player->m_playerCollider->SetSize(TILE_SIZE * 5 / 4, TILE_SIZE * 2 / 3);
 			 _playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_ship_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
-			 _playerSprite->SetSize(TILE_SIZE * 4/3 , TILE_SIZE*2/3);
+			 _playerSprite->SetSize(TILE_SIZE * 5/4 , TILE_SIZE*2/3);
 			 m_changedState = true;
 		 }
 
 		 else if (_otherCollider->GetColliderID() == ColliderType::PORTAL_WAVE) {
 			 _player = this->TransformToWave();
-			 _player->m_playerCollider->SetSize(TILE_SIZE, TILE_SIZE);
+			 _player->m_playerCollider->SetSize(TILE_SIZE, TILE_SIZE * 2 / 3);
 			 _playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_wave_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
 			 
-
+			 _playerSprite->SetSize(TILE_SIZE , TILE_SIZE * 2 / 3);
 
 			 m_changedState = true;
 		 }
+		 else if (_otherCollider->GetColliderID() == ColliderType::PORTAL_BALL) {
+			 _player = this->TransformToBall();
+			 _player->m_playerCollider->SetSize(TILE_SIZE, TILE_SIZE );
+			 _playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_wave_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
 
+			 _playerSprite->SetSize(TILE_SIZE, TILE_SIZE );
+
+			 m_changedState = true;
+		 }
 		   
 	 }
 
@@ -194,7 +216,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 
 
 
- void Player::FixCollisionOverlaps(std::shared_ptr<BoxCollider2D> _otherCollider) {
+ void Player::FixCollisionOverlapsOnSurface(std::shared_ptr<BoxCollider2D> _otherCollider) {
 	 float playerBottomCollider = m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight();
 	 float groundTopCollider = _otherCollider->GetColliderPosition().y;
 	 float bottomPenetration = playerBottomCollider - groundTopCollider;
@@ -204,6 +226,18 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 		 this->SetPlayerPosition(this->GetPlayerPosition().x, this->GetPlayerPosition().y - bottomPenetration);
 	 }
  }
+
+ void Player::FixCollisionOverlapsUnderSurface(std::shared_ptr<BoxCollider2D> _otherCollider) {
+	 float playerTopCollider = m_playerCollider->GetColliderPosition().y;
+	 float groundBottomCollider = _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight();
+	 float bottomPenetration = playerTopCollider - groundBottomCollider;
+	 if (playerTopCollider < groundBottomCollider) {
+		 //std::cout << bottomPenetration << std::endl;
+
+		 this->SetPlayerPosition(this->GetPlayerPosition().x, this->GetPlayerPosition().y - bottomPenetration);
+	 }
+ }
+
  
  void Player::Die(float &_dieTime, float waitTime) {
  	
@@ -249,7 +283,11 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 	 return std::make_shared<Wave>(currentPosition, 0.0, 1, 0.0, currentTexture);
  }
 
-
+ std::shared_ptr<Ball> Player::TransformToBall() {
+	 Vector2 currentPosition = this->m_playerPosition;
+	 std::shared_ptr<TextureManager> currentTexture = this->m_playerTexture;
+	 return std::make_shared<Ball>(currentPosition, 0.0, 1, 0.0, currentTexture);
+ }
 
 
 

@@ -3,6 +3,7 @@
 #include "TextureManager.h"
 #include "BoxCollider2D.h"
 
+class Ball;
 class Cube;
 class Ship;
 class Wave;
@@ -11,7 +12,7 @@ enum PlayerForm {
 	CUBE,
 	SHIP,
 	WAVE,
-	WHEEL,
+	BALL,
 	ROBOT
 };
 
@@ -70,6 +71,8 @@ public:
 
 	void SetPlayerVelocity(float _velocity);
 
+	const double& GetPlayerRotation();
+
 	virtual void SetPlayerSprite(const int& _width, const int& _height, const std::shared_ptr<Sprite2D>& _playerSprite) ;
 
 	virtual std::shared_ptr<Sprite2D> GetPlayerSprite() = 0;
@@ -109,10 +112,12 @@ public:
 	std::shared_ptr<Ship> TransformToShip();
 
 	std::shared_ptr<Wave> TransformToWave();
+
+	std::shared_ptr<Ball>TransformToBall();
 		
 	
-	void FixCollisionOverlaps(std::shared_ptr<BoxCollider2D> otherCollider);
-
+	void FixCollisionOverlapsOnSurface(std::shared_ptr<BoxCollider2D> otherCollider);
+	void FixCollisionOverlapsUnderSurface(std::shared_ptr<BoxCollider2D> _otherCollider);
 	void Die(float& dieTime, float _waitTime);
 	//void Update(float deltaTime);
 	

@@ -15,7 +15,7 @@ const float tile_offset = 128.0f * 4;
 inline bool OnButtonPressed = false;
 inline bool OnButtonDown = false;
 inline bool OnButtonUp = false;
-
+inline bool canDrawEvent;
 inline float timer = 0.0f;
 
 inline bool g_trigger = false;

@@ -1,71 +1,66 @@
-#include "Wave.h"
+#include "Ball.h"
 
-Wave::Wave() {
-	m_playerForm = WAVE;
+Ball::Ball() {
+	m_playerForm = BALL;
 	m_isJumping = false;
 	m_isFalling = true;
 	m_isOnGround = false;
-	m_jumpForce = 10000.0;
 	m_isAlive = true;
-	m_playerSpeed = 900;
+	m_jumpForce = 10000.0;
+	m_playerSpeed = 1100;
 }
 
-Wave::Wave(Vector2 _position, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _playerTexture)
+Ball::Ball(Vector2 _position, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _playerTexture)
 	: Player(_position, _rotation, _direction, _velocity, _playerTexture)
 {
-	m_playerForm = WAVE;
+	m_playerForm = BALL;
 	m_isJumping = false;
 	m_isFalling = true;
 	m_isOnGround = false;
-	m_jumpForce = 10000.0;
 	m_isAlive = true;
-	m_playerSpeed = 1500;
+	m_jumpForce = 3000.0;
+	m_playerSpeed = 1100;
 
 };
 
-Wave::~Wave() {
-	std::cout << "Wave object deleted" << std::endl;
+Ball::~Ball() {
+	std::cout << "Ball object deleted" << std::endl;
 }
 
-void Wave::Rotate(double _rotateSpeed, float _deltaTime) {
-	if (m_isJumping) {
-		if (m_isFalling && m_playerRotation<42.0) {
-			m_playerRotation = 42.0;
-		}
-		else if (!m_isFalling && m_playerRotation > -42.0) {
-			m_playerRotation = -42.0;
-		}
-	}
-	//std::cout << m_playerRotation << std::endl;
+void Ball::Rotate(double _rotateSpeed, float _deltaTime) {
+
 
 
 
 }
 
 
-void Wave::MoveUp(const double& _gravity, const bool& m_onButtonPressed, float _deltaTime) {
 
-	if (m_onButtonPressed == true) {
+
+void Ball::MoveUp(const double& _gravity, const bool& m_onButtonPressed, float _deltaTime) {
+
+	if (OnButtonDown == true) {
 
 		m_isJumping = true;
 		this->m_isFalling = false;
-		
-			
+		//if(m_jumpForce <= 10000)
+		m_jumpForce += 2000 * _deltaTime;
 	}
 	else {
 
 
 		this->m_isFalling = true;
 	}
-	std::cout << m_jumpForce << std::endl;
+	//std::cout << m_jumpForce <<std::endl;
 	if (m_isJumping == true) {
 		if (m_isFalling == false) {
 			m_isOnGround = false;
-			m_velocity = -1500;
+			m_direction = -m_direction;
+
 
 		}
 		else {
-			m_velocity = 1500;
+
 
 
 
@@ -108,9 +103,9 @@ void Wave::MoveUp(const double& _gravity, const bool& m_onButtonPressed, float _
 
 
 
-void Wave::ApplyGravity(const double& _gravity, float _deltaTime) {
+void Ball::ApplyGravity(const double& _gravity, float _deltaTime) {
 	if (!OnButtonPressed && m_velocity < 1300) {
-		m_velocity += _gravity * _deltaTime;
+		m_velocity += _gravity * 2 / 3 * _deltaTime;
 	}
 
 
@@ -118,7 +113,7 @@ void Wave::ApplyGravity(const double& _gravity, float _deltaTime) {
 }
 
 
-void Wave::SetPlayerSprite(const int& _width, const int& _height, const std::shared_ptr<Sprite2D>& _playerSprite) {
+void Ball::SetPlayerSprite(const int& _width, const int& _height, const std::shared_ptr<Sprite2D>& _playerSprite) {
 	this->m_playerSprite = _playerSprite;
 	_playerSprite->Set2DPosition(m_playerPosition.x, m_playerPosition.y);
 	_playerSprite->SetSize(_width, _height);
@@ -127,7 +122,7 @@ void Wave::SetPlayerSprite(const int& _width, const int& _height, const std::sha
 
 
 
-void Wave::FixRotationOnGround(const float& _deltaTime) {
+void Ball::FixRotationOnGround(const float& _deltaTime) {
 
 	if (m_isOnGround == true) {
 		if (m_playerRotation > 0.0 && m_playerRotation < 45.0) {
@@ -142,11 +137,11 @@ void Wave::FixRotationOnGround(const float& _deltaTime) {
 	}
 }
 
-const std::shared_ptr<BoxCollider2D> Wave::GetCollider() const {
-	return m_playerCollider;
+const std::shared_ptr<BoxCollider2D> Ball::GetCollider() const {
+	return this->m_playerCollider;
 }
 
-void Wave::OnGround() {
+void Ball::OnGround() {
 	if (m_isOnGround == true && OnButtonPressed == false) {
 
 		//this->SetDirectionY(-1);
@@ -160,10 +155,10 @@ void Wave::OnGround() {
 
 }
 
-std::shared_ptr<Sprite2D> Wave::GetPlayerSprite() {
+
+
+std::shared_ptr<Sprite2D> Ball::GetPlayerSprite() {
 	return m_playerSprite;
 
 }
-
-
 

@@ -22,6 +22,7 @@ GSPlay::~GSPlay()
 
 void GSPlay::Init()
 {
+	canDrawEvent = true;
 	timer = 0.0f;
 	aliveTime = 0.0f;
 	auto texture = ResourceManagers::GetInstance()->GetTexture("backx2.tga");
@@ -402,6 +403,7 @@ void GSPlay::Update(float deltaTime)
 		
 	}
 	//std::cout << m_player->GetPlayerVelocity()<<std::endl;
+	std::cout << m_player->GetPlayerRotation()<<std::endl;
 	//std::cout << m_player->GetPlayerPosition().x << std::endl;
 	//std::cout << m_collider1->GetColliderPosition().y;
 	//std::cout << "isFalling " << m_player->m_isFalling << std::endl;
@@ -453,13 +455,14 @@ void GSPlay::Update(float deltaTime)
 
 	if (m_player->m_isOnGround == true && m_player->m_isAlive)
 	{
+		canDrawEvent = true;
 		m_player->m_playerTrailEffect->SetPosition(Vector3(m_player->GetPlayerPosition().x- TILE_SIZE*1.8 , m_player->GetPlayerPosition().y - TILE_SIZE *1.3, 0));
 		m_player->m_playerTrailEffect->SetSize(TILE_SIZE * 3, TILE_SIZE * 3);
 		m_player->m_playerTrailEffect->Update(deltaTime);
 		m_player->m_playerJumpEffect->SetPosition(Vector3(m_player->GetPlayerPosition().x - TILE_SIZE / 2, m_player->GetPlayerPosition().y - TILE_SIZE / 2, 0));
 	}
 
-	if(m_player->m_isJumping == true )
+	if(m_player->m_isJumping == true && canDrawEvent == true)
 	{
 		
 		if (g_trigger == true )
@@ -470,6 +473,7 @@ void GSPlay::Update(float deltaTime)
 			
 		}
 		m_player->m_playerJumpEffect->Update(deltaTime);
+		
 
 	}
 
@@ -558,9 +562,10 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 			it->Draw(renderer);
 		}
 	}
-	if (m_player->m_isJumping == true && m_player->m_isAlive == true)
+	if (m_player->m_isJumping == true && m_player->m_isAlive == true )
 	{
 		m_player->m_playerJumpEffect->Draw(renderer);
+		//canDrawEvent = false;
 	}
 	if(m_player->m_isOnGround == true && m_player->m_isAlive == true)
 	{

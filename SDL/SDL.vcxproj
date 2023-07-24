@@ -164,6 +164,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\GameObject\Ball.cpp" />
     <ClCompile Include="SavePoint.cpp" />
     <ClCompile Include="src\GameObject\Wave.cpp" />
     <ClCompile Include="src\GameObject\Collider2D.cpp" />
@@ -200,6 +201,7 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GameObject\Ball.h" />
     <ClInclude Include="SavePoint.h" />
     <ClInclude Include="src\GameObject\Wave.h" />
     <ClInclude Include="src\GameObject\Collider2D.h" />
