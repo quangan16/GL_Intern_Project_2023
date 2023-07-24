@@ -84,7 +84,7 @@ void Player::UpdatePlayerSpriteRotation(const std::shared_ptr<Sprite2D>& _player
 	 if (m_playerPosition.x >= _readyPos.x)  return;
 	 else {
 		 m_playerRotation = 0.0;
-		 m_playerPosition.x += 400 * _deltaTime;
+		 m_playerPosition.x += 7000 * _deltaTime;
 	 }
 
 }

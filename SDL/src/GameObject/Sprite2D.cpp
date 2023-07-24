@@ -93,8 +93,8 @@ std::shared_ptr<TextureManager> Sprite2D::GetTexture()
 
 void Sprite2D::RGBEffect()
 {
-	if (index > 2) index = 0;
-	if (r == 255 && index == 0 || g == 255 && index == 1 || b == 255 && index == 2) index++;
+	
+	if (r == 255 && index == 0 || g == 255 && index == 1 || b == 255 && index == 2) index = rand() % 3;
 
 	if (index == 0)
 	{
