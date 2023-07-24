@@ -13,7 +13,8 @@ enum PlayerForm {
 	SHIP,
 	WAVE,
 	BALL,
-	ROBOT
+	ROBOT,
+	SPIDER
 };
 
 class Player
