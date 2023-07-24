@@ -45,6 +45,9 @@ private:
 	std::list<std::shared_ptr<SpriteAnimation>>		m_listAnimation;
 	std::list<std::shared_ptr<SpriteAnimation>>		m_listTriggerAnimation;
 	std::list<std::shared_ptr<Background>>			m_listBackground;
+	std::list<std::shared_ptr<MouseButton>>			m_listPauseButton;
+	std::shared_ptr<MouseButton>					m_resumeButton;
+	std::shared_ptr<MouseButton>					m_pauseButton;
 	std::shared_ptr<MouseButton>					button;
 	std::shared_ptr<Sprite2D>						m_slider;
 	std::shared_ptr<Player>							m_player;
@@ -65,7 +68,7 @@ private:
 	float processBarWidth;
 
 	const int m_fBackground_speed = 10.f;
-	Vector2 m_readyPos = Vector2(500, 700);
+	Vector2 m_readyPos = Vector2(500, 200);
 
 	std::shared_ptr<Sprite2D> m_trigger1;
 	
@@ -94,7 +97,9 @@ private:
 	bool m_onButtonPressed = false;
 	bool m_onButtonDown = false;
 	bool m_onButtonUp = false;
+	bool isPause = false;
 
+	bool m_hasGotPlayerJumpLocation;
 	std::shared_ptr<IOFile>		m_fileController;
 
 };
