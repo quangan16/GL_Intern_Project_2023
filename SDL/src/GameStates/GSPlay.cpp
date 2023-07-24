@@ -468,49 +468,49 @@ void GSPlay::Update(float deltaTime)
 
 
 
-	
-	if (m_player->m_changedState == true) {
-		m_player->m_changedState = false;
-	}
-		if(OnButtonDown == true)
-		{
-			
-			g_trigger = true;
-			OnButtonDown = false;
-		}
-	
-	}
-	
-	catch (std::exception_ptr e) {
-		
-	}
-	//std::cout << m_player->GetPlayerVelocity()<<std::endl;
-	std::cout << m_player->GetPlayerRotation()<<std::endl;
-	//std::cout << m_player->GetPlayerPosition().x << std::endl;
-	//std::cout << m_collider1->GetColliderPosition().y;
-	//std::cout << "isFalling " << m_player->m_isFalling << std::endl;
-	//std::cout << "isJumping " << m_player->m_isJumping << std::endl;
-	//std::cout << "isOnground " << m_player->m_isOnGround << std::endl;
-	//std::cout << "direction " << m_player->GetDirectionY() << std::endl;
-	//std::cout << "jumpBuffer " << jumpBuffer << std::endl;
-	//std::cout << "Number of coliders: " << m_colliderList.size()<<std::endl;
-	//std::cout << OnButtonPressed << std::endl;
-	//std::cout << m_playerCollider->GetWidth() << std::endl;
-	//std::cout << m_player->m_isAlive << std::endl;
-	
-	
 
-
-
-		/*for (auto it : m_gameMap->tile_map_)
-		{
-			if (m_playerCollider->CheckCollision(it))
-			{
-				m_player->SetPlayerPosition(m_player->GetPlayerPosition().x, it->GetColliderPosition().y - TILE_SIZE);
-				m_player->SetPlayerVelocity(0.0f);
-				isJumping = false;
+			if (m_player->m_changedState == true) {
+				m_player->m_changedState = false;
 			}
-		}*/
+			if (OnButtonDown == true)
+			{
+
+				g_trigger = true;
+				OnButtonDown = false;
+			}
+
+		}
+
+		catch (std::exception_ptr e) {
+
+		}
+		//std::cout << m_player->GetPlayerVelocity()<<std::endl;
+		std::cout << m_player->GetPlayerRotation() << std::endl;
+		//std::cout << m_player->GetPlayerPosition().x << std::endl;
+		//std::cout << m_collider1->GetColliderPosition().y;
+		//std::cout << "isFalling " << m_player->m_isFalling << std::endl;
+		//std::cout << "isJumping " << m_player->m_isJumping << std::endl;
+		//std::cout << "isOnground " << m_player->m_isOnGround << std::endl;
+		//std::cout << "direction " << m_player->GetDirectionY() << std::endl;
+		//std::cout << "jumpBuffer " << jumpBuffer << std::endl;
+		//std::cout << "Number of coliders: " << m_colliderList.size()<<std::endl;
+		//std::cout << OnButtonPressed << std::endl;
+		//std::cout << m_playerCollider->GetWidth() << std::endl;
+		//std::cout << m_player->m_isAlive << std::endl;
+
+
+
+
+
+			/*for (auto it : m_gameMap->tile_map_)
+			{
+				if (m_playerCollider->CheckCollision(it))
+				{
+					m_player->SetPlayerPosition(m_player->GetPlayerPosition().x, it->GetColliderPosition().y - TILE_SIZE);
+					m_player->SetPlayerVelocity(0.0f);
+					isJumping = false;
+				}
+			}*/
 
 
 
@@ -594,15 +594,15 @@ void GSPlay::Update(float deltaTime)
 		//m_background_2 = std::get<1>(m_background_2->MovingBackGround(m_background, m_background_2));
 
 	//Update position of camera
-	Camera::GetInstance()->UpdateOnYAxis(deltaTime);
-	Camera::GetInstance()->Update(deltaTime);
-	
-	
-	//std::cout<<Camera::GetInstance()->GetPosition().x;
-	/*obj->update(deltatime);*/
-	//printf("%f, \n", obj->GetPosition().x);
-	//std::system("cls");
-	
+		Camera::GetInstance()->UpdateOnYAxis(deltaTime);
+		Camera::GetInstance()->Update(deltaTime);
+
+
+		//std::cout<<Camera::GetInstance()->GetPosition().x;
+		/*obj->update(deltatime);*/
+		//printf("%f, \n", obj->GetPosition().x);
+		//std::system("cls");
+	}
 }
 
 void GSPlay::Draw(SDL_Renderer* renderer)
