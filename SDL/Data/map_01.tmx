@@ -10,6 +10,7 @@
   <image source="Asset/17.png" trans="ff00ff" width="128" height="56"/>
  </tileset>
  <tileset firstgid="19" name="18" tilewidth="128" tileheight="128" tilecount="1" columns="1">
+  <grid orientation="orthogonal" width="4" height="128"/>
   <image source="Asset/19.png" trans="ff00ff" width="128" height="128"/>
  </tileset>
  <tileset firstgid="20" name="groupSpike_2" tilewidth="128" tileheight="116" tilecount="1" columns="1">

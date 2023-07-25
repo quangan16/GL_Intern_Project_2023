@@ -1,0 +1,176 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "map_01.tmx",
+    "expandedProjectPaths": [
+        "Asset",
+        "."
+    ],
+    "fileStates": {
+        "": {
+            "scaleInDock": 0.5,
+            "scaleInEditor": 1
+        },
+        "#18": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "1.tsx": {
+            "scaleInDock": 1
+        },
+        "10.tsx": {
+            "scaleInDock": 1
+        },
+        "11.tsx": {
+            "scaleInDock": 1
+        },
+        "12.tsx": {
+            "scaleInDock": 1
+        },
+        "13.tsx": {
+            "scaleInDock": 1
+        },
+        "14.tsx": {
+            "scaleInDock": 1
+        },
+        "15.tsx": {
+            "scaleInDock": 1
+        },
+        "16.tsx": {
+            "scaleInDock": 1
+        },
+        "18.tsx": {
+            "scaleInDock": 1
+        },
+        "19.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        },
+        "2.tsx": {
+            "scaleInDock": 1
+        },
+        "20.tsx": {
+            "scaleInDock": 1
+        },
+        "21.tsx": {
+            "scaleInDock": 1
+        },
+        "22.tsx": {
+            "scaleInDock": 1
+        },
+        "22_.tsx": {
+            "scaleInDock": 1
+        },
+        "23.tsx": {
+            "scaleInDock": 1
+        },
+        "23_.tsx": {
+            "scaleInDock": 1
+        },
+        "3.tsx": {
+            "scaleInDock": 1
+        },
+        "4.tsx": {
+            "scaleInDock": 1
+        },
+        "5.tsx": {
+            "scaleInDock": 1
+        },
+        "6.tsx": {
+            "scaleInDock": 1
+        },
+        "7.tsx": {
+            "scaleInDock": 1
+        },
+        "8.tsx": {
+            "scaleInDock": 1
+        },
+        "9.tsx": {
+            "scaleInDock": 1
+        },
+        ":/automap-tiles.tsx": {
+            "scaleInDock": 1
+        },
+        "GP_Level_1.tmx": {
+            "scale": 0.03125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 213456,
+                "y": 704
+            }
+        },
+        "backx2.tsx": {
+            "scaleInDock": 1
+        },
+        "groundSquare_01_001-uhd.tsx": {
+            "scaleInDock": 0.5,
+            "scaleInEditor": 1
+        },
+        "map_01.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 9359.090909090908,
+                "y": 1993.939393939394
+            }
+        },
+        "map_01.tmx#16": {
+            "scaleInDock": 1
+        },
+        "map_01.tmx#17": {
+            "scaleInDock": 1
+        },
+        "map_01.tmx#18": {
+            "scaleInDock": 1
+        },
+        "map_01.tmx#GJ_GameSheet02-hd": {
+            "scaleInEditor": 1
+        },
+        "map_01.tmx#groundSquare_01_001-uhd": {
+            "scaleInDock": 0.5,
+            "scaleInEditor": 1
+        },
+        "map_01.tmx#groupSpike_2": {
+            "scaleInDock": 1
+        },
+        "map_01.tmx#tuanvjp": {
+            "scaleInDock": 1
+        },
+        "portal.tsx": {
+            "scaleInDock": 1
+        },
+        "tuanvjp.tsx": {
+            "scaleInDock": 1
+        }
+    },
+    "last.exportedFilePath": "C:/Users/nqan1/OneDrive/Documents/Dev_2023/Programming_Projects/CPP/GL_Testing_Env/SDL/Data",
+    "last.externalTilesetPath": "C:/Users/nqan1/OneDrive/Documents/Dev_2023/Programming_Projects/CPP/GL_Testing_Env/SDL/Data",
+    "last.imagePath": "C:/Users/nqan1/OneDrive/Documents/Dev_2023/Programming_Projects/CPP/GL_Testing_Env/SDL/Data/Asset",
+    "map.height": 25,
+    "map.lastUsedExportFilter": "CSV files (*.csv)",
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 128,
+    "map.tileWidth": 128,
+    "map.width": 12000,
+    "openFiles": [
+        "map_01.tmx",
+        "GP_Level_1.tmx",
+        "groundSquare_01_001-uhd.tsx"
+    ],
+    "project": "GD_Levels.tiled-project",
+    "recentFiles": [
+        "groundSquare_01_001-uhd.tsx",
+        "GP_Level_1.tmx",
+        "map_01.tmx"
+    ],
+    "tileset.embedInMap": true,
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 128,
+        "width": 128
+    },
+    "tileset.type": 0
+}
