@@ -117,6 +117,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
  }
 
  bool Player::OnCollisionStay(std::shared_ptr<BoxCollider2D> _otherCollider,  std::shared_ptr<Player>& _player) {
+	
 	 bool isOnGround = false;
 	 bool isChangedForm = false;
 	 if (m_playerCollider->CheckCollision(_otherCollider)) {
@@ -138,12 +139,12 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 }
 			 //Handle collide with grounds bottom
 			 else if (m_playerCollider->GetColliderPosition().y < _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight() 
-					&& m_playerForm != BALL) {
+					&& m_playerForm != WAVE) {
 				 
 				m_isAlive = false;
 
 			 }
-			 else if (m_playerCollider->GetColliderPosition().y < _otherCollider->GetColliderPosition().y && m_playerForm == BALL)
+			 else if (m_playerCollider->GetColliderPosition().y < _otherCollider->GetColliderPosition().y &&  m_playerForm == WAVE)
 			 {
 				 isOnGround = true;
 				 FixCollisionOverlapsUnderSurface(_otherCollider);
@@ -158,7 +159,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 _player = this->TransformToCube();
 			
 			 _player->m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE);
-			 m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_cube_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
+			 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_cube_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
 			 m_changedState = true;
 		 }
 
@@ -166,8 +167,8 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 _player = this->TransformToShip();
 			 Camera::GetInstance()->SetTarget(_player);
 			 _player->m_playerCollider->SetColliderSize(TILE_SIZE * 5 / 4, TILE_SIZE * 2 / 3);
-			 m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_ship_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
-			 m_playerSprite->SetSize(TILE_SIZE * 5/4 , TILE_SIZE*2/3);
+			 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_ship_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
+			 _player->m_playerSprite->SetSize(TILE_SIZE * 5/4 , TILE_SIZE*2/3);
 			 m_changedState = true;
 		 }
 
@@ -175,9 +176,9 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 _player = this->TransformToWave();
 			 Camera::GetInstance()->SetTarget(_player);
 			 _player->m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE * 2 / 3);
-			 m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_wave_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
+			 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_wave_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
 			 
-			 m_playerSprite->SetSize(TILE_SIZE , TILE_SIZE * 2 / 3);
+			 _player->m_playerSprite->SetSize(TILE_SIZE , TILE_SIZE * 2 / 3);
 
 			 m_changedState = true;
 		 }
@@ -185,9 +186,9 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 _player = this->TransformToBall();
 			 Camera::GetInstance()->SetTarget(_player);
 			 _player->m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE );
-			 m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_bug_1.tga"));
+			 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_bug_1.tga"));
 
-			 m_playerSprite->SetSize(TILE_SIZE, TILE_SIZE );
+			 _player->m_playerSprite->SetSize(TILE_SIZE, TILE_SIZE );
 
 			 m_changedState = true;
 		 }
@@ -255,11 +256,11 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
  void Player::FixCollisionOverlapsUnderSurface(std::shared_ptr<BoxCollider2D> _otherCollider) {
 	 float playerTopCollider = m_playerCollider->GetColliderPosition().y;
 	 float groundBottomCollider = _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight();
-	 float bottomPenetration = playerTopCollider - groundBottomCollider;
+	 float topPenetration = playerTopCollider - groundBottomCollider;
 	 if (playerTopCollider < groundBottomCollider) {
 		 //std::cout << bottomPenetration << std::endl;
 
-		 this->SetPlayerPosition(this->GetPlayerPosition().x, this->GetPlayerPosition().y - bottomPenetration);
+		 this->SetPlayerPosition(this->GetPlayerPosition().x, this->GetPlayerPosition().y + topPenetration);
 	 }
  }
 
@@ -318,7 +319,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 	 Vector2 currentPosition = this->m_playerPosition;
 	 this->m_playerSprite = nullptr;
 	 std::shared_ptr<TextureManager> currentTexture = ResourceManagers::GetInstance()->GetTexture("player_spider_1.tga");
-	 return std::make_shared<Spider>(currentPosition, 0.0, 1, 0.0, ResourceManagers::GetInstance()->GetTexture("player_spider_1.tga"),  220,  140,  1,  10,  1,   0.02,  true);
+	 return std::make_shared<Spider>(currentPosition, 0.0, 1, 0.0, ResourceManagers::GetInstance()->GetTexture("player_spider_1.tga"),  TILE_SIZE, TILE_SIZE,  1,  16,  1,   0.01,  true);
  }
 
 

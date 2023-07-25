@@ -58,7 +58,7 @@ void Spider::MoveUp(const double& _gravity, const bool& m_onButtonPressed, float
 		m_isJumping = true;
 		this->m_isFalling = false;
 		//if(m_jumpForce <= 10000)
-		m_jumpForce += 2000 * _deltaTime;
+		
 	}
 	else {
 
@@ -69,6 +69,7 @@ void Spider::MoveUp(const double& _gravity, const bool& m_onButtonPressed, float
 	if (m_isJumping == true) {
 		if (m_isFalling == false) {
 			m_isOnGround = false;
+			m_velocity = 100;
 			m_direction = -m_direction;
 
 

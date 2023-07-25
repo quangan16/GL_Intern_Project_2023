@@ -458,10 +458,7 @@ void GSPlay::Update(float deltaTime)
 				if (m_player->OnCollisionStay(collider, m_player)) {
 					m_player->m_isOnGround = true;
 					m_player->OnGround();
-					if (collider->GetColliderID() == ColliderType::PORTAL_SHIP) {
-						std::cout << "changing";
-						m_player = m_player->TransformToShip();
-					}
+					
 					break; // Exit the loop if ground collision is detected with any collider
 				}
 				else {
@@ -692,7 +689,7 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 		m_player->m_playerTrailEffect->Draw(renderer);
 	}
 
-	if (m_player->GetPlayerAnimation() != NULL)
+	if (m_player->GetPlayerAnimation() != NULL && m_player->m_isAlive)
 	{
 		m_player->GetPlayerAnimation()->Draw(renderer);
 	}
