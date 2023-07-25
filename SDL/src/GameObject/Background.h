@@ -22,5 +22,5 @@ public:
 	void SetRotation(double angle);
 	void SetFlip(SDL_RendererFlip flip);
 
-	std::tuple<std::shared_ptr<Background>, std::shared_ptr<Background>> MovingBackGround(std::shared_ptr<Background> bg1, std::shared_ptr<Background> bg2);
+	void MovingBackGround(std::shared_ptr<Background>& _other_Background);
 };

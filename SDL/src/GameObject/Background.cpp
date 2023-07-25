@@ -18,7 +18,7 @@ void Background::Draw(SDL_Renderer* renderer)
 {
 	if (m_pTexture != nullptr)
 	{
-		m_pTexture->Render(m_position.x, m_position.y, m_iWidth, m_iHeight, m_angle, m_flip);
+		m_pTexture->Render1(m_position.x, m_position.y, m_iWidth, m_iHeight, m_angle, m_flip);
 	}
 }
 
@@ -77,21 +77,18 @@ void Background::SetFlip(SDL_RendererFlip flip)
 
 
 
-std::tuple<std::shared_ptr<Background>, std::shared_ptr<Background>> Background::MovingBackGround(std::shared_ptr<Background> m_background, std::shared_ptr<Background> m_background_2)
+void Background::MovingBackGround(std::shared_ptr<Background>& _other_Background)
 {
-	m_background->Set2DPosition(m_background->Get2DPosition().x - m_fBackground_speed, 0);
-	m_background_2->Set2DPosition(m_background_2->Get2DPosition().x - m_fBackground_speed, 0);
+	this->Set2DPosition(this->Get2DPosition().x - m_fBackground_speed, 0);
+	_other_Background->Set2DPosition(_other_Background->Get2DPosition().x - m_fBackground_speed, 0);
 
-	if (m_background->Get2DPosition().x <= -SCREEN_WIDTH)
+	if (this->Get2DPosition().x <= -SCREEN_WIDTH)
 	{
-		m_background->Set2DPosition(m_background_2->Get2DPosition().x + (float)SCREEN_WIDTH, 0);
+		this->Set2DPosition(_other_Background->Get2DPosition().x + (float)SCREEN_WIDTH, 0);
 	}
 
-	if (m_background_2->Get2DPosition().x <= -SCREEN_WIDTH)
+	if (_other_Background->Get2DPosition().x <= -SCREEN_WIDTH)
 	{
-		m_background_2->Set2DPosition(m_background->Get2DPosition().x + (float)SCREEN_WIDTH, 0);
+		_other_Background->Set2DPosition(this->Get2DPosition().x + (float)SCREEN_WIDTH, 0);
 	}
-	auto res = std::make_tuple(m_background, m_background_2);
-
-	return res;
 }
