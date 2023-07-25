@@ -39,6 +39,8 @@ public:
 	int m_KeyPress;
 
 private:
+	std::shared_ptr<Background>						m_background1;
+	std::shared_ptr<Background>						m_background2;
 	std::shared_ptr<GameMap>						m_gameMap;
 	std::shared_ptr<Text>							m_score;
 	std::list<std::shared_ptr<MouseButton>>			m_listButton;

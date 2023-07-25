@@ -30,14 +30,16 @@ void GSPlay::Init()
 	texture->SetAlpha(500);
 	
 	// background_1
-	for (int i = 0; i < MAX_MAP_X * TILE_SIZE; i += SCREEN_WIDTH)
-	{
-		auto bg = std::make_shared<Background>(texture, 10.0f, SDL_FLIP_NONE);
-		bg->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT * 2);
-		bg->Set2DPosition(i, 0);
-		m_listBackground.push_back(bg);
-	}
+	m_background1 = std::make_shared<Background>(texture, 10.0f, SDL_FLIP_NONE);
+	m_background1->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT * 2);
+	m_background1->Set2DPosition(0, 0);
+	m_listBackground.push_back(m_background1);
 
+	// background_2
+	m_background2 = std::make_shared<Background>(texture, 10.0f, SDL_FLIP_NONE);
+	m_background2->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT * 2);
+	m_background2->Set2DPosition(SCREEN_WIDTH, 0);
+	m_listBackground.push_back(m_background2);
 	m_color = std::make_shared<SDL_Color>();
 
 	//Map
@@ -414,6 +416,8 @@ void GSPlay::PlayerTransform()
 
 void GSPlay::Update(float deltaTime)
 {
+	//background moving
+	m_background1->MovingBackGround(m_background2);
 	if (m_player->m_isAlive)
 	{
 		aliveTime += deltaTime;
@@ -529,6 +533,10 @@ void GSPlay::Update(float deltaTime)
 		}
 
 		for (auto it : m_listPauseButton)
+		{
+			it->Update(deltaTime);
+		}
+		for (auto it : m_listBackground)
 		{
 			it->Update(deltaTime);
 		}
