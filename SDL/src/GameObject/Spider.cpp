@@ -10,8 +10,8 @@ Spider::Spider() {
 	m_playerSpeed = 1100;
 }
 
-Spider::Spider(Vector2 _position, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _playerTexture)
-	: Player(_position, _rotation, _direction, _velocity, _playerTexture)
+Spider::Spider(Vector2 _position, double _rotation, int _direction, double _velocity)
+	: Player(_position, _rotation, _direction, _velocity)
 {
 	m_playerForm = SPIDER;
 	m_isJumping = false;
@@ -21,6 +21,20 @@ Spider::Spider(Vector2 _position, double _rotation, int _direction, double _velo
 	m_jumpForce = 3000.0;
 	m_playerSpeed = 1100;
 
+};
+
+Spider::Spider(Vector2 _position, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _playerTexture, int width, int height, int spriteRow, int frameCount, int numAction, float  frameTime, bool _repeat)
+	: Player(_position, _rotation, _direction, _velocity)
+{
+	m_playerForm = SPIDER;
+	m_isJumping = false;
+	m_isFalling = true;
+	m_isOnGround = false;
+	m_isAlive = true;
+	m_jumpForce = 3000.0;
+	m_playerSpeed = 1100;
+	m_playerAnimation = std::make_shared<SpriteAnimation>(_playerTexture, width, height, spriteRow, frameCount, numAction, frameTime, _repeat);
+	m_playerAnimation->Set2DPosition(_position.x, _position.y);
 };
 
 Spider::~Spider() {

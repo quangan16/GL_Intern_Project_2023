@@ -10,8 +10,8 @@ Wave::Wave() {
 	m_playerSpeed = 900;
 }
 
-Wave::Wave(Vector2 _position, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _playerTexture)
-	: Player(_position, _rotation, _direction, _velocity, _playerTexture)
+Wave::Wave(Vector2 _position, double _rotation, int _direction, double _velocity)
+	: Player(_position, _rotation, _direction, _velocity)
 {
 	m_playerForm = WAVE;
 	m_isJumping = false;
@@ -23,6 +23,19 @@ Wave::Wave(Vector2 _position, double _rotation, int _direction, double _velocity
 
 };
 
+Wave::Wave(Vector2 _position, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _texture, SDL_RendererFlip _flip, int _width, int _height)
+	: Player(_position, _rotation, _direction, _velocity)
+{
+	m_playerForm = WAVE;
+	m_isJumping = false;
+	m_isFalling = true;
+	m_isOnGround = false;
+	m_jumpForce = 10000.0;
+	m_isAlive = true;
+	m_playerSpeed = 1500;
+	m_playerSprite = std::make_shared<Sprite2D>(_texture, _flip, _width, _height);
+
+}
 Wave::~Wave() {
 	std::cout << "Wave object deleted" << std::endl;
 }

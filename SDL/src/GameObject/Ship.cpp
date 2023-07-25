@@ -10,8 +10,8 @@ Ship::Ship() {
 	m_playerSpeed = 1100;
 }
 
-Ship::Ship(Vector2 _position, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _playerTexture)
-	: Player(_position, _rotation, _direction, _velocity, _playerTexture)
+Ship::Ship(Vector2 _position, double _rotation, int _direction, double _velocity)
+	: Player(_position, _rotation, _direction, _velocity)
 {
 	m_playerForm = SHIP;
 	m_isJumping = false;
@@ -22,6 +22,20 @@ Ship::Ship(Vector2 _position, double _rotation, int _direction, double _velocity
 	m_playerSpeed = 1100;
 
 };
+
+Ship::Ship(Vector2 _position, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _texture, SDL_RendererFlip _flip, int _width, int _height)
+	: Player(_position, _rotation, _direction, _velocity)
+{
+	m_playerForm = SHIP;
+	m_isJumping = false;
+	m_isFalling = true;
+	m_isOnGround = false;
+	m_isAlive = true;
+	m_jumpForce = 3000.0;
+	m_playerSpeed = 1100;
+	m_playerSprite = std::make_shared<Sprite2D>(_texture, _flip, _width, _height);
+
+}
 
 Ship::~Ship() {
 	std::cout << "Ship object deleted" << std::endl;

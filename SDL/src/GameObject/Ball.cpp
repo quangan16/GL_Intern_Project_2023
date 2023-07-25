@@ -10,8 +10,8 @@ Ball::Ball() {
 	m_playerSpeed = 1100;
 }
 
-Ball::Ball(Vector2 _position, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _playerTexture)
-	: Player(_position, _rotation, _direction, _velocity, _playerTexture)
+Ball::Ball(Vector2 _position, double _rotation, int _direction, double _velocity)
+	: Player(_position, _rotation, _direction, _velocity)
 {
 	m_playerForm = BALL;
 	m_isJumping = false;
@@ -21,7 +21,21 @@ Ball::Ball(Vector2 _position, double _rotation, int _direction, double _velocity
 	m_jumpForce = 3000.0;
 	m_playerSpeed = 1100;
 
-};
+}
+Ball::Ball(Vector2 _position, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _texture, SDL_RendererFlip _flip, int _width, int _height)
+	: Player(_position, _rotation, _direction, _velocity)
+{
+	m_playerForm = BALL;
+	m_isJumping = false;
+	m_isFalling = true;
+	m_isOnGround = false;
+	m_isAlive = true;
+	m_jumpForce = 3000.0;
+	m_playerSpeed = 1100;
+	m_playerSprite = std::make_shared<Sprite2D>(_texture, _flip, _width, _height);
+
+}
+;
 
 Ball::~Ball() {
 	std::cout << "Ball object deleted" << std::endl;

@@ -3,8 +3,8 @@
 void Camera::InitPosition() {
 	if (m_Target != nullptr)
 	{
-		m_ViewBox.x = (m_Target->GetPosition().x - 650);
-		m_ViewBox.y = (m_Target->GetPosition().y - 410);
+		m_ViewBox.x = (m_Target->GetPlayerPosition().x - 650);
+		m_ViewBox.y = (m_Target->GetPlayerPosition().y - 410);
 	}
 }
 
@@ -23,7 +23,7 @@ Vector2 Camera::GetPosition()
 	return m_Position;
 }
 
-void Camera::SetTarget(std::shared_ptr<Sprite2D> target) // Settarget for player (-> Set origin position)
+void Camera::SetTarget(std::shared_ptr<Player> target) // Settarget for player (-> Set origin position)
 {
 	m_Target = target;
 }
@@ -31,7 +31,7 @@ void Camera::SetTarget(std::shared_ptr<Sprite2D> target) // Settarget for player
 void Camera::UpdateOnYAxis(float _deltaTime) {
 	
 	if (m_Target != nullptr) {
-		if (m_Target->Get2DPosition().y <= m_ViewBox.y + 300) {
+		if (m_Target->GetPlayerPosition().y <= m_ViewBox.y + 300) {
 			if (hasGetLocationY == false) {
 				newCameraPosition = Vector2(m_ViewBox.x, m_ViewBox.y - 300);
 				hasGetLocationY = true;
@@ -41,7 +41,7 @@ void Camera::UpdateOnYAxis(float _deltaTime) {
 				hasGetLocationY = false;
 			}
 		}
-		if (m_Target->Get2DPosition().y + m_Target->GetHeight() >= m_ViewBox.y + m_ViewBox.h - 300) {
+		if (m_Target->GetPlayerPosition().y + TILE_SIZE >= m_ViewBox.y + m_ViewBox.h - 300) {
 			if (hasGetLocationY == false) {
 				newCameraPosition = Vector2(m_ViewBox.x, m_ViewBox.y + m_ViewBox.h + 300);
 				hasGetLocationY = true;
@@ -60,7 +60,7 @@ void Camera::Update(float deltaTime)
 
 	if (m_Target != nullptr)
 	{
-		m_ViewBox.x = (m_Target->GetPosition().x - 650);
+		m_ViewBox.x = (m_Target->GetPlayerPosition().x - 650);
 		
 		
 		//Center the camera over the dot

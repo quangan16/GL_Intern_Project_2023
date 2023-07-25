@@ -12,13 +12,13 @@ public:
 	void InitPosition();
 	SDL_Rect GetViewBox();
 	Vector2 GetPosition();
-	void SetTarget(std::shared_ptr<Sprite2D> target);
+	void SetTarget(std::shared_ptr<Player> target);
 	void Update(float deltaTime);
 	void UpdateOnYAxis(float _deltaTime);
 	//void Update2(std::shared_ptr<Player>& _player, float deltaTime);
 	void SetPosition(Vector2 _position);
 private:
-	std::shared_ptr<Sprite2D> m_Target;
+	std::shared_ptr<Player> m_Target;
 	Vector2 m_Position;
 	SDL_Rect m_ViewBox;
 	float m_Smooth = 5.0f;

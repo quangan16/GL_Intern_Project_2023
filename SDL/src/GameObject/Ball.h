@@ -5,7 +5,8 @@ class Ball : public Player
 {
 public:
 	Ball();
-	Ball(Vector2 _position, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _playerTexture);
+	Ball(Vector2 _position, double _rotation, int _direction, double _velocity);
+	Ball(Vector2 _position, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _texture, SDL_RendererFlip _flip, int _width, int _height);
 	~Ball();
 	void MoveUp(const double& _gravity, const bool& m_onButtonPressed, float _deltaTime) override;
 	void ApplyGravity(const double& _gravity, float _deltaTime) override;

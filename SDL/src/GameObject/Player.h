@@ -3,10 +3,12 @@
 #include "TextureManager.h"
 #include "BoxCollider2D.h"
 
+
 class Ball;
 class Cube;
 class Ship;
 class Wave;
+class Spider;
 
 enum PlayerForm {
 	CUBE,
@@ -56,7 +58,7 @@ public:
 
 	Player();
 
-	Player(Vector2 _position ,double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _playerTexture);
+	Player(Vector2 _position ,double _rotation, int _direction, double _velocity);
 
 	virtual ~Player();
 
@@ -82,7 +84,7 @@ public:
 
 	int GetDirectionY();
 
-	void UpdatePlayerSprite(const std::shared_ptr<Sprite2D>& _playerSprite);
+	void UpdatePlayerSprite();
 
 	void UpdatePlayerSpriteRotation(const std::shared_ptr<Sprite2D>& _playerSprite);
 
@@ -100,7 +102,7 @@ public:
 
 	virtual void OnGround() = 0;
 
-	bool OnCollisionStay(std::shared_ptr<BoxCollider2D> otherCollider, std::shared_ptr<Player> &_player, std::shared_ptr<Sprite2D>& _playerSprite);
+	bool OnCollisionStay(std::shared_ptr<BoxCollider2D> otherCollider, std::shared_ptr<Player> &_player);
 
 	void JumpTrigger();
 
@@ -115,8 +117,13 @@ public:
 	std::shared_ptr<Wave> TransformToWave();
 
 	std::shared_ptr<Ball>TransformToBall();
+
+	std::shared_ptr<Spider>TransformToSpider();
+
+	std::shared_ptr<SpriteAnimation> GetPlayerAnimation();
 		
-	
+	void UpdatePlayerAnimation();
+
 	void FixCollisionOverlapsOnSurface(std::shared_ptr<BoxCollider2D> otherCollider);
 	void FixCollisionOverlapsUnderSurface(std::shared_ptr<BoxCollider2D> _otherCollider);
 	void Die(float& dieTime, float _waitTime);

@@ -6,7 +6,8 @@ class Wave : public Player
 {
 public:
 	Wave();
-	Wave(Vector2 _position, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _playerTexture);
+	Wave(Vector2 _position, double _rotation, int _direction, double _velocity);
+	Wave(Vector2 _position, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _texture, SDL_RendererFlip _flip, int _width, int _height);
 	~Wave();
 	void MoveUp(const double& _gravity, const bool& m_onButtonPressed, float _deltaTime) override;
 	void ApplyGravity(const double& _gravity, float _deltaTime) override;

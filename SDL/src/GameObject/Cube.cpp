@@ -9,8 +9,8 @@ Cube::Cube() {
 	m_playerSpeed = 1300.0f;
 }
 
-Cube::Cube(Vector2 _position, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _playerTexture)
-	: Player(_position, _rotation, _direction, _velocity, _playerTexture) {
+Cube::Cube(Vector2 _position, double _rotation, int _direction, double _velocity)
+	: Player(_position, _rotation, _direction, _velocity) {
 	m_playerForm = CUBE;
 	m_isJumping = false;
 	m_isFalling = true;
@@ -19,6 +19,20 @@ Cube::Cube(Vector2 _position, double _rotation, int _direction, double _velocity
 	m_playerSpeed = 980.0f;
 	m_isAlive = true;
 };
+
+Cube::Cube(Vector2 _position, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _texture, SDL_RendererFlip _flip, int _width, int _height)
+	: Player(_position, _rotation, _direction, _velocity)
+{
+	m_playerForm = CUBE;
+	m_isJumping = false;
+	m_isFalling = true;
+	m_isOnGround = false;
+	m_jumpForce = 2100.0;
+	m_playerSpeed = 980.0f;
+	m_isAlive = true;
+	m_playerSprite = std::make_shared<Sprite2D>(_texture, _flip, _width, _height);
+
+}
 
 Cube::~Cube() {
 	std::cout << "Cube object deleted"<<std::endl;

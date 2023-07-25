@@ -148,13 +148,11 @@ void GSPlay::Init()
 	//Cube
 	//std::cout << m_iCharacterTexture_index << std::endl;
 	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_" + std::to_string(m_iCharacterTexture_index) + ".tga");
-	m_playerSprite = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
-	m_player = std::make_shared<Cube>(Vector2(-100.0f, 700.0f), 0.0, 1, 0.0, texture);
-	m_player->SetPlayerSprite(TILE_SIZE, TILE_SIZE, m_playerSprite);
+	m_player = std::make_shared<Cube>(Vector2(-100.0f, 700.0f), 0.0, 1, 0.0, texture, SDL_FLIP_NONE, TILE_SIZE, TILE_SIZE);
 	m_playerCollider = m_player->GetCollider();
 	m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE);
 	m_player->m_changedState = false;
-	Camera::GetInstance()->SetTarget(m_playerSprite);
+	Camera::GetInstance()->SetTarget(m_player);
 
 	//Ship
 	/*texture = ResourceManagers::GetInstance()->GetTexture("player_ship_1.tga");
@@ -436,7 +434,16 @@ void GSPlay::Update(float deltaTime)
 			m_player->FixRotationOnGround(deltaTime);
 			m_player->Rotate(390.0, deltaTime);
 			m_player->UpdatePlayerPos(deltaTime);
-			m_player->UpdatePlayerSprite(m_playerSprite);
+			if(m_player->GetPlayerSprite() != nullptr)
+			{
+				m_player->UpdatePlayerSprite();
+
+			}else if(m_player->GetPlayerAnimation())
+			{
+				m_player->UpdatePlayerAnimation();
+			}
+
+			
 			/*for (const auto& collider : m_colliderList) {
 				m_player->OnCollisionStay(collider, isFalling);
 			}*/
@@ -444,7 +451,7 @@ void GSPlay::Update(float deltaTime)
 
 
 			for (const auto& collider : m_boxColliderList) {
-				if (m_player->OnCollisionStay(collider, m_player, m_playerSprite)) {
+				if (m_player->OnCollisionStay(collider, m_player)) {
 					m_player->m_isOnGround = true;
 					m_player->OnGround();
 					if (collider->GetColliderID() == ColliderType::PORTAL_SHIP) {
@@ -564,6 +571,10 @@ void GSPlay::Update(float deltaTime)
 
 
 		}
+		if(m_player->GetPlayerAnimation() != NULL)
+		{
+			m_player->GetPlayerAnimation()->Update(deltaTime);
+		}
 
 		for (auto it : m_listTriggerAnimation)
 		{
@@ -621,7 +632,11 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 	}
 	else
 	{
-		m_playerSprite->Draw(renderer);
+		if(m_player->GetPlayerSprite()!=NULL)
+		{
+			m_player->GetPlayerSprite()->Draw(renderer);
+		}
+		
 	}
 
 	//draw player
@@ -667,6 +682,11 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 	if (m_player->m_isOnGround == true && m_player->m_isAlive == true)
 	{
 		m_player->m_playerTrailEffect->Draw(renderer);
+	}
+
+	if (m_player->GetPlayerAnimation() != NULL)
+	{
+		m_player->GetPlayerAnimation()->Draw(renderer);
 	}
 
 	//m_trigger1->Draw(renderer);
