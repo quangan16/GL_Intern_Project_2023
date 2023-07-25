@@ -30,13 +30,13 @@ void GSPlay::Init()
 	texture->SetAlpha(500);
 	
 	// background_1
-	m_background1 = std::make_shared<Background>(texture, 10.0f, SDL_FLIP_NONE);
+	m_background1 = std::make_shared<Background>(texture, 2.0f, SDL_FLIP_NONE);
 	m_background1->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT * 2);
 	m_background1->Set2DPosition(0, 0);
 	m_listBackground.push_back(m_background1);
 
 	// background_2
-	m_background2 = std::make_shared<Background>(texture, 10.0f, SDL_FLIP_NONE);
+	m_background2 = std::make_shared<Background>(texture, 2.0f, SDL_FLIP_NONE);
 	m_background2->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT * 2);
 	m_background2->Set2DPosition(SCREEN_WIDTH, 0);
 	m_listBackground.push_back(m_background2);

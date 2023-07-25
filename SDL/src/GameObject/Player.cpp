@@ -137,17 +137,18 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 				 isOnGround = true;
 				 FixCollisionOverlapsOnSurface(_otherCollider);
 			 }
+			 else if (m_playerCollider->GetColliderPosition().y > _otherCollider->GetColliderPosition().y && (m_playerForm == WAVE || m_playerForm == SHIP) && m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() > _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight())
+			  {
+				  isOnGround = true;
+				  FixCollisionOverlapsUnderSurface(_otherCollider);
+			  }
 			 else if (m_playerCollider->GetColliderPosition().y < _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight()
-				 && m_playerForm != WAVE) {
+				) {
 
 				  m_isAlive = false;
 
 			  }
-			 else if (m_playerCollider->GetColliderPosition().y > _otherCollider->GetColliderPosition().y && m_playerForm == WAVE && m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() >_otherCollider->GetColliderPosition().y + _otherCollider->GetHeight())
-			 {
-				 isOnGround = true;
-				 FixCollisionOverlapsUnderSurface(_otherCollider);
-			 }
+			 
 			 //Handle collide with grounds bottom
 			 
 		 	
