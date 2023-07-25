@@ -6,8 +6,8 @@
 #define TILE_SIZE 100   
 #define PLAYER_SPEED 900.0f
 #define JUMP_HEIGHT 200.0f
-#define MAX_MAP_X 400
-#define MAX_MAP_Y 15
+#define MAX_MAP_X 2000
+#define MAX_MAP_Y 25
 
 class GameStateBase;
 class Sound;
@@ -28,10 +28,10 @@ typedef struct Map
 	int start_x_;
 	int start_y_;
 
-	int max_x_;
-	int max_y_;
+	long long max_x_;
+	long long max_y_;
 
-	int tile[MAX_MAP_Y][MAX_MAP_X];
+	long long tile[MAX_MAP_Y][MAX_MAP_X];
 	char* file_name_;
 };
 

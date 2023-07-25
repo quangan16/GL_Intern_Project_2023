@@ -86,8 +86,8 @@ void GameMap::DrawMap()
 	int y1 = 0;
 	int y2 = 0;
 
-	int map_x = 0;
-	int map_y = 0;
+	long long map_x = 0;
+	long long map_y = 0;
 
 	map_x = game_map_.start_x_ / TILE_SIZE;
 	//x1 = (game_map_.start_x_ % TILE_SIZE) * -1;
@@ -106,31 +106,42 @@ void GameMap::DrawMap()
 			int val = game_map_.tile[map_y][map_x];
 			if (val > 0)
 			{
-				if (val > 16 && val < 22 && val != 19)
+				if (val <= 16)
 				{
-					auto texture = ResourceManagers::GetInstance()->GetTexture(std::to_string(val) + ".tga");
+					auto texture = ResourceManagers::GetInstance()->GetTexture("Ingame_Sprite/Ground_" + std::to_string(val) + ".tga");
+					texture->setColor(230, 7, 207);
+					texture->SetAlpha(1000);
+					auto tile = std::make_shared<BoxCollider2D>(ColliderType::GROUND, Vector2(j, i), true, TILE_SIZE, TILE_SIZE, texture, SDL_FLIP_NONE);
+					tile_map_box.push_back(tile);
+				}
+				if (val >= 17 && val <= 22 )
+				{
+					auto texture = ResourceManagers::GetInstance()->GetTexture(("Ingame_Sprite/Spike_" + std::to_string(val) + ".tga"));
 					auto tile = std::make_shared<BoxCollider2D>(ColliderType::OBSTACLE, Vector2(j ,  i), true, TILE_SIZE , TILE_SIZE, texture, SDL_FLIP_NONE);
 					tile->SetColliderPosition(Vector2(j, i + TILE_SIZE/4));
 					tile_map_box.push_back(tile);
 				}
-				if (val == 22 || val == 23)
+
+				if (val >= 23 && val <= 30)
+				{
+					auto texture = ResourceManagers::GetInstance()->GetTexture("Ingame_Sprite/Wall_" + std::to_string(val) + ".tga");
+					texture->setColor(230, 7, 207);
+					texture->SetAlpha(1000);
+					auto tile = std::make_shared<BoxCollider2D>(ColliderType::GROUND, Vector2(j, i), true, TILE_SIZE, TILE_SIZE, texture, SDL_FLIP_NONE);
+					tile_map_box.push_back(tile);
+				}
+
+				/*if (val == 22 || val == 23)
 				{
 					auto texture = ResourceManagers::GetInstance()->GetTexture(std::to_string(val) + ".tga");
 					auto tile = std::make_shared<BoxCollider2D>(ColliderType::PORTAL_WAVE, Vector2(j, i), true, TILE_SIZE, TILE_SIZE, texture, SDL_FLIP_NONE);
 					tile_map_box.push_back(tile);
-				}
-				if(val <= 16 || val == 19)
-				{
-					auto texture = ResourceManagers::GetInstance()->GetTexture(std::to_string(val) + ".tga");
-					texture->setColor(230, 7, 207);
-					texture->SetAlpha(1000);
-					auto tile = std::make_shared<BoxCollider2D>(ColliderType::GROUND, Vector2(j, i ), true, TILE_SIZE, TILE_SIZE, texture, SDL_FLIP_NONE);
-					tile_map_box.push_back(tile);
-				}
-				if (val == 24) {
+				}*/
+				
+				/*if (val == 24) {
 					auto texture = ResourceManagers::GetInstance()->GetTexture("Mouse_Jump_Trigger_" + std::to_string(val) + ".tga");
 					auto tile = std::make_shared<CircleCollider2D>(ColliderType::JUMP_BOOST, Vector2(j,i ), true, TILE_SIZE/2, texture, 1, 30, 1, 0.033f);
-					//std::cout << "Pos" <<tile->GetPosition().y<<" "<< j << std::endl;
+					std::cout << "Pos" <<tile->GetPosition().y<<" "<< j << std::endl;
 					tile->m_animation->SetSize(TILE_SIZE , TILE_SIZE);
 					tile_map_circle.push_back(tile);
 				}
@@ -138,12 +149,12 @@ void GameMap::DrawMap()
 				{
 					auto texture = ResourceManagers::GetInstance()->GetTexture("Auto_Jump_Trigger_" + std::to_string(val) + ".tga");
 					auto tile = std::make_shared<CircleCollider2D>(ColliderType::JUMP_BOOST_AUTO, Vector2(j , i), true, TILE_SIZE / 6, texture, 1, 19, 1, 0.033f);
-					//std::cout << "Pos" <<tile->GetPosition().y<<" "<< j << std::endl;
+					std::cout << "Pos" <<tile->GetPosition().y<<" "<< j << std::endl;
 					tile->m_animation->SetPosition(Vector3(j - (TILE_SIZE / 2), i, 0));
 					tile->m_animation->SetSize(TILE_SIZE * 2, TILE_SIZE);
 					
 					tile_map_circle.push_back(tile);
-				}
+				}*/
 			}
 			map_x++;
 		}

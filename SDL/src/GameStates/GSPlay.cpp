@@ -44,7 +44,7 @@ void GSPlay::Init()
 
 	//Map
 	m_gameMap = std::make_shared<GameMap>();
-	m_gameMap->LoadMap("Data/map01.dat");
+	m_gameMap->LoadMap("Data/GP_Level_1.dat");
 	m_gameMap->DrawMap();
 	//Test jump trigger
 	/*{

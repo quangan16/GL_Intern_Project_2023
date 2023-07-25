@@ -61,7 +61,7 @@ void Camera::Update(float deltaTime)
 	if (m_Target != nullptr)
 	{
 		m_ViewBox.x = (m_Target->GetPlayerPosition().x - 650);
-		
+		m_ViewBox.y = (m_Target->GetPlayerPosition().y - 650);
 		
 		//Center the camera over the dot
 		
