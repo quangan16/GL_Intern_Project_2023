@@ -19,7 +19,7 @@ Player::Player() : m_playerPosition{ 0.0f, 0.0f }, m_velocity{ 10.0f } {};
 
 Player::Player(Vector2 _position, double _rotation, int _direction, double _velocity)
 	: m_playerPosition{ _position }, m_playerRotation{ _rotation }, m_direction{ _direction }, m_velocity{ _velocity },
-	m_playerCollider(std::make_shared<BoxCollider2D>(ColliderType::PLAYER, _position, true, 128.0f, 128.0f, ResourceManagers::GetInstance()->GetTexture("collider_border.png"), SDL_FLIP_NONE))
+	m_playerCollider(std::make_shared<BoxCollider2D>(ColliderType::PLAYER, _position, true, TILE_SIZE, TILE_SIZE, ResourceManagers::GetInstance()->GetTexture("collider_border.png"), SDL_FLIP_NONE))
 {
 	m_isAlive = true;
 	m_playerDieEffect = std::make_shared<SpriteAnimation>(ResourceManagers::GetInstance()->GetTexture("Player_Die_1.tga"), TILE_SIZE, TILE_SIZE , 1, 59, 1, 0.01f, false);
@@ -123,37 +123,41 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 	 if (m_playerCollider->CheckCollision(_otherCollider)) {
 		 if (_otherCollider->GetColliderID() == ColliderType::GROUND) {
 			 //Handle side collide with grounds
-			 
-			 if (m_playerCollider->GetColliderPosition().x + m_playerCollider->GetWidth() >= _otherCollider->GetColliderPosition().x
-			 && m_playerCollider->GetColliderPosition().x + m_playerCollider->GetWidth()*(4/5) < _otherCollider->GetColliderPosition().x
-			 && m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() * (4 / 10) > _otherCollider->GetColliderPosition().y
-			 && m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() < _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight()
-			 ) {
-				 
+			  if (m_playerCollider->GetColliderPosition().x + m_playerCollider->GetWidth() >= _otherCollider->GetColliderPosition().x
+				 && m_playerCollider->GetColliderPosition().x + m_playerCollider->GetWidth() * (4 / 5) < _otherCollider->GetColliderPosition().x
+				 && m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() * (4 / 10) > _otherCollider->GetColliderPosition().y
+				 && m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() < _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight()
+				 ) {
 				 m_isAlive = false;
 			 }
+			 
 			 //Handle  collide with ground's surface
 			 else if (m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() >= _otherCollider->GetColliderPosition().y 
 				 && m_playerCollider->GetColliderPosition().y  < _otherCollider->GetColliderPosition().y) {
 				 isOnGround = true;
 				 FixCollisionOverlapsOnSurface(_otherCollider);
 			 }
-			 //Handle collide with grounds bottom
-			 else if (m_playerCollider->GetColliderPosition().y < _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight() 
-					&& m_playerForm != WAVE) {
-				 
-				m_isAlive = false;
+			 else if (m_playerCollider->GetColliderPosition().y < _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight()
+				 && m_playerForm != WAVE) {
 
-			 }
-		 	else if (m_playerCollider->GetColliderPosition().y < _otherCollider->GetColliderPosition().y && m_playerForm == WAVE)
+				  m_isAlive = false;
+
+			  }
+			 else if (m_playerCollider->GetColliderPosition().y > _otherCollider->GetColliderPosition().y && m_playerForm == WAVE && m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() >_otherCollider->GetColliderPosition().y + _otherCollider->GetHeight())
 			 {
 				 isOnGround = true;
 				 FixCollisionOverlapsUnderSurface(_otherCollider);
 			 }
+			 //Handle collide with grounds bottom
+			 
+		 	
+		 
 			 
 		 }
 		 else if (_otherCollider->GetColliderID() == ColliderType::OBSTACLE)
 		 {
+			 std::cout << m_playerForm;
+
 				 m_isAlive = false;
 			 
 		 }

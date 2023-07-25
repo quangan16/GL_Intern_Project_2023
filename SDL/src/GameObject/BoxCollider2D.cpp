@@ -14,6 +14,9 @@ BoxCollider2D::BoxCollider2D(Vector2 objectPos,bool _isActive, float width, floa
 
 BoxCollider2D::BoxCollider2D(ColliderType _id,Vector2 _objectPos, bool _isActive, float _width, float _height, std::shared_ptr<TextureManager> _texture, SDL_RendererFlip _flip) 
     : Collider2D(_id,_objectPos, _isActive), Sprite2D(_texture, _flip, _width, _height), m_width{ _width }, m_height { _height } {
+    this->m_colliderPosition = _objectPos;
+    m_width = _width;
+    m_height = _height;
     m_iWidth = m_width;
     m_iHeight = m_height;
     m_position = Vector3(_objectPos.x, _objectPos.y, 0.0f);

@@ -11,7 +11,7 @@
 
 class GameStateBase;
 class Sound;
-const float tile_offset = 128.0f * 4;
+const float tile_offset = 100.0f * 4;
 inline bool OnButtonPressed = false;
 inline bool OnButtonDown = false;
 inline bool OnButtonUp = false;

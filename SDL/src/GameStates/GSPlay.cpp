@@ -493,7 +493,7 @@ void GSPlay::Update(float deltaTime)
 
 		}
 		//std::cout << m_player->GetPlayerVelocity()<<std::endl;
-		std::cout << m_player->GetPlayerRotation() << std::endl;
+		//std::cout << m_player->GetPlayerRotation() << std::endl;
 		//std::cout << m_player->GetPlayerPosition().x << std::endl;
 		//std::cout << m_collider1->GetColliderPosition().y;
 		//std::cout << "isFalling " << m_player->m_isFalling << std::endl;
@@ -505,6 +505,7 @@ void GSPlay::Update(float deltaTime)
 		//std::cout << OnButtonPressed << std::endl;
 		//std::cout << m_playerCollider->GetWidth() << std::endl;
 		//std::cout << m_player->m_isAlive << std::endl;
+		//std::cout << m_player->m_playerForm << std::endl;
 
 
 
