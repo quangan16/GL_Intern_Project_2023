@@ -36,6 +36,14 @@ typedef struct Map
 	char* file_name_;
 };
 
+typedef struct Map_Color
+{
+	int r;
+	int g;
+	int b;
+	int a;
+};
+
 inline int m_iMapTexture_index = 1;
 inline int m_iMaptexturesCount = 3;
 
@@ -48,6 +56,9 @@ inline int m_iShipTexture_count = 3;
 inline int m_iWaveTexture_index = 1;
 inline int m_iWaveTexture_count = 3;
 
+inline int m_iBallTexture_index = 1;
+inline int m_iBallTexture_count = 3;
+
 inline int m_iHighest_process_level_1 = 0;
 inline int m_iHighest_process_level_2 = 0;
 inline int m_iHighest_process_level_3 = 0;
@@ -57,5 +68,21 @@ inline bool isMuted = false;
 
 inline int r = 2, g = 2, b = 2, a = 256, index = 0;
 inline int interval = 1;
+inline int index_color = -1;
+
+inline Map_Color map_color[3][3] =
+{
+	{
+		{52, 161, 245}, {28, 217, 75}, {166 , 217, 65}
+	},
+	{
+		{210, 28, 217}, {217, 28, 100}, {217, 97, 28}
+	},
+	{
+		{217, 116, 28}, {28, 217, 167}, {217, 28, 28}
+	}
+};
+
+
 
 //https://www.all8.com/tools/bpm/

@@ -4,6 +4,7 @@
 #include "Background.h"
 #include "TextureManager.h"
 #include "BoxCollider2D.h"
+#include "GameMap.h"
 
 
 
@@ -127,7 +128,8 @@ public:
 
 	virtual void OnGround() = 0;
 
-	bool OnCollisionStay(std::shared_ptr<BoxCollider2D> otherCollider, std::shared_ptr<Player> &_player);
+	bool OnCollisionStay(std::shared_ptr<BoxCollider2D> otherCollider, std::shared_ptr<Player> &_player, std::shared_ptr<GameMap> &_gamemap,
+		std::shared_ptr<Background>& _bg1, std::shared_ptr<Background>& _bg2);
 
 	void JumpTrigger();
 
