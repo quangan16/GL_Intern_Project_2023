@@ -22,13 +22,15 @@ GSPlay::~GSPlay()
 
 void GSPlay::Init()
 {
+	
 	canDrawEvent = true;
 	timer = 0.0f;
 	aliveTime = 0.0f;
 	auto texture = ResourceManagers::GetInstance()->GetTexture("backx2.tga");
 	texture->setColor(148, 34, 224);
 	texture->SetAlpha(500);
-	
+	m_Sound = std::make_shared<Sound>("Data/Sounds/StereoMadness.mp3");
+	m_playerDieSfx = std::make_shared<Sound>("Data/Sounds/DeadSoundSfx.mp3");
 	// background_1
 	m_background1 = std::make_shared<Background>(texture, 2.0f, SDL_FLIP_NONE);
 	m_background1->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT * 2);
@@ -118,6 +120,7 @@ void GSPlay::Init()
 
 		});
 	m_listPauseButton.push_back(m_menuButton);
+	if (!isMuted) m_Sound->PlaySound();
 
 	// replay button
 	texture = ResourceManagers::GetInstance()->GetTexture("Replay.tga");
@@ -150,7 +153,7 @@ void GSPlay::Init()
 	//Cube
 	//std::cout << m_iCharacterTexture_index << std::endl;
 	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_" + std::to_string(m_iCharacterTexture_index) + ".tga");
-	m_player = std::make_shared<Cube>(Vector2(-100.0f, 700.0f), 0.0, 1, 0.0, texture, SDL_FLIP_NONE, TILE_SIZE, TILE_SIZE);
+	m_player = std::make_shared<Cube>(Vector2(-100.0f, 1500.0f), 0.0, 1, 0.0, texture, SDL_FLIP_NONE, TILE_SIZE, TILE_SIZE);
 	m_playerCollider = m_player->GetCollider();
 	m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE);
 	m_player->m_changedState = false;
@@ -422,7 +425,7 @@ void GSPlay::Update(float deltaTime)
 	}
 	timer += deltaTime;
 
-	m_player->Die(aliveTime, 2);
+	
 	if (!isPause)
 	{
 		//std::cout << g_stateControllerPtr;
@@ -469,12 +472,14 @@ void GSPlay::Update(float deltaTime)
 
 			}
 
+			m_player->Die(m_background1, m_Sound, m_playerDieSfx, aliveTime, 2);
+
 			for (const auto& collider : m_circleColliderList) {
 				m_player->OnCollisionTrigger(collider, m_gravity, deltaTime);
 			}
 
 
-
+			
 
 
 			if (m_player->m_changedState == true) {
@@ -556,7 +561,7 @@ void GSPlay::Update(float deltaTime)
 		if (m_player->m_isOnGround == true && m_player->m_isAlive)
 		{
 			canDrawEvent = true;
-			m_player->m_playerTrailEffect->SetPosition(Vector3(m_player->GetPlayerPosition().x - TILE_SIZE * 1.8, m_player->GetPlayerPosition().y - TILE_SIZE * 1.3, 0));
+			m_player->m_playerTrailEffect->SetPosition(Vector3(m_playerCollider->GetColliderPosition().x - m_playerCollider->GetWidth() * 2, m_playerCollider->GetColliderPosition().y - m_playerCollider->GetHeight() * 1.3  , 0));
 			m_player->m_playerTrailEffect->SetSize(TILE_SIZE * 3, TILE_SIZE * 3);
 			m_player->m_playerTrailEffect->Update(deltaTime);
 			m_player->m_playerJumpEffect->SetPosition(Vector3(m_player->GetPlayerPosition().x - TILE_SIZE / 2, m_player->GetPlayerPosition().y - TILE_SIZE / 2, 0));
@@ -651,7 +656,11 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 	for (auto it : m_boxColliderList) {
 		it->Draw(renderer);
 	}
-
+	for(auto it: m_gameMap->noneColliderObjectList)
+	{
+		it->Draw(renderer);
+	}
+	
 	SDL_Rect foregroundRect = { SCREEN_WIDTH / 2 - 245, PROCESS_PADDING + 20, processBarWidth, PROCESS_HEIGHT };
 	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // Green color
 	SDL_RenderFillRect(renderer, &foregroundRect);

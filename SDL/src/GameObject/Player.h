@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+
+#include "Background.h"
 #include "TextureManager.h"
 #include "BoxCollider2D.h"
 
@@ -126,7 +128,7 @@ public:
 
 	void FixCollisionOverlapsOnSurface(std::shared_ptr<BoxCollider2D> otherCollider);
 	void FixCollisionOverlapsUnderSurface(std::shared_ptr<BoxCollider2D> _otherCollider);
-	void Die(float& dieTime, float _waitTime);
+	void Die(std::shared_ptr<Background>& _bg, std::shared_ptr<Sound>& _bgSound, std::shared_ptr<Sound>& _DieSfx, float& dieTime, float _waitTime);
 	//void Update(float deltaTime);
 	
 };

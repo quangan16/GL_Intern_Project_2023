@@ -9,6 +9,7 @@ public:
 	~Sound();
 	bool Init();
 	void PlaySound();
+	void PlaySoundOnce();
 	void PauseSound();
 	void ResumeSound();
 	void StopSound();

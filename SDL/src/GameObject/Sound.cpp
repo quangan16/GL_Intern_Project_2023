@@ -5,7 +5,7 @@ Sound::Sound(std::string pathMusic)
 {
     Init();
 	LoadSound(pathMusic);
-    PlaySound();
+    /*PlaySound();*/
 }
 
 Sound::~Sound()
@@ -39,6 +39,31 @@ void Sound::PlaySound()
     {
         //Play the music
         Mix_PlayMusic(m_Music, -1); // The first argument is the music we want to play and the last argument is the number of times to repeat it. -1 for loop it util stop
+    }
+    //If music is being played
+    else
+    {
+        //If the music is paused
+        if (Mix_PausedMusic() == 1)
+        {
+            //Resume the music
+            Mix_ResumeMusic();
+        }
+        //If the music is playing
+        //else
+        //{
+        //    //Pause the music
+        //    Mix_PauseMusic();
+        //}
+    }
+}
+void Sound::PlaySoundOnce()
+{
+    //If there is no music playing
+    if (Mix_PlayingMusic() == 0)
+    {
+        //Play the music
+        Mix_PlayMusic(m_Music, 1); // The first argument is the music we want to play and the last argument is the number of times to repeat it. -1 for loop it util stop
     }
     //If music is being played
     else

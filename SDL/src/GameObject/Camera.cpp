@@ -37,7 +37,7 @@ void Camera::UpdateOnYAxis(float _deltaTime) {
 				hasGetLocationY = true;
 			}
 			if (m_ViewBox.y > newCameraPosition.y && hasGetLocationY == true) {
-				m_ViewBox.y -= 20;
+				m_ViewBox.y -= 1000*_deltaTime;
 				hasGetLocationY = false;
 			}
 		}
@@ -47,7 +47,7 @@ void Camera::UpdateOnYAxis(float _deltaTime) {
 				hasGetLocationY = true;
 			}
 			if (m_ViewBox.y + m_ViewBox.h < newCameraPosition.y + m_ViewBox.h  && hasGetLocationY == true) {
-				m_ViewBox.y += 20;
+				m_ViewBox.y += 1000 * _deltaTime;
 				hasGetLocationY = false;
 			}
 		}
@@ -61,7 +61,7 @@ void Camera::Update(float deltaTime)
 	if (m_Target != nullptr)
 	{
 		m_ViewBox.x = (m_Target->GetPlayerPosition().x - 650);
-		m_ViewBox.y = (m_Target->GetPlayerPosition().y - 650);
+		//m_ViewBox.y = (m_Target->GetPlayerPosition().y - 650);
 		
 		//Center the camera over the dot
 		

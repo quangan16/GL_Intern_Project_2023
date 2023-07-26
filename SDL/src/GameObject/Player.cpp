@@ -9,6 +9,7 @@
 #include "Ball.h"
 #include "Cube.h"
 #include "Ship.h"
+#include "Sound.h"
 #include "Wave.h"
 #include "Spider.h"
 
@@ -157,7 +158,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 		 }
 		 else if (_otherCollider->GetColliderID() == ColliderType::OBSTACLE)
 		 {
-			 std::cout << m_playerForm;
+			 
 
 				 m_isAlive = false;
 			 
@@ -272,16 +273,19 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
  }
 
  
- void Player::Die(float &_dieTime, float waitTime) {
+ void Player::Die(std::shared_ptr<Background> &_bg,std::shared_ptr<Sound>& _bgSound, std::shared_ptr<Sound>& _DieSfx,float &_dieTime, float waitTime) {
  	
 	
 	 if (m_isAlive == false) {
 		 //GameStateMachine::GetInstance()->PopState();
+		 if(isMuted) _bgSound->StopSound();
+		 if (!isMuted)_DieSfx->PlaySoundOnce();
+		 _bg->SetSpeed(0.0f);
+		 
 		 
 		 //std::cout << _dieTime;
 		 if(timer >= _dieTime + 2.0f)
 		 {
-
 			 GameStateMachine::GetInstance()->ChangeState(StateType::STATE_PLAY);
 		 }
 		

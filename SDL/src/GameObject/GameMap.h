@@ -19,6 +19,7 @@ public:
 	void LoadTiles();
 	void DrawMap();
 	Map getMap() { return game_map_; }
+	std::vector<std::shared_ptr<Sprite2D>> noneColliderObjectList;
 	std::vector<std::shared_ptr<BoxCollider2D>> tile_map_box;
 	std::vector<std::shared_ptr<CircleCollider2D>> tile_map_circle;
 private:

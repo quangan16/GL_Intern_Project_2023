@@ -168,10 +168,22 @@
             "scaleInDock": 1
         },
         "38.tsx": {
+            "dynamicWrapping": true,
             "scaleInDock": 1
+        },
+        "39-40.tsx": {
+            "dynamicWrapping": false
         },
         "4.tsx": {
             "scaleInDock": 1
+        },
+        "41-42.tsx": {
+            "dynamicWrapping": false
+        },
+        "43.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "5.tsx": {
             "scaleInDock": 1
@@ -205,12 +217,20 @@
             "scaleInDock": 1
         },
         "GP_Level_1.tmx": {
-            "scale": 0.33,
+            "scale": 0.25,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 7403.030303030303,
-                "y": 1584.848484848485
+                "x": 56326,
+                "y": 1134
             }
+        },
+        "GP_Level_1.tmx#43": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "GP_Level_1.tmx#44": {
+            "dynamicWrapping": false
         },
         "GP_Level_1.tmx#lightsquare_02_07_color_001": {
             "dynamicWrapping": true,
@@ -306,6 +326,10 @@
             "dynamicWrapping": true,
             "scaleInDock": 1
         },
+        "temp2.tsx": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        },
         "tuanvjp.tsx": {
             "scaleInDock": 1
         }
@@ -325,6 +349,7 @@
     "project": "GD_Levels.tiled-project",
     "recentFiles": [
         "GP_Level_1.tmx",
+        "43.tsx",
         "map_01.tmx",
         "22.tsx",
         "21.tsx",
@@ -334,10 +359,9 @@
         "25.tsx",
         "26.tsx",
         "27.tsx",
-        "29.tsx",
-        "30.tsx"
+        "29.tsx"
     ],
-    "tileset.embedInMap": false,
+    "tileset.embedInMap": true,
     "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {

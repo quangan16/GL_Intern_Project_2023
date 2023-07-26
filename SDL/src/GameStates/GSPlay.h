@@ -10,6 +10,7 @@
 #include "GameObject/BoxCollider2D.h"
 #include "GameObject/CircleCollider2D.h"
 #include "GameObject/IOFile.h"
+#include "Sound.h"
 class Sprite2D;
 class SpriteAnimation;
 class Background;
@@ -103,5 +104,8 @@ private:
 	bool m_hasGotPlayerJumpLocation;
 	std::shared_ptr<IOFile>		m_fileController;
 
+
+	//SoundEffect
+	std::shared_ptr<Sound>m_playerDieSfx;
 };
 
