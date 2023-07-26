@@ -15,10 +15,10 @@ GameMap::~GameMap()
 {
 }
 
-void GameMap::LoadMap(const char* name)
+void GameMap::LoadMap(std::string name)
 {
 	FILE* fp = NULL;
-	fopen_s(&fp, name, "rb");
+	fopen_s(&fp, name.c_str(), "rb");
 	if (fp == NULL)
 	{
 		printf("Can't open file");
@@ -55,7 +55,6 @@ void GameMap::LoadMap(const char* name)
 	game_map_.start_x_ = 0;
 	game_map_.start_y_ = 0;
 
-	game_map_.file_name_ = (char*)name;
 	fclose(fp);
 }
 

@@ -14,19 +14,21 @@ GSLevel::~GSLevel()
 
 void GSLevel::Init()
 {
+
 	if (!isMuted)m_Sound->PlaySound();
 	auto texture = ResourceManagers::GetInstance()->GetTexture("back1.tga");
 
+	m_loadFile->ReadFromFile("Data/save_data.txt");
 	// background
 	m_background = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
 	m_background->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 	m_background->Set2DPosition(0, 0);
 
 	// Level 
-	texture = ResourceManagers::GetInstance()->GetTexture("levelPickCanvas.png");
+	texture = ResourceManagers::GetInstance()->GetTexture("level_" + std::to_string(m_iMapTexture_index) + ".tga");
 	m_levelPickCanvas = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
-	m_levelPickCanvas->SetSize(SCREEN_WIDTH - 200, SCREEN_HEIGHT -200 );
-	m_levelPickCanvas->Set2DPosition(100, 100);
+	m_levelPickCanvas->SetSize(SCREEN_WIDTH - 200, SCREEN_HEIGHT - 200 );
+	m_levelPickCanvas->Set2DPosition((SCREEN_WIDTH - m_levelPickCanvas->GetWidth()) / 2, (SCREEN_HEIGHT - m_levelPickCanvas->GetHeight()) / 2);
 	
 
 	// exit button
@@ -73,9 +75,9 @@ void GSLevel::Init()
 		{
 			m_iMapTexture_index = m_iMaptexturesCount;
 		}
-		std::string texture_path = "bg_play" + std::to_string(m_iMapTexture_index) + ".tga";
-		//m_imglv->SetTexture(ResourceManagers::GetInstance()->GetTexture(texture_path));
-		//m_background->SetTexture(ResourceManagers::GetInstance()->GetTexture(texture_path));
+		std::string texture_path = "level_" + std::to_string(m_iMapTexture_index) + ".tga";
+		m_levelPickCanvas->SetTexture(ResourceManagers::GetInstance()->GetTexture(texture_path));
+		m_textGameName->LoadFromRenderText("HIGH SCORE : " + std::to_string(m_Highscore[m_iMapTexture_index - 1]) + "%");
 		});
 	m_listButton.push_back(m_btnPrev);
 
@@ -93,8 +95,9 @@ void GSLevel::Init()
 		{
 			m_iMapTexture_index = 1;
 		}
-		std::string texture_path = "bg_play" + std::to_string(m_iMapTexture_index) + ".tga";
-		//m_imglv->SetTexture(ResourceManagers::GetInstance()->GetTexture(texture_path));
+		std::string texture_path = "level_" + std::to_string(m_iMapTexture_index) + ".tga";
+		m_levelPickCanvas->SetTexture(ResourceManagers::GetInstance()->GetTexture(texture_path));
+		m_textGameName->LoadFromRenderText("HIGH SCORE : " + std::to_string(m_Highscore[m_iMapTexture_index - 1]) + "%");
 		});
 	m_listButton.push_back(m_btnNext);
 
@@ -119,7 +122,12 @@ void GSLevel::Init()
 		});
 	m_listButton.push_back(m_btnPlay);
 
-	//sound
+	//High Process Text
+	SDL_Color text_Color = { 255, 255, 255 };
+	m_textGameName = std::make_shared<Text>("Data/PUSAB___.otf", text_Color);
+	m_textGameName->SetSize(400, 70);
+	m_textGameName->Set2DPosition((SCREEN_WIDTH - m_textGameName->GetWidth()) / 2, 600);
+	m_textGameName->LoadFromRenderText("HIGH SCORE : " + std::to_string(m_Highscore[m_iMapTexture_index - 1]) + "%");
 
 }
 
@@ -183,4 +191,5 @@ void GSLevel::Draw(SDL_Renderer* renderer)
 	{
 		it->Draw(renderer);
 	}
+	m_textGameName->Draw(renderer);
 }

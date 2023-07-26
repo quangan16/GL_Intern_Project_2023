@@ -15,7 +15,7 @@ class GameMap
 public:
 	GameMap();
 	~GameMap();
-	void LoadMap(const char* name);
+	void LoadMap(std::string name);
 	void LoadTiles();
 	void DrawMap();
 	Map getMap() { return game_map_; }

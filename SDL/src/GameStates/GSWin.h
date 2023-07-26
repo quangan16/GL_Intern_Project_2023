@@ -4,13 +4,12 @@
 #include"GameObject/Text.h"
 #include "GameObject/Sound.h"
 #include "GameObject/SpriteAnimation.h"
-#include "GameObject/IOFile.h"
-class GSLevel :
+class GSWin :
 	public GameStateBase
 {
 public:
-	GSLevel();
-	~GSLevel();
+	GSWin();
+	~GSWin();
 
 	void	Init() override;
 	void	Exit() override;
@@ -24,24 +23,18 @@ public:
 	void	HandleMouseMoveEvents(int x, int y) override;
 	void	Update(float deltaTime) override;
 	void	Draw(SDL_Renderer* renderer) override;
-
 private:
 	std::shared_ptr<Sprite2D>				m_background;
-	std::shared_ptr<Sprite2D>				m_levelPickCanvas;
 	std::list<std::shared_ptr<MouseButton>>	m_listButton;
-	std::shared_ptr<Text>					m_textGameName;
+	std::shared_ptr<Sprite2D>				m_gameTitle;
 	SDL_Color m_textColor;
 	TTF_Font* m_Font;
-	std::shared_ptr<MouseButton> btnCredit;
 	int score = 0;
-	float time = 0.0f;
-
 	std::list<std::shared_ptr<SpriteAnimation>>	m_listAnimation;
 	std::shared_ptr<SpriteAnimation> obj;
-	std::shared_ptr<MouseButton> m_btnPrev;
-	std::shared_ptr<MouseButton> m_btnNext;
 	std::shared_ptr<MouseButton> m_btnGuide;
-	std::shared_ptr<MouseButton> m_btnBack;
+	std::shared_ptr<MouseButton> m_btnWindow;
+	std::shared_ptr<MouseButton> m_btnCharacter_Selection;
 	std::shared_ptr<MouseButton> m_btnPlay;
-	std::shared_ptr<IOFile>		 m_loadFile;
+	std::shared_ptr<MouseButton> m_btnOption;
 };
