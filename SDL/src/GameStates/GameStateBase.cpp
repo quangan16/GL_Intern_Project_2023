@@ -6,6 +6,7 @@
 #include "GSGuide.h"
 #include "GSLevel.h"
 #include "GSCharacter.h"
+#include "GSWin.h"
 GameStateBase::GameStateBase(StateType stateType) : m_stateType(stateType)
 {}
 
@@ -43,6 +44,9 @@ std::shared_ptr<GameStateBase> GameStateBase::CreateState(StateType stt)
 	case StateType::STATE_CHARACTER:
 		gs = std::make_shared<GSCharacter>();
 		//GSCHARACTER
+		break;
+	case StateType::STATE_WIN:
+		gs = std::make_shared<GSWin>();
 		break;
 	default:
 		break;

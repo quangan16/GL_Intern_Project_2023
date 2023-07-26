@@ -51,6 +51,7 @@ inline int m_iWaveTexture_count = 3;
 inline int m_iHighest_process_level_1 = 0;
 inline int m_iHighest_process_level_2 = 0;
 inline int m_iHighest_process_level_3 = 0;
+inline int m_Highscore[3];
 
 inline bool isMuted = false;
 

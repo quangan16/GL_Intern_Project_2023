@@ -28,16 +28,10 @@ void GSGuide::Init()
 	m_background->Set2DPosition(0, 0);
 
 	// guide image
-	texture = ResourceManagers::GetInstance()->GetTexture("guide_cube.tga");
+	texture = ResourceManagers::GetInstance()->GetTexture("guide.tga");
 	m_guide_Cube = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
-	m_guide_Cube->SetSize(676, 380);
-	m_guide_Cube->Set2DPosition((SCREEN_WIDTH - m_guide_Cube->GetWidth())/2, 100);
-
-	// guide ship
-	texture = ResourceManagers::GetInstance()->GetTexture("guide_ship.tga");
-	m_guide_Ship = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
-	m_guide_Ship->SetSize(676, 380);
-	m_guide_Ship->Set2DPosition((SCREEN_WIDTH - m_guide_Cube->GetWidth()) / 2, 530);
+	m_guide_Cube->SetSize(1920, 1080);
+	m_guide_Cube->Set2DPosition((SCREEN_WIDTH - m_guide_Cube->GetWidth())/2, (SCREEN_HEIGHT - m_guide_Cube->GetHeight()) / 2);
 
 	// button close
 	texture = ResourceManagers::GetInstance()->GetTexture("button_close.tga");
@@ -179,6 +173,7 @@ void GSGuide::Update(float deltaTime)
 void GSGuide::Draw(SDL_Renderer* renderer)
 {
 	m_background->Draw(renderer);
+	m_guide_Cube->Draw(renderer);
 	for (auto it : m_listButton)
 	{
 		it->Draw(renderer);
@@ -188,6 +183,5 @@ void GSGuide::Draw(SDL_Renderer* renderer)
 	{
 		//it->Draw(renderer);
 	}
-	m_guide_Cube->Draw(renderer);
-	m_guide_Ship->Draw(renderer);
+	
 }

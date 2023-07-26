@@ -199,6 +199,7 @@
     <ClCompile Include="src\GameStates\GSMenu.cpp" />
     <ClCompile Include="src\GameStates\GSPlay.cpp" />
     <ClCompile Include="src\GameObject\IOFile.cpp" />
+    <ClCompile Include="src\GameStates\GSWin.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -240,6 +241,7 @@
     <ClInclude Include="src\GameStates\GSMenu.h" />
     <ClInclude Include="src\GameStates\GSPlay.h" />
     <ClInclude Include="src\GameObject\IOFile.h" />
+    <ClInclude Include="src\GameStates\GSWin.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\map.dat" />

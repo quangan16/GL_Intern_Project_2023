@@ -24,6 +24,13 @@ bool IOFile::WriteToFile(const char* _fileName)
 		return false;
 	}
 	
+	for (int i = 0; i < m_iMapTexture_index; i++)
+	{
+		if (fprintf(fp, "%d", m_Highscore[i]) < 0)
+		{
+			return false;
+		}
+	}
 	fclose(fp);
 	return true;
 }
@@ -36,6 +43,11 @@ void IOFile::ReadFromFile(const char* _fileName)
 	{
 		printf("File does not exists \n");
 		return;
+	}
+
+	for (int i = 0; i < m_iMapTexture_index; i++)
+	{
+		fscanf_s(fp, "%d ", &m_Highscore[i]);
 	}
 
 	fscanf_s(fp, "%d %d %d", &m_iHighest_process_level_1, &m_iHighest_process_level_2, &m_iHighest_process_level_3);

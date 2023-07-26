@@ -12,7 +12,8 @@ enum class StateType
 	STATE_OPTION, 
 	STATE_GUIDE,
 	STATE_LEVEL,
-	STATE_CHARACTER
+	STATE_CHARACTER,
+	STATE_WIN
 };
 class GameStateMachine : public CSingleton<GameStateMachine>
 {
