@@ -31,7 +31,7 @@ void Camera::SetTarget(std::shared_ptr<Player> target) // Settarget for player (
 void Camera::UpdateOnYAxis(float _deltaTime) {
 	
 	if (m_Target != nullptr) {
-		if (m_Target->GetPlayerPosition().y <= m_ViewBox.y + 240) {
+		if (m_Target->GetPlayerPosition().y <= m_ViewBox.y + 240 ) {
 			
 				newCameraPosition = Vector2(m_ViewBox.x, m_ViewBox.y - 300);
 				
