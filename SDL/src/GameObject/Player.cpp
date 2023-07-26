@@ -152,26 +152,27 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 
 			 //Handle collide with grounds bottom
 			 
-		 	
+			  
 		 
 			 
 		 }
-		 else if (_otherCollider->GetColliderID() == ColliderType::OBSTACLE)
+		  if (_otherCollider->GetColliderID() == ColliderType::OBSTACLE)
 		 {
 			 
 
 				 m_isAlive = false;
 			 
 		 }
-		 else if (_otherCollider->GetColliderID() == ColliderType::PORTAL_CUBE && m_changedState == false) {
+		 if (_otherCollider->GetColliderID() == ColliderType::PORTAL_CUBE && m_changedState == false) {
 			 _player = this->TransformToCube();
-			
+			 Camera::GetInstance()->SetTarget(_player);
 			 _player->m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE);
 			 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_cube_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
+			 _player->m_playerSprite->SetSize(TILE_SIZE , TILE_SIZE );
 			 m_changedState = true;
 		 }
 
-		 else if (_otherCollider->GetColliderID() == ColliderType::PORTAL_SHIP && m_changedState == false) {
+		 if (_otherCollider->GetColliderID() == ColliderType::PORTAL_SHIP && m_changedState == false) {
 			 _player = this->TransformToShip();
 			 Camera::GetInstance()->SetTarget(_player);
 			 _player->m_playerCollider->SetColliderSize(TILE_SIZE * 5 / 4, TILE_SIZE * 2 / 3);
@@ -180,7 +181,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 m_changedState = true;
 		 }
 
-		 else if (_otherCollider->GetColliderID() == ColliderType::PORTAL_WAVE) {
+		 if (_otherCollider->GetColliderID() == ColliderType::PORTAL_WAVE) {
 			 _player = this->TransformToWave();
 			 Camera::GetInstance()->SetTarget(_player);
 			 _player->m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE * 2 / 3);
@@ -190,7 +191,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 
 			 m_changedState = true;
 		 }
-		 else if (_otherCollider->GetColliderID() == ColliderType::PORTAL_BALL) {
+		 if (_otherCollider->GetColliderID() == ColliderType::PORTAL_BALL) {
 			 _player = this->TransformToBall();
 			 Camera::GetInstance()->SetTarget(_player);
 			 _player->m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE );
@@ -200,7 +201,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 
 			 m_changedState = true;
 		 }
-		 else if (_otherCollider->GetColliderID() == ColliderType::PORTAL_SPIDER && m_changedState == false) {
+		 if (_otherCollider->GetColliderID() == ColliderType::PORTAL_SPIDER && m_changedState == false) {
 			 
 			 _player = this->TransformToSpider();
 			 Camera::GetInstance()->SetTarget(_player);
@@ -210,6 +211,9 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 _playerSprite->SetSize(TILE_SIZE, TILE_SIZE);*/
 
 			 m_changedState = true;
+		 }
+		 if (m_changedState == true) {
+			 m_changedState = false;
 		 }
 	 }
 

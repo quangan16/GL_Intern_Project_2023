@@ -31,7 +31,7 @@ public:
 	double m_jumpForce;
 	bool m_isAlive;
 	bool m_jumpBuffer = false;
-	bool m_changedState;
+	bool m_changedState = false;
 
 	std::shared_ptr<SpriteAnimation> m_playerDieEffect;
 	std::shared_ptr<SpriteAnimation> m_playerTrailEffect;

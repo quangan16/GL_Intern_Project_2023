@@ -5,8 +5,8 @@
     },
     "activeFile": "GP_Level_1.tmx",
     "expandedProjectPaths": [
-        ".",
-        "Asset"
+        "Asset",
+        "."
     ],
     "fileStates": {
         "": {
@@ -172,13 +172,15 @@
             "scaleInDock": 1
         },
         "39-40.tsx": {
-            "dynamicWrapping": false
+            "dynamicWrapping": false,
+            "scaleInDock": 1
         },
         "4.tsx": {
             "scaleInDock": 1
         },
         "41-42.tsx": {
-            "dynamicWrapping": false
+            "dynamicWrapping": false,
+            "scaleInDock": 1
         },
         "43.tsx": {
             "dynamicWrapping": true,
@@ -217,11 +219,11 @@
             "scaleInDock": 1
         },
         "GP_Level_1.tmx": {
-            "scale": 0.25,
+            "scale": 0.33,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 56326,
-                "y": 1134
+                "x": 59395.454545454544,
+                "y": 2100
             }
         },
         "GP_Level_1.tmx#43": {
@@ -230,7 +232,8 @@
             "scaleInEditor": 1
         },
         "GP_Level_1.tmx#44": {
-            "dynamicWrapping": false
+            "dynamicWrapping": false,
+            "scaleInDock": 1
         },
         "GP_Level_1.tmx#lightsquare_02_07_color_001": {
             "dynamicWrapping": true,

@@ -466,8 +466,9 @@ void GSPlay::Update(float deltaTime)
 				}
 				else {
 					m_player->m_isOnGround = false;
-					//m_player->m_isFalling = true;
+					m_player->m_isFalling = true;
 				}
+				
 
 
 			}
@@ -482,9 +483,7 @@ void GSPlay::Update(float deltaTime)
 			
 
 
-			if (m_player->m_changedState == true) {
-				m_player->m_changedState = false;
-			}
+			
 			if (OnButtonDown == true)
 			{
 
@@ -501,7 +500,7 @@ void GSPlay::Update(float deltaTime)
 		//std::cout << m_player->GetPlayerRotation() << std::endl;
 		//std::cout << m_player->GetPlayerPosition().x << std::endl;
 		//std::cout << m_collider1->GetColliderPosition().y;
-		//std::cout << "isFalling " << m_player->m_isFalling << std::endl;
+		std::cout << "isFalling " << m_player->m_isFalling << std::endl;
 		//std::cout << "isJumping " << m_player->m_isJumping << std::endl;
 		//std::cout << "isOnground " << m_player->m_isOnGround << std::endl;
 		//std::cout << "direction " << m_player->GetDirectionY() << std::endl;

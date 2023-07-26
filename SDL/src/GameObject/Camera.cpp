@@ -31,24 +31,24 @@ void Camera::SetTarget(std::shared_ptr<Player> target) // Settarget for player (
 void Camera::UpdateOnYAxis(float _deltaTime) {
 	
 	if (m_Target != nullptr) {
-		if (m_Target->GetPlayerPosition().y <= m_ViewBox.y + 300) {
-			if (hasGetLocationY == false) {
+		if (m_Target->GetPlayerPosition().y <= m_ViewBox.y + 240) {
+			
 				newCameraPosition = Vector2(m_ViewBox.x, m_ViewBox.y - 300);
-				hasGetLocationY = true;
-			}
-			if (m_ViewBox.y > newCameraPosition.y && hasGetLocationY == true) {
+				
+			
+			if (m_ViewBox.y > newCameraPosition.y ) {
 				m_ViewBox.y -= 1000*_deltaTime;
-				hasGetLocationY = false;
+				
 			}
 		}
-		if (m_Target->GetPlayerPosition().y + TILE_SIZE >= m_ViewBox.y + m_ViewBox.h - 300) {
-			if (hasGetLocationY == false) {
+		if (m_Target->GetPlayerPosition().y + TILE_SIZE >= m_ViewBox.y + m_ViewBox.h - 240) {
+			
 				newCameraPosition = Vector2(m_ViewBox.x, m_ViewBox.y + m_ViewBox.h + 300);
-				hasGetLocationY = true;
-			}
-			if (m_ViewBox.y + m_ViewBox.h < newCameraPosition.y + m_ViewBox.h  && hasGetLocationY == true) {
+				
+			
+			if (m_ViewBox.y + m_ViewBox.h < newCameraPosition.y + m_ViewBox.h ) {
 				m_ViewBox.y += 1000 * _deltaTime;
-				hasGetLocationY = false;
+				
 			}
 		}
 	}

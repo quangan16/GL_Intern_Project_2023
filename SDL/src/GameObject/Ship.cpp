@@ -6,7 +6,7 @@ Ship::Ship() {
 	m_isFalling = true;
 	m_isOnGround = false;
 	m_isAlive = true;
-	m_jumpForce = 10000.0;
+	m_jumpForce = 3000.0;
 	m_playerSpeed = 1100;
 }
 
@@ -43,15 +43,12 @@ Ship::~Ship() {
 
 void Ship::Rotate(double _rotateSpeed, float _deltaTime) {
 	
-		if (m_isFalling && m_playerRotation < 35) {
-			_rotateSpeed = SyncVelocityToRotationSpeed(std::abs(m_jumpForce/15));
-			m_playerRotation += _rotateSpeed  * _deltaTime;
-		}
-		else if (!m_isFalling && m_playerRotation > -35) {
-			_rotateSpeed = SyncVelocityToRotationSpeed(std::abs(m_jumpForce/15));
-
-			m_playerRotation -= _rotateSpeed * _deltaTime;
-		}
+	if (m_isFalling && m_playerRotation < 35) {
+		m_playerRotation += _rotateSpeed * 1 / (m_jumpForce /3000 ) * _deltaTime;
+	}
+	else if (!m_isFalling && m_playerRotation > -35) {
+		m_playerRotation -= _rotateSpeed *1/ (m_jumpForce/3000 ) * _deltaTime;
+	}
 	
 	//std::cout << m_playerRotation << std::endl;
 	
@@ -75,17 +72,24 @@ double Ship::SyncVelocityToRotationSpeed(float velocity) {
 
 void Ship::MoveUp(const double& _gravity, const bool& m_onButtonPressed, float _deltaTime) {
 	
-	if (m_onButtonPressed == true) {
+	if (OnButtonPressed == true) {
 		
 		m_isJumping = true;
 		this -> m_isFalling = false;
 		//if(m_jumpForce <= 10000)
-		m_jumpForce += 2000 * _deltaTime;
+		if (m_jumpForce < 5000.0)
+		{
+			m_jumpForce += 5000.0 * _deltaTime;
+		}
+		
 	}
 	else {
-	
-		
+		if (m_jumpForce >3000)
+		{
+			m_jumpForce -= 1000.0 * _deltaTime;
+		}
 		this -> m_isFalling = true;
+		
 	}
 	//std::cout << m_jumpForce <<std::endl;
 	if (m_isJumping == true) {

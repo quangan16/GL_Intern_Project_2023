@@ -185,7 +185,7 @@ void GameMap::DrawMap()
 				if (val == 43)
 				{
 					auto texture = ResourceManagers::GetInstance()->GetTexture(("Ingame_Sprite/Portal_" + std::to_string(val) + ".tga"));
-					auto tile = std::make_shared<BoxCollider2D>(ColliderType::OBSTACLE, Vector2(j, i), true, TILE_SIZE , TILE_SIZE *3, texture, SDL_FLIP_NONE);
+					auto tile = std::make_shared<BoxCollider2D>(ColliderType::PORTAL_CUBE, Vector2(j, i), true, TILE_SIZE , TILE_SIZE * 4, texture, SDL_FLIP_NONE);
 					tile->SetColliderPosition(Vector2(j, i));
 					tile_map_box.push_back(tile);
 				}
