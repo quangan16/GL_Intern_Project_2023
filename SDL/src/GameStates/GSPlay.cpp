@@ -84,8 +84,8 @@ void GSPlay::Init()
 	m_pauseButton->SetSize(70, 70);
 	m_pauseButton->Set2DPosition(button->Get2DPosition().x - m_pauseButton->GetWidth() - 10, 10);
 	m_pauseButton->SetOnClick([this]() {
-		OnButtonPressed = false;
-		isPause = !isPause;
+			OnButtonPressed = false;
+			isPause = !isPause;
 		});
 	m_listButton.push_back(m_pauseButton);
 	
@@ -101,7 +101,10 @@ void GSPlay::Init()
 		(SCREEN_HEIGHT - m_resumeButton->GetHeight()) / 2);
 	m_resumeButton->SetOnClick([this]()
 		{
-			isPause = !isPause;
+			if (isPause)
+			{
+				isPause = !isPause;
+			}
 		});
 	m_listPauseButton.push_back(m_resumeButton);
 	
@@ -113,11 +116,13 @@ void GSPlay::Init()
 		(SCREEN_HEIGHT - m_menuButton->GetHeight()) / 2);
 	m_menuButton->SetOnClick([this]()
 		{
-			GameStateMachine::GetInstance()->ChangeState(StateType::STATE_MENU);
+			if (isPause)
+			{
+				GameStateMachine::GetInstance()->ChangeState(StateType::STATE_MENU);
 
-			g_stateControllerPtr.reset();
-			g_stateControllerPtr = nullptr;
-
+				g_stateControllerPtr.reset();
+				g_stateControllerPtr = nullptr;
+			}
 		});
 	m_listPauseButton.push_back(m_menuButton);
 	if (!isMuted) m_Sound->PlaySound();
@@ -130,7 +135,10 @@ void GSPlay::Init()
 		(SCREEN_HEIGHT - m_menuButton->GetHeight()) / 2);
 	m_replayButton->SetOnClick([this]()
 		{
-			GameStateMachine::GetInstance()->ChangeState(StateType::STATE_PLAY);
+			if (isPause)
+			{
+				GameStateMachine::GetInstance()->ChangeState(StateType::STATE_PLAY);
+			}
 		});
 	m_listPauseButton.push_back(m_replayButton);
 
@@ -604,9 +612,9 @@ void GSPlay::Update(float deltaTime)
 		m_Process->LoadFromRenderText(std::to_string((int)currentProcess) + "%");
 
 		//Save High Process
-		if (currentProcess > m_iHighest_process_level_1)
+		if (currentProcess > m_Highscore[m_iCharacterTexture_index])
 		{
-			m_iHighest_process_level_1 = currentProcess;
+			m_Highscore[m_iCharacterTexture_index] = currentProcess;
 			m_fileController->WriteToFile("Data/save_data.txt");
 		}
 
