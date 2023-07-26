@@ -11,6 +11,7 @@
 #include "GameObject/CircleCollider2D.h"
 #include "GameObject/IOFile.h"
 #include "Sound.h"
+#include "SavePoint.h"
 class Sprite2D;
 class SpriteAnimation;
 class Background;
@@ -55,6 +56,7 @@ private:
 	std::shared_ptr<Sprite2D>						m_slider;
 	std::shared_ptr<Player>							m_player;
 	std::shared_ptr<Text>							m_Process;
+	std::shared_ptr<SavePoint>						m_savePoint;
 
 
 	
@@ -68,6 +70,8 @@ private:
 	float maxProcess = 100.0f;
 	float currentProcess = 0.0f;
 	float processBarWidth;
+
+	
 
 	const int m_fBackground_speed = 10.f;
 	Vector2 m_readyPos = Vector2(500, 200);

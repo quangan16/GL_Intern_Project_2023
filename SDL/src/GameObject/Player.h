@@ -6,6 +6,7 @@
 #include "BoxCollider2D.h"
 
 
+
 class Ball;
 class Cube;
 class Ship;
@@ -32,7 +33,7 @@ public:
 	bool m_isAlive;
 	bool m_jumpBuffer = false;
 	bool m_changedState = false;
-
+	bool m_hasWon;
 	std::shared_ptr<SpriteAnimation> m_playerDieEffect;
 	std::shared_ptr<SpriteAnimation> m_playerTrailEffect;
 	std::shared_ptr<SpriteAnimation> m_playerJumpEffect;
@@ -50,9 +51,9 @@ protected:
 	std::shared_ptr<TextureManager> m_playerTexture;
 	std::shared_ptr<Sprite2D> m_playerSprite;
 	std::shared_ptr<SpriteAnimation> m_playerAnimation;
+	std::shared_ptr<Sprite2D> m_savePointSprite;
+
 	
-
-
 	std::shared_ptr<BoxCollider2D> m_playerCollider;
 
 
@@ -123,12 +124,17 @@ public:
 	std::shared_ptr<Spider>TransformToSpider();
 
 	std::shared_ptr<SpriteAnimation> GetPlayerAnimation();
+
+	
 		
 	void UpdatePlayerAnimation();
 
 	void FixCollisionOverlapsOnSurface(std::shared_ptr<BoxCollider2D> otherCollider);
 	void FixCollisionOverlapsUnderSurface(std::shared_ptr<BoxCollider2D> _otherCollider);
-	void Die(std::shared_ptr<Background>& _bg, std::shared_ptr<Sound>& _bgSound, std::shared_ptr<Sound>& _DieSfx, float& dieTime, float _waitTime);
+	void Die( std::shared_ptr<Background>& _bg, std::shared_ptr<Sound>& _bgSound, std::shared_ptr<Sound>& _DieSfx, float& dieTime, float _waitTime);
+	void Victory();
+	
+
 	//void Update(float deltaTime);
 	
 };

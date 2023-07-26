@@ -7,7 +7,7 @@
 #define PLAYER_SPEED 900.0f
 #define JUMP_HEIGHT 200.0f
 #define MAX_MAP_X 960
-#define MAX_MAP_Y 25
+#define MAX_MAP_Y 24
 
 class GameStateBase;
 class Sound;
@@ -18,6 +18,7 @@ inline bool OnButtonUp = false;
 inline bool canDrawEvent;
 inline float timer = 0.0f;
 
+inline bool m_savePointMode = false;
 inline bool g_trigger = false;
 
 inline std::shared_ptr<Sound> m_Sound;

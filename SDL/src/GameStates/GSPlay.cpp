@@ -26,6 +26,10 @@ void GSPlay::Init()
 	canDrawEvent = true;
 	timer = 0.0f;
 	aliveTime = 0.0f;
+	//m_savePoint = std::make_shared<SavePoint>();
+
+	m_savePointMode = false;
+	
 	auto texture = ResourceManagers::GetInstance()->GetTexture("backx2.tga");
 	texture->setColor(148, 34, 224);
 	texture->SetAlpha(500);
@@ -48,6 +52,17 @@ void GSPlay::Init()
 	m_gameMap = std::make_shared<GameMap>();
 	m_gameMap->LoadMap("Data/GP_Level_1.dat");
 	m_gameMap->DrawMap();
+
+	for (auto& it : m_gameMap->tile_map_box)
+	{
+		m_boxColliderList.push_back(it);
+	}
+	for (auto& it : m_gameMap->tile_map_circle)
+	{
+		m_circleColliderList.push_back(it);
+		m_listTriggerAnimation.push_back(it->m_animation);
+		//std::cout<< m_listAnimation
+	}
 	//Test jump trigger
 	/*{
 
@@ -153,7 +168,7 @@ void GSPlay::Init()
 	//Cube
 	//std::cout << m_iCharacterTexture_index << std::endl;
 	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_" + std::to_string(m_iCharacterTexture_index) + ".tga");
-	m_player = std::make_shared<Cube>(Vector2(-100.0f, 1500.0f), 0.0, 1, 0.0, texture, SDL_FLIP_NONE, TILE_SIZE, TILE_SIZE);
+	m_player = std::make_shared<Cube>(Vector2(-0.0f, 1300.0f), 0.0, 1, 0.0, texture, SDL_FLIP_NONE, TILE_SIZE, TILE_SIZE);
 	m_playerCollider = m_player->GetCollider();
 	m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE);
 	m_player->m_changedState = false;
@@ -178,32 +193,21 @@ void GSPlay::Init()
 	Camera::GetInstance()->SetTarget(m_playerSprite);*/
 
 
-
+	//m_savePoint->PushSavePoint(m_player);
 	//Test Colliders
 	/*texture = ResourceManagers::GetInstance()->GetTexture("collider_border.tga");
 	m_collider1 = std::make_shared<BoxCollider2D>(ColliderType::GROUND, Vector2(0.0f, 500.0f), true, 5000.0f, 410.0f, texture, SDL_FLIP_NONE);
 	m_collider2 = std::make_shared<BoxCollider2D>(ColliderType::GROUND, Vector2(5100.0f, 500.0f), true, 5000.0f, 410.0f, texture, SDL_FLIP_NONE);
 	m_colliderList.push_back(m_collider2);
 	m_colliderList.push_back(m_collider1);*/
-
-
-	m_playerCollider = m_player->GetCollider();
+	/*m_savePoint->PushSavePoint(m_player);*/
 
 	Camera::GetInstance()->InitPosition();
 
 	//Dummy ground
 	//m_ground = std::make_shared<Player>(Vector2(0.0f, 400.0f), 480.0f, 210.0f);
 
-	for (auto& it : m_gameMap->tile_map_box)
-	{
-		m_boxColliderList.push_back(it);
-	}
-	for (auto& it : m_gameMap->tile_map_circle)
-	{
-		m_circleColliderList.push_back(it);
-		m_listTriggerAnimation.push_back(it->m_animation);
-		//std::cout<< m_listAnimation
-	}
+	
 	//m_listAnimation.push_back(m_trigger1);
 	m_listAnimation.push_back(m_player->m_playerDieEffect);
 }
@@ -422,6 +426,7 @@ void GSPlay::Update(float deltaTime)
 	if (m_player->m_isAlive)
 	{
 		aliveTime += deltaTime;
+		//m_savePoint->PushSavePointOverTime(m_player);
 	}
 	timer += deltaTime;
 
@@ -433,7 +438,7 @@ void GSPlay::Update(float deltaTime)
 			HandleEvents();
 
 			//m_player->RunIntoScene(m_readyPos, deltaTime);
-			m_player->ApplyGravity(m_gravity, deltaTime);
+			
 			//std::cout << OnButtonPressed << std::endl;
 			m_player->MoveUp(m_gravity, m_onButtonPressed, deltaTime);
 			//std::cout << OnButtonPressed << std::endl;
@@ -455,7 +460,7 @@ void GSPlay::Update(float deltaTime)
 				m_player->OnCollisionStay(collider, isFalling);
 			}*/
 			m_player->UpdatePlayerColliderState();
-
+			m_player->ApplyGravity(m_gravity, deltaTime);
 
 			for (const auto& collider : m_boxColliderList) {
 				if (m_player->OnCollisionStay(collider, m_player)) {
@@ -500,7 +505,7 @@ void GSPlay::Update(float deltaTime)
 		//std::cout << m_player->GetPlayerRotation() << std::endl;
 		//std::cout << m_player->GetPlayerPosition().x << std::endl;
 		//std::cout << m_collider1->GetColliderPosition().y;
-		std::cout << "isFalling " << m_player->m_isFalling << std::endl;
+		//std::cout << "isFalling " << m_player->m_isFalling << std::endl;
 		//std::cout << "isJumping " << m_player->m_isJumping << std::endl;
 		//std::cout << "isOnground " << m_player->m_isOnGround << std::endl;
 		//std::cout << "direction " << m_player->GetDirectionY() << std::endl;
@@ -512,7 +517,11 @@ void GSPlay::Update(float deltaTime)
 		//std::cout << m_player->m_playerForm << std::endl;
 
 
-
+		if (m_player->m_isAlive)
+		{
+			
+			m_savePoint->PushSavePointOverTime(m_player);
+		}
 
 
 			/*for (auto it : m_gameMap->tile_map_)
@@ -624,6 +633,9 @@ void GSPlay::Update(float deltaTime)
 		//printf("%f, \n", obj->GetPosition().x);
 		//std::system("cls");
 	}
+	
+		m_player->m_changedState = false;
+	
 }
 
 void GSPlay::Draw(SDL_Renderer* renderer)
