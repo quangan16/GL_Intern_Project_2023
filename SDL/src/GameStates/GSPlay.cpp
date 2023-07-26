@@ -9,7 +9,7 @@
 #include "GameObject/Background.h"
 #include "GameObject/GameMap.h"
 
-GSPlay::GSPlay()
+GSPlay::GSPlay():GameStateBase(StateType::STATE_PLAY)
 {
 }
 
@@ -22,13 +22,33 @@ GSPlay::~GSPlay()
 
 void GSPlay::Init()
 {
-	
+	if(g_stateControllerPtr->GetGameStateType() == StateType::STATE_PLAY)
+	{
+		/*delete g_stateControllerPtr;
+		g_stateControllerPtr = nullptr;*/
+	}
+	m_gameMap = std::make_shared<GameMap>();
+	m_gameMap->LoadMap("Data/GP_Level_1.dat");
+	m_gameMap->DrawMap();
+	//Map
+
+
+	for (auto& it : m_gameMap->tile_map_box)
+	{
+		m_boxColliderList.push_back(it);
+	}
+	for (auto& it : m_gameMap->tile_map_circle)
+	{
+		m_circleColliderList.push_back(it);
+		m_listTriggerAnimation.push_back(it->m_animation);
+		//std::cout<< m_listAnimation
+	}
 	canDrawEvent = true;
 	timer = 0.0f;
 	aliveTime = 0.0f;
-	//m_savePoint = std::make_shared<SavePoint>();
+	m_savePoint = std::make_shared<SavePoint>();
 
-	m_savePointMode = false;
+	m_savePointMode = true;
 	
 	auto texture = ResourceManagers::GetInstance()->GetTexture("backx2.tga");
 	texture->setColor(148, 34, 224);
@@ -48,21 +68,7 @@ void GSPlay::Init()
 	m_listBackground.push_back(m_background2);
 	m_color = std::make_shared<SDL_Color>();
 
-	//Map
-	m_gameMap = std::make_shared<GameMap>();
-	m_gameMap->LoadMap("Data/GP_Level_1.dat");
-	m_gameMap->DrawMap();
-
-	for (auto& it : m_gameMap->tile_map_box)
-	{
-		m_boxColliderList.push_back(it);
-	}
-	for (auto& it : m_gameMap->tile_map_circle)
-	{
-		m_circleColliderList.push_back(it);
-		m_listTriggerAnimation.push_back(it->m_animation);
-		//std::cout<< m_listAnimation
-	}
+	
 	//Test jump trigger
 	/*{
 
@@ -80,11 +86,27 @@ void GSPlay::Init()
 	button->SetOnClick([this]() {
 		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_MENU);
 
-		g_stateControllerPtr.reset();
-		g_stateControllerPtr = nullptr;
+		
 
 		});
 	m_listButton.push_back(button);
+
+	texture = ResourceManagers::GetInstance()->GetTexture("Pratice_Button.png");
+	m_practiceButton = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
+	m_practiceButton->SetSize(50, 50);
+	m_practiceButton->Set2DPosition(100, 10);
+	m_practiceButton->SetOnClick([this]() {
+		m_savePointMode = -m_savePointMode;
+		});
+
+	texture = ResourceManagers::GetInstance()->GetTexture("Pratice_Button_Off.png");
+	m_practiceButtonOff = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
+	m_practiceButtonOff->SetSize(50, 50);
+	m_practiceButtonOff->Set2DPosition(100, 10);
+	m_practiceButtonOff->SetOnClick([this]() {
+		
+		});
+	
 	// panel
 	/*texture = ResourceManagers::GetInstance()->GetTexture("panel.tga");
 	auto m_panel = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
@@ -135,8 +157,8 @@ void GSPlay::Init()
 			{
 				GameStateMachine::GetInstance()->ChangeState(StateType::STATE_MENU);
 
-				g_stateControllerPtr.reset();
-				g_stateControllerPtr = nullptr;
+				
+				
 			}
 		});
 	m_listPauseButton.push_back(m_menuButton);
@@ -201,7 +223,7 @@ void GSPlay::Init()
 	Camera::GetInstance()->SetTarget(m_playerSprite);*/
 
 
-	//m_savePoint->PushSavePoint(m_player);
+	m_savePoint->PushSavePoint(m_player);
 	//Test Colliders
 	/*texture = ResourceManagers::GetInstance()->GetTexture("collider_border.tga");
 	m_collider1 = std::make_shared<BoxCollider2D>(ColliderType::GROUND, Vector2(0.0f, 500.0f), true, 5000.0f, 410.0f, texture, SDL_FLIP_NONE);
@@ -306,6 +328,16 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 		case SDLK_ESCAPE:
 			isPause = !isPause;
 			break;
+		case SDLK_x:
+			if(m_savePoint->m_savePointStack.size()>1)
+			{
+				m_savePoint->PopSavePoint();
+			}else
+			{
+				std::cout << "can't pop more";
+			}
+			
+			break;
 		case SDLK_SPACE:
 			m_KeyPress |= 1 << 4;
 			OnButtonPressed = true;
@@ -400,6 +432,9 @@ void GSPlay::HandleTouchEvents(SDL_Event& e, bool bIsPressed)
 		//std::cout << "sdjkfhdjkfgh";
 	}
 
+	m_practiceButton->HandleTouchEvent(&e);
+	m_practiceButtonOff->HandleTouchEvent(&e);
+
 	for (auto button : m_listButton)
 	{
 		if (button->HandleTouchEvent(&e))
@@ -429,22 +464,29 @@ void GSPlay::PlayerTransform()
 
 void GSPlay::Update(float deltaTime)
 {
+	timer += deltaTime;
 	//background moving
 	m_background1->MovingBackGround(m_background2);
 	if (m_player->m_isAlive)
 	{
-		aliveTime += deltaTime;
-		//m_savePoint->PushSavePointOverTime(m_player);
+		aliveTime = timer;
+		
 	}
-	timer += deltaTime;
+	
 
 	
 	if (!isPause)
 	{
 		//std::cout << g_stateControllerPtr;
 		try {
+			
 			HandleEvents();
+			
+			if (m_player->m_isAlive)
+			{
 
+				m_savePoint->PushSavePointOverTime(m_player);
+			}
 			//m_player->RunIntoScene(m_readyPos, deltaTime);
 			
 			//std::cout << OnButtonPressed << std::endl;
@@ -462,14 +504,13 @@ void GSPlay::Update(float deltaTime)
 			{
 				m_player->UpdatePlayerAnimation();
 			}
-
 			
 			/*for (const auto& collider : m_colliderList) {
 				m_player->OnCollisionStay(collider, isFalling);
 			}*/
 			m_player->UpdatePlayerColliderState();
 			m_player->ApplyGravity(m_gravity, deltaTime);
-
+			
 			for (const auto& collider : m_boxColliderList) {
 				if (m_player->OnCollisionStay(collider, m_player)) {
 					m_player->m_isOnGround = true;
@@ -485,8 +526,8 @@ void GSPlay::Update(float deltaTime)
 
 
 			}
-
-			m_player->Die(m_background1, m_Sound, m_playerDieSfx, aliveTime, 2);
+			m_player->Die(m_savePoint, m_background1, m_Sound, m_playerDieSfx, aliveTime, 2);
+			
 
 			for (const auto& collider : m_circleColliderList) {
 				m_player->OnCollisionTrigger(collider, m_gravity, deltaTime);
@@ -512,7 +553,7 @@ void GSPlay::Update(float deltaTime)
 		//std::cout << m_player->GetPlayerVelocity()<<std::endl;
 		//std::cout << m_player->GetPlayerRotation() << std::endl;
 		//std::cout << m_player->GetPlayerPosition().x << std::endl;
-		//std::cout << m_collider1->GetColliderPosition().y;
+		//std::cout << m_playerCollider->GetColliderPosition().x<<std::endl;
 		//std::cout << "isFalling " << m_player->m_isFalling << std::endl;
 		//std::cout << "isJumping " << m_player->m_isJumping << std::endl;
 		//std::cout << "isOnground " << m_player->m_isOnGround << std::endl;
@@ -525,13 +566,9 @@ void GSPlay::Update(float deltaTime)
 		//std::cout << m_player->m_playerForm << std::endl;
 
 
-		if (m_player->m_isAlive)
-		{
-			
-			m_savePoint->PushSavePointOverTime(m_player);
-		}
+		
 
-
+		
 			/*for (auto it : m_gameMap->tile_map_)
 			{
 				if (m_playerCollider->CheckCollision(it))
@@ -552,6 +589,9 @@ void GSPlay::Update(float deltaTime)
 		default:
 			break;
 		}
+
+		m_practiceButton->Update(deltaTime);
+		m_practiceButtonOff->Update(deltaTime);
 
 		for (auto it : m_listButton)
 		{
@@ -669,6 +709,8 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 		
 	}
 
+	
+
 	//draw player
 	//m_playerSprite->Draw(renderer);
 	m_playerCollider->Draw(renderer);
@@ -721,6 +763,14 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 	if (m_player->GetPlayerAnimation() != NULL && m_player->m_isAlive)
 	{
 		m_player->GetPlayerAnimation()->Draw(renderer);
+	}
+	if (m_savePointMode)
+	{
+		m_practiceButton->Draw(renderer);
+	}
+	else
+	{
+		m_practiceButtonOff->Draw(renderer);
 	}
 
 	//m_trigger1->Draw(renderer);

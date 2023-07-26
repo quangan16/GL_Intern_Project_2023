@@ -13,6 +13,8 @@ class Ship;
 class Wave;
 class Spider;
 
+struct SavePoint;
+
 enum PlayerForm {
 	CUBE,
 	SHIP,
@@ -20,6 +22,26 @@ enum PlayerForm {
 	BALL,
 	ROBOT,
 	SPIDER
+};
+
+struct PlayerSavePointData
+{
+	
+	bool m_isJumping;
+	bool m_isFalling;
+	bool m_isOnGround;
+	double m_jumpForce;
+	bool m_isAlive;
+	bool m_jumpBuffer;
+		bool m_changedState;
+	
+	PlayerForm m_playerForm;
+	Vector2 m_playerPosition;
+	double m_playerRotation;
+	int m_direction;
+	double m_velocity;
+	float m_playerSpeed;
+	
 };
 
 class Player
@@ -131,9 +153,11 @@ public:
 
 	void FixCollisionOverlapsOnSurface(std::shared_ptr<BoxCollider2D> otherCollider);
 	void FixCollisionOverlapsUnderSurface(std::shared_ptr<BoxCollider2D> _otherCollider);
-	void Die( std::shared_ptr<Background>& _bg, std::shared_ptr<Sound>& _bgSound, std::shared_ptr<Sound>& _DieSfx, float& dieTime, float _waitTime);
+	void Die(const std::shared_ptr<SavePoint>& _savePoint, std::shared_ptr<Background>& _bg, std::shared_ptr<Sound>& _bgSound, std::shared_ptr<Sound>& _DieSfx, float& dieTime, float _waitTime);
 	void Victory();
-	
+
+	const PlayerForm GetPlayerForm();
+	const float GetPlayerSpeed();
 
 	//void Update(float deltaTime);
 	

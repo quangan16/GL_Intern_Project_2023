@@ -8,10 +8,13 @@
 #include "GameStateBase.h"
 #include "Ball.h"
 #include "Cube.h"
+#include "SavePoint.h"
 #include "Ship.h"
 #include "Sound.h"
 #include "Wave.h"
 #include "Spider.h"
+
+
 
 
 Player::Player() : m_playerPosition{ 0.0f, 0.0f }, m_velocity{ 10.0f } {};
@@ -120,7 +123,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
  bool Player::OnCollisionStay(std::shared_ptr<BoxCollider2D> _otherCollider,  std::shared_ptr<Player>& _player) {
 	
 	 bool isOnGround = false;
-	 bool isChangedForm = false;
+	
 	 if (m_playerCollider->CheckCollision(_otherCollider)) {
 		 if (_otherCollider->GetColliderID() == ColliderType::GROUND) {
 			 //Handle side collide with grounds
@@ -269,7 +272,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 	 float playerTopCollider = m_playerCollider->GetColliderPosition().y;
 	 float groundBottomCollider = _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight();
 	 float topPenetration = std::abs(playerTopCollider - groundBottomCollider);
-	 if (playerTopCollider < groundBottomCollider) {
+	 if (playerTopCollider < groundBottomCollider && OnButtonPressed ) {
 		
 
 		 this->SetPlayerPosition(this->GetPlayerPosition().x, this->GetPlayerPosition().y + topPenetration);
@@ -277,13 +280,13 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
  }
 
  
- void Player::Die(std::shared_ptr<Background> &_bg,std::shared_ptr<Sound>& _bgSound, std::shared_ptr<Sound>& _DieSfx,float &_dieTime, float waitTime) {
+ void Player::Die(const std::shared_ptr<SavePoint> &_savePoint, std::shared_ptr<Background> &_bg,std::shared_ptr<Sound>& _bgSound, std::shared_ptr<Sound>& _DieSfx,float &_dieTime, float waitTime) {
  	
 	
 	 if (m_isAlive == false) {
-		 //GameStateMachine::GetInstance()->PopState();
-		 if(isMuted) _bgSound->StopSound();
-		 if (!isMuted)_DieSfx->PlaySoundOnce();
+		 
+		 if(!isMuted) _bgSound->StopSound();
+		 
 		 _bg->SetSpeed(0.0f);
 		 
 		 
@@ -292,11 +295,45 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 		 {
 			 
 			 if (m_savePointMode == false) {
-				 GameStateMachine::GetInstance()->ChangeState(StateType::STATE_PLAY);
+				 this->m_playerPosition = _savePoint->m_savePointStack.front().m_playerPosition;
+				 this->m_isAlive = _savePoint->m_savePointStack.front().m_isAlive;
+				 this->m_isFalling = _savePoint->m_savePointStack.front().m_isJumping;
+				this->m_isOnGround = _savePoint->m_savePointStack.front().m_isOnGround;
+				this->m_jumpBuffer = _savePoint->m_savePointStack.front().m_jumpBuffer;
+				this->m_jumpForce = _savePoint->m_savePointStack.front().m_jumpForce;
+				this->m_playerRotation = _savePoint->m_savePointStack.front().m_playerRotation;
+				this->m_playerForm = _savePoint->m_savePointStack.front().m_playerForm;
+				this->m_playerSpeed = _savePoint->m_savePointStack.front().m_playerSpeed;
+				this->m_direction = _savePoint->m_savePointStack.front().m_direction;
+				this->m_velocity = _savePoint->m_savePointStack.front().m_velocity;
+				this->m_isFalling = _savePoint->m_savePointStack.front().m_isFalling;
+				this->m_jumpBuffer = _savePoint->m_savePointStack.front().m_jumpBuffer;
+
 			 }
+			 else if(m_savePointMode == true)
+			 {
+				 this->m_playerPosition = _savePoint->m_savePointStack.back().m_playerPosition;
+				 this->m_isAlive = _savePoint->m_savePointStack.back().m_isAlive;
+				 this->m_isFalling = _savePoint->m_savePointStack.back().m_isJumping;
+				 this->m_isOnGround = _savePoint->m_savePointStack.back().m_isOnGround;
+				 this->m_jumpBuffer = _savePoint->m_savePointStack.back().m_jumpBuffer;
+				 this->m_jumpForce = _savePoint->m_savePointStack.back().m_jumpForce;
+				 this->m_playerRotation = _savePoint->m_savePointStack.back().m_playerRotation;
+				 this->m_playerForm = _savePoint->m_savePointStack.back().m_playerForm;
+				 this->m_playerSpeed = _savePoint->m_savePointStack.back().m_playerSpeed;
+				 this->m_direction = _savePoint->m_savePointStack.back().m_direction;
+				this->m_velocity = _savePoint->m_savePointStack.back().m_velocity;
+				this->m_isFalling = _savePoint->m_savePointStack.back().m_isFalling;
+				this->m_jumpBuffer = _savePoint->m_savePointStack.back().m_jumpBuffer;
+
+
+				
+			 }
+			 m_isAlive = true;
+			 if (!isMuted) _bgSound->PlaySound();
 		 }
-		
 		 
+		
 	 }
  }
 
@@ -352,5 +389,12 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 
  }
 
+const PlayerForm Player::GetPlayerForm()
+ {
+	 return m_playerForm;
+ }
  
-
+const float Player::GetPlayerSpeed()
+ {
+	return m_playerSpeed;
+ }

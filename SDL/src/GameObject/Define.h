@@ -18,11 +18,11 @@ inline bool OnButtonUp = false;
 inline bool canDrawEvent;
 inline float timer = 0.0f;
 
-inline bool m_savePointMode = false;
+inline bool m_savePointMode;
 inline bool g_trigger = false;
 
 inline std::shared_ptr<Sound> m_Sound;
-inline std::shared_ptr<GameStateBase> g_stateControllerPtr;
+inline GameStateBase* g_stateControllerPtr;
 
 typedef struct Map
 {

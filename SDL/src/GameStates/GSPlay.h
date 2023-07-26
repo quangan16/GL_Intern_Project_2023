@@ -53,6 +53,8 @@ private:
 	std::shared_ptr<MouseButton>					m_resumeButton;
 	std::shared_ptr<MouseButton>					m_pauseButton;
 	std::shared_ptr<MouseButton>					button;
+	std::shared_ptr<MouseButton>					m_practiceButton;
+	std::shared_ptr<MouseButton>					m_practiceButtonOff;
 	std::shared_ptr<Sprite2D>						m_slider;
 	std::shared_ptr<Player>							m_player;
 	std::shared_ptr<Text>							m_Process;
