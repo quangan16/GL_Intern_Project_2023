@@ -31,10 +31,13 @@ void GSPlay::Init()
 	m_savePointMode = false;
 	
 	auto texture = ResourceManagers::GetInstance()->GetTexture("backx2.tga");
-	texture->setColor(148, 34, 224);
-	texture->SetAlpha(500);
-	m_Sound = std::make_shared<Sound>("Data/Sounds/StereoMadness.mp3");
-	m_playerDieSfx = std::make_shared<Sound>("Data/Sounds/DeadSoundSfx.mp3");
+	texture->setColor(map_color[m_iMapTexture_index][index_color].r, map_color[m_iMapTexture_index][index_color].g , map_color[m_iMapTexture_index][index_color].b);
+	texture->SetAlpha(255-75);
+	if (!isMuted)
+	{
+		m_Sound = std::make_shared<Sound>("Data/Sounds/map_" + (std::to_string(m_iMapTexture_index)) + ".mp3");
+		m_playerDieSfx = std::make_shared<Sound>("Data/Sounds/DeadSoundSfx.mp3");
+	}
 	// background_1
 	m_background1 = std::make_shared<Background>(texture, 2.0f, SDL_FLIP_NONE);
 	m_background1->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT * 2);
@@ -50,7 +53,7 @@ void GSPlay::Init()
 
 	//Map
 	m_gameMap = std::make_shared<GameMap>();
-	m_gameMap->LoadMap("Data/GP_Level_1.dat");
+	m_gameMap->LoadMap("Data/GP_Level_" + std::to_string(m_iMapTexture_index) + ".dat");
 	m_gameMap->DrawMap();
 
 	for (auto& it : m_gameMap->tile_map_box)
@@ -471,7 +474,7 @@ void GSPlay::Update(float deltaTime)
 			m_player->ApplyGravity(m_gravity, deltaTime);
 
 			for (const auto& collider : m_boxColliderList) {
-				if (m_player->OnCollisionStay(collider, m_player)) {
+				if (m_player->OnCollisionStay(collider, m_player, m_gameMap, m_background1, m_background2)) {
 					m_player->m_isOnGround = true;
 					m_player->OnGround();
 					
@@ -528,7 +531,7 @@ void GSPlay::Update(float deltaTime)
 		if (m_player->m_isAlive)
 		{
 			
-			m_savePoint->PushSavePointOverTime(m_player);
+			//m_savePoint->PushSavePointOverTime(m_player);
 		}
 
 

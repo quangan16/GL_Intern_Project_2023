@@ -117,7 +117,9 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 	 m_playerCollider->SetColliderPosition(m_playerPosition);
  }
 
- bool Player::OnCollisionStay(std::shared_ptr<BoxCollider2D> _otherCollider,  std::shared_ptr<Player>& _player) {
+ bool Player::OnCollisionStay(std::shared_ptr<BoxCollider2D> _otherCollider,  std::shared_ptr<Player>& _player, std::shared_ptr<GameMap>& _gamemap,
+	 std::shared_ptr<Background>& _bg1, std::shared_ptr<Background>& _bg2) 
+{
 	
 	 bool isOnGround = false;
 	 bool isChangedForm = false;
@@ -170,6 +172,13 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_cube_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
 			 _player->m_playerSprite->SetSize(TILE_SIZE , TILE_SIZE );
 			 _player->m_changedState = true;
+			 index_color = 3;
+			 _gamemap->ChangeColor(map_color[m_iMapTexture_index - 1][index_color].r, map_color[m_iMapTexture_index - 1][index_color].g, map_color[m_iMapTexture_index - 1][index_color].b);
+			 _bg1->GetTexture()->setColor(map_color[m_iMapTexture_index - 1][index_color].r, map_color[m_iMapTexture_index - 1][index_color].g, map_color[m_iMapTexture_index - 1][index_color].b);
+			 _bg1->GetTexture()->SetAlpha(255 - 75);
+			 _bg2->GetTexture()->setColor(map_color[m_iMapTexture_index - 1][index_color].r, map_color[m_iMapTexture_index - 1][index_color].g, map_color[m_iMapTexture_index - 1][index_color].b);
+			 _bg2->GetTexture()->SetAlpha(255 - 75);
+			 printf("%d \n", index_color);
 		 }
 
 		 if (_otherCollider->GetColliderID() == ColliderType::PORTAL_SHIP && m_changedState == false) {
@@ -179,6 +188,12 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_ship_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
 			 _player->m_playerSprite->SetSize(TILE_SIZE * 5/4 , TILE_SIZE*2/3);
 			 _player->m_changedState = true;
+			 index_color = 1;
+			 _gamemap->ChangeColor(map_color[m_iMapTexture_index - 1][index_color].r, map_color[m_iMapTexture_index - 1][index_color].g, map_color[m_iMapTexture_index - 1][index_color].b);
+			 _bg1->GetTexture()->setColor(map_color[m_iMapTexture_index - 1][index_color].r, map_color[m_iMapTexture_index - 1][index_color].g, map_color[m_iMapTexture_index - 1][index_color].b);
+			 _bg1->GetTexture()->SetAlpha(255 - 75);
+			 _bg2->GetTexture()->setColor(map_color[m_iMapTexture_index - 1][index_color].r, map_color[m_iMapTexture_index - 1][index_color].g, map_color[m_iMapTexture_index - 1][index_color].b);
+			 _bg2->GetTexture()->SetAlpha(255 - 75);
 		 }
 
 		 if (_otherCollider->GetColliderID() == ColliderType::PORTAL_WAVE && m_changedState == false) {
@@ -190,6 +205,8 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 _player->m_playerSprite->SetSize(TILE_SIZE , TILE_SIZE * 2 / 3);
 
 			 _player->m_changedState = true;
+			 _gamemap->ChangeColor(map_color[m_iMapTexture_index - 1][index_color++].r, map_color[m_iMapTexture_index - 1][index_color++].g, map_color[m_iMapTexture_index - 1][index_color++].b);
+			 
 		 }
 		 if (_otherCollider->GetColliderID() == ColliderType::PORTAL_BALL && m_changedState == false) {
 			 _player = this->TransformToBall();
@@ -200,6 +217,8 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 _player->m_playerSprite->SetSize(TILE_SIZE, TILE_SIZE );
 
 			 _player->m_changedState = true;
+			 _gamemap->ChangeColor(map_color[m_iMapTexture_index - 1][index_color++].r, map_color[m_iMapTexture_index - 1][index_color++].g, map_color[m_iMapTexture_index - 1][index_color++].b);
+
 		 }
 		 if (_otherCollider->GetColliderID() == ColliderType::PORTAL_SPIDER && m_changedState == false) {
 			 
@@ -211,6 +230,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 _playerSprite->SetSize(TILE_SIZE, TILE_SIZE);*/
 
 			 _player->m_changedState = true;
+			 _gamemap->ChangeColor(map_color[m_iMapTexture_index - 1][index_color++].r, map_color[m_iMapTexture_index - 1][index_color++].g, map_color[m_iMapTexture_index - 1][index_color++].b);
 		 }
 		 
 	 }
