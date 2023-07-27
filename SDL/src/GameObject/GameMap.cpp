@@ -221,13 +221,106 @@ void GameMap::DrawMap()
 					tile->SetColliderPosition(Vector2(j, i));
 					tile_map_box.push_back(tile);
 				}
-				if (val == 44)
+				else if (val == 44)
 				{
 					auto texture = ResourceManagers::GetInstance()->GetTexture(("Ingame_Sprite/Finish_line_" + std::to_string(val) + ".tga"));
 					auto tile = std::make_shared<BoxCollider2D>(ColliderType::FINISH_LINE, Vector2(j, i), true, TILE_SIZE, TILE_SIZE * 4, texture, SDL_FLIP_NONE);
 					tile->SetColliderPosition(Vector2(j, i));
 					tile_map_box.push_back(tile);
 				}
+				else if (val == 45)
+				{
+					auto texture = ResourceManagers::GetInstance()->GetTexture(("Ingame_Sprite/Spike_" + std::to_string(val) + ".tga"));
+					auto tile = std::make_shared<BoxCollider2D>(ColliderType::OBSTACLE, Vector2(j, i), true, TILE_SIZE * 2, TILE_SIZE * 2 / 3, texture, SDL_FLIP_NONE);
+
+					tile->SetColliderPosition(Vector2(j, i));
+					tile_map_box.push_back(tile);
+				}
+				else if(val == 46)
+				{
+					auto texture = ResourceManagers::GetInstance()->GetTexture(("Ingame_Sprite/Spike_" + std::to_string(val) + ".tga"));
+					auto tile = std::make_shared<BoxCollider2D>(ColliderType::OBSTACLE, Vector2(j, i + TILE_SIZE * 1 / 3), true, TILE_SIZE * 2 / 3, TILE_SIZE * 2 / 3, texture, SDL_FLIP_NONE);
+
+					tile_map_box.push_back(tile);
+				}
+				else if(val == 47)
+				{
+					auto texture = ResourceManagers::GetInstance()->GetTexture(("Ingame_Sprite/Chain_" + std::to_string(val) + ".tga"));
+					auto tile = std::make_shared<Sprite2D>( texture, SDL_FLIP_NONE, TILE_SIZE, TILE_SIZE);
+					tile->Set2DPosition(j, i);
+					noneColliderObjectList.push_back(tile);
+				}
+				else if (val == 48)
+				{
+					auto texture = ResourceManagers::GetInstance()->GetTexture(("Ingame_Sprite/Chain_" + std::to_string(val) + ".tga"));
+					auto tile = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE, TILE_SIZE, TILE_SIZE * 2);
+					tile->Set2DPosition(j, i);
+					noneColliderObjectList.push_back(tile);
+				}
+				else if(val == 49)
+				{
+					auto texture = ResourceManagers::GetInstance()->GetTexture(("Ingame_Sprite/Portal_" + std::to_string(val) + ".tga"));
+					auto tile = std::make_shared<BoxCollider2D>(ColliderType::PORTAL_SPIDER, Vector2(j, i), true, TILE_SIZE*2, TILE_SIZE * 4, texture, SDL_FLIP_NONE);
+					tile->SetColliderPosition(Vector2(j, i));
+					tile_map_box.push_back(tile);
+				}
+				else if (val == 50)
+				{
+					auto texture = ResourceManagers::GetInstance()->GetTexture(("Ingame_Sprite/Portal_" + std::to_string(val) + ".tga"));
+					auto tile = std::make_shared<BoxCollider2D>(ColliderType::PORTAL_SHIP, Vector2(j, i), true, TILE_SIZE * 2, TILE_SIZE * 4, texture, SDL_FLIP_NONE);
+					tile->SetColliderPosition(Vector2(j, i));
+					tile_map_box.push_back(tile);
+				}
+				else if (val == 51)
+				{
+					auto texture = ResourceManagers::GetInstance()->GetTexture(("Ingame_Sprite/Portal_" + std::to_string(val) + ".tga"));
+					auto tile = std::make_shared<BoxCollider2D>(ColliderType::PORTAL_WAVE, Vector2(j, i), true, TILE_SIZE * 2, TILE_SIZE * 4, texture, SDL_FLIP_NONE);
+					tile->SetColliderPosition(Vector2(j, i));
+					tile_map_box.push_back(tile);
+				}
+				else if(val == 52)
+				{
+					auto texture = ResourceManagers::GetInstance()->GetTexture(("Ingame_Sprite/Spike_" + std::to_string(val) + ".tga"));
+					auto tile = std::make_shared<BoxCollider2D>(ColliderType::OBSTACLE, Vector2(j, i + TILE_SIZE * 1 /2), true, TILE_SIZE * 1 / 2, TILE_SIZE , texture, SDL_FLIP_NONE);
+
+					tile_map_box.push_back(tile);
+				}
+				else if(val == 53)
+				{
+					auto texture = ResourceManagers::GetInstance()->GetTexture(("Ingame_Sprite/Spike_" + std::to_string(val) + ".tga"));
+					auto tile = std::make_shared<BoxCollider2D>(ColliderType::OBSTACLE, Vector2(j, i ), true, TILE_SIZE, TILE_SIZE * 2 / 3, texture, SDL_FLIP_NONE);
+
+					tile_map_box.push_back(tile);
+				}
+				else if(val == 54)
+				{
+					auto texture = ResourceManagers::GetInstance()->GetTexture(("Ingame_Sprite/Tri_" + std::to_string(val) + ".tga"));
+					auto tile = std::make_shared<BoxCollider2D>(ColliderType::OBSTACLE, Vector2(j + TILE_SIZE / 2, i + TILE_SIZE / 2), true, TILE_SIZE/2, TILE_SIZE /2, texture, SDL_FLIP_NONE);
+
+					tile_map_box.push_back(tile);
+				}
+				else if (val == 55)
+				{
+					auto texture = ResourceManagers::GetInstance()->GetTexture(("Ingame_Sprite/Tri_" + std::to_string(val) + ".tga"));
+					auto tile = std::make_shared<BoxCollider2D>(ColliderType::OBSTACLE, Vector2(j + TILE_SIZE , i ), true, TILE_SIZE / 2, TILE_SIZE / 2, texture, SDL_FLIP_NONE);
+
+					tile_map_box.push_back(tile);
+					}
+				else if (val == 56)
+				{
+					auto texture = ResourceManagers::GetInstance()->GetTexture(("Ingame_Sprite/Tri_" + std::to_string(val) + ".tga"));
+					auto tile = std::make_shared<BoxCollider2D>(ColliderType::OBSTACLE, Vector2(j + TILE_SIZE , i + TILE_SIZE / 2), true, TILE_SIZE / 2, TILE_SIZE / 2, texture, SDL_FLIP_NONE);
+
+					tile_map_box.push_back(tile);
+					}
+				else if (val == 57)
+				{
+					auto texture = ResourceManagers::GetInstance()->GetTexture(("Ingame_Sprite/Tri_" + std::to_string(val) + ".tga"));
+					auto tile = std::make_shared<BoxCollider2D>(ColliderType::OBSTACLE, Vector2(j + TILE_SIZE , i + TILE_SIZE ), true, TILE_SIZE / 2, TILE_SIZE / 2, texture, SDL_FLIP_NONE);
+
+					tile_map_box.push_back(tile);
+					}
+
 			}
 			map_x++;
 		}

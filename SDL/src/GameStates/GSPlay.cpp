@@ -29,11 +29,14 @@ void GSPlay::Init()
 		/*delete g_stateControllerPtr;
 		g_stateControllerPtr = nullptr;*/
 	}
-	m_gameMap = std::make_shared<GameMap>();
-	m_gameMap->LoadMap("Data/GP_Level_1.dat");
-	m_gameMap->DrawMap();
+	
 	//Map
 	victoryTime = 0.0f;
+	//Map
+	m_gameMap = std::make_shared<GameMap>();
+	m_iMapTexture_index = 2;
+	m_gameMap->LoadMap("Data/GP_Level_" + std::to_string(m_iMapTexture_index) + ".csv");
+	m_gameMap->DrawMap();
 
 	for (auto& it : m_gameMap->tile_map_box)
 	{
@@ -74,21 +77,7 @@ void GSPlay::Init()
 	m_listBackground.push_back(m_background2);
 	m_color = std::make_shared<SDL_Color>();
 
-	//Map
-	m_gameMap = std::make_shared<GameMap>();
-	m_gameMap->LoadMap("Data/GP_Level_" + std::to_string(m_iMapTexture_index) + ".dat");
-	m_gameMap->DrawMap();
-
-	for (auto& it : m_gameMap->tile_map_box)
-	{
-		m_boxColliderList.push_back(it);
-	}
-	for (auto& it : m_gameMap->tile_map_circle)
-	{
-		m_circleColliderList.push_back(it);
-		m_listTriggerAnimation.push_back(it->m_animation);
-		//std::cout<< m_listAnimation
-	}
+	
 	//Test jump trigger
 	/*{
 

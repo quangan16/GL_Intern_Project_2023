@@ -5,8 +5,8 @@
     },
     "activeFile": "GP_Level_1.tmx",
     "expandedProjectPaths": [
-        ".",
-        "Asset"
+        "Asset",
+        "."
     ],
     "fileStates": {
         "": {
@@ -181,7 +181,7 @@
         },
         "41-42.tsx": {
             "dynamicWrapping": false,
-            "scaleInDock": 2
+            "scaleInDock": 1
         },
         "43.tsx": {
             "dynamicWrapping": true,
@@ -189,9 +189,7 @@
             "scaleInEditor": 1
         },
         "44.tsx": {
-            "dynamicWrapping": false,
-            "scaleInDock": 1,
-            "scaleInEditor": 1
+            "dynamicWrapping": false
         },
         "45.tsx": {
             "dynamicWrapping": true,
@@ -230,11 +228,11 @@
             "scaleInDock": 1
         },
         "GP_Level_1.tmx": {
-            "scale": 0.125,
+            "scale": 0.0625,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 125216,
-                "y": 6080
+                "x": 50816,
+                "y": -400
             }
         },
         "GP_Level_1.tmx#43": {
@@ -251,11 +249,11 @@
             "scaleInDock": 1
         },
         "GP_Level_2.tmx": {
-            "scale": 0.33,
+            "scale": 0.125,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 34100,
-                "y": 2039.3939393939395
+                "x": 26544,
+                "y": 304
             }
         },
         "GP_Level_2.tmx#1-16": {
@@ -267,15 +265,19 @@
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#18": {
+            "dynamicWrapping": true,
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#19": {
+            "dynamicWrapping": true,
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#20": {
+            "dynamicWrapping": true,
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#21": {
+            "dynamicWrapping": true,
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#22": {
@@ -285,6 +287,7 @@
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#24": {
+            "dynamicWrapping": true,
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#25": {
@@ -309,9 +312,11 @@
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#32": {
+            "dynamicWrapping": true,
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#33": {
+            "dynamicWrapping": true,
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#34": {
@@ -321,6 +326,7 @@
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#36": {
+            "dynamicWrapping": true,
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#37": {
@@ -373,6 +379,19 @@
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#53": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#54": {
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#55": {
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#56": {
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#57": {
             "scaleInDock": 1
         },
         "Tileset/1-16.tsx": {
@@ -411,8 +430,8 @@
             "scale": 0.015625,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 20512,
-                "y": 4160
+                "x": 20480,
+                "y": 4096
             }
         },
         "map_01.tmx#16": {
@@ -489,9 +508,8 @@
     "project": "GD_Levels.tiled-project",
     "recentFiles": [
         "GP_Level_2.tmx",
-        "map_01.tmx",
         "GP_Level_1.tmx",
-        "44.tsx",
+        "map_01.tmx",
         "30.tsx",
         "45.tsx",
         "43.tsx",
