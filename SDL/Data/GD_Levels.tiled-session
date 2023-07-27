@@ -92,7 +92,6 @@
             "scaleInDock": 1
         },
         "24.tsx": {
-            "dynamicWrapping": false,
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
@@ -220,11 +219,11 @@
             "scaleInDock": 1
         },
         "GP_Level_1.tmx": {
-            "scale": 0.125,
+            "scale": 0.25,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 106448,
-                "y": 3824
+                "x": 65146,
+                "y": 956
             }
         },
         "GP_Level_1.tmx#43": {
@@ -241,6 +240,7 @@
             "scaleInDock": 1
         },
         "Tileset/1-16.tsx": {
+            "dynamicWrapping": false,
             "scaleInDock": 0.5
         },
         "backx2.tsx": {

@@ -134,7 +134,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 				 && m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() * (4 / 10) > _otherCollider->GetColliderPosition().y
 				 && m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() < _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight()
 				 ) {
-				 m_isAlive = false;
+				  if (!m_immortalMode) m_isAlive = false;
 			 }
 			 
 			 //Handle  collide with ground's surface
@@ -151,7 +151,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 else if (m_playerCollider->GetColliderPosition().y < _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight()
 				) {
 
-				  m_isAlive = false;
+				  if (!m_immortalMode) m_isAlive = false;
 
 			  }
 			 
@@ -164,8 +164,8 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 		  if (_otherCollider->GetColliderID() == ColliderType::OBSTACLE)
 		 {
 			 
-
-				 m_isAlive = false;
+			  if(!m_immortalMode) m_isAlive = false;
+				 
 			 
 		 }
 		 if (_otherCollider->GetColliderID() == ColliderType::PORTAL_CUBE && m_changedState == false) {
@@ -320,7 +320,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 				 this->m_isFalling = _savePoint->m_savePointStack.front().m_isJumping;
 				this->m_isOnGround = _savePoint->m_savePointStack.front().m_isOnGround;
 				this->m_jumpBuffer = _savePoint->m_savePointStack.front().m_jumpBuffer;
-				this->m_jumpForce = _savePoint->m_savePointStack.front().m_jumpForce;
+				
 				this->m_playerRotation = _savePoint->m_savePointStack.front().m_playerRotation;
 				this->m_playerForm = _savePoint->m_savePointStack.front().m_playerForm;
 				this->m_playerSpeed = _savePoint->m_savePointStack.front().m_playerSpeed;
@@ -337,7 +337,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 				 this->m_isFalling = _savePoint->m_savePointStack.back().m_isJumping;
 				 this->m_isOnGround = _savePoint->m_savePointStack.back().m_isOnGround;
 				 this->m_jumpBuffer = _savePoint->m_savePointStack.back().m_jumpBuffer;
-				 this->m_jumpForce = _savePoint->m_savePointStack.back().m_jumpForce;
+				 
 				 this->m_playerRotation = _savePoint->m_savePointStack.back().m_playerRotation;
 				 this->m_playerForm = _savePoint->m_savePointStack.back().m_playerForm;
 				 this->m_playerSpeed = _savePoint->m_savePointStack.back().m_playerSpeed;
