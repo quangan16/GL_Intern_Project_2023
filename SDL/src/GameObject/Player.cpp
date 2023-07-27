@@ -175,7 +175,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_cube_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
 			 _player->m_playerSprite->SetSize(TILE_SIZE , TILE_SIZE );
 			 _player->m_changedState = true;
-			 index_color = 3;
+			 index_color = 0;
 			 _gamemap->ChangeColor(map_color[m_iMapTexture_index - 1][index_color].r, map_color[m_iMapTexture_index - 1][index_color].g, map_color[m_iMapTexture_index - 1][index_color].b);
 			 _bg1->GetTexture()->setColor(map_color[m_iMapTexture_index - 1][index_color].r, map_color[m_iMapTexture_index - 1][index_color].g, map_color[m_iMapTexture_index - 1][index_color].b);
 			 _bg1->GetTexture()->SetAlpha(255 - 75);
@@ -208,20 +208,28 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 _player->m_playerSprite->SetSize(TILE_SIZE , TILE_SIZE * 2 / 3);
 
 			 _player->m_changedState = true;
-			 _gamemap->ChangeColor(map_color[m_iMapTexture_index - 1][index_color++].r, map_color[m_iMapTexture_index - 1][index_color++].g, map_color[m_iMapTexture_index - 1][index_color++].b);
-			 
+			 index_color = 2;
+			 _gamemap->ChangeColor(map_color[m_iMapTexture_index - 1][index_color].r, map_color[m_iMapTexture_index - 1][index_color].g, map_color[m_iMapTexture_index - 1][index_color].b);
+			 _bg1->GetTexture()->setColor(map_color[m_iMapTexture_index - 1][index_color].r, map_color[m_iMapTexture_index - 1][index_color].g, map_color[m_iMapTexture_index - 1][index_color].b);
+			 _bg1->GetTexture()->SetAlpha(255 - 75);
+			 _bg2->GetTexture()->setColor(map_color[m_iMapTexture_index - 1][index_color].r, map_color[m_iMapTexture_index - 1][index_color].g, map_color[m_iMapTexture_index - 1][index_color].b);
+			 _bg2->GetTexture()->SetAlpha(255 - 75);
 		 }
 		 if (_otherCollider->GetColliderID() == ColliderType::PORTAL_BALL && m_changedState == false) {
 			 _player = this->TransformToBall();
 			 Camera::GetInstance()->SetTarget(_player);
 			 _player->m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE );
-			 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_bug_1.tga"));
+			 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_ball_" + std::to_string(m_iBallTexture_index) + ".tga"));
 
 			 _player->m_playerSprite->SetSize(TILE_SIZE, TILE_SIZE );
 
 			 _player->m_changedState = true;
-			 _gamemap->ChangeColor(map_color[m_iMapTexture_index - 1][index_color++].r, map_color[m_iMapTexture_index - 1][index_color++].g, map_color[m_iMapTexture_index - 1][index_color++].b);
-
+			 index_color = 3;
+			 _gamemap->ChangeColor(map_color[m_iMapTexture_index - 1][index_color].r, map_color[m_iMapTexture_index - 1][index_color].g, map_color[m_iMapTexture_index - 1][index_color].b);
+			 _bg1->GetTexture()->setColor(map_color[m_iMapTexture_index - 1][index_color].r, map_color[m_iMapTexture_index - 1][index_color].g, map_color[m_iMapTexture_index - 1][index_color].b);
+			 _bg1->GetTexture()->SetAlpha(255 - 75);
+			 _bg2->GetTexture()->setColor(map_color[m_iMapTexture_index - 1][index_color].r, map_color[m_iMapTexture_index - 1][index_color].g, map_color[m_iMapTexture_index - 1][index_color].b);
+			 _bg2->GetTexture()->SetAlpha(255 - 75);
 		 }
 		 if (_otherCollider->GetColliderID() == ColliderType::PORTAL_SPIDER && m_changedState == false) {
 			 
@@ -234,6 +242,11 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 
 			 _player->m_changedState = true;
 			 _gamemap->ChangeColor(map_color[m_iMapTexture_index - 1][index_color++].r, map_color[m_iMapTexture_index - 1][index_color++].g, map_color[m_iMapTexture_index - 1][index_color++].b);
+		 }
+
+		 if (_otherCollider->GetColliderID() == ColliderType::FINISH_LINE)
+		 {
+			 isWin = true;
 		 }
 		 
 	 }
@@ -406,7 +419,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 
 
  void Player::Victory() {
-
+	 GameStateMachine::GetInstance()->ChangeState(StateType::STATE_WIN);
  }
 
 const PlayerForm Player::GetPlayerForm()

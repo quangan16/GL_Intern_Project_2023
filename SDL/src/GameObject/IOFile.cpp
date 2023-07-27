@@ -19,10 +19,6 @@ bool IOFile::WriteToFile(const char* _fileName)
 		return false;
 	}
 
-	if (fprintf(fp, "%d %d %d", m_iHighest_process_level_1, m_iHighest_process_level_2, m_iHighest_process_level_3) < 0)
-	{
-		return false;
-	}
 	
 	for (int i = 0; i < m_iMapTexture_index; i++)
 	{
@@ -49,8 +45,6 @@ void IOFile::ReadFromFile(const char* _fileName)
 	{
 		fscanf_s(fp, "%d ", &m_Highscore[i]);
 	}
-
-	fscanf_s(fp, "%d %d %d", &m_iHighest_process_level_1, &m_iHighest_process_level_2, &m_iHighest_process_level_3);
 	
 	fclose(fp);
 }

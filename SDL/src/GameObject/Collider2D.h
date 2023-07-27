@@ -18,6 +18,7 @@ typedef enum COLLIDER_TYPE {
 	PORTAL_BALL,
 	PORTAL_SPIDER,
 	PORTAL_REVERSE,
+	FINISH_LINE
 
 }ColliderType;
 
