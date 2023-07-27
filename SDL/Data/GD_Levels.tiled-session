@@ -3,10 +3,10 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "GP_Level_1.tmx",
+    "activeFile": "GP_Level_3.tmx",
     "expandedProjectPaths": [
-        "Asset",
-        "."
+        ".",
+        "Asset"
     ],
     "fileStates": {
         "": {
@@ -228,11 +228,11 @@
             "scaleInDock": 1
         },
         "GP_Level_1.tmx": {
-            "scale": 0.125,
+            "scale": 0.25,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 4864,
-                "y": 1968
+                "x": 103028,
+                "y": 1784
             }
         },
         "GP_Level_1.tmx#43": {
@@ -279,6 +279,7 @@
             "scaleInDock": 1
         },
         "GP_Level_1.tmx#56": {
+            "dynamicWrapping": false,
             "scaleInDock": 1
         },
         "GP_Level_1.tmx#57": {
@@ -325,6 +326,7 @@
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#23": {
+            "dynamicWrapping": false,
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#24": {
@@ -350,6 +352,7 @@
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#31": {
+            "dynamicWrapping": false,
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#32": {
@@ -361,6 +364,7 @@
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#34": {
+            "dynamicWrapping": false,
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#35": {
@@ -372,6 +376,7 @@
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#37": {
+            "dynamicWrapping": false,
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#38": {
@@ -440,8 +445,8 @@
             "scale": 0.125,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 58960,
-                "y": 368
+                "x": 112440,
+                "y": 592
             }
         },
         "GP_Level_3.tmx#1-16": {
@@ -687,14 +692,17 @@
     "map.tileWidth": 128,
     "map.width": 1000,
     "openFiles": [
+        "GP_Level_2.tmx",
+        "GP_Level_3.tmx",
+        "map_01.tmx",
         "GP_Level_1.tmx"
     ],
     "project": "GD_Levels.tiled-project",
     "recentFiles": [
         "GP_Level_2.tmx",
         "GP_Level_1.tmx",
-        "GP_Level_3.tmx",
         "map_01.tmx",
+        "GP_Level_3.tmx",
         "30.tsx",
         "45.tsx",
         "43.tsx",

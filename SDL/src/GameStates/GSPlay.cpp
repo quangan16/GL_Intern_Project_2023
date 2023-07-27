@@ -580,7 +580,7 @@ void GSPlay::Update(float deltaTime)
 			
 			m_player->Die(m_savePoint, m_background1, m_Sound, m_playerDieSfx, m_gameMap, aliveTime, 2);
 			m_player->UpdatePlayerForm(m_player);
-			m_player->Victory(victoryTime, 4);
+			m_player->Victory(victoryTime, 3);
 
 			for (const auto& collider : m_circleColliderList) {
 				m_player->OnCollisionTrigger(collider, m_gravity, deltaTime);
@@ -727,10 +727,10 @@ void GSPlay::Update(float deltaTime)
 			m_Highscore[m_iMapTexture_index-1] = currentProcess;
 			m_fileController->WriteToFile("Data/save_data.txt");
 		}
-		if (isWin)
+		/*if (isWin)
 		{
 			GameStateMachine::GetInstance()->ChangeState(StateType::STATE_WIN);
-		}
+		}*/
 
 		//Moving background
 		//m_background = std::get<0>(m_background->MovingBackGround(m_background, m_background_2));
