@@ -233,8 +233,8 @@
             "scale": 0.125,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 115600,
-                "y": 3456
+                "x": 125216,
+                "y": 6080
             }
         },
         "GP_Level_1.tmx#43": {
@@ -248,6 +248,131 @@
         },
         "GP_Level_1.tmx#lightsquare_02_07_color_001": {
             "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx": {
+            "scale": 0.33,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 34100,
+                "y": 2039.3939393939395
+            }
+        },
+        "GP_Level_2.tmx#1-16": {
+            "dynamicWrapping": false,
+            "scaleInDock": 0.33
+        },
+        "GP_Level_2.tmx#17": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#18": {
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#19": {
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#20": {
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#21": {
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#22": {
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#23": {
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#24": {
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#25": {
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#26": {
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#27": {
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#28": {
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#29": {
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#30": {
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#31": {
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#32": {
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#33": {
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#34": {
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#35": {
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#36": {
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#37": {
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#38": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#39-40": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#41-42": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#43": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#44": {
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#45": {
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#46": {
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#47": {
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#48": {
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#49": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#50": {
+            "dynamicWrapping": false,
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#51": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#52": {
+            "scaleInDock": 1
+        },
+        "GP_Level_2.tmx#53": {
             "scaleInDock": 1
         },
         "Tileset/1-16.tsx": {
@@ -286,8 +411,8 @@
             "scale": 0.015625,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 20544,
-                "y": 4256
+                "x": 20512,
+                "y": 4160
             }
         },
         "map_01.tmx#16": {
@@ -353,22 +478,23 @@
     "last.externalTilesetPath": "C:/Users/nqan1/OneDrive/Documents/Dev_2023/Programming_Projects/CPP/GL_Testing_Env/SDL/Data",
     "last.imagePath": "C:/Users/han.glschool/source/repos/GL_Intern_Project_2023/SDL/Data/Asset",
     "map.height": 24,
-    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
+    "map.lastUsedExportFilter": "CSV files (*.csv)",
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 128,
     "map.tileWidth": 128,
-    "map.width": 960,
+    "map.width": 1000,
     "openFiles": [
         "GP_Level_1.tmx"
     ],
     "project": "GD_Levels.tiled-project",
     "recentFiles": [
+        "GP_Level_2.tmx",
+        "map_01.tmx",
         "GP_Level_1.tmx",
         "44.tsx",
         "30.tsx",
         "45.tsx",
         "43.tsx",
-        "map_01.tmx",
         "22.tsx",
         "21.tsx",
         "19.tsx",
@@ -381,8 +507,8 @@
     "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
-        "height": 644,
+        "height": 128,
         "width": 128
     },
-    "tileset.type": 0
+    "tileset.type": 1
 }

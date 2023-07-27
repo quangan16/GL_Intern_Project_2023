@@ -58,7 +58,7 @@ void Ball::MoveUp(const double& _gravity, const bool& m_onButtonPressed, float _
 		m_isJumping = true;
 		this->m_isFalling = false;
 		//if(m_jumpForce <= 10000)
-		m_jumpForce += 2000 * _deltaTime;
+		m_jumpForce -= 2000 * _deltaTime;
 	}
 	else {
 
@@ -95,7 +95,7 @@ void Ball::MoveUp(const double& _gravity, const bool& m_onButtonPressed, float _
 	//if (this->GetPlayerVelocity() < 0.0f) {
 	//	m_isFalling = true;
 	//	//this->SetPlayerVelocity(_gravity);
-	//	/*m_playerPosition.y += m_direction * m_velocity * _deltaTime;*/
+	//	/*m_playerPosition.y += m_directionY * m_velocity * _deltaTime;*/
 	//	//std::cout << "Down";
 
 	////}
@@ -105,7 +105,7 @@ void Ball::MoveUp(const double& _gravity, const bool& m_onButtonPressed, float _
 
 /*if (m_isOnGround == true && m_jumpBuffer == true) {
 	m_isJumping = true;
-	m_direction = -1;
+	m_directionY = -1;
 	m_velocity = m_jumpForce;
 	m_velocity -= _gravity * _deltaTime;
 	m_jumpBuffer = false;

@@ -96,7 +96,7 @@ void Spider::MoveUp(const double& _gravity, const bool& m_onButtonPressed, float
 	//if (this->GetPlayerVelocity() < 0.0f) {
 	//	m_isFalling = true;
 	//	//this->SetPlayerVelocity(_gravity);
-	//	/*m_playerPosition.y += m_direction * m_velocity * _deltaTime;*/
+	//	/*m_playerPosition.y += m_directionY * m_velocity * _deltaTime;*/
 	//	//std::cout << "Down";
 
 	////}
@@ -106,7 +106,7 @@ void Spider::MoveUp(const double& _gravity, const bool& m_onButtonPressed, float
 
 /*if (m_isOnGround == true && m_jumpBuffer == true) {
 	m_isJumping = true;
-	m_direction = -1;
+	m_directionY = -1;
 	m_velocity = m_jumpForce;
 	m_velocity -= _gravity * _deltaTime;
 	m_jumpBuffer = false;
