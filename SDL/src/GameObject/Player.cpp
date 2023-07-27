@@ -8,10 +8,13 @@
 #include "GameStateBase.h"
 #include "Ball.h"
 #include "Cube.h"
+#include "SavePoint.h"
 #include "Ship.h"
 #include "Sound.h"
 #include "Wave.h"
 #include "Spider.h"
+
+
 
 
 Player::Player() : m_playerPosition{ 0.0f, 0.0f }, m_velocity{ 10.0f } {};
@@ -117,10 +120,12 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 	 m_playerCollider->SetColliderPosition(m_playerPosition);
  }
 
- bool Player::OnCollisionStay(std::shared_ptr<BoxCollider2D> _otherCollider,  std::shared_ptr<Player>& _player) {
+ bool Player::OnCollisionStay(std::shared_ptr<BoxCollider2D> _otherCollider,  std::shared_ptr<Player>& _player, std::shared_ptr<GameMap>& _gamemap,
+	 std::shared_ptr<Background>& _bg1, std::shared_ptr<Background>& _bg2) 
+{
 	
 	 bool isOnGround = false;
-	 bool isChangedForm = false;
+	
 	 if (m_playerCollider->CheckCollision(_otherCollider)) {
 		 if (_otherCollider->GetColliderID() == ColliderType::GROUND) {
 			 //Handle side collide with grounds
@@ -169,7 +174,14 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 _player->m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE);
 			 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_cube_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
 			 _player->m_playerSprite->SetSize(TILE_SIZE , TILE_SIZE );
-			 m_changedState = true;
+			 _player->m_changedState = true;
+			 index_color = 3;
+			 _gamemap->ChangeColor(map_color[m_iMapTexture_index - 1][index_color].r, map_color[m_iMapTexture_index - 1][index_color].g, map_color[m_iMapTexture_index - 1][index_color].b);
+			 _bg1->GetTexture()->setColor(map_color[m_iMapTexture_index - 1][index_color].r, map_color[m_iMapTexture_index - 1][index_color].g, map_color[m_iMapTexture_index - 1][index_color].b);
+			 _bg1->GetTexture()->SetAlpha(255 - 75);
+			 _bg2->GetTexture()->setColor(map_color[m_iMapTexture_index - 1][index_color].r, map_color[m_iMapTexture_index - 1][index_color].g, map_color[m_iMapTexture_index - 1][index_color].b);
+			 _bg2->GetTexture()->SetAlpha(255 - 75);
+			 printf("%d \n", index_color);
 		 }
 
 		 if (_otherCollider->GetColliderID() == ColliderType::PORTAL_SHIP && m_changedState == false) {
@@ -178,10 +190,16 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 _player->m_playerCollider->SetColliderSize(TILE_SIZE * 5 / 4, TILE_SIZE * 2 / 3);
 			 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_ship_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
 			 _player->m_playerSprite->SetSize(TILE_SIZE * 5/4 , TILE_SIZE*2/3);
-			 m_changedState = true;
+			 _player->m_changedState = true;
+			 index_color = 1;
+			 _gamemap->ChangeColor(map_color[m_iMapTexture_index - 1][index_color].r, map_color[m_iMapTexture_index - 1][index_color].g, map_color[m_iMapTexture_index - 1][index_color].b);
+			 _bg1->GetTexture()->setColor(map_color[m_iMapTexture_index - 1][index_color].r, map_color[m_iMapTexture_index - 1][index_color].g, map_color[m_iMapTexture_index - 1][index_color].b);
+			 _bg1->GetTexture()->SetAlpha(255 - 75);
+			 _bg2->GetTexture()->setColor(map_color[m_iMapTexture_index - 1][index_color].r, map_color[m_iMapTexture_index - 1][index_color].g, map_color[m_iMapTexture_index - 1][index_color].b);
+			 _bg2->GetTexture()->SetAlpha(255 - 75);
 		 }
 
-		 if (_otherCollider->GetColliderID() == ColliderType::PORTAL_WAVE) {
+		 if (_otherCollider->GetColliderID() == ColliderType::PORTAL_WAVE && m_changedState == false) {
 			 _player = this->TransformToWave();
 			 Camera::GetInstance()->SetTarget(_player);
 			 _player->m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE * 2 / 3);
@@ -189,9 +207,11 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 
 			 _player->m_playerSprite->SetSize(TILE_SIZE , TILE_SIZE * 2 / 3);
 
-			 m_changedState = true;
+			 _player->m_changedState = true;
+			 _gamemap->ChangeColor(map_color[m_iMapTexture_index - 1][index_color++].r, map_color[m_iMapTexture_index - 1][index_color++].g, map_color[m_iMapTexture_index - 1][index_color++].b);
+			 
 		 }
-		 if (_otherCollider->GetColliderID() == ColliderType::PORTAL_BALL) {
+		 if (_otherCollider->GetColliderID() == ColliderType::PORTAL_BALL && m_changedState == false) {
 			 _player = this->TransformToBall();
 			 Camera::GetInstance()->SetTarget(_player);
 			 _player->m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE );
@@ -199,7 +219,9 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 
 			 _player->m_playerSprite->SetSize(TILE_SIZE, TILE_SIZE );
 
-			 m_changedState = true;
+			 _player->m_changedState = true;
+			 _gamemap->ChangeColor(map_color[m_iMapTexture_index - 1][index_color++].r, map_color[m_iMapTexture_index - 1][index_color++].g, map_color[m_iMapTexture_index - 1][index_color++].b);
+
 		 }
 		 if (_otherCollider->GetColliderID() == ColliderType::PORTAL_SPIDER && m_changedState == false) {
 			 
@@ -210,13 +232,14 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 
 			 _playerSprite->SetSize(TILE_SIZE, TILE_SIZE);*/
 
-			 m_changedState = true;
+			 _player->m_changedState = true;
+			 _gamemap->ChangeColor(map_color[m_iMapTexture_index - 1][index_color++].r, map_color[m_iMapTexture_index - 1][index_color++].g, map_color[m_iMapTexture_index - 1][index_color++].b);
 		 }
-		 if (m_changedState == true) {
-			 m_changedState = false;
-		 }
+		 
 	 }
-
+	 /*if (m_changedState == true) {
+		 m_changedState = false;
+	 }*/
 	 /*if (isOnGround) {
 		 m_isFalling = false;
 	 }
@@ -269,7 +292,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 	 float playerTopCollider = m_playerCollider->GetColliderPosition().y;
 	 float groundBottomCollider = _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight();
 	 float topPenetration = std::abs(playerTopCollider - groundBottomCollider);
-	 if (playerTopCollider < groundBottomCollider) {
+	 if (playerTopCollider < groundBottomCollider && OnButtonPressed ) {
 		
 
 		 this->SetPlayerPosition(this->GetPlayerPosition().x, this->GetPlayerPosition().y + topPenetration);
@@ -277,23 +300,60 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
  }
 
  
- void Player::Die(std::shared_ptr<Background> &_bg,std::shared_ptr<Sound>& _bgSound, std::shared_ptr<Sound>& _DieSfx,float &_dieTime, float waitTime) {
+ void Player::Die(const std::shared_ptr<SavePoint> &_savePoint, std::shared_ptr<Background> &_bg,std::shared_ptr<Sound>& _bgSound, std::shared_ptr<Sound>& _DieSfx,float &_dieTime, float waitTime) {
  	
 	
 	 if (m_isAlive == false) {
-		 //GameStateMachine::GetInstance()->PopState();
-		 if(isMuted) _bgSound->StopSound();
-		 if (!isMuted)_DieSfx->PlaySoundOnce();
+		 
+		 if(!isMuted) _bgSound->StopSound();
+		 
 		 _bg->SetSpeed(0.0f);
 		 
 		 
 		 //std::cout << _dieTime;
 		 if(timer >= _dieTime + 2.0f)
 		 {
-			 GameStateMachine::GetInstance()->ChangeState(StateType::STATE_PLAY);
+			 
+			 if (m_savePointMode == false) {
+				 this->m_playerPosition = _savePoint->m_savePointStack.front().m_playerPosition;
+				 this->m_isAlive = _savePoint->m_savePointStack.front().m_isAlive;
+				 this->m_isFalling = _savePoint->m_savePointStack.front().m_isJumping;
+				this->m_isOnGround = _savePoint->m_savePointStack.front().m_isOnGround;
+				this->m_jumpBuffer = _savePoint->m_savePointStack.front().m_jumpBuffer;
+				this->m_jumpForce = _savePoint->m_savePointStack.front().m_jumpForce;
+				this->m_playerRotation = _savePoint->m_savePointStack.front().m_playerRotation;
+				this->m_playerForm = _savePoint->m_savePointStack.front().m_playerForm;
+				this->m_playerSpeed = _savePoint->m_savePointStack.front().m_playerSpeed;
+				this->m_direction = _savePoint->m_savePointStack.front().m_direction;
+				this->m_velocity = _savePoint->m_savePointStack.front().m_velocity;
+				this->m_isFalling = _savePoint->m_savePointStack.front().m_isFalling;
+				this->m_jumpBuffer = _savePoint->m_savePointStack.front().m_jumpBuffer;
+
+			 }
+			 else if(m_savePointMode == true)
+			 {
+				 this->m_playerPosition = _savePoint->m_savePointStack.back().m_playerPosition;
+				 this->m_isAlive = _savePoint->m_savePointStack.back().m_isAlive;
+				 this->m_isFalling = _savePoint->m_savePointStack.back().m_isJumping;
+				 this->m_isOnGround = _savePoint->m_savePointStack.back().m_isOnGround;
+				 this->m_jumpBuffer = _savePoint->m_savePointStack.back().m_jumpBuffer;
+				 this->m_jumpForce = _savePoint->m_savePointStack.back().m_jumpForce;
+				 this->m_playerRotation = _savePoint->m_savePointStack.back().m_playerRotation;
+				 this->m_playerForm = _savePoint->m_savePointStack.back().m_playerForm;
+				 this->m_playerSpeed = _savePoint->m_savePointStack.back().m_playerSpeed;
+				 this->m_direction = _savePoint->m_savePointStack.back().m_direction;
+				this->m_velocity = _savePoint->m_savePointStack.back().m_velocity;
+				this->m_isFalling = _savePoint->m_savePointStack.back().m_isFalling;
+				this->m_jumpBuffer = _savePoint->m_savePointStack.back().m_jumpBuffer;
+
+
+				
+			 }
+			 m_isAlive = true;
+			 if (!isMuted) _bgSound->PlaySound();
 		 }
-		
 		 
+		
 	 }
  }
 
@@ -345,3 +405,16 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 
 
 
+ void Player::Victory() {
+
+ }
+
+const PlayerForm Player::GetPlayerForm()
+ {
+	 return m_playerForm;
+ }
+ 
+const float Player::GetPlayerSpeed()
+ {
+	return m_playerSpeed;
+ }

@@ -23,6 +23,7 @@ Cube::Cube(Vector2 _position, double _rotation, int _direction, double _velocity
 Cube::Cube(Vector2 _position, double _rotation, int _direction, double _velocity, std::shared_ptr<TextureManager> _texture, SDL_RendererFlip _flip, int _width, int _height)
 	: Player(_position, _rotation, _direction, _velocity)
 {
+	
 	m_playerForm = CUBE;
 	m_isJumping = false;
 	m_isFalling = true;

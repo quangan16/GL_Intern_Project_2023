@@ -26,7 +26,7 @@ void GameStateMachine::ChangeState(StateType state)
 	
 	std::shared_ptr<GameStateBase> nextState = GameStateBase::CreateState(state);
 	if (!m_StateStack.empty()) {
-		g_stateControllerPtr = m_StateStack.back();
+		g_stateControllerPtr = m_StateStack.back().get();
 		//std::cout << "okela";
 	}
 	ChangeState(nextState);
@@ -42,7 +42,7 @@ void GameStateMachine::PushState(StateType state)
 	std::shared_ptr<GameStateBase> nextState = GameStateBase::CreateState(state);
 	// pause current state
 	if (!m_StateStack.empty()) {
-		g_stateControllerPtr = m_StateStack.back();
+		g_stateControllerPtr = m_StateStack.back().get();
 		m_StateStack.back()->Pause();
 	}
 

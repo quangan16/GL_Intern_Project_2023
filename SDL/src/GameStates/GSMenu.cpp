@@ -14,8 +14,13 @@ bool ResourceManagers::isMuted = false;
 
 void GSMenu::Init()
 {
+
 	//Sound 
-	m_Sound = std::make_shared<Sound>("Data/Sounds/menuLoop.mp3");
+	if (!isMuted)
+	{
+		m_Sound = std::make_shared<Sound>("Data/Sounds/menuLoop.mp3");
+		m_Sound->PlaySound();
+	}
 	Camera::GetInstance()->SetPosition({ 0, 0 });
 	auto texture = ResourceManagers::GetInstance()->GetTexture("back1.tga");
 	// background
