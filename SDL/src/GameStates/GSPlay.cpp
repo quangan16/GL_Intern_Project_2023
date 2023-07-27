@@ -589,8 +589,10 @@ void GSPlay::Update(float deltaTime)
 
 
 			}
+			
 			m_player->Die(m_savePoint, m_background1, m_Sound, m_playerDieSfx, aliveTime, 2);
-			if(isWin) m_player->Victory();
+			m_player->UpdatePlayerForm(m_player);
+			m_player->Victory(victoryTime, 4);
 
 			for (const auto& collider : m_circleColliderList) {
 				m_player->OnCollisionTrigger(collider, m_gravity, deltaTime);
@@ -626,8 +628,9 @@ void GSPlay::Update(float deltaTime)
 		//std::cout << OnButtonPressed << std::endl;
 		//std::cout << m_playerCollider->GetWidth() << std::endl;
 		//std::cout << m_player->m_isAlive << std::endl;
-		//std::cout << m_player->m_playerForm << std::endl;
-		std::cout << m_immortalMode << std::endl;
+		//std::cout << m_player->GetPlayerForm() << std::endl;
+		//std::cout << m_immortalMode << std::endl;
+		//std::cout << m_savePointMode << std::endl;
 
 
 		
@@ -774,7 +777,7 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 
 	//draw player
 	//m_playerSprite->Draw(renderer);
-	m_playerCollider->Draw(renderer);
+	
 	for (auto it : m_boxColliderList) {
 		it->Draw(renderer);
 	}

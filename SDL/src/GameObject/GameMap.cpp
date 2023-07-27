@@ -152,9 +152,15 @@ void GameMap::DrawMap()
 					auto texture = ResourceManagers::GetInstance()->GetTexture("Ingame_Sprite/Wall_" + std::to_string(val) + ".tga");
 					texture->setColor(map_color[m_iMapTexture_index-1][index_color].r, map_color[m_iMapTexture_index-1][index_color].g, map_color[m_iMapTexture_index-1][index_color].b);
 					texture->SetAlpha(1000);
-					auto tile = std::make_shared<Sprite2D>( texture, SDL_FLIP_NONE, TILE_SIZE, TILE_SIZE);
+
+					//Assign texture only.
+					/*auto tile = std::make_shared<Sprite2D>( texture, SDL_FLIP_NONE, TILE_SIZE, TILE_SIZE);
 					tile->Set2DPosition(j, i);
-					noneColliderObjectList.push_back(tile);
+					noneColliderObjectList.push_back(tile);*/
+
+					//Assign collider + texture.
+					auto tile = std::make_shared<BoxCollider2D>(ColliderType::GROUND, Vector2(j, i), true, TILE_SIZE, TILE_SIZE, texture, SDL_FLIP_NONE);
+					tile_map_box.push_back(tile);
 				}
 
 				else if (val >= 24 && val <= 31 || val == 38)
@@ -178,7 +184,7 @@ void GameMap::DrawMap()
 				else if (val == 33 || val == 34)
 				{
 					auto texture = ResourceManagers::GetInstance()->GetTexture("Ingame_Sprite/Portal_" + std::to_string(val) + ".tga");
-					auto tile = std::make_shared<BoxCollider2D>(ColliderType::PORTAL_SHIP, Vector2(j, i), true, TILE_SIZE, TILE_SIZE, texture, SDL_FLIP_NONE);
+					auto tile = std::make_shared<BoxCollider2D>(ColliderType::PORTAL_WAVE, Vector2(j, i), true, TILE_SIZE, TILE_SIZE, texture, SDL_FLIP_NONE);
 					tile_map_box.push_back(tile);
 				}
 

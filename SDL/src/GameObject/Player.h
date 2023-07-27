@@ -52,6 +52,7 @@ public:
 	bool m_isJumping;
 	bool m_isFalling;
 	bool m_isOnGround;
+	bool m_isOnTop = false;
 	double m_jumpForce;
 	bool m_isAlive;
 	bool m_jumpBuffer = false;
@@ -96,7 +97,7 @@ public:
 
 	void SetPlayerPosition(float _x, float _y);
 
-	float GetPlayerVelocity();
+	double GetPlayerVelocity();
 
 	void SetPlayerVelocity(float _velocity);
 
@@ -160,6 +161,8 @@ public:
 
 	const PlayerForm GetPlayerForm();
 	const float GetPlayerSpeed();
+
+	void UpdatePlayerForm(std::shared_ptr<Player>& _player);
 
 	//void Update(float deltaTime);
 	

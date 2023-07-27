@@ -6,7 +6,7 @@
 #define TILE_SIZE 100   
 #define PLAYER_SPEED 900.0f
 #define JUMP_HEIGHT 200.0f
-#define MAX_MAP_X 960
+#define MAX_MAP_X 1000
 #define MAX_MAP_Y 24
 
 class GameStateBase;

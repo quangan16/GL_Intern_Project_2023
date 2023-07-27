@@ -228,11 +228,11 @@
             "scaleInDock": 1
         },
         "GP_Level_1.tmx": {
-            "scale": 0.5,
+            "scale": 0.015625,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 55512,
-                "y": 2236
+                "x": -416,
+                "y": 2240
             }
         },
         "GP_Level_1.tmx#43": {
@@ -374,7 +374,8 @@
         "25.tsx",
         "26.tsx"
     ],
-    "tileset.embedInMap": false,
+    "resizeMap.removeObjects": false,
+    "tileset.embedInMap": true,
     "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
