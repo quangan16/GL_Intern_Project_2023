@@ -109,7 +109,8 @@ void GSPlay::Init()
 	button->Set2DPosition(SCREEN_WIDTH - 50, 10);
 	button->SetOnClick([this]() {
 		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_MENU);
-
+		g_stateControllerPtr.reset();
+		g_stateControllerPtr = nullptr;
 		
 
 		});
@@ -202,6 +203,8 @@ void GSPlay::Init()
 			if (isPause)
 			{
 				GameStateMachine::GetInstance()->ChangeState(StateType::STATE_MENU);
+				g_stateControllerPtr.reset();
+				g_stateControllerPtr = nullptr;
 
 				
 				

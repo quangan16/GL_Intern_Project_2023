@@ -240,6 +240,7 @@
             "scaleInDock": 1
         },
         "Tileset/1-16.tsx": {
+            "dynamicWrapping": false,
             "scaleInDock": 0.5
         },
         "backx2.tsx": {
