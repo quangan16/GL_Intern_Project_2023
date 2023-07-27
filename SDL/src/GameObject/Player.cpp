@@ -146,7 +146,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 }
 			 else if (m_playerCollider->GetColliderPosition().y > _otherCollider->GetColliderPosition().y && (m_playerForm == WAVE || m_playerForm == SHIP) && m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() > _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight())
 			  {
-				  m_isOnTop = true;
+				  isOnGround = true;
 				  FixCollisionOverlapsUnderSurface(_otherCollider);
 			  }
 			 else if (m_playerCollider->GetColliderPosition().y < _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight()
@@ -296,7 +296,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
  }
 
  
- void Player::Die(const std::shared_ptr<SavePoint> &_savePoint, std::shared_ptr<Background> &_bg,std::shared_ptr<Sound>& _bgSound, std::shared_ptr<Sound>& _DieSfx,float &_dieTime, float waitTime) {
+ void Player::Die(const std::shared_ptr<SavePoint> &_savePoint, std::shared_ptr<Background> &_bg,std::shared_ptr<Sound>& _bgSound, std::shared_ptr<Sound>& _DieSfx, std::shared_ptr<GameMap>& _gameMap,float &_dieTime, float waitTime) {
  	
 	
 	 if (m_isAlive == false) {
@@ -305,11 +305,12 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 		 
 		 _bg->SetSpeed(0.0f);
 		 
+		 index_color = 0;
+		 _gameMap->ChangeColor(map_color[m_iMapTexture_index - 1][index_color].r, map_color[m_iMapTexture_index - 1][index_color].g, map_color[m_iMapTexture_index - 1][index_color].b);
 		 
 		 //std::cout << _dieTime;
 		 if(timer >= _dieTime + 2.0f)
 		 {
-			 
 			 if (m_savePointMode == false) {
 				 this->m_playerPosition = _savePoint->m_savePointStack.front().m_playerPosition;
 				 this->m_isAlive = _savePoint->m_savePointStack.front().m_isAlive;
@@ -377,7 +378,7 @@ void Player::UpdatePlayerForm(std::shared_ptr<Player>& _player)
 				 _player = this->TransformToShip();
 				 Camera::GetInstance()->SetTarget(_player);
 				 _player->m_playerCollider->SetColliderSize(TILE_SIZE * 5 / 4, TILE_SIZE * 2 / 3);
-				 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_ship_" + std::to_string(m_iShipTexture_index) + ".tga"));
+				 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_ship_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
 				 _player->m_playerSprite->SetSize(TILE_SIZE * 5 / 4, TILE_SIZE * 2 / 3);
 			 }
 			 break;
@@ -386,7 +387,7 @@ void Player::UpdatePlayerForm(std::shared_ptr<Player>& _player)
 				 _player = this->TransformToWave();
 				 Camera::GetInstance()->SetTarget(_player);
 				 _player->m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE * 2 / 3);
-				 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_wave_" + std::to_string(m_iWaveTexture_index) + ".tga"));
+				 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_wave_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
 
 				 _player->m_playerSprite->SetSize(TILE_SIZE, TILE_SIZE * 2 / 3);
 			 }
@@ -396,7 +397,7 @@ void Player::UpdatePlayerForm(std::shared_ptr<Player>& _player)
 				 _player = this->TransformToBall();
 				 Camera::GetInstance()->SetTarget(_player);
 				 _player->m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE);
-				 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_ball_" + std::to_string(m_iBallTexture_index) + ".tga"));
+				 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_bug_1.tga"));
 
 				 _player->m_playerSprite->SetSize(TILE_SIZE, TILE_SIZE);
 			 }
@@ -413,7 +414,7 @@ void Player::UpdatePlayerForm(std::shared_ptr<Player>& _player)
 
  std::shared_ptr<Ship> Player::TransformToShip() {
 	 Vector2 currentPosition = this->m_playerPosition;
- 	 std::shared_ptr<TextureManager> currentTexture = ResourceManagers::GetInstance()->GetTexture("player_ship_" +std::to_string(m_iShipTexture_index) + ".tga");
+ 	 std::shared_ptr<TextureManager> currentTexture = ResourceManagers::GetInstance()->GetTexture("player_ship_1.tga");
 
 	 //this->SetPlayerSprite(300, 00, std::make_shared<Sprite2D>(currentTexture, SDL_FLIP_NONE));
 	 
