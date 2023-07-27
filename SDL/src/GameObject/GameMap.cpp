@@ -184,7 +184,7 @@ void GameMap::DrawMap()
 				else if (val == 33 || val == 34)
 				{
 					auto texture = ResourceManagers::GetInstance()->GetTexture("Ingame_Sprite/Portal_" + std::to_string(val) + ".tga");
-					auto tile = std::make_shared<BoxCollider2D>(ColliderType::PORTAL_WAVE, Vector2(j, i), true, TILE_SIZE, TILE_SIZE, texture, SDL_FLIP_NONE);
+					auto tile = std::make_shared<BoxCollider2D>(ColliderType::PORTAL_SHIP, Vector2(j, i), true, TILE_SIZE, TILE_SIZE, texture, SDL_FLIP_NONE);
 					tile_map_box.push_back(tile);
 				}
 

@@ -4,6 +4,7 @@
 #include"GameObject/Text.h"
 #include "GameObject/Sound.h"
 #include "GameObject/SpriteAnimation.h"
+#include "IOFile.h"
 class GSMenu :
 	public GameStateBase
 {
@@ -37,4 +38,5 @@ private:
 	std::shared_ptr<MouseButton> m_btnCharacter_Selection;
 	std::shared_ptr<MouseButton> m_btnPlay;
 	std::shared_ptr<MouseButton> m_btnOption;
+	std::shared_ptr<IOFile>		 m_loadFile;
 };

@@ -5,8 +5,8 @@
     },
     "activeFile": "GP_Level_1.tmx",
     "expandedProjectPaths": [
-        "Asset",
-        "."
+        ".",
+        "Asset"
     ],
     "fileStates": {
         "": {
@@ -181,7 +181,7 @@
         },
         "41-42.tsx": {
             "dynamicWrapping": false,
-            "scaleInDock": 1
+            "scaleInDock": 2
         },
         "43.tsx": {
             "dynamicWrapping": true,
@@ -189,7 +189,9 @@
             "scaleInEditor": 1
         },
         "44.tsx": {
-            "dynamicWrapping": false
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "45.tsx": {
             "dynamicWrapping": true,
@@ -228,11 +230,11 @@
             "scaleInDock": 1
         },
         "GP_Level_1.tmx": {
-            "scale": 0.015625,
+            "scale": 0.125,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": -416,
-                "y": 2240
+                "x": 115600,
+                "y": 3456
             }
         },
         "GP_Level_1.tmx#43": {
@@ -362,6 +364,7 @@
     "project": "GD_Levels.tiled-project",
     "recentFiles": [
         "GP_Level_1.tmx",
+        "44.tsx",
         "30.tsx",
         "45.tsx",
         "43.tsx",
@@ -371,8 +374,7 @@
         "19.tsx",
         "20.tsx",
         "23.tsx",
-        "25.tsx",
-        "26.tsx"
+        "25.tsx"
     ],
     "resizeMap.removeObjects": false,
     "tileset.embedInMap": true,

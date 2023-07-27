@@ -377,7 +377,7 @@ void Player::UpdatePlayerForm(std::shared_ptr<Player>& _player)
 				 _player = this->TransformToShip();
 				 Camera::GetInstance()->SetTarget(_player);
 				 _player->m_playerCollider->SetColliderSize(TILE_SIZE * 5 / 4, TILE_SIZE * 2 / 3);
-				 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_ship_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
+				 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_ship_" + std::to_string(m_iShipTexture_index) + ".tga"));
 				 _player->m_playerSprite->SetSize(TILE_SIZE * 5 / 4, TILE_SIZE * 2 / 3);
 			 }
 			 break;
@@ -386,7 +386,7 @@ void Player::UpdatePlayerForm(std::shared_ptr<Player>& _player)
 				 _player = this->TransformToWave();
 				 Camera::GetInstance()->SetTarget(_player);
 				 _player->m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE * 2 / 3);
-				 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_wave_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
+				 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_wave_" + std::to_string(m_iWaveTexture_index) + ".tga"));
 
 				 _player->m_playerSprite->SetSize(TILE_SIZE, TILE_SIZE * 2 / 3);
 			 }
@@ -396,7 +396,7 @@ void Player::UpdatePlayerForm(std::shared_ptr<Player>& _player)
 				 _player = this->TransformToBall();
 				 Camera::GetInstance()->SetTarget(_player);
 				 _player->m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE);
-				 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_bug_1.tga"));
+				 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_ball_" + std::to_string(m_iBallTexture_index) + ".tga"));
 
 				 _player->m_playerSprite->SetSize(TILE_SIZE, TILE_SIZE);
 			 }
@@ -413,7 +413,7 @@ void Player::UpdatePlayerForm(std::shared_ptr<Player>& _player)
 
  std::shared_ptr<Ship> Player::TransformToShip() {
 	 Vector2 currentPosition = this->m_playerPosition;
- 	 std::shared_ptr<TextureManager> currentTexture = ResourceManagers::GetInstance()->GetTexture("player_ship_1.tga");
+ 	 std::shared_ptr<TextureManager> currentTexture = ResourceManagers::GetInstance()->GetTexture("player_ship_" +std::to_string(m_iShipTexture_index) + ".tga");
 
 	 //this->SetPlayerSprite(300, 00, std::make_shared<Sprite2D>(currentTexture, SDL_FLIP_NONE));
 	 
