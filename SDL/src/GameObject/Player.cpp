@@ -378,7 +378,7 @@ void Player::UpdatePlayerForm(std::shared_ptr<Player>& _player)
 				 _player = this->TransformToShip();
 				 Camera::GetInstance()->SetTarget(_player);
 				 _player->m_playerCollider->SetColliderSize(TILE_SIZE * 5 / 4, TILE_SIZE * 2 / 3);
-				 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_ship_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
+				 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_ship_" + std::to_string(m_iShipTexture_index) + ".tga"));
 				 _player->m_playerSprite->SetSize(TILE_SIZE * 5 / 4, TILE_SIZE * 2 / 3);
 			 }
 			 break;
@@ -387,7 +387,7 @@ void Player::UpdatePlayerForm(std::shared_ptr<Player>& _player)
 				 _player = this->TransformToWave();
 				 Camera::GetInstance()->SetTarget(_player);
 				 _player->m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE * 2 / 3);
-				 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_wave_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
+				 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_wave_" + std::to_string(m_iShipTexture_index) + ".tga"));
 
 				 _player->m_playerSprite->SetSize(TILE_SIZE, TILE_SIZE * 2 / 3);
 			 }
