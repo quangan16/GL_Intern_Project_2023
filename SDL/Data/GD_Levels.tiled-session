@@ -252,8 +252,8 @@
             "scale": 0.0625,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 3584,
-                "y": -880
+                "x": 3568,
+                "y": -896
             }
         },
         "GP_Level_2.tmx#1-16": {
@@ -395,26 +395,143 @@
         "GP_Level_2.tmx#57": {
             "scaleInDock": 1
         },
+        "GP_Level_3.tmx": {
+            "scale": 0.015625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 28864,
+                "y": 2176
+            }
+        },
         "GP_Level_3.tmx#1-16": {
-            "dynamicWrapping": false
+            "dynamicWrapping": false,
+            "scaleInDock": 0.5
         },
         "GP_Level_3.tmx#17": {
-            "dynamicWrapping": true
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#18": {
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#19": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#20": {
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#21": {
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#22": {
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#23": {
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#24": {
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#25": {
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#26": {
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#27": {
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#28": {
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#29": {
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#30": {
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#31": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#32": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#33": {
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#34": {
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#35": {
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#36": {
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#37": {
+            "scaleInDock": 1
         },
         "GP_Level_3.tmx#38": {
-            "dynamicWrapping": true
+            "dynamicWrapping": true,
+            "scaleInDock": 1
         },
         "GP_Level_3.tmx#39-40": {
-            "dynamicWrapping": false
+            "dynamicWrapping": false,
+            "scaleInDock": 1
         },
         "GP_Level_3.tmx#41-42": {
-            "dynamicWrapping": false
+            "dynamicWrapping": false,
+            "scaleInDock": 1
         },
         "GP_Level_3.tmx#43": {
-            "dynamicWrapping": true
+            "dynamicWrapping": true,
+            "scaleInDock": 1
         },
         "GP_Level_3.tmx#44": {
-            "dynamicWrapping": true
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#45": {
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#46": {
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#47": {
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#48": {
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#49": {
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#50": {
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#51": {
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#52": {
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#53": {
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#54": {
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#55": {
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#56": {
+            "scaleInDock": 1
+        },
+        "GP_Level_3.tmx#57": {
+            "scaleInDock": 1
         },
         "Tileset/1-16.tsx": {
             "dynamicWrapping": false,
@@ -529,6 +646,7 @@
     ],
     "project": "GD_Levels.tiled-project",
     "recentFiles": [
+        "GP_Level_3.tmx",
         "GP_Level_2.tmx",
         "map_01.tmx",
         "GP_Level_1.tmx",
@@ -539,8 +657,7 @@
         "21.tsx",
         "19.tsx",
         "20.tsx",
-        "23.tsx",
-        "25.tsx"
+        "23.tsx"
     ],
     "resizeMap.removeObjects": false,
     "tileset.embedInMap": true,

@@ -130,7 +130,7 @@ void GSLevel::Init()
 	//High Process Text
 	SDL_Color text_Color = { 255, 255, 255 };
 	m_textGameName = std::make_shared<Text>("Data/PUSAB___.otf", text_Color);
-	m_textGameName->SetSize(400, 70);
+	m_textGameName->SetSize(700, 70);
 	m_textGameName->Set2DPosition((SCREEN_WIDTH - m_textGameName->GetWidth()) / 2, m_slider->Get2DPosition().y + 100 );
 	m_textGameName->LoadFromRenderText("HIGH SCORE : " + std::to_string(m_Highscore[m_iMapTexture_index - 1]) + "%");
 
