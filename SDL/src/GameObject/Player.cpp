@@ -53,7 +53,7 @@ const double& Player::GetPlayerRotation()
 	return m_playerRotation;
 }
 
-float Player::GetPlayerVelocity() {
+double Player::GetPlayerVelocity() {
 	return this->m_velocity;
 }
 
@@ -146,7 +146,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 }
 			 else if (m_playerCollider->GetColliderPosition().y > _otherCollider->GetColliderPosition().y && (m_playerForm == WAVE || m_playerForm == SHIP) && m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() > _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight())
 			  {
-				  isOnGround = true;
+				  m_isOnTop = true;
 				  FixCollisionOverlapsUnderSurface(_otherCollider);
 			  }
 			 else if (m_playerCollider->GetColliderPosition().y < _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight()
@@ -170,11 +170,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 
 		 }
 		 if (_otherCollider->GetColliderID() == ColliderType::PORTAL_CUBE && m_changedState == false) {
-			 _player = this->TransformToCube();
-			 Camera::GetInstance()->SetTarget(_player);
-			 _player->m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE);
-			 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_cube_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
-			 _player->m_playerSprite->SetSize(TILE_SIZE , TILE_SIZE );
+			 m_playerForm = CUBE;
 			 _player->m_changedState = true;
 			 index_color = 3;
 			 _gamemap->ChangeColor(map_color[m_iMapTexture_index - 1][index_color].r, map_color[m_iMapTexture_index - 1][index_color].g, map_color[m_iMapTexture_index - 1][index_color].b);
@@ -186,11 +182,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 		 }
 
 		 if (_otherCollider->GetColliderID() == ColliderType::PORTAL_SHIP && m_changedState == false) {
-			 _player = this->TransformToShip();
-			 Camera::GetInstance()->SetTarget(_player);
-			 _player->m_playerCollider->SetColliderSize(TILE_SIZE * 5 / 4, TILE_SIZE * 2 / 3);
-			 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_ship_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
-			 _player->m_playerSprite->SetSize(TILE_SIZE * 5/4 , TILE_SIZE*2/3);
+			 m_playerForm = SHIP;
 			 _player->m_changedState = true;
 			 index_color = 1;
 			 _gamemap->ChangeColor(map_color[m_iMapTexture_index - 1][index_color].r, map_color[m_iMapTexture_index - 1][index_color].g, map_color[m_iMapTexture_index - 1][index_color].b);
@@ -201,24 +193,14 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 		 }
 
 		 if (_otherCollider->GetColliderID() == ColliderType::PORTAL_WAVE && m_changedState == false) {
-			 _player = this->TransformToWave();
-			 Camera::GetInstance()->SetTarget(_player);
-			 _player->m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE * 2 / 3);
-			 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_wave_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
-			 
-			 _player->m_playerSprite->SetSize(TILE_SIZE , TILE_SIZE * 2 / 3);
-
+			
+			 m_playerForm = WAVE;
 			 _player->m_changedState = true;
 			 _gamemap->ChangeColor(map_color[m_iMapTexture_index - 1][index_color++].r, map_color[m_iMapTexture_index - 1][index_color++].g, map_color[m_iMapTexture_index - 1][index_color++].b);
 			 
 		 }
 		 if (_otherCollider->GetColliderID() == ColliderType::PORTAL_BALL && m_changedState == false) {
-			 _player = this->TransformToBall();
-			 Camera::GetInstance()->SetTarget(_player);
-			 _player->m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE );
-			 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_bug_1.tga"));
-
-			 _player->m_playerSprite->SetSize(TILE_SIZE, TILE_SIZE );
+			 m_playerForm = BALL;
 
 			 _player->m_changedState = true;
 			 _gamemap->ChangeColor(map_color[m_iMapTexture_index - 1][index_color++].r, map_color[m_iMapTexture_index - 1][index_color++].g, map_color[m_iMapTexture_index - 1][index_color++].b);
@@ -336,6 +318,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 				this->m_velocity = _savePoint->m_savePointStack.front().m_velocity;
 				this->m_isFalling = _savePoint->m_savePointStack.front().m_isFalling;
 				this->m_jumpBuffer = _savePoint->m_savePointStack.front().m_jumpBuffer;
+				m_changedState = true;
 
 			 }
 			 else if(m_savePointMode == true)
@@ -354,7 +337,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 				this->m_isFalling = _savePoint->m_savePointStack.back().m_isFalling;
 				this->m_jumpBuffer = _savePoint->m_savePointStack.back().m_jumpBuffer;
 
-
+				m_changedState = true;
 				
 			 }
 			 m_isAlive = true;
@@ -368,6 +351,52 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
  
  std::shared_ptr<TextureManager> Player::GetPlayerTexture() {
 	 return m_playerTexture;
+ }
+
+void Player::UpdatePlayerForm(std::shared_ptr<Player>& _player)
+ {
+	 switch(this->m_playerForm)
+	 {
+		 case CUBE:
+			 if (m_changedState == true) {
+				 _player = this->TransformToCube();
+				 Camera::GetInstance()->SetTarget(_player);
+				 _player->m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE);
+				 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_cube_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
+				 _player->m_playerSprite->SetSize(TILE_SIZE, TILE_SIZE);
+			 }
+			 break;
+		 case SHIP:
+			 if (m_changedState == true) {
+				 _player = this->TransformToShip();
+				 Camera::GetInstance()->SetTarget(_player);
+				 _player->m_playerCollider->SetColliderSize(TILE_SIZE * 5 / 4, TILE_SIZE * 2 / 3);
+				 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_ship_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
+				 _player->m_playerSprite->SetSize(TILE_SIZE * 5 / 4, TILE_SIZE * 2 / 3);
+			 }
+			 break;
+		 case WAVE:
+			 if (m_changedState == true) {
+				 _player = this->TransformToWave();
+				 Camera::GetInstance()->SetTarget(_player);
+				 _player->m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE * 2 / 3);
+				 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_wave_" + std::to_string(m_iCharacterTexture_index) + ".tga"));
+
+				 _player->m_playerSprite->SetSize(TILE_SIZE, TILE_SIZE * 2 / 3);
+			 }
+			 break;
+		 case BALL:
+			 if (m_changedState == true) {
+				 _player = this->TransformToBall();
+				 Camera::GetInstance()->SetTarget(_player);
+				 _player->m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE);
+				 _player->m_playerSprite->SetTexture(ResourceManagers::GetInstance()->GetTexture("player_bug_1.tga"));
+
+				 _player->m_playerSprite->SetSize(TILE_SIZE, TILE_SIZE);
+			 }
+			 break;
+
+	 }
  }
 
  std::shared_ptr<Cube> Player::TransformToCube() {

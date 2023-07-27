@@ -18,6 +18,6 @@ public:
 	const std::shared_ptr<BoxCollider2D> GetCollider() const override;
 	void OnGround() override;
 
-
+	
 };
 

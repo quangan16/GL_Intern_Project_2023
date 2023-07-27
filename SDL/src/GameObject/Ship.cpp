@@ -100,8 +100,6 @@ void Ship::MoveUp(const double& _gravity, const bool& m_onButtonPressed, float _
 			/*else if (m_velocity < -800) {
 				m_velocity -= m_jumpForce  * _deltaTime;
 			}*/
-			
-			
 		}
 		else {
 
@@ -194,7 +192,14 @@ void Ship::OnGround() {
 		m_isFalling = false;
 		//FixCollisionOverlaps();
 	}
+	else if (m_isOnTop == true && OnButtonPressed == true) {
 
+		//this->SetDirectionY(-1);
+		m_isJumping = false;
+		m_velocity = 0.0;
+		m_isFalling = false;
+		//FixCollisionOverlaps();
+	}
 
 
 }

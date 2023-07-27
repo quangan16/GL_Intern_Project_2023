@@ -5,8 +5,8 @@
     },
     "activeFile": "GP_Level_1.tmx",
     "expandedProjectPaths": [
-        ".",
-        "Asset"
+        "Asset",
+        "."
     ],
     "fileStates": {
         "": {
@@ -219,11 +219,11 @@
             "scaleInDock": 1
         },
         "GP_Level_1.tmx": {
-            "scale": 0.125,
+            "scale": 0.015625,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 4996,
-                "y": 1296
+                "x": -416,
+                "y": 2240
             }
         },
         "GP_Level_1.tmx#43": {
@@ -365,6 +365,7 @@
         "27.tsx",
         "29.tsx"
     ],
+    "resizeMap.removeObjects": false,
     "tileset.embedInMap": true,
     "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",
     "tileset.lastUsedFormat": "tsx",
