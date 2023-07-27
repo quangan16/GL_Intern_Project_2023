@@ -157,7 +157,7 @@ public:
 	void FixCollisionOverlapsOnSurface(std::shared_ptr<BoxCollider2D> otherCollider);
 	void FixCollisionOverlapsUnderSurface(std::shared_ptr<BoxCollider2D> _otherCollider);
 	void Die(const std::shared_ptr<SavePoint>& _savePoint, std::shared_ptr<Background>& _bg, std::shared_ptr<Sound>& _bgSound, std::shared_ptr<Sound>& _DieSfx, float& dieTime, float _waitTime);
-	void Victory();
+	void Victory(float& _victoryTime, float waitTime);
 
 	const PlayerForm GetPlayerForm();
 	const float GetPlayerSpeed();

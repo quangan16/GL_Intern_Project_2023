@@ -448,8 +448,17 @@ void Player::UpdatePlayerForm(std::shared_ptr<Player>& _player)
 
 
 
- void Player::Victory() {
-	 GameStateMachine::GetInstance()->ChangeState(StateType::STATE_WIN);
+ void Player::Victory(float& _victoryTime, float waitTime) {
+	 if (m_hasWon == true)
+	 {
+		 Camera::GetInstance()->SetTarget(nullptr);
+		 if (timer >= _victoryTime + waitTime)
+		 {
+
+			 GameStateMachine::GetInstance()->PushState(StateType::STATE_WIN);
+		 }
+	 }
+
  }
 
 const PlayerForm Player::GetPlayerForm()

@@ -203,7 +203,8 @@ void GameMap::DrawMap()
 					auto texture = ResourceManagers::GetInstance()->GetTexture("Ingame_Sprite/Mouse_Trigger_" + std::to_string(val) + ".tga");
 					auto tile = std::make_shared<CircleCollider2D>(ColliderType::JUMP_BOOST, Vector2(j,i ), true, TILE_SIZE/2, texture, 1, 30, 1, 0.033f);
 					std::cout << "Pos" <<tile->GetPosition().y<<" "<< j << std::endl;
-					tile->m_animation->SetSize(TILE_SIZE , TILE_SIZE);
+					tile->m_animation->SetSize(TILE_SIZE *2 , TILE_SIZE*2);
+					tile->m_animation->Set2DPosition(j - TILE_SIZE / 4, i - TILE_SIZE / 4);
 					tile_map_circle.push_back(tile);
 				}
 				else if(val == 39 || val == 41)
