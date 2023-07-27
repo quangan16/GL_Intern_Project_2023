@@ -579,7 +579,7 @@ void GSPlay::Update(float deltaTime)
 
 			}
 			
-			m_player->Die(m_savePoint, m_background1, m_Sound, m_playerDieSfx, aliveTime, 2);
+			m_player->Die(m_savePoint, m_background1, m_Sound, m_playerDieSfx, m_gameMap, aliveTime, 2);
 			m_player->UpdatePlayerForm(m_player);
 			m_player->Victory(victoryTime, 4);
 
