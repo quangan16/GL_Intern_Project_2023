@@ -168,7 +168,7 @@ void GSPlay::Init()
 	texture = ResourceManagers::GetInstance()->GetTexture("button_pause2.tga");
 	m_pauseButton = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
 	m_pauseButton->SetSize(100, 100);
-	m_pauseButton->Set2DPosition(button->Get2DPosition().x - m_pauseButton->GetWidth() - 10, 10);
+	m_pauseButton->Set2DPosition(SCREEN_WIDTH - m_pauseButton->GetWidth() - 10, 10);
 	m_pauseButton->SetOnClick([this]() {
 			OnButtonPressed = false;
 			isPause = !isPause;
@@ -590,7 +590,7 @@ void GSPlay::Update(float deltaTime)
 
 			}
 			m_player->Die(m_savePoint, m_background1, m_Sound, m_playerDieSfx, aliveTime, 2);
-			m_player->Victory(victoryTime, 4);
+			if(isWin) m_player->Victory();
 
 			for (const auto& collider : m_circleColliderList) {
 				m_player->OnCollisionTrigger(collider, m_gravity, deltaTime);
