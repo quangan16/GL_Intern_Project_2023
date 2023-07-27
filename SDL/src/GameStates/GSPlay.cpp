@@ -34,7 +34,6 @@ void GSPlay::Init()
 	victoryTime = 0.0f;
 	//Map
 	m_gameMap = std::make_shared<GameMap>();
-	m_iMapTexture_index = 2;
 	m_gameMap->LoadMap("Data/GP_Level_" + std::to_string(m_iMapTexture_index) + ".csv");
 	m_gameMap->DrawMap();
 

@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "GP_Level_1.tmx",
+    "activeFile": "GP_Level_3.tmx",
     "expandedProjectPaths": [
         "Asset",
         "."
@@ -181,7 +181,7 @@
         },
         "41-42.tsx": {
             "dynamicWrapping": false,
-            "scaleInDock": 1
+            "scaleInDock": 2
         },
         "43.tsx": {
             "dynamicWrapping": true,
@@ -189,7 +189,9 @@
             "scaleInEditor": 1
         },
         "44.tsx": {
-            "dynamicWrapping": false
+            "dynamicWrapping": false,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "45.tsx": {
             "dynamicWrapping": true,
@@ -228,11 +230,11 @@
             "scaleInDock": 1
         },
         "GP_Level_1.tmx": {
-            "scale": 0.0625,
+            "scale": 0.125,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 50816,
-                "y": -400
+                "x": 64120,
+                "y": 2412
             }
         },
         "GP_Level_1.tmx#43": {
@@ -252,8 +254,8 @@
             "scale": 0.125,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 26544,
-                "y": 304
+                "x": 45544,
+                "y": 1584
             }
         },
         "GP_Level_2.tmx#1-16": {
@@ -269,7 +271,6 @@
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#19": {
-            "dynamicWrapping": true,
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#20": {
@@ -277,7 +278,6 @@
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#21": {
-            "dynamicWrapping": true,
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#22": {
@@ -312,11 +312,9 @@
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#32": {
-            "dynamicWrapping": true,
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#33": {
-            "dynamicWrapping": true,
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#34": {
@@ -326,7 +324,6 @@
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#36": {
-            "dynamicWrapping": true,
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#37": {
@@ -346,21 +343,26 @@
         },
         "GP_Level_2.tmx#43": {
             "dynamicWrapping": true,
-            "scaleInDock": 1
+            "scaleInDock": 1,
+            "scaleInEditor": 1
         },
         "GP_Level_2.tmx#44": {
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#45": {
+            "dynamicWrapping": false,
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#46": {
+            "dynamicWrapping": true,
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#47": {
+            "dynamicWrapping": false,
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#48": {
+            "dynamicWrapping": true,
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#49": {
@@ -379,13 +381,13 @@
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#53": {
-            "dynamicWrapping": true,
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#54": {
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#55": {
+            "dynamicWrapping": false,
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#56": {
@@ -393,6 +395,14 @@
         },
         "GP_Level_2.tmx#57": {
             "scaleInDock": 1
+        },
+        "GP_Level_3.tmx": {
+            "scale": 0.25,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 28456,
+                "y": 2148
+            }
         },
         "Tileset/1-16.tsx": {
             "dynamicWrapping": false,
@@ -430,8 +440,8 @@
             "scale": 0.015625,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 20480,
-                "y": 4096
+                "x": 20512,
+                "y": 4160
             }
         },
         "map_01.tmx#16": {
@@ -503,12 +513,15 @@
     "map.tileWidth": 128,
     "map.width": 1000,
     "openFiles": [
-        "GP_Level_1.tmx"
+        "GP_Level_1.tmx",
+        "GP_Level_2.tmx",
+        "GP_Level_3.tmx"
     ],
     "project": "GD_Levels.tiled-project",
     "recentFiles": [
-        "GP_Level_2.tmx",
         "GP_Level_1.tmx",
+        "GP_Level_2.tmx",
+        "GP_Level_3.tmx",
         "map_01.tmx",
         "30.tsx",
         "45.tsx",
@@ -517,8 +530,7 @@
         "21.tsx",
         "19.tsx",
         "20.tsx",
-        "23.tsx",
-        "25.tsx"
+        "23.tsx"
     ],
     "resizeMap.removeObjects": false,
     "tileset.embedInMap": true,
