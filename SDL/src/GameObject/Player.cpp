@@ -172,7 +172,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 		 if (_otherCollider->GetColliderID() == ColliderType::PORTAL_CUBE && m_changedState == false) {
 			 m_playerForm = CUBE;
 			 _player->m_changedState = true;
-			 index_color = 3;
+			 index_color = 0;
 			 _gamemap->ChangeColor(map_color[m_iMapTexture_index - 1][index_color].r, map_color[m_iMapTexture_index - 1][index_color].g, map_color[m_iMapTexture_index - 1][index_color].b);
 			 _bg1->GetTexture()->setColor(map_color[m_iMapTexture_index - 1][index_color].r, map_color[m_iMapTexture_index - 1][index_color].g, map_color[m_iMapTexture_index - 1][index_color].b);
 			 _bg1->GetTexture()->SetAlpha(255 - 75);
@@ -196,15 +196,23 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			
 			 m_playerForm = WAVE;
 			 _player->m_changedState = true;
-			 _gamemap->ChangeColor(map_color[m_iMapTexture_index - 1][index_color++].r, map_color[m_iMapTexture_index - 1][index_color++].g, map_color[m_iMapTexture_index - 1][index_color++].b);
-			 
+			 index_color = 2;
+			 _gamemap->ChangeColor(map_color[m_iMapTexture_index - 1][index_color].r, map_color[m_iMapTexture_index - 1][index_color].g, map_color[m_iMapTexture_index - 1][index_color].b);
+			 _bg1->GetTexture()->setColor(map_color[m_iMapTexture_index - 1][index_color].r, map_color[m_iMapTexture_index - 1][index_color].g, map_color[m_iMapTexture_index - 1][index_color].b);
+			 _bg1->GetTexture()->SetAlpha(255 - 75);
+			 _bg2->GetTexture()->setColor(map_color[m_iMapTexture_index - 1][index_color].r, map_color[m_iMapTexture_index - 1][index_color].g, map_color[m_iMapTexture_index - 1][index_color].b);
+			 _bg2->GetTexture()->SetAlpha(255 - 75);
 		 }
 		 if (_otherCollider->GetColliderID() == ColliderType::PORTAL_BALL && m_changedState == false) {
 			 m_playerForm = BALL;
 
 			 _player->m_changedState = true;
-			 _gamemap->ChangeColor(map_color[m_iMapTexture_index - 1][index_color++].r, map_color[m_iMapTexture_index - 1][index_color++].g, map_color[m_iMapTexture_index - 1][index_color++].b);
-
+			 index_color = 3;
+			 _gamemap->ChangeColor(map_color[m_iMapTexture_index - 1][index_color].r, map_color[m_iMapTexture_index - 1][index_color].g, map_color[m_iMapTexture_index - 1][index_color].b);
+			 _bg1->GetTexture()->setColor(map_color[m_iMapTexture_index - 1][index_color].r, map_color[m_iMapTexture_index - 1][index_color].g, map_color[m_iMapTexture_index - 1][index_color].b);
+			 _bg1->GetTexture()->SetAlpha(255 - 75);
+			 _bg2->GetTexture()->setColor(map_color[m_iMapTexture_index - 1][index_color].r, map_color[m_iMapTexture_index - 1][index_color].g, map_color[m_iMapTexture_index - 1][index_color].b);
+			 _bg2->GetTexture()->SetAlpha(255 - 75);
 		 }
 		 if (_otherCollider->GetColliderID() == ColliderType::PORTAL_SPIDER && m_changedState == false) {
 			 
@@ -219,13 +227,11 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 _gamemap->ChangeColor(map_color[m_iMapTexture_index - 1][index_color++].r, map_color[m_iMapTexture_index - 1][index_color++].g, map_color[m_iMapTexture_index - 1][index_color++].b);
 		 }
 
-		 if (_otherCollider->GetColliderID() == ColliderType::VICTORY && m_changedState == false) {
-
-			 m_hasWon = true;
-			
-
-			
+		 if (_otherCollider->GetColliderID() == ColliderType::FINISH_LINE)
+		 {
+			 isWin = true;
 		 }
+		 
 	 }
 	 /*if (m_changedState == true) {
 		 m_changedState = false;
@@ -442,17 +448,8 @@ void Player::UpdatePlayerForm(std::shared_ptr<Player>& _player)
 
 
 
- void Player::Victory(float& _victoryTime, float waitTime) {
-	 if(m_hasWon == true)
-	 {
-		 Camera::GetInstance()->SetTarget(nullptr);
-		 if (timer >= _victoryTime + waitTime)
-		 {
-			 
-			 GameStateMachine::GetInstance()->PushState(StateType::STATE_WIN);
-		 }
-	 }
-	
+ void Player::Victory() {
+	 GameStateMachine::GetInstance()->ChangeState(StateType::STATE_WIN);
  }
 
 const PlayerForm Player::GetPlayerForm()

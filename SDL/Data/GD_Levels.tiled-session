@@ -92,6 +92,7 @@
             "scaleInDock": 1
         },
         "24.tsx": {
+            "dynamicWrapping": false,
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
@@ -183,6 +184,14 @@
             "scaleInDock": 1
         },
         "43.tsx": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "44.tsx": {
+            "dynamicWrapping": false
+        },
+        "45.tsx": {
             "dynamicWrapping": true,
             "scaleInDock": 1,
             "scaleInEditor": 1
@@ -340,19 +349,21 @@
     },
     "last.exportedFilePath": "C:/Users/nqan1/OneDrive/Documents/Dev_2023/Programming_Projects/CPP/GL_Testing_Env/SDL/Data",
     "last.externalTilesetPath": "C:/Users/nqan1/OneDrive/Documents/Dev_2023/Programming_Projects/CPP/GL_Testing_Env/SDL/Data",
-    "last.imagePath": "C:/Users/nqan1/OneDrive/Documents/Dev_2023/Programming_Projects/CPP/GL_Testing_Env/SDL/Data/Asset",
-    "map.height": 25,
+    "last.imagePath": "C:/Users/han.glschool/source/repos/GL_Intern_Project_2023/SDL/Data/Asset",
+    "map.height": 24,
     "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
     "map.lastUsedFormat": "tmx",
     "map.tileHeight": 128,
     "map.tileWidth": 128,
-    "map.width": 12000,
+    "map.width": 960,
     "openFiles": [
         "GP_Level_1.tmx"
     ],
     "project": "GD_Levels.tiled-project",
     "recentFiles": [
         "GP_Level_1.tmx",
+        "30.tsx",
+        "45.tsx",
         "43.tsx",
         "map_01.tmx",
         "22.tsx",
@@ -361,17 +372,15 @@
         "20.tsx",
         "23.tsx",
         "25.tsx",
-        "26.tsx",
-        "27.tsx",
-        "29.tsx"
+        "26.tsx"
     ],
     "resizeMap.removeObjects": false,
     "tileset.embedInMap": true,
     "tileset.lastUsedFilter": "Tiled tileset files (*.tsx *.xml)",
     "tileset.lastUsedFormat": "tsx",
     "tileset.tileSize": {
-        "height": 128,
+        "height": 644,
         "width": 128
     },
-    "tileset.type": 1
+    "tileset.type": 0
 }

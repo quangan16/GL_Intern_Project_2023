@@ -21,6 +21,7 @@ inline float timer = 0.0f;
 inline bool m_savePointMode;
 inline bool m_immortalMode;
 inline bool g_trigger = false;
+inline bool isWin = false;
 
 inline std::shared_ptr<Sound> m_Sound;
 inline std::shared_ptr<GameStateBase> g_stateControllerPtr;
@@ -71,16 +72,16 @@ inline int r = 2, g = 2, b = 2, a = 256, index = 0;
 inline int interval = 1;
 inline int index_color = 0;
 
-inline Map_Color map_color[3][3] =
+inline Map_Color map_color[3][4] =
 {
 	{
-		{52, 161, 245}, {28, 217, 75}, {166 , 217, 65}
+		{52, 161, 245}, {28, 217, 75}, {166 , 217, 65}, {219, 37, 37}
 	},
 	{
-		{210, 28, 217}, {217, 28, 100}, {217, 97, 28}
+		{210, 28, 217}, {217, 28, 100}, {217, 97, 28}, {41, 28, 217}
 	},
 	{
-		{217, 116, 28}, {28, 217, 167}, {217, 28, 28}
+		{217, 116, 28}, {28, 217, 167}, {217, 28, 28}, {204, 217, 28}
 	}
 };
 

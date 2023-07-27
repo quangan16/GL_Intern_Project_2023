@@ -22,6 +22,8 @@ GSPlay::~GSPlay()
 
 void GSPlay::Init()
 {
+	index_color = 0;
+	isWin = false;
 	if(g_stateControllerPtr->GetGameStateType() == StateType::STATE_PLAY)
 	{
 		/*delete g_stateControllerPtr;
@@ -103,7 +105,7 @@ void GSPlay::Init()
 	m_player->m_changedState = false;
 	Camera::GetInstance()->SetTarget(m_player);
 	// button close
-	texture = ResourceManagers::GetInstance()->GetTexture("button_close.tga");
+	/*texture = ResourceManagers::GetInstance()->GetTexture("button_close.tga");
 	button = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
 	button->SetSize(50, 50);
 	button->Set2DPosition(SCREEN_WIDTH - 50, 10);
@@ -114,13 +116,14 @@ void GSPlay::Init()
 		
 
 		});
-	m_listButton.push_back(button);
+	m_listButton.push_back(button);*/
 
 	texture = ResourceManagers::GetInstance()->GetTexture("Pratice_Button_Off.png");
 	m_practiceButton = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
 	m_practiceButton->SetSize(100, 100);
 	m_practiceButton->Set2DPosition(30, 10);
 	m_practiceButton->SetOnClick([this, texture]() {
+		OnButtonPressed = false;
 		m_savePointMode = true;
 		
 		});
@@ -130,8 +133,8 @@ void GSPlay::Init()
 	m_practiceButtonOff->SetSize(100, 100);
 	m_practiceButtonOff->Set2DPosition(30, 10);
 	m_practiceButtonOff->SetOnClick([this, texture]() {
+		OnButtonPressed = false;
 		m_savePointMode = false;
-		
 
 		});
 
@@ -141,17 +144,16 @@ void GSPlay::Init()
 	m_immortalButtonOff->SetSize(100, 100);
 	m_immortalButtonOff->Set2DPosition(150, 10);
 	m_immortalButtonOff->SetOnClick([this, texture]() {
+		OnButtonPressed = false;
 		m_immortalMode = true;
-
-
 		});
 	texture = ResourceManagers::GetInstance()->GetTexture("Immortal_Button_On.png");
 	m_immortalButtonOn = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
 	m_immortalButtonOn->SetSize(100, 100);
 	m_immortalButtonOn->Set2DPosition(150, 10);
 	m_immortalButtonOn->SetOnClick([this, texture]() {
+		OnButtonPressed = false;
 		m_immortalMode = false;
-
 		});
 	
 	// panel
@@ -203,9 +205,6 @@ void GSPlay::Init()
 			if (isPause)
 			{
 				GameStateMachine::GetInstance()->ChangeState(StateType::STATE_MENU);
-				g_stateControllerPtr.reset();
-				g_stateControllerPtr = nullptr;
-
 				g_stateControllerPtr.reset();
 				g_stateControllerPtr = nullptr;
 			}
@@ -735,10 +734,14 @@ void GSPlay::Update(float deltaTime)
 		m_Process->LoadFromRenderText(std::to_string((int)currentProcess) + "%");
 
 		//Save High Process
-		if (currentProcess > m_Highscore[m_iCharacterTexture_index])
+		if (currentProcess > m_Highscore[m_iMapTexture_index-1])
 		{
-			m_Highscore[m_iCharacterTexture_index] = currentProcess;
+			m_Highscore[m_iMapTexture_index-1] = currentProcess;
 			m_fileController->WriteToFile("Data/save_data.txt");
+		}
+		if (isWin)
+		{
+			GameStateMachine::GetInstance()->ChangeState(StateType::STATE_WIN);
 		}
 
 		//Moving background

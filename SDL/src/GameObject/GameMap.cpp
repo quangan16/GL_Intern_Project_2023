@@ -220,21 +220,13 @@ void GameMap::DrawMap()
 					tile->SetColliderPosition(Vector2(j, i));
 					tile_map_box.push_back(tile);
 				}
-				else if (val == 44)
+				if (val == 44)
 				{
 					auto texture = ResourceManagers::GetInstance()->GetTexture(("Ingame_Sprite/Finish_line_" + std::to_string(val) + ".tga"));
-					auto tile = std::make_shared<BoxCollider2D>(ColliderType::VICTORY, Vector2(j, i), true, TILE_SIZE*2, TILE_SIZE * 7, texture, SDL_FLIP_NONE);
+					auto tile = std::make_shared<BoxCollider2D>(ColliderType::FINISH_LINE, Vector2(j, i), true, TILE_SIZE, TILE_SIZE * 4, texture, SDL_FLIP_NONE);
 					tile->SetColliderPosition(Vector2(j, i));
 					tile_map_box.push_back(tile);
 				}
-				else if(val == 45)
-				{
-					auto texture = ResourceManagers::GetInstance()->GetTexture(("Ingame_Sprite/Spike_" + std::to_string(val) + ".tga"));
-					auto tile = std::make_shared<BoxCollider2D>(ColliderType::OBSTACLE, Vector2(j, i), true, TILE_SIZE * 2, TILE_SIZE *2 /3, texture, SDL_FLIP_NONE);
-					
-					tile_map_box.push_back(tile);
-				}
-				
 			}
 			map_x++;
 		}
