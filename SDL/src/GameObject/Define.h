@@ -69,7 +69,7 @@ inline bool isMuted = false;
 
 inline int r = 2, g = 2, b = 2, a = 256, index = 0;
 inline int interval = 1;
-inline int index_color = -1;
+inline int index_color = 0;
 
 inline Map_Color map_color[3][3] =
 {

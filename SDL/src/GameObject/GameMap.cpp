@@ -108,7 +108,7 @@ void GameMap::DrawMap()
 				if (val <= 16)
 				{
 					auto texture = ResourceManagers::GetInstance()->GetTexture("Ingame_Sprite/Ground_" + std::to_string(val) + ".tga");
-					texture->setColor(map_color[m_iMapTexture_index][index_color].r, map_color[m_iMapTexture_index][index_color].g, map_color[m_iMapTexture_index][index_color].b);
+					texture->setColor(map_color[m_iMapTexture_index-1][index_color].r, map_color[m_iMapTexture_index-1][index_color].g, map_color[m_iMapTexture_index-1][index_color].b);
 					texture->SetAlpha(1000);
 					auto tile = std::make_shared<BoxCollider2D>(ColliderType::GROUND, Vector2(j, i), true, TILE_SIZE, TILE_SIZE, texture, SDL_FLIP_NONE);
 					tile_map_box.push_back(tile);
@@ -150,7 +150,7 @@ void GameMap::DrawMap()
 				else if (val == 23)
 				{
 					auto texture = ResourceManagers::GetInstance()->GetTexture("Ingame_Sprite/Wall_" + std::to_string(val) + ".tga");
-					texture->setColor(map_color[m_iMapTexture_index][index_color].r, map_color[m_iMapTexture_index][index_color].g, map_color[m_iMapTexture_index][index_color].b);
+					texture->setColor(map_color[m_iMapTexture_index-1][index_color].r, map_color[m_iMapTexture_index-1][index_color].g, map_color[m_iMapTexture_index-1][index_color].b);
 					texture->SetAlpha(1000);
 					auto tile = std::make_shared<Sprite2D>( texture, SDL_FLIP_NONE, TILE_SIZE, TILE_SIZE);
 					tile->Set2DPosition(j, i);
@@ -160,7 +160,7 @@ void GameMap::DrawMap()
 				else if (val >= 24 && val <= 31 || val == 38)
 				{
 					auto texture = ResourceManagers::GetInstance()->GetTexture("Ingame_Sprite/Wall_" + std::to_string(val) + ".tga");
-					texture->setColor(map_color[m_iMapTexture_index][index_color].r, map_color[m_iMapTexture_index][index_color].g, map_color[m_iMapTexture_index][index_color].b);
+					texture->setColor(map_color[m_iMapTexture_index-1][index_color].r, map_color[m_iMapTexture_index-1][index_color].g, map_color[m_iMapTexture_index-1][index_color].b);
 					texture->SetAlpha(1000);
 					auto tile = std::make_shared<BoxCollider2D>(ColliderType::GROUND, Vector2(j, i), true, TILE_SIZE, TILE_SIZE, texture, SDL_FLIP_NONE);
 					tile_map_box.push_back(tile);
@@ -169,7 +169,7 @@ void GameMap::DrawMap()
 				else if(val == 32)
 				{
 					auto texture = ResourceManagers::GetInstance()->GetTexture("Ingame_Sprite/Wall_" + std::to_string(val) + ".tga");
-					texture->setColor(map_color[m_iMapTexture_index][index_color].r, map_color[m_iMapTexture_index][index_color].g, map_color[m_iMapTexture_index][index_color].b);
+					texture->setColor(map_color[m_iMapTexture_index-1][index_color].r, map_color[m_iMapTexture_index-1][index_color].g, map_color[m_iMapTexture_index-1][index_color].b);
 					texture->SetAlpha(1000);
 					auto tile = std::make_shared<BoxCollider2D>(ColliderType::GROUND, Vector2(j, i), true, TILE_SIZE, TILE_SIZE/2, texture, SDL_FLIP_NONE);
 					tile_map_box.push_back(tile);

@@ -52,7 +52,7 @@ void GSPlay::Init()
 	m_immortalMode = false;
 	
 	auto texture = ResourceManagers::GetInstance()->GetTexture("backx2.tga");
-	texture->setColor(map_color[m_iMapTexture_index][index_color].r, map_color[m_iMapTexture_index][index_color].g , map_color[m_iMapTexture_index][index_color].b);
+	texture->setColor(map_color[m_iMapTexture_index-1][index_color].r, map_color[m_iMapTexture_index-1][index_color].g , map_color[m_iMapTexture_index-1][index_color].b);
 	texture->SetAlpha(255-75);
 	if (!isMuted)
 	{
