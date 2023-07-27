@@ -228,11 +228,11 @@
             "scaleInDock": 1
         },
         "GP_Level_1.tmx": {
-            "scale": 0.75,
+            "scale": 0.5,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 122420,
-                "y": 511.99999999999994
+                "x": 55522,
+                "y": 2246
             }
         },
         "GP_Level_1.tmx#43": {
@@ -361,9 +361,9 @@
     ],
     "project": "GD_Levels.tiled-project",
     "recentFiles": [
+        "GP_Level_1.tmx",
         "30.tsx",
         "45.tsx",
-        "GP_Level_1.tmx",
         "43.tsx",
         "map_01.tmx",
         "22.tsx",

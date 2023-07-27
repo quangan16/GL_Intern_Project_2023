@@ -26,6 +26,7 @@ Player::Player(Vector2 _position, double _rotation, int _direction, double _velo
 	m_playerCollider(std::make_shared<BoxCollider2D>(ColliderType::PLAYER, _position, true, TILE_SIZE, TILE_SIZE, ResourceManagers::GetInstance()->GetTexture("collider_border.png"), SDL_FLIP_NONE))
 {
 	m_isAlive = true;
+	m_hasWon = false;
 	m_playerDieEffect = std::make_shared<SpriteAnimation>(ResourceManagers::GetInstance()->GetTexture("Player_Die_1.tga"), TILE_SIZE, TILE_SIZE , 1, 59, 1, 0.01f, false);
 	m_playerJumpEffect = std::make_shared<SpriteAnimation>(ResourceManagers::GetInstance()->GetTexture("Player_Jump_Effect_1.tga"), TILE_SIZE, TILE_SIZE, 1, 4, 1, 0.02f, false);
 	m_playerTrailEffect = std::make_shared<SpriteAnimation>(ResourceManagers::GetInstance()->GetTexture("Player_Trail_Effect_1.tga"), TILE_SIZE, TILE_SIZE, 1, 9, 1, 0.03f, true);
