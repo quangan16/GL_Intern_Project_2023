@@ -22,7 +22,7 @@ bool IOFile::WriteToFile(const char* _fileName)
 	
 	for (int i = 0; i < m_iMapTexture_index; i++)
 	{
-		if (fprintf(fp, "%d", m_Highscore[i]) < 0)
+		if (fprintf(fp, "%d ", m_Highscore[i]) < 0)
 		{
 			return false;
 		}

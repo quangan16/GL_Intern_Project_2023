@@ -28,6 +28,7 @@ public:
 private:
 	std::shared_ptr<Sprite2D>				m_background;
 	std::shared_ptr<Sprite2D>				m_levelPickCanvas;
+	std::shared_ptr<Sprite2D>				m_slider;
 	std::list<std::shared_ptr<MouseButton>>	m_listButton;
 	std::shared_ptr<Text>					m_textGameName;
 	SDL_Color m_textColor;
@@ -35,6 +36,12 @@ private:
 	std::shared_ptr<MouseButton> btnCredit;
 	int score = 0;
 	float time = 0.0f;
+	const int PROCESS_WIDTH = 1000;
+	const int PROCESS_HEIGHT = 30;
+	const int PROCESS_PADDING = 5;
+	float maxProcess = 100.0f;
+	float currentProcess = 0.0f;
+	float processBarWidth;
 
 	std::list<std::shared_ptr<SpriteAnimation>>	m_listAnimation;
 	std::shared_ptr<SpriteAnimation> obj;
@@ -43,5 +50,4 @@ private:
 	std::shared_ptr<MouseButton> m_btnGuide;
 	std::shared_ptr<MouseButton> m_btnBack;
 	std::shared_ptr<MouseButton> m_btnPlay;
-	std::shared_ptr<IOFile>		 m_loadFile;
 };

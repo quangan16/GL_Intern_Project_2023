@@ -18,11 +18,16 @@ void GSLevel::Init()
 	if (!isMuted)m_Sound->PlaySound();
 	auto texture = ResourceManagers::GetInstance()->GetTexture("back1.tga");
 
-	m_loadFile->ReadFromFile("Data/save_data.txt");
 	// background
 	m_background = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
 	m_background->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 	m_background->Set2DPosition(0, 0);
+
+	//slider
+	texture = ResourceManagers::GetInstance()->GetTexture("slider.tga");
+	m_slider = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
+	m_slider->SetSize(1000, 40);
+	m_slider->Set2DPosition((SCREEN_WIDTH - m_slider->GetWidth())/2, 200);
 
 	// Level 
 	texture = ResourceManagers::GetInstance()->GetTexture("level_" + std::to_string(m_iMapTexture_index) + ".tga");
@@ -126,7 +131,7 @@ void GSLevel::Init()
 	SDL_Color text_Color = { 255, 255, 255 };
 	m_textGameName = std::make_shared<Text>("Data/PUSAB___.otf", text_Color);
 	m_textGameName->SetSize(400, 70);
-	m_textGameName->Set2DPosition((SCREEN_WIDTH - m_textGameName->GetWidth()) / 2, 600);
+	m_textGameName->Set2DPosition((SCREEN_WIDTH - m_textGameName->GetWidth()) / 2, m_slider->Get2DPosition().y + 100 );
 	m_textGameName->LoadFromRenderText("HIGH SCORE : " + std::to_string(m_Highscore[m_iMapTexture_index - 1]) + "%");
 
 }
@@ -180,6 +185,7 @@ void GSLevel::Update(float deltaTime)
 	{
 		it->Update(deltaTime);
 	}
+	processBarWidth = m_Highscore[m_iMapTexture_index-1] * 9.8f;
 }
 
 void GSLevel::Draw(SDL_Renderer* renderer)
@@ -187,9 +193,14 @@ void GSLevel::Draw(SDL_Renderer* renderer)
 	
 	m_background->Draw(renderer);
 	m_levelPickCanvas->Draw(renderer);
+	SDL_Rect foregroundRect = { m_slider->Get2DPosition().x + 10, m_slider->Get2DPosition().y + 5, processBarWidth, PROCESS_HEIGHT};
+	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // Green color
+	SDL_RenderFillRect(renderer, &foregroundRect);
+	m_slider->DrawFixedObject(renderer);
 	for (auto it : m_listButton)
 	{
 		it->Draw(renderer);
 	}
 	m_textGameName->Draw(renderer);
+	
 }

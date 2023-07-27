@@ -14,6 +14,7 @@ bool ResourceManagers::isMuted = false;
 
 void GSMenu::Init()
 {
+	m_loadFile->ReadFromFile("Data/save_data.txt");
 
 	//Sound 
 	if (!isMuted)
@@ -84,8 +85,8 @@ void GSMenu::Init()
 	// game title
 	texture = ResourceManagers::GetInstance()->GetTexture("title.tga");
 	m_gameTitle = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
-	m_gameTitle->SetSize(1409 , 179);
-	m_gameTitle->Set2DPosition((SCREEN_WIDTH - m_gameTitle->GetWidth()) / 2, 200);
+	m_gameTitle->SetSize(1280 , 720);
+	m_gameTitle->Set2DPosition((SCREEN_WIDTH - m_gameTitle->GetWidth()) / 2, -100);
 
 }
 
