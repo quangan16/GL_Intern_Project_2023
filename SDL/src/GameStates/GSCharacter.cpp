@@ -71,13 +71,13 @@ void GSCharacter::Init()
 	m_img_Ship->Set2DPosition((SCREEN_WIDTH - m_img_Ship->GetWidth()) / 2, 400);
 
 	//Show character wave
-	texture = ResourceManagers::GetInstance()->GetTexture("player_wave_" + std::to_string(m_iShipTexture_index) + ".tga");
+	texture = ResourceManagers::GetInstance()->GetTexture("player_wave_" + std::to_string(m_iWaveTexture_index) + ".tga");
 	m_img_Wave = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
 	m_img_Wave->SetSize(100, 100);
 	m_img_Wave->Set2DPosition((SCREEN_WIDTH - m_img_Wave->GetWidth()) / 2, 600);
 
 	//Show character ball
-	texture = ResourceManagers::GetInstance()->GetTexture("player_ball_" + std::to_string(m_iShipTexture_index) + ".tga");
+	texture = ResourceManagers::GetInstance()->GetTexture("player_ball_" + std::to_string(m_iBallTexture_index) + ".tga");
 	m_img_Ball = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
 	m_img_Ball->SetSize(100, 100);
 	m_img_Ball->Set2DPosition((SCREEN_WIDTH - m_img_Wave->GetWidth()) / 2, 800);
