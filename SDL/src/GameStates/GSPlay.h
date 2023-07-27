@@ -55,6 +55,8 @@ private:
 	std::shared_ptr<MouseButton>					button;
 	std::shared_ptr<MouseButton>					m_practiceButton;
 	std::shared_ptr<MouseButton>					m_practiceButtonOff;
+	std::shared_ptr<MouseButton>					m_immortalButtonOn;
+	std::shared_ptr<MouseButton>					m_immortalButtonOff;
 	std::shared_ptr<Sprite2D>						m_slider;
 	std::shared_ptr<Player>							m_player;
 	std::shared_ptr<Text>							m_Process;
@@ -64,7 +66,7 @@ private:
 	
 	float aliveTime;
 	const float finishTime = 60.0f;
-	double m_gravity = 9000.0;
+	double m_gravity = 10000.0;
 
 	const int PROCESS_WIDTH = 495;
 	const int PROCESS_HEIGHT = 10;

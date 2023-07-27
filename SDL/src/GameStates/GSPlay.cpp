@@ -48,7 +48,8 @@ void GSPlay::Init()
 	aliveTime = 0.0f;
 	m_savePoint = std::make_shared<SavePoint>();
 
-	m_savePointMode = true;
+	m_savePointMode = false;
+	m_immortalMode = false;
 	
 	auto texture = ResourceManagers::GetInstance()->GetTexture("backx2.tga");
 	texture->setColor(map_color[m_iMapTexture_index][index_color].r, map_color[m_iMapTexture_index][index_color].g , map_color[m_iMapTexture_index][index_color].b);
@@ -95,6 +96,12 @@ void GSPlay::Init()
 		m_trigger1->SetSize(90, 90);
 		m_trigger1->Set2DPosition(640, 800);
 	}*/
+	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_" + std::to_string(m_iCharacterTexture_index) + ".tga");
+	m_player = std::make_shared<Cube>(Vector2(-0.0f, 1300.0f), 0.0, 1, 0.0, texture, SDL_FLIP_NONE, TILE_SIZE, TILE_SIZE);
+	m_playerCollider = m_player->GetCollider();
+	m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE);
+	m_player->m_changedState = false;
+	Camera::GetInstance()->SetTarget(m_player);
 	// button close
 	texture = ResourceManagers::GetInstance()->GetTexture("button_close.tga");
 	button = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
@@ -108,20 +115,42 @@ void GSPlay::Init()
 		});
 	m_listButton.push_back(button);
 
-	texture = ResourceManagers::GetInstance()->GetTexture("Pratice_Button.png");
+	texture = ResourceManagers::GetInstance()->GetTexture("Pratice_Button_Off.png");
 	m_practiceButton = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
-	m_practiceButton->SetSize(50, 50);
-	m_practiceButton->Set2DPosition(100, 10);
-	m_practiceButton->SetOnClick([this]() {
-		m_savePointMode = -m_savePointMode;
+	m_practiceButton->SetSize(100, 100);
+	m_practiceButton->Set2DPosition(30, 10);
+	m_practiceButton->SetOnClick([this, texture]() {
+		m_savePointMode = true;
+		
 		});
 
-	texture = ResourceManagers::GetInstance()->GetTexture("Pratice_Button_Off.png");
+	texture = ResourceManagers::GetInstance()->GetTexture("Pratice_Button.png");
 	m_practiceButtonOff = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
-	m_practiceButtonOff->SetSize(50, 50);
-	m_practiceButtonOff->Set2DPosition(100, 10);
-	m_practiceButtonOff->SetOnClick([this]() {
+	m_practiceButtonOff->SetSize(100, 100);
+	m_practiceButtonOff->Set2DPosition(30, 10);
+	m_practiceButtonOff->SetOnClick([this, texture]() {
+		m_savePointMode = false;
 		
+
+		});
+
+
+	texture = ResourceManagers::GetInstance()->GetTexture("Immortal_Button_Off.png");
+	m_immortalButtonOff = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
+	m_immortalButtonOff->SetSize(100, 100);
+	m_immortalButtonOff->Set2DPosition(150, 10);
+	m_immortalButtonOff->SetOnClick([this, texture]() {
+		m_immortalMode = true;
+
+
+		});
+	texture = ResourceManagers::GetInstance()->GetTexture("Immortal_Button_On.png");
+	m_immortalButtonOn = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
+	m_immortalButtonOn->SetSize(100, 100);
+	m_immortalButtonOn->Set2DPosition(150, 10);
+	m_immortalButtonOn->SetOnClick([this, texture]() {
+		m_immortalMode = false;
+
 		});
 	
 	// panel
@@ -135,7 +164,7 @@ void GSPlay::Init()
 	// button pause;
 	texture = ResourceManagers::GetInstance()->GetTexture("button_pause2.tga");
 	m_pauseButton = std::make_shared<MouseButton>(texture, SDL_FLIP_NONE);
-	m_pauseButton->SetSize(70, 70);
+	m_pauseButton->SetSize(100, 100);
 	m_pauseButton->Set2DPosition(button->Get2DPosition().x - m_pauseButton->GetWidth() - 10, 10);
 	m_pauseButton->SetOnClick([this]() {
 			OnButtonPressed = false;
@@ -214,12 +243,7 @@ void GSPlay::Init()
 	//Init Player
 	//Cube
 	//std::cout << m_iCharacterTexture_index << std::endl;
-	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_" + std::to_string(m_iCharacterTexture_index) + ".tga");
-	m_player = std::make_shared<Cube>(Vector2(-0.0f, 1300.0f), 0.0, 1, 0.0, texture, SDL_FLIP_NONE, TILE_SIZE, TILE_SIZE);
-	m_playerCollider = m_player->GetCollider();
-	m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE);
-	m_player->m_changedState = false;
-	Camera::GetInstance()->SetTarget(m_player);
+	
 
 	//Ship
 	/*texture = ResourceManagers::GetInstance()->GetTexture("player_ship_1.tga");
@@ -448,9 +472,24 @@ void GSPlay::HandleTouchEvents(SDL_Event& e, bool bIsPressed)
 	{
 		//std::cout << "sdjkfhdjkfgh";
 	}
+	if(!m_savePointMode)
+	{
+		m_practiceButton->HandleTouchEvent(&e);
+	}
+	else
+	{
+		m_practiceButtonOff->HandleTouchEvent(&e);
+	}
 
-	m_practiceButton->HandleTouchEvent(&e);
-	m_practiceButtonOff->HandleTouchEvent(&e);
+	if (!m_immortalMode)
+	{
+		m_immortalButtonOff->HandleTouchEvent(&e);
+	}
+	else
+	{
+		m_immortalButtonOn->HandleTouchEvent(&e);
+	}
+	
 
 	for (auto button : m_listButton)
 	{
@@ -581,6 +620,7 @@ void GSPlay::Update(float deltaTime)
 		//std::cout << m_playerCollider->GetWidth() << std::endl;
 		//std::cout << m_player->m_isAlive << std::endl;
 		//std::cout << m_player->m_playerForm << std::endl;
+		std::cout << m_immortalMode << std::endl;
 
 
 		
@@ -606,9 +646,15 @@ void GSPlay::Update(float deltaTime)
 		default:
 			break;
 		}
-
-		m_practiceButton->Update(deltaTime);
-		m_practiceButtonOff->Update(deltaTime);
+		
+			m_practiceButton->Update(deltaTime);
+		
+		
+			m_practiceButtonOff->Update(deltaTime);
+			m_immortalButtonOn->Update(deltaTime);
+			m_immortalButtonOff->Update(deltaTime);
+		
+		
 
 		for (auto it : m_listButton)
 		{
@@ -781,13 +827,23 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 	{
 		m_player->GetPlayerAnimation()->Draw(renderer);
 	}
-	if (m_savePointMode)
+
+	if (m_savePointMode == true)
 	{
 		m_practiceButton->Draw(renderer);
 	}
-	else
+	else if(m_savePointMode == false)
 	{
 		m_practiceButtonOff->Draw(renderer);
+	}
+
+	if (m_immortalMode == true)
+	{
+		m_immortalButtonOn->Draw(renderer);
+	}
+	else if (m_immortalMode == false)
+	{
+		m_immortalButtonOff->Draw(renderer);
 	}
 
 	//m_trigger1->Draw(renderer);

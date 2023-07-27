@@ -19,6 +19,7 @@ inline bool canDrawEvent;
 inline float timer = 0.0f;
 
 inline bool m_savePointMode;
+inline bool m_immortalMode;
 inline bool g_trigger = false;
 
 inline std::shared_ptr<Sound> m_Sound;
