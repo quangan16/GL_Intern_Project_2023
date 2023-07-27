@@ -233,8 +233,8 @@
             "scale": 0.25,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 118468,
-                "y": 1284
+                "x": 64000,
+                "y": 1534
             }
         },
         "GP_Level_1.tmx#43": {
@@ -251,11 +251,11 @@
             "scaleInDock": 1
         },
         "GP_Level_2.tmx": {
-            "scale": 0.25,
+            "scale": 0.125,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 33932,
-                "y": 1868
+                "x": 44760,
+                "y": 2232
             }
         },
         "GP_Level_2.tmx#1-16": {
@@ -398,11 +398,11 @@
             "scaleInDock": 1
         },
         "GP_Level_3.tmx": {
-            "scale": 0.25,
+            "scale": 0.0625,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 28456,
-                "y": 2148
+                "x": 125096,
+                "y": 416
             }
         },
         "Tileset/1-16.tsx": {
@@ -520,9 +520,10 @@
     ],
     "project": "GD_Levels.tiled-project",
     "recentFiles": [
-        "map_01.tmx",
         "GP_Level_1.tmx",
         "GP_Level_2.tmx",
+        "GP_Level_3.tmx",
+        "map_01.tmx",
         "30.tsx",
         "45.tsx",
         "43.tsx",
