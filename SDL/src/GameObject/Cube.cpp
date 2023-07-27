@@ -15,8 +15,8 @@ Cube::Cube(Vector2 _position, double _rotation, int _direction, double _velocity
 	m_isJumping = false;
 	m_isFalling = true;
 	m_isOnGround = false;
-	m_jumpForce = 2400.0;
-	m_playerSpeed = 980.0f;
+	m_jumpForce = 2500.0;
+	m_playerSpeed = 1000.0f;
 	m_isAlive = true;
 };
 
@@ -28,8 +28,8 @@ Cube::Cube(Vector2 _position, double _rotation, int _direction, double _velocity
 	m_isJumping = false;
 	m_isFalling = true;
 	m_isOnGround = false;
-	m_jumpForce = 2400.0;
-	m_playerSpeed = 980.0f;
+	m_jumpForce = 2500.0;
+	m_playerSpeed = 1000.0f;
 	m_isAlive = true;
 	m_playerSprite = std::make_shared<Sprite2D>(_texture, _flip, _width, _height);
 

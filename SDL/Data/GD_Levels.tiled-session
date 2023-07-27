@@ -219,11 +219,11 @@
             "scaleInDock": 1
         },
         "GP_Level_1.tmx": {
-            "scale": 0.25,
+            "scale": 0.125,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 65146,
-                "y": 956
+                "x": 4996,
+                "y": 1296
             }
         },
         "GP_Level_1.tmx#43": {

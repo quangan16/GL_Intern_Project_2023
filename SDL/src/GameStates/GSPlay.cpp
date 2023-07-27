@@ -31,7 +31,7 @@ void GSPlay::Init()
 	m_gameMap->LoadMap("Data/GP_Level_1.dat");
 	m_gameMap->DrawMap();
 	//Map
-
+	victoryTime = 0.0f;
 
 	for (auto& it : m_gameMap->tile_map_box)
 	{
@@ -529,7 +529,12 @@ void GSPlay::Update(float deltaTime)
 	if (m_player->m_isAlive)
 	{
 		aliveTime = timer;
+
 		
+	}
+	if(!m_player->m_hasWon)
+	{
+		victoryTime = timer;
 	}
 	
 
@@ -586,7 +591,7 @@ void GSPlay::Update(float deltaTime)
 
 			}
 			m_player->Die(m_savePoint, m_background1, m_Sound, m_playerDieSfx, aliveTime, 2);
-			
+			m_player->Victory(victoryTime, 4);
 
 			for (const auto& collider : m_circleColliderList) {
 				m_player->OnCollisionTrigger(collider, m_gravity, deltaTime);
@@ -760,20 +765,7 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 	}
 
 	//m_score->Draw(renderer);
-	if (m_player->m_isAlive == false)
-	{
-		//m_player->m_playerDieEffect->SetCurrentFrame(1);
-
-		m_player->m_playerDieEffect->Draw(renderer);
-	}
-	else
-	{
-		if(m_player->GetPlayerSprite()!=NULL)
-		{
-			m_player->GetPlayerSprite()->Draw(renderer);
-		}
-		
-	}
+	
 
 	
 
@@ -852,5 +844,19 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 	//m_trigger1->Draw(renderer);
 	m_slider->DrawFixedObject(renderer);
 	m_Process->Draw(renderer);
+	if (m_player->m_isAlive == false)
+	{
+		//m_player->m_playerDieEffect->SetCurrentFrame(1);
+
+		m_player->m_playerDieEffect->Draw(renderer);
+	}
+	else
+	{
+		if (m_player->GetPlayerSprite() != NULL)
+		{
+			m_player->GetPlayerSprite()->Draw(renderer);
+		}
+
+	}
 
 }

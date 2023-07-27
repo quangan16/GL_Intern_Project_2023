@@ -26,6 +26,7 @@ Player::Player(Vector2 _position, double _rotation, int _direction, double _velo
 	m_playerCollider(std::make_shared<BoxCollider2D>(ColliderType::PLAYER, _position, true, TILE_SIZE, TILE_SIZE, ResourceManagers::GetInstance()->GetTexture("collider_border.png"), SDL_FLIP_NONE))
 {
 	m_isAlive = true;
+	m_hasWon = false;
 	m_playerDieEffect = std::make_shared<SpriteAnimation>(ResourceManagers::GetInstance()->GetTexture("Player_Die_1.tga"), TILE_SIZE, TILE_SIZE , 1, 59, 1, 0.01f, false);
 	m_playerJumpEffect = std::make_shared<SpriteAnimation>(ResourceManagers::GetInstance()->GetTexture("Player_Jump_Effect_1.tga"), TILE_SIZE, TILE_SIZE, 1, 4, 1, 0.02f, false);
 	m_playerTrailEffect = std::make_shared<SpriteAnimation>(ResourceManagers::GetInstance()->GetTexture("Player_Trail_Effect_1.tga"), TILE_SIZE, TILE_SIZE, 1, 9, 1, 0.03f, true);
@@ -235,7 +236,14 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 _player->m_changedState = true;
 			 _gamemap->ChangeColor(map_color[m_iMapTexture_index - 1][index_color++].r, map_color[m_iMapTexture_index - 1][index_color++].g, map_color[m_iMapTexture_index - 1][index_color++].b);
 		 }
-		 
+
+		 if (_otherCollider->GetColliderID() == ColliderType::VICTORY && m_changedState == false) {
+
+			 m_hasWon = true;
+			
+
+			
+		 }
 	 }
 	 /*if (m_changedState == true) {
 		 m_changedState = false;
@@ -405,8 +413,17 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 
 
 
- void Player::Victory() {
-
+ void Player::Victory(float& _victoryTime, float waitTime) {
+	 if(m_hasWon == true)
+	 {
+		 Camera::GetInstance()->SetTarget(nullptr);
+		 if (timer >= _victoryTime + waitTime)
+		 {
+			 
+			 GameStateMachine::GetInstance()->PushState(StateType::STATE_WIN);
+		 }
+	 }
+	
  }
 
 const PlayerForm Player::GetPlayerForm()
