@@ -206,8 +206,8 @@ void GSPlay::Init()
 				g_stateControllerPtr.reset();
 				g_stateControllerPtr = nullptr;
 
-				
-				
+				g_stateControllerPtr.reset();
+				g_stateControllerPtr = nullptr;
 			}
 		});
 	m_listPauseButton.push_back(m_menuButton);

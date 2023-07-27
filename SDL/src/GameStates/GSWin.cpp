@@ -77,8 +77,8 @@ void GSWin::Init()
 	// game title
 	texture = ResourceManagers::GetInstance()->GetTexture("Complete.tga");
 	m_gameTitle = std::make_shared<Sprite2D>(texture, SDL_FLIP_NONE);
-	m_gameTitle->SetSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-	m_gameTitle->Set2DPosition((SCREEN_WIDTH - m_gameTitle->GetWidth()) / 2, 0);
+	m_gameTitle->SetSize(1409, 179);
+	m_gameTitle->Set2DPosition((SCREEN_WIDTH - m_gameTitle->GetWidth()) / 2, 200);
 
 }
 
