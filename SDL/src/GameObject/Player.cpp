@@ -229,7 +229,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 
 		 if (_otherCollider->GetColliderID() == ColliderType::FINISH_LINE)
 		 {
-			 isWin = true;
+			 m_hasWon = true;
 		 }
 		 
 	 }
