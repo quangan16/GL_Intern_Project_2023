@@ -146,7 +146,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			 }
 			 else if (m_playerCollider->GetColliderPosition().y > _otherCollider->GetColliderPosition().y && (m_playerForm == WAVE || m_playerForm == SHIP) && m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() > _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight())
 			  {
-				  isOnGround = true;
+				  m_isOnTop = true;
 				  FixCollisionOverlapsUnderSurface(_otherCollider);
 			  }
 			 else if (m_playerCollider->GetColliderPosition().y < _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight()
@@ -348,6 +348,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 				
 			 }
 			 m_isAlive = true;
+			 _bg->SetSpeed(2.0f);
 			 if (!isMuted) _bgSound->PlaySound();
 		 }
 		 

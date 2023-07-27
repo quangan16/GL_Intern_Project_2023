@@ -32,7 +32,6 @@ void GSPlay::Init()
 	
 	//Map
 	victoryTime = 0.0f;
-	m_iMapTexture_index = 3;
 	//Map
 	m_gameMap = std::make_shared<GameMap>();
 	m_gameMap->LoadMap("Data/GP_Level_" + std::to_string(m_iMapTexture_index) + ".csv");
@@ -88,7 +87,7 @@ void GSPlay::Init()
 		m_trigger1->Set2DPosition(640, 800);
 	}*/
 	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_" + std::to_string(m_iCharacterTexture_index) + ".tga");
-	m_player = std::make_shared<Cube>(Vector2(-0.0f, 1300.0f), 0.0, 1, 0.0, texture, SDL_FLIP_NONE, TILE_SIZE, TILE_SIZE);
+	m_player = std::make_shared<Cube>(Vector2(0.0f, 1300.0f), 0.0, 1, 0.0, texture, SDL_FLIP_NONE, TILE_SIZE, TILE_SIZE);
 	m_playerCollider = m_player->GetCollider();
 	m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE);
 	m_player->m_changedState = false;
@@ -766,14 +765,15 @@ void GSPlay::Draw(SDL_Renderer* renderer)
 
 	//draw player
 	//m_playerSprite->Draw(renderer);
+	for (auto it : m_gameMap->noneColliderObjectList)
+	{
+		it->Draw(renderer);
+	}
 	
 	for (auto it : m_boxColliderList) {
 		it->Draw(renderer);
 	}
-	for(auto it: m_gameMap->noneColliderObjectList)
-	{
-		it->Draw(renderer);
-	}
+	
 	
 	SDL_Rect foregroundRect = { SCREEN_WIDTH / 2 - 245, PROCESS_PADDING + 20, processBarWidth, PROCESS_HEIGHT };
 	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255); // Green color

@@ -228,11 +228,11 @@
             "scaleInDock": 1
         },
         "GP_Level_1.tmx": {
-            "scale": 0.25,
+            "scale": 0.125,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 64000,
-                "y": 1534
+                "x": 4864,
+                "y": 1968
             }
         },
         "GP_Level_1.tmx#43": {
@@ -244,16 +244,57 @@
             "dynamicWrapping": false,
             "scaleInDock": 1
         },
+        "GP_Level_1.tmx#45": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
+        "GP_Level_1.tmx#46": {
+            "scaleInDock": 1
+        },
+        "GP_Level_1.tmx#47": {
+            "scaleInDock": 1
+        },
+        "GP_Level_1.tmx#48": {
+            "scaleInDock": 1
+        },
+        "GP_Level_1.tmx#49": {
+            "scaleInDock": 1
+        },
+        "GP_Level_1.tmx#50": {
+            "scaleInDock": 1
+        },
+        "GP_Level_1.tmx#51": {
+            "scaleInDock": 1
+        },
+        "GP_Level_1.tmx#52": {
+            "scaleInDock": 1
+        },
+        "GP_Level_1.tmx#53": {
+            "scaleInDock": 1
+        },
+        "GP_Level_1.tmx#54": {
+            "scaleInDock": 1
+        },
+        "GP_Level_1.tmx#55": {
+            "scaleInDock": 1
+        },
+        "GP_Level_1.tmx#56": {
+            "scaleInDock": 1
+        },
+        "GP_Level_1.tmx#57": {
+            "dynamicWrapping": true,
+            "scaleInDock": 1
+        },
         "GP_Level_1.tmx#lightsquare_02_07_color_001": {
             "dynamicWrapping": true,
             "scaleInDock": 1
         },
         "GP_Level_2.tmx": {
-            "scale": 0.0625,
+            "scale": 0.125,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 3568,
-                "y": -896
+                "x": 7664,
+                "y": 800
             }
         },
         "GP_Level_2.tmx#1-16": {
@@ -396,136 +437,140 @@
             "scaleInDock": 1
         },
         "GP_Level_3.tmx": {
-            "scale": 0.015625,
+            "scale": 0.125,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 28864,
-                "y": 2176
+                "x": 58960,
+                "y": 368
             }
         },
         "GP_Level_3.tmx#1-16": {
             "dynamicWrapping": false,
-            "scaleInDock": 0.5
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#17": {
             "dynamicWrapping": true,
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#18": {
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#19": {
             "dynamicWrapping": true,
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#20": {
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#21": {
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#22": {
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#23": {
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#24": {
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#25": {
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#26": {
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#27": {
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#28": {
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#29": {
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#30": {
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#31": {
             "dynamicWrapping": true,
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#32": {
             "dynamicWrapping": true,
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#33": {
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#34": {
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#35": {
-            "scaleInDock": 1
+            "dynamicWrapping": false,
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#36": {
-            "scaleInDock": 1
+            "dynamicWrapping": true,
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#37": {
-            "scaleInDock": 1
+            "dynamicWrapping": false,
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#38": {
             "dynamicWrapping": true,
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#39-40": {
             "dynamicWrapping": false,
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#41-42": {
             "dynamicWrapping": false,
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#43": {
             "dynamicWrapping": true,
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#44": {
             "dynamicWrapping": true,
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#45": {
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#46": {
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#47": {
-            "scaleInDock": 1
+            "dynamicWrapping": false,
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#48": {
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#49": {
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#50": {
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#51": {
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#52": {
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#53": {
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#54": {
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#55": {
-            "scaleInDock": 1
+            "scaleInDock": 0.25
         },
         "GP_Level_3.tmx#56": {
             "scaleInDock": 1
@@ -569,8 +614,8 @@
             "scale": 0.015625,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 20416,
-                "y": 4032
+                "x": 20352,
+                "y": 3968
             }
         },
         "map_01.tmx#16": {
@@ -646,10 +691,10 @@
     ],
     "project": "GD_Levels.tiled-project",
     "recentFiles": [
-        "GP_Level_3.tmx",
         "GP_Level_2.tmx",
-        "map_01.tmx",
         "GP_Level_1.tmx",
+        "GP_Level_3.tmx",
+        "map_01.tmx",
         "30.tsx",
         "45.tsx",
         "43.tsx",
