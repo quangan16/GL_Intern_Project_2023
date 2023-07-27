@@ -166,7 +166,7 @@
   <ItemGroup>
     <ClCompile Include="src\GameObject\Spider.cpp" />
     <ClCompile Include="src\GameObject\Ball.cpp" />
-    <ClCompile Include="SavePoint.cpp" />
+    <ClCompile Include="src\GameObject\SavePoint.cpp" />
     <ClCompile Include="src\GameObject\Wave.cpp" />
     <ClCompile Include="src\GameObject\Collider2D.cpp" />
     <ClCompile Include="src\GameObject\BoxCollider2D.cpp" />
@@ -205,7 +205,7 @@
   <ItemGroup>
     <ClInclude Include="src\GameObject\Spider.h" />
     <ClInclude Include="src\GameObject\Ball.h" />
-    <ClInclude Include="SavePoint.h" />
+    <ClInclude Include="src\GameObject\SavePoint.h" />
     <ClInclude Include="src\GameObject\Wave.h" />
     <ClInclude Include="src\GameObject\Collider2D.h" />
     <ClInclude Include="src\GameObject\BoxCollider2D.h" />

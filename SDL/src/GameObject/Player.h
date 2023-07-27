@@ -4,6 +4,8 @@
 #include "Background.h"
 #include "TextureManager.h"
 #include "BoxCollider2D.h"
+#include "GameMap.h"
+
 
 
 class Ball;
@@ -12,6 +14,8 @@ class Ship;
 class Wave;
 class Spider;
 
+struct SavePoint;
+
 enum PlayerForm {
 	CUBE,
 	SHIP,
@@ -19,6 +23,26 @@ enum PlayerForm {
 	BALL,
 	ROBOT,
 	SPIDER
+};
+
+struct PlayerSavePointData
+{
+	
+	bool m_isJumping;
+	bool m_isFalling;
+	bool m_isOnGround;
+	double m_jumpForce;
+	bool m_isAlive;
+	bool m_jumpBuffer;
+		bool m_changedState;
+	
+	PlayerForm m_playerForm;
+	Vector2 m_playerPosition;
+	double m_playerRotation;
+	int m_direction;
+	double m_velocity;
+	float m_playerSpeed;
+	
 };
 
 class Player
@@ -32,7 +56,7 @@ public:
 	bool m_isAlive;
 	bool m_jumpBuffer = false;
 	bool m_changedState = false;
-
+	bool m_hasWon;
 	std::shared_ptr<SpriteAnimation> m_playerDieEffect;
 	std::shared_ptr<SpriteAnimation> m_playerTrailEffect;
 	std::shared_ptr<SpriteAnimation> m_playerJumpEffect;
@@ -50,9 +74,9 @@ protected:
 	std::shared_ptr<TextureManager> m_playerTexture;
 	std::shared_ptr<Sprite2D> m_playerSprite;
 	std::shared_ptr<SpriteAnimation> m_playerAnimation;
+	std::shared_ptr<Sprite2D> m_savePointSprite;
+
 	
-
-
 	std::shared_ptr<BoxCollider2D> m_playerCollider;
 
 
@@ -104,7 +128,8 @@ public:
 
 	virtual void OnGround() = 0;
 
-	bool OnCollisionStay(std::shared_ptr<BoxCollider2D> otherCollider, std::shared_ptr<Player> &_player);
+	bool OnCollisionStay(std::shared_ptr<BoxCollider2D> otherCollider, std::shared_ptr<Player> &_player, std::shared_ptr<GameMap> &_gamemap,
+		std::shared_ptr<Background>& _bg1, std::shared_ptr<Background>& _bg2);
 
 	void JumpTrigger();
 
@@ -123,12 +148,19 @@ public:
 	std::shared_ptr<Spider>TransformToSpider();
 
 	std::shared_ptr<SpriteAnimation> GetPlayerAnimation();
+
+	
 		
 	void UpdatePlayerAnimation();
 
 	void FixCollisionOverlapsOnSurface(std::shared_ptr<BoxCollider2D> otherCollider);
 	void FixCollisionOverlapsUnderSurface(std::shared_ptr<BoxCollider2D> _otherCollider);
-	void Die(std::shared_ptr<Background>& _bg, std::shared_ptr<Sound>& _bgSound, std::shared_ptr<Sound>& _DieSfx, float& dieTime, float _waitTime);
+	void Die(const std::shared_ptr<SavePoint>& _savePoint, std::shared_ptr<Background>& _bg, std::shared_ptr<Sound>& _bgSound, std::shared_ptr<Sound>& _DieSfx, float& dieTime, float _waitTime);
+	void Victory();
+
+	const PlayerForm GetPlayerForm();
+	const float GetPlayerSpeed();
+
 	//void Update(float deltaTime);
 	
 };

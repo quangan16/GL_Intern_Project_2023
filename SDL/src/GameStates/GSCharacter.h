@@ -44,6 +44,8 @@ private:
 	std::shared_ptr<MouseButton> m_btnNext_Ship;
 	std::shared_ptr<MouseButton> m_btnPrev_Wave;
 	std::shared_ptr<MouseButton> m_btnNext_Wave;
+	std::shared_ptr<MouseButton> m_btnNext_Ball;
+	std::shared_ptr<MouseButton> m_btnPrev_Ball;
 	std::shared_ptr<MouseButton> m_btnGuide;
 	std::shared_ptr<MouseButton> m_btnBack;
 	std::shared_ptr<MouseButton> m_btnPlay;
@@ -52,5 +54,6 @@ private:
 	std::shared_ptr<Sprite2D>				m_img_Cube;
 	std::shared_ptr<Sprite2D>				m_img_Ship;
 	std::shared_ptr<Sprite2D>				m_img_Wave;
+	std::shared_ptr<Sprite2D>				m_img_Ball;
 
 };

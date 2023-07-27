@@ -18,6 +18,7 @@ public:
 	void LoadMap(std::string name);
 	void LoadTiles();
 	void DrawMap();
+	void ChangeColor(int r, int g, int b);
 	Map getMap() { return game_map_; }
 	std::vector<std::shared_ptr<Sprite2D>> noneColliderObjectList;
 	std::vector<std::shared_ptr<BoxCollider2D>> tile_map_box;

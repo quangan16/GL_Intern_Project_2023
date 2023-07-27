@@ -14,8 +14,13 @@ bool ResourceManagers::isMuted = false;
 
 void GSMenu::Init()
 {
+
 	//Sound 
-	m_Sound = std::make_shared<Sound>("Data/Sounds/menuLoop.mp3");
+	if (!isMuted)
+	{
+		m_Sound = std::make_shared<Sound>("Data/Sounds/menuLoop.mp3");
+		m_Sound->PlaySound();
+	}
 	Camera::GetInstance()->SetPosition({ 0, 0 });
 	auto texture = ResourceManagers::GetInstance()->GetTexture("back1.tga");
 	// background
@@ -72,7 +77,7 @@ void GSMenu::Init()
 	m_btnGuide->Set2DPosition(btnClose->Get2DPosition().x - m_btnGuide->GetWidth(), 3);
 	m_btnGuide->SetSize(90 , 90);
 	m_btnGuide->SetOnClick([]() {
-		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_WIN);
+		GameStateMachine::GetInstance()->ChangeState(StateType::STATE_GUIDE);
 		});
 	m_listButton.push_back(m_btnGuide);
 
