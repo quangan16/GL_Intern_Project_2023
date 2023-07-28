@@ -143,8 +143,9 @@ void GameMap::DrawMap()
 				{
 					auto texture = ResourceManagers::GetInstance()->GetTexture(("Ingame_Sprite/Spike_" + std::to_string(val) + ".tga"));
 					auto tile = std::make_shared<BoxCollider2D>(ColliderType::OBSTACLE, Vector2(j, i ), true, TILE_SIZE , TILE_SIZE , texture, SDL_FLIP_NONE);
-					tile->SetColliderPosition(Vector2(j, i + TILE_SIZE /4));
-					tile->SetColliderSize(TILE_SIZE, TILE_SIZE * 3 / 4);
+					tile->SetColliderSize(TILE_SIZE, TILE_SIZE * 2 / 3);
+					tile->SetColliderPosition(Vector2(j, i + TILE_SIZE / 3));
+
 					tile_map_box.push_back(tile);
 				}
 

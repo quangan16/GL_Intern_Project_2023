@@ -166,7 +166,7 @@ void Ship::SetPlayerSprite(const int& _width, const int& _height, const std::sha
 
 void Ship::FixRotationOnGround(const float& _deltaTime) {
 
-	if (m_isOnGround == true) {
+	if (m_isOnGround == true ) {
 		if (m_playerRotation > 0.0 && m_playerRotation < 45.0) {
 			m_playerRotation = 0.0;
 		}
@@ -192,14 +192,7 @@ void Ship::OnGround() {
 		m_isFalling = false;
 		//FixCollisionOverlaps();
 	}
-	else if (m_isOnTop == true && OnButtonPressed == true) {
-
-		//this->SetDirectionY(-1);
-		m_isJumping = false;
-		m_velocity = 0.0;
-		m_isFalling = false;
-		//FixCollisionOverlaps();
-	}
+	
 
 
 }

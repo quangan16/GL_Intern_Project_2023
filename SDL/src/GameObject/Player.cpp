@@ -148,7 +148,9 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 			  {
 				  m_isOnTop = true;
 				  FixCollisionOverlapsUnderSurface(_otherCollider);
+				  m_velocity = 0;
 			  }
+
 			 else if (m_playerCollider->GetColliderPosition().y < _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight()
 				) {
 
@@ -288,7 +290,7 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 	 float playerTopCollider = m_playerCollider->GetColliderPosition().y;
 	 float groundBottomCollider = _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight();
 	 float topPenetration = std::abs(playerTopCollider - groundBottomCollider);
-	 if (playerTopCollider < groundBottomCollider && OnButtonPressed ) {
+	 if (playerTopCollider < groundBottomCollider  ) {
 		
 
 		 this->SetPlayerPosition(this->GetPlayerPosition().x, this->GetPlayerPosition().y + topPenetration);

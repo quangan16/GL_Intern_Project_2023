@@ -87,7 +87,7 @@ void GSPlay::Init()
 		m_trigger1->Set2DPosition(640, 800);
 	}*/
 	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_" + std::to_string(m_iCharacterTexture_index) + ".tga");
-	m_player = std::make_shared<Cube>(Vector2(0.0f, 1300.0f), 0.0, 1, 0.0, texture, SDL_FLIP_NONE, TILE_SIZE, TILE_SIZE);
+	m_player = std::make_shared<Cube>(Vector2(0.0f, 1400.0f), 0.0, 1, 0.0, texture, SDL_FLIP_NONE, TILE_SIZE, TILE_SIZE);
 	m_playerCollider = m_player->GetCollider();
 	m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE);
 	m_player->m_changedState = false;
@@ -372,6 +372,7 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 		case SDLK_SPACE:
 			m_KeyPress |= 1 << 4;
 			OnButtonPressed = true;
+			m_onButtonDown = true;
 			m_onButtonPressed = true;
 			OnButtonDown = true;
 			if (!m_player->m_isJumping) // Only jump if the player is not already jumping
@@ -410,6 +411,8 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 				OnButtonPressed = false;
 				m_onButtonPressed = false;
 				m_onButtonUp = true;
+				m_player->m_isOnTop == false;
+
 				if (std::dynamic_pointer_cast<Ship>(m_player) != NULL && !m_player->m_isFalling) {
 					m_player->m_jumpForce = 5000;
 				}
@@ -420,7 +423,7 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 		}
 	}
 	////Key Up
-	else if (e.type == SDL_KEYUP)
+	if (e.type == SDL_KEYUP)
 	{
 		//Adjust the velocity
 		switch (e.key.keysym.sym)
@@ -441,10 +444,13 @@ void GSPlay::HandleKeyEvents(SDL_Event& e)
 			m_KeyPress ^= 1 << 4;
 			OnButtonPressed = false;
 			m_onButtonPressed = false;
+			m_onButtonDown = false;
 			m_onButtonUp = true;
+			m_player->m_isOnTop == false;
 			if (std::dynamic_pointer_cast<Ship>(m_player) != NULL && !m_player->m_isFalling) {
 				m_player->m_jumpForce = 5000;
 			}
+			
 			/*m_player->m_isJumping = false;
 			m_player->m_isFalling = true;*/
 			break;
@@ -610,6 +616,8 @@ void GSPlay::Update(float deltaTime)
 		//std::cout << "isFalling " << m_player->m_isFalling << std::endl;
 		//std::cout << "isJumping " << m_player->m_isJumping << std::endl;
 		//std::cout << "isOnground " << m_player->m_isOnGround << std::endl;
+		std::cout << "isOnTop " << m_player->m_isOnTop << std::endl;
+
 		//std::cout << "direction " << m_player->GetDirectionY() << std::endl;
 		//std::cout << "jumpBuffer " << jumpBuffer << std::endl;
 		//std::cout << "Number of coliders: " << m_colliderList.size()<<std::endl;
@@ -619,6 +627,9 @@ void GSPlay::Update(float deltaTime)
 		//std::cout << m_player->GetPlayerForm() << std::endl;
 		//std::cout << m_immortalMode << std::endl;
 		//std::cout << m_savePointMode << std::endl;
+		std::cout << m_onButtonPressed << std::endl;
+
+		
 
 
 		
