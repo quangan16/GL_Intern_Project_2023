@@ -231,8 +231,8 @@
             "scale": 0.125,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 4864,
-                "y": 1968
+                "x": 61800,
+                "y": 1000
             }
         },
         "GP_Level_1.tmx#43": {
@@ -279,6 +279,7 @@
             "scaleInDock": 1
         },
         "GP_Level_1.tmx#56": {
+            "dynamicWrapping": false,
             "scaleInDock": 1
         },
         "GP_Level_1.tmx#57": {
@@ -293,8 +294,8 @@
             "scale": 0.125,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 7664,
-                "y": 800
+                "x": 64120,
+                "y": 3196
             }
         },
         "GP_Level_2.tmx#1-16": {
@@ -325,6 +326,7 @@
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#23": {
+            "dynamicWrapping": false,
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#24": {
@@ -350,6 +352,7 @@
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#31": {
+            "dynamicWrapping": false,
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#32": {
@@ -361,6 +364,7 @@
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#34": {
+            "dynamicWrapping": false,
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#35": {
@@ -372,6 +376,7 @@
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#37": {
+            "dynamicWrapping": false,
             "scaleInDock": 1
         },
         "GP_Level_2.tmx#38": {
@@ -440,8 +445,8 @@
             "scale": 0.125,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 58960,
-                "y": 368
+                "x": 93960,
+                "y": -32
             }
         },
         "GP_Level_3.tmx#1-16": {
@@ -614,8 +619,8 @@
             "scale": 0.015625,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 20352,
-                "y": 3968
+                "x": 32224,
+                "y": -8096
             }
         },
         "map_01.tmx#16": {
@@ -687,14 +692,17 @@
     "map.tileWidth": 128,
     "map.width": 1000,
     "openFiles": [
+        "GP_Level_2.tmx",
+        "GP_Level_3.tmx",
+        "map_01.tmx",
         "GP_Level_1.tmx"
     ],
     "project": "GD_Levels.tiled-project",
     "recentFiles": [
         "GP_Level_2.tmx",
-        "GP_Level_1.tmx",
         "GP_Level_3.tmx",
         "map_01.tmx",
+        "GP_Level_1.tmx",
         "30.tsx",
         "45.tsx",
         "43.tsx",
