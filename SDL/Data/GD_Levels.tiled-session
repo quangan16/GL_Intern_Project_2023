@@ -3,10 +3,10 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "GP_Level_1.tmx",
+    "activeFile": "GP_Level_2.tmx",
     "expandedProjectPaths": [
-        "Asset",
-        "."
+        ".",
+        "Asset"
     ],
     "fileStates": {
         "": {
@@ -231,8 +231,8 @@
             "scale": 0.125,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 61800,
-                "y": 1000
+                "x": 63168,
+                "y": 1540
             }
         },
         "GP_Level_1.tmx#43": {
@@ -291,11 +291,11 @@
             "scaleInDock": 1
         },
         "GP_Level_2.tmx": {
-            "scale": 0.125,
+            "scale": 0.25,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 64120,
-                "y": 3196
+                "x": 64056,
+                "y": 2358
             }
         },
         "GP_Level_2.tmx#1-16": {
@@ -442,11 +442,11 @@
             "scaleInDock": 1
         },
         "GP_Level_3.tmx": {
-            "scale": 0.125,
+            "scale": 0.03125,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 93960,
-                "y": -32
+                "x": 64000,
+                "y": 1552
             }
         },
         "GP_Level_3.tmx#1-16": {
@@ -699,10 +699,10 @@
     ],
     "project": "GD_Levels.tiled-project",
     "recentFiles": [
-        "GP_Level_2.tmx",
-        "GP_Level_3.tmx",
-        "map_01.tmx",
         "GP_Level_1.tmx",
+        "map_01.tmx",
+        "GP_Level_3.tmx",
+        "GP_Level_2.tmx",
         "30.tsx",
         "45.tsx",
         "43.tsx",

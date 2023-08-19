@@ -43,7 +43,14 @@ Spider::~Spider() {
 
 void Spider::Rotate(double _rotateSpeed, float _deltaTime) {
 
-
+	if (m_isJumping) {
+		if (m_isFalling && m_playerRotation < 42.0) {
+			m_playerRotation = 0;
+		}
+		else if (!m_isFalling && m_playerRotation > -42.0) {
+			m_playerRotation = -180;
+		}
+	}
 
 
 }
@@ -54,33 +61,39 @@ void Spider::Rotate(double _rotateSpeed, float _deltaTime) {
 void Spider::MoveUp(const double& _gravity, const bool& m_onButtonPressed, float _deltaTime) {
 
 	if (OnButtonDown == true && m_isOnGround) {
-
+		m_velocity = 1200.0f;
 		m_isJumping = true;
+		m_isOnGround = false;
 		this->m_isFalling = false;
 		//if(m_jumpForce <= 10000)
 		
 	}
+	else if (OnButtonDown == true && m_isOnTop ) {
+		m_velocity = 1200.0f;
+		m_isJumping = false;
+		m_isOnTop = false;
+		this->m_isFalling = true;
+		//if(m_jumpForce <= 10000)
+
+	}
 	else {
 
-
-		this->m_isFalling = true;
+		
+		
 	}
 	//std::cout << m_jumpForce <<std::endl;
 	if (m_isJumping == true) {
-		if (m_isFalling == false) {
-			m_isOnGround = false;
-			m_velocity = 100;
-			m_direction = -m_direction;
-
-
-		}
-		else {
-
-
-
-
-		}
+		
+			
+			
+			m_direction = -1;
+		
 	}
+	else if (m_isFalling == true) {
+	
+		m_direction = 1;
+	}
+
 	//std::cout << m_velocity<<std::endl;
 	//OnButtonPressed = true;
 
@@ -119,8 +132,8 @@ void Spider::MoveUp(const double& _gravity, const bool& m_onButtonPressed, float
 
 
 void Spider::ApplyGravity(const double& _gravity, float _deltaTime) {
-	if (!OnButtonPressed && m_velocity < 1300) {
-		m_velocity += _gravity * 2 / 3 * _deltaTime;
+	if (!OnButtonPressed && m_velocity < 2000.0f) {
+		this->m_velocity += _gravity * _deltaTime;
 	}
 
 
@@ -163,7 +176,15 @@ void Spider::OnGround() {
 		m_isJumping = false;
 		m_velocity = 0.0;
 		m_isFalling = false;
-		//FixCollisionOverlaps();
+		
+	}
+	if (m_isOnTop == true && OnButtonPressed == false) {
+
+		//this->SetDirectionY(-1);
+		m_isJumping = false;
+		m_velocity = 0.0;
+		m_isFalling = false;
+		
 	}
 
 

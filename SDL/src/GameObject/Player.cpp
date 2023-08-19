@@ -137,20 +137,21 @@ void Player::UpdatePlayerPos(float& _deltaTime) {
 				 ) {
 				  if (!m_immortalMode) m_isAlive = false;
 			 }
-			 
+			  
 			 //Handle  collide with ground's surface
 			 else if (m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() >= _otherCollider->GetColliderPosition().y 
 				 && m_playerCollider->GetColliderPosition().y  < _otherCollider->GetColliderPosition().y) {
+				  m_isOnGround = true;
 				 isOnGround = true;
 				 FixCollisionOverlapsOnSurface(_otherCollider);
 			 }
-			 else if (m_playerCollider->GetColliderPosition().y > _otherCollider->GetColliderPosition().y && (m_playerForm == WAVE || m_playerForm == SHIP) && m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() > _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight())
+			 
+			 else if (m_playerCollider->GetColliderPosition().y > _otherCollider->GetColliderPosition().y && (m_playerForm == WAVE || m_playerForm == SHIP || m_playerForm == SPIDER) && m_playerCollider->GetColliderPosition().y + m_playerCollider->GetHeight() > _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight())
 			  {
 				  m_isOnTop = true;
 				  FixCollisionOverlapsUnderSurface(_otherCollider);
 				  m_velocity = 0;
 			  }
-
 			 else if (m_playerCollider->GetColliderPosition().y < _otherCollider->GetColliderPosition().y + _otherCollider->GetHeight()
 				) {
 
