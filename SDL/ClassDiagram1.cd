@@ -1,0 +1,462 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="GameStateBase">
+    <Position X="16.25" Y="9.75" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AAQgCAAAEAAAAiAAgAAQAAIAAADAAAAAIAACAAgAAAA=</HashCode>
+      <FileName>src\GameStates\GameStateBase.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameStateMachine">
+    <Position X="3.5" Y="43.75" Width="3.5" />
+    <TypeIdentifier>
+      <HashCode>AAgAAIgAAAAoBABAAAQCACAgAAAAAAAAAAkAQECAAQA=</HashCode>
+      <FileName>src\GameStates\GameStateMachine.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="m_pActiveState" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="GSIntro">
+    <Position X="14.75" Y="14.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AJQgAAAgEAAAAgAAgAAQAAIAAAAAAQAAIAACAAgAAAA=</HashCode>
+      <FileName>src\GameStates\GSIntro.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GSMenu">
+    <Position X="22.5" Y="14.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAQgAAABMAAAIgAAiAAZgAIEAAAEAAAGMAACAAiSAAA=</HashCode>
+      <FileName>src\GameStates\GSMenu.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GSPlay">
+    <Position X="27" Y="14.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>ACagCIBh1QUMAiIQwUAUKUZOASQAAIggJAACgiiAAAg=</HashCode>
+      <FileName>src\GameStates\GSPlay.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="button" />
+      <Field Name="m_background2" />
+      <Field Name="m_boxColliderList" />
+      <Field Name="m_circleColliderList" />
+      <Field Name="m_color" />
+      <Field Name="m_collider2" />
+      <Field Name="m_background1" />
+      <Field Name="m_collider1" />
+      <Field Name="m_fileController" />
+      <Field Name="m_gameMap" />
+      <Field Name="m_immortalButtonOff" />
+      <Field Name="m_immortalButtonOn" />
+      <Field Name="m_listAnimation" />
+      <Field Name="m_listBackground" />
+      <Field Name="m_listButton" />
+      <Field Name="m_listPauseButton" />
+      <Field Name="m_listTriggerAnimation" />
+      <Field Name="m_pauseButton" />
+      <Field Name="m_player" />
+      <Field Name="m_playerCollider" />
+      <Field Name="m_playerDieSfx" />
+      <Field Name="m_practiceButton" />
+      <Field Name="m_practiceButtonOff" />
+      <Field Name="m_Process" />
+      <Field Name="m_readyPos" />
+      <Field Name="m_resumeButton" />
+      <Field Name="m_savePoint" />
+      <Field Name="m_score" />
+      <Field Name="m_slider" />
+      <Field Name="m_trigger1" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="ResourceManagers">
+    <Position X="10.75" Y="43.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAhAACAGIAAAAAACgAAgAAAAAAIAAAABAARAAJAAAAA=</HashCode>
+      <FileName>src\GameManager\ResourceManagers.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="m_MapTexture" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CSingleton&lt;T&gt;">
+    <Position X="7.75" Y="40.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAwAAAAAABBAAAAAAAAEAAgAAAAA=</HashCode>
+      <FileName>src\GameManager\Singleton.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Game">
+    <Position X="0.5" Y="43.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAQAAAAAAAAABAAAAAAAAAAiAAAAAAAAGAAAAAAI=</HashCode>
+      <FileName>src\Game.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BaseObject">
+    <Position X="31" Y="22.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAKAAEiAACAAAQAAAACAAAgAAAAACAAAAAAA=</HashCode>
+      <FileName>src\GameObject\BaseObject.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="m_pTexture" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Camera">
+    <Position X="7.75" Y="43.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AgQKAAQAACAAAAAAAAAAAABACAAAAwAAAAAAAgAAEAI=</HashCode>
+      <FileName>src\GameObject\Camera.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="m_Position" />
+      <Field Name="m_Target" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Vector2">
+    <Position X="18.5" Y="29.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAEAAAAQBACAEAAAABAABgAAAAAAA=</HashCode>
+      <FileName>src\GameObject\CMath.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vector3" Collapsed="true">
+    <Position X="44.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAEAAAAQBACAEAAAABAADgAQAAAAA=</HashCode>
+      <FileName>src\GameObject\CMath.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Vector4" Collapsed="true">
+    <Position X="46" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAAAAAAEAAAAQBACAEAAAABAAhgAQAAAAA=</HashCode>
+      <FileName>src\GameObject\CMath.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Matrix" Collapsed="true">
+    <Position X="42.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEABAAAAAAAAABAAAAQAAAAAgEQgAAgIgAggAAAA=</HashCode>
+      <FileName>src\GameObject\CMath.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dot" Collapsed="true">
+    <Position X="42.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAIAACMAQQAAAAAAQAAAQSBAAAACAAAIAAAAQYAA=</HashCode>
+      <FileName>src\GameObject\Dot.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MouseButton">
+    <Position X="39" Y="32" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAgAAAAAEAAAAAAAAAAGAAAAAAAAAAAA=</HashCode>
+      <FileName>src\GameObject\MouseButton.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Renderer">
+    <Position X="14.75" Y="43.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAQAAACAAAgAAGAAAAAAAQAQCAAAACCAAqAAAA=</HashCode>
+      <FileName>src\GameObject\Renderer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sound" Collapsed="true">
+    <Position X="44.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAACCAAAAAAAAAAAAAEgIAAAAAAAABAACAAiAIAo=</HashCode>
+      <FileName>src\GameObject\Sound.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Sprite2D">
+    <Position X="32" Y="26.75" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAACAAAAAgAIyAAMAABAAAQQAAgAQAACAEAgAAA=</HashCode>
+      <FileName>src\GameObject\Sprite2D.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SpriteAnimation">
+    <Position X="26.25" Y="26.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>ABQAABQAAAEIIgAIhAAMAiBACICQAAgIQAACAEABAIA=</HashCode>
+      <FileName>src\GameObject\SpriteAnimation.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Text">
+    <Position X="36" Y="32" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAIAAAAgAAAAAAAAAAAIAAAAAAEQACCAAAAAA=</HashCode>
+      <FileName>src\GameObject\Text.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TextureManager" Collapsed="true">
+    <Position X="46" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAQEAAAgAAAAABEAAAAAABgACAIAAARBCAAAIAAI=</HashCode>
+      <FileName>src\GameObject\TextureManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Timer" Collapsed="true">
+    <Position X="42.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAAAAACAAAAAAAAAAAAAAAABAAhCAIAAgAAAEgAA=</HashCode>
+      <FileName>src\GameObject\Timer.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Spider">
+    <Position X="7.25" Y="36.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAEBAASAAAAAAEAAQAAEAAAQEAAAAAAEAAAAAAAAAAA=</HashCode>
+      <FileName>src\GameObject\Spider.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Wave">
+    <Position X="11.25" Y="36.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAEBAACAAAAAAEAAQAAEAAAQEAABCAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\GameObject\Wave.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Collider2D">
+    <Position X="22" Y="30.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAEIAAAAgAAAAAAAGEAAAAAAkAAAA=</HashCode>
+      <FileName>src\GameObject\Collider2D.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="m_colliderID" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="BoxCollider2D">
+    <Position X="33.25" Y="36" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAIAAAkAJgAAIAABAAAAQAAiIAAACAEAAAAA=</HashCode>
+      <FileName>src\GameObject\BoxCollider2D.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CircleCollider2D">
+    <Position X="25" Y="34.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAIAoAIgAAIAADgAAAQAAiAAAAiAEgQAAA=</HashCode>
+      <FileName>src\GameObject\CircleCollider2D.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="m_animation" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Background">
+    <Position X="29.5" Y="32" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AARAAAAAAAAAAgAIgAAIABBAAAEQAAggAAAiAEAAAAA=</HashCode>
+      <FileName>src\GameObject\Background.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GameMap" Collapsed="true">
+    <Position X="44.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAQCAAAAgAAAAAAAAkAAAAAIAAAAAQAABABAAA=</HashCode>
+      <FileName>src\GameObject\GameMap.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Player">
+    <Position X="13" Y="23.75" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>ICkBIA2OEQgVLVChcIoGAAhQECooAAwCAGigARUAEDA=</HashCode>
+      <FileName>src\GameObject\Player.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="m_playerCollider" />
+      <Field Name="m_playerForm" />
+      <Field Name="m_playerAnimation" />
+      <Field Name="m_playerTexture" />
+      <Field Name="m_playerTrailEffect" />
+      <Field Name="m_savePointSprite" />
+      <Field Name="m_playerSprite" />
+      <Field Name="m_playerJumpEffect" />
+      <Field Name="m_playerDieEffect" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Ship">
+    <Position X="15.25" Y="36.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAEBAACAAAAAAEAgQAAEAAAQEQCAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\GameObject\Ship.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GSCharacter">
+    <Position X="1.25" Y="14.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAQhFQABMCQAIgQAmJAdAEIEAAAAACAGMABSAAi2AAA=</HashCode>
+      <FileName>src\GameStates\GSCharacter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GSGuide">
+    <Position X="5.75" Y="14.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAQgAABgEAAAIgAAgAAQAAIEAAAAAAhAMAACAAiQBAA=</HashCode>
+      <FileName>src\GameStates\GSGuide.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GSLevel">
+    <Position X="10.25" Y="14.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAQhCAABsAAAIgIAiBAdAAJEAQQAAEACMAgCIgiQIAA=</HashCode>
+      <FileName>src\GameStates\GSLevel.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="m_textColor" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="GSOption">
+    <Position X="18" Y="14.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAQhAABAEAAAIgAAgEAQBAIEAEIAEAAAIAAGAAiSAIA=</HashCode>
+      <FileName>src\GameStates\GSOption.h</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="button" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Cube">
+    <Position X="19.25" Y="36.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAEBAACgAAAAAEAAQAAEAAAQEAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>src\GameObject\Cube.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IOFile" Collapsed="true">
+    <Position X="46" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAgAAACAAAAAAAAAAAEAAAAAAAAACA=</HashCode>
+      <FileName>src\GameObject\IOFile.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GSWin">
+    <Position X="30.5" Y="14.5" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>CAQgAAABMAAAIgAAiAAZAAoEAAAAAAACMAACAAiSAAA=</HashCode>
+      <FileName>src\GameStates\GSWin.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="std::shared_ptr&lt;_Ty&gt;">
+    <Position X="18.5" Y="24.5" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAEAAAIAgAAEAEAAICgAQAgAAAAAAA=</HashCode>
+      <FileName>C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\memory</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="std::map&lt;_Kty, _Ty, _Pr, _Alloc&gt;">
+    <Position X="10.25" Y="49" Width="4.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAABAAACwAAAAAAAAAAEBBAABgQAgAAAAAAA=</HashCode>
+      <FileName>C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\map</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="std::vector&lt;_Ty, _Alloc&gt;">
+    <Position X="35.75" Y="10.25" Width="3.5" />
+    <NestedTypes>
+      <Class Name="std::vector&lt;_Ty, _Alloc&gt;::_Asan_extend_guard" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\vector</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+      <Class Name="std::vector&lt;_Ty, _Alloc&gt;::_Asan_create_guard" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\vector</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>A2AAEYEiAbLsCEBAAONYMAkWMUUARBIggQkwghAFUko=</HashCode>
+      <FileName>C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\vector</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="std::list&lt;_Ty, _Alloc&gt;">
+    <Position X="26.5" Y="0.5" Width="3.75" />
+    <NestedTypes>
+      <Struct Name="std::list&lt;_Ty, _Alloc&gt;::_List_node_remove_op" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\list</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AEQAEqEKAHBEgABEAKEYAgAWFQQAJJIigQEgAhAFQwo=</HashCode>
+      <FileName>C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.36.32532\include\list</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="Map" Collapsed="true">
+    <Position X="44.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAIAAABAAAAAAAAAAAAAAAABgAAAABAAAA=</HashCode>
+      <FileName>src\GameObject\Define.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Map_Color" Collapsed="true">
+    <Position X="46" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoAQABAAAAAAA=</HashCode>
+      <FileName>src\GameObject\Define.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="Circle" Collapsed="true">
+    <Position X="42.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABhAAAAAAA=</HashCode>
+      <FileName>src\GameObject\Dot.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SavePoint" Collapsed="true">
+    <Position X="44.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAEAAAAAIAAQAAAACAAAAAAAAAAAAAAAACEA=</HashCode>
+      <FileName>src\GameObject\SavePoint.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="PlayerSavePointData" Collapsed="true">
+    <Position X="42.5" Y="4.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAMAAAQIRAAAIAAAAAAAAIAAAQAACiAAAAAAAA=</HashCode>
+      <FileName>src\GameObject\Player.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="SDL_Color">
+    <Position X="15.5" Y="19.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoAQABAAAAAAA=</HashCode>
+      <FileName>C:\Users\nqan1\OneDrive\Documents\Dev_2023\Programming_Projects\CPP\GL_Testing_Env\SDLLib\include\SDL_pixels.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Typedef Name="ColliderType" Collapsed="true">
+    <Position X="22.25" Y="28.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\GameObject\Collider2D.h</FileName>
+    </TypeIdentifier>
+  </Typedef>
+  <Enum Name="StateType" Collapsed="true">
+    <Position X="42.5" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAICAAIBAAgAAAAAAAAAAAAEQAAAAQAAAAAAAAAIA=</HashCode>
+      <FileName>src\GameStates\GameStateMachine.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="PlayerForm">
+    <Position X="10.25" Y="28.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAAAAAQAAAgAAAAAIAKAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\GameObject\Player.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="COLLIDER_TYPE">
+    <Position X="24" Y="22.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAMEAAAAAAEAAAABAAAgAAAAAAACAAAIAAAQEAqAAAA=</HashCode>
+      <FileName>src\GameObject\Collider2D.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

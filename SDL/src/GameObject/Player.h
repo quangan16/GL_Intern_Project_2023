@@ -34,7 +34,7 @@ struct PlayerSavePointData
 	double m_jumpForce;
 	bool m_isAlive;
 	bool m_jumpBuffer;
-		bool m_changedState;
+	bool m_changedState;
 	
 	PlayerForm m_playerForm;
 	Vector2 m_playerPosition;

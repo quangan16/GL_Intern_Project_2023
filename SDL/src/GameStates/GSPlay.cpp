@@ -87,7 +87,7 @@ void GSPlay::Init()
 		m_trigger1->Set2DPosition(640, 800);
 	}*/
 	texture = ResourceManagers::GetInstance()->GetTexture("player_cube_" + std::to_string(m_iCharacterTexture_index) + ".tga");
-	m_player = std::make_shared<Cube>(Vector2(60000.0f, 1400.0f), 0.0, 1, 0.0, texture, SDL_FLIP_NONE, TILE_SIZE, TILE_SIZE);
+	m_player = std::make_shared<Cube>(Vector2(0.0f, 1400.0f), 0.0, 1, 0.0, texture, SDL_FLIP_NONE, TILE_SIZE, TILE_SIZE);
 	m_playerCollider = m_player->GetCollider();
 	m_playerCollider->SetColliderSize(TILE_SIZE, TILE_SIZE);
 	m_player->m_changedState = false;
